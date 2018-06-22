@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- header start -->
+<div class="header" th:fragment="topbar">
+    <div class="header-ct">
+        <a href="/index" class="logo">
+            <span class="icon-logo"></span>TopTalk
+        </a>
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="/column">专栏</a></li>
+                <li><a href="/essay">片段</a></li>
+                <li><a href="/story">故事</a></li>
+                <li><a href="/event">活动</a></li>
+                <li><a href="#">APP</a></li>
+                <!--<li><a href="http://www.luoo.net/luoospace/">落空间主页</a></li>-->
+            </ul>
+
+        </div>
+
+        <div class="head-search">
+            <form class="search-form" action="http://www.luoo.net/search/" id="headSearchForm">
+                <input type="text" class="search-input" name="q" autocomplete="off">
+                <button class="search-btn" type="submit">
+                    <span class="icon-search"></span>
+                </button>
+            </form>
+        </div>
+        <!-- logged-in-wrapper -->
+        <div class="logged-in-wrapper" id="loggedInWrapper" style="display: none;">
+
+            <!--被注释掉的部分是登录后才显示-->
+           <!-- <a href="javascript:;" rel="nofollow" class="ln-message" id="lnMessage" data-show="mouseenter"
+               data-remote="http://www.luoo.net/message/latest" data-tipid="messageDialog" data-width="270"
+               data-adjusty="-10">
+                <span class="icon-message"></span>
+            </a>
+
+            <div class="account-more">
+                <a href="javascript:;" rel="nofollow" class="ln-account" id="lnAccountMore" data-ct="accountMoreWrapper"
+                   data-show="mouseenter" data-tipid="accountMoreDialog" data-adjusty="-10">
+                    <img src="./单曲推荐-落网_files/avatar.gif" alt="京馆长" class="avatar">
+                    京馆长 </a>
+                <div id="accountMoreWrapper" style="display: none;">
+                    <div class="account-links rounded" id="accountLinks">
+                        <a class="account-link link-uc" href="http://www.luoo.net/user/1405418" rel="nofollow">
+                            <span class="icon-account"></span>我的落网
+                        </a>
+                        <a class="account-link link-setting" href="http://www.luoo.net/user/profile" rel="nofollow">
+                            <span class="icon-setting"></span>账号设置
+                        </a>
+                        <a class="account-link link-logout" href="http://www.luoo.net/user/logout" rel="nofollow">
+                            <span class="icon-logout"></span>退出
+                        </a>
+                    </div>
+                </div>
+            </div>-->
+
+        </div>
+        <!-- logged-in-wrapper end-->
+
+        <div class="logged-out-wrapper" id="loggedOutWrapper" data-remote="http://www.luoo.net/login/dialog"
+             data-tipid="headLoginDialog" data-width="235" data-show="mouseenter" data-adjusty="-12"
+             style="display: block;">
+            <a href="javascript:;" rel="nofollow" class="ln-top-login"> 注册/登录 </a>
+
+        </div>
+        <!-- logged-out-wrapper -->
+    </div>
+</div>
+<!--/// header end -->
+</body>
+</html>

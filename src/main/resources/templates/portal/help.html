@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="feedbackWrapper" style="display:none;" th:fragment="sendQuestion">
+    <div class="common-dialog-wrapper">
+        <form id="frmFeedback" action="http://www.luoo.net/feedback/" callback="feedback_cback" class="form-ajax">
+            <p class="fb-group">
+                <textarea name="content" class="rounded"></textarea>
+            </p>
+            <p class="fb-group helper" id="feedbackMsg">※ 请具体描述你的问题或建议</p>
+            <!-- <p class="fb-group file-group">
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive btn-screenshot">问题截图</a>
+                <input type="file" name="screen" class="btn-file">
+                <span class="helper">※ 请具体描述你的问题或建议</span>
+            </p> -->
+            <p class="fb-group">
+                <span class="label">联系方式</span>
+                <input type="text" name="contact">
+            </p>
+            <p class="fb-group">
+                <span class="label">验证码</span>
+                <input type="text" name="code" class="code" maxlength="4">
+                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
+                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/" class="captcha">
+                </a>
+
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnFeedbackSubmit">提交</a>
+                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnFeedbackCancle">取消</a>
+                <input type="hidden" name="ref" id="txtFeedbackRef" value="http://www.luoo.net/">
+            </p>
+        </form>
+        <div id="feedbackResult" class="ajax-result">
+            提交成功，非常感谢你的反馈，必要时我们将联系你。<br><br><span class="helper">窗口将在3秒后关闭。</span>
+        </div>
+    </div>
+</div>
+
+<div id="mailWrapper" style="display:none;" th:fragment="sendLetter">
+    <div class="common-dialog-wrapper">
+        <form id="frmMail" action="http://www.luoo.net/mail/send" callback="send_mail_cback" class="form-ajax">
+            <p class="fb-group helper">给"<span id="mailUserName"></span>"发私信</p>
+
+            <p class="fb-group">
+                <textarea name="content" class="rounded"></textarea>
+            </p>
+            <p class="fb-group helper" id="sendMailMsg"></p>
+            <p class="fb-group">
+                <span class="label">验证码</span>
+                <input type="text" name="code" class="code" maxlength="4">
+                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
+                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/" class="captcha">
+                </a>
+
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnSendMail">发送</a>
+                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnCancleMail">取消</a>
+                <input type="hidden" name="uid" id="mailUserId">
+            </p>
+        </form>
+        <div id="sendMailResult" class="ajax-result">
+            发送成功。<br><br><span class="helper">窗口将在3秒后关闭。</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
