@@ -1,4 +1,4 @@
-package com.kingguanzhang.artpattern;
+package com.kingguanzhang.toptalk;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,5 +1,7 @@
 package com.kingguanzhang.toptalk.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,10 +14,13 @@ public class Event {
     private Long id;
     private String name ;
     private String time;
-    private String addr;
     private String money;
+    private String location;//活动具体场所
     private String topic;//活动主题;
     private String content;
+
+    @ManyToOne(optional = false)
+    private City city;//活动城市地点
 
     @OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
     /*@JoinColumn(name = "event_id")*/
@@ -43,14 +48,6 @@ public class Event {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr;
     }
 
     public String getMoney() {
@@ -85,5 +82,20 @@ public class Event {
         this.photos = photos;
     }
 
+    public City getCity() {
+        return city;
+    }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @JsonBackReference
+    public void setCity(City city) {
+        this.city = city;
+    }
 }

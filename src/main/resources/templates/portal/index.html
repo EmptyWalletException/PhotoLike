@@ -83,51 +83,43 @@
         <div class="section-head clearfix">
             <h3><span class="section-head-label"></span>专栏</h3>
            <!--TODO 遍历并取出分类-->
-            <div class="fright">
+            <div class="fright" >
+                <!--只显示5条-->
+                <a href="/topic/category/1" class="tag" th:href="'/topic/category/'+category.id"  th:text="${category.name}" th:if="${categoryStat.index<5}" th:each="category,categoryStat:${categoryList}">摇滚</a>
 
-                <a href="/column/rock" class="tag">摇滚</a>
-                <a href="/column/alternative" class="tag">另类</a>
-                <a href="/column/folk" class="tag">民谣</a>
-                <a href="/column/pop" class="tag">流行</a>
-                <a href="/column/electronic" class="tag">电子</a>
-                <a href="/column/britpop" class="tag">英伦</a>
-                <a href="/column/classical" class="tag">古典</a>
-                <a href="/column/neo-wave" class="tag">暗潮</a>
-                <a href="/column/jazz" class="tag">爵士</a>
-                <a href="/column/metal" class="tag">金属</a>
-                <a href="/column/" class="tag ln-more">更多<span class="icon-more"></span></a>
+                <a href="/topic" class="tag ln-more">更多<span class="icon-more"></span></a>
             </div>
         </div>
 
         <div class="section-ct clearfix">
-            <div class="vol-item-lg">
-                <a href="http://www.luoo.net/vol/index/1374" class="cover-wrapper cover-wrapper-lg">
-                    <img src="./js/640x452" alt="关于爱的表达方式" class="cover-lg rounded">
+            <div class="vol-item-lg" >
+                <a href="/topic/1374" class="cover-wrapper cover-wrapper-lg" th:href="${topicList[0].id}" >
+                    <img src="./js/640x452"  alt="关于爱的表达方式" class="cover-lg rounded" th:src="'../'+${topicList[0].photos[0].imgAddr}" th:alt="${topicList[0].title}" >
                     <span class="icon-play-lg" style="opacity: 1;"></span>
                     <div class="play-btn-mask" style="opacity: 0.5;"></div>
                 </a>
 
-                <a href="http://www.luoo.net/vol/index/1374" class="title">vol.991 关于爱的表达方式</a>
+                <a href="http://www.luoo.net/vol/index/1374" class="title"  th:href="${topicList[0].id}" th:text="'Top.'+${topicList[0].id}+${topicList[0].title}">Vol.999 关于爱的表达方式</a>
             </div>
 
             <div class="vol-item">
-                <a href="http://www.luoo.net/vol/index/1373" class="cover-wrapper">
-                    <img src="./js/640x452(1)" alt="故事的最后" class="cover rounded">
+                <a href="http://www.luoo.net/vol/index/1373"  th:href="${topicList[1].id}" class="cover-wrapper">
+                    <img src="./js/640x452(1)" alt="故事的最后" class="cover rounded" th:src="'../'+${topicList[1].photos[1].imgAddr}" th:alt="${topicList[1].title}">
                     <span class="icon-play"></span>
                     <div class="play-btn-mask"></div>
                 </a>
 
-                <a class="title" href="http://www.luoo.net/vol/index/1373">vol.990 故事的最后</a>
+                <a class="title" href="http://www.luoo.net/vol/index/1373" th:href="${topicList[1].id}" th:text="'Top.'+${topicList[1].id}+${topicList[1].title}">vol.990 故事的最后</a>
             </div>
 
             <div class="vol-item">
-                <a href="http://www.luoo.net/vol/index/1372" class="cover-wrapper">
-                    <img src="./js/640x452(2)" alt="美好从未停歇" class="cover rounded">
+                <a href="http://www.luoo.net/vol/index/1372" class="cover-wrapper"  th:href="${topicList[2].id}" >
+                    <img src="./js/640x452(2)" alt="美好从未停歇" class="cover rounded" th:src="'../'+${topicList[2].photos[2].imgAddr}" th:alt="${topicList[2].title}">
                     <span class="icon-play" style="opacity: 0;"></span>
                     <div class="play-btn-mask" style="opacity: 0;"></div>
                 </a>
 
-                <a class="title" href="http://www.luoo.net/vol/index/1372">vol.989 美好从未停歇</a>
+                <a class="title" href="http://www.luoo.net/vol/index/1372" th:href="${topicList[2].id}" th:text="'Top.'+${topicList[2].id}+${topicList[2].title}">vol.989 美好从未停歇</a>
             </div>
         </div>
     </div>
@@ -141,20 +133,20 @@
             </div>
             <div class="section-ct">
                 <div class="clearfix">
-                    <img src="./js/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg" alt="徐真真-开心就足够" class="cover rounded">
+                    <img src="./js/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg" alt="徐真真-开心就足够" class="cover rounded" th:src="'../'+${essayList[0].imgAddr}" th:alt="${essayList[0].title}">
                     <div class="title">
                         <div class="align-fix">
                             <div>
-                                <a href="/columnian/" class="single-name">开心就足够</a>
-                                <p class="artist">徐真真</p>
-                                <p class="pubdate">2017-11-29</p>
+                                <a href="/essay" class="single-name" th:href="'/essay/'+${essayList[0].id}" th:text="${essayList[0].title}">开心就足够</a>
+                                <p class="artist" th:text="${essayList[0].author.nickname}">徐真真</p>
+                                <p class="pubdate" th:text="${essayList[0].creatTime}">2017-11-29</p>
                             </div>
                         </div>
 
                     </div>
                 </div>
                 <div class="remark">
-                    <span class="quote-before"></span> <span>人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</span>
+                    <span class="quote-before"></span> <span th:text="${essayList[0].content}">人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</span>
                     <span class="quote-after"></span>
                 </div>
             </div>
@@ -164,33 +156,31 @@
         <div class="section-essay">
             <div class="section-head clearfix">
                 <div class="fright">
-                    <a href="/columnian/" class="tag">单曲</a>
-                    <a href="http://www.luoo.net/essays/" class="tag">专栏</a>
-                    <a href="/columnian/" class="tag ln-more">更多<span class="icon-more"></span></a>
+                    <a href="/essay" class="tag">单曲</a>
+                    <a href="/story" class="tag">专栏</a>
+                    <a href="/story" class="tag ln-more">更多<span class="icon-more"></span></a>
                 </div>
             </div>
             <div class="section-ct clearfix">
 
                 <div class="essay-item">
-                    <a href="http://www.luoo.net/essay/925" class="cover-wrapper">
-                        <img src="./js/FuM6NJm4JecMPU4ggaXAKjKQM2ab.jpg" alt="人类首张在太空录制的专辑" class="cover rounded">
+                    <a href="/story/925" class="cover-wrapper" th:href="'/story/'+${storys[0].id}">
+                        <img src="../FuM6NJm4JecMPU4ggaXAKjKQM2ab.jpg" alt="人类首张在太空录制的专辑" class="cover rounded" th:src="'../'+${storyList[0].photos[0].imgAddr}" th:alt="+${storyList[0].title}">
                     </a>
                     <div class="meta rounded">
-                        <p class="title"><a class="ln-title" href="http://www.luoo.net/essay/925" title="人类首张在太空录制的专辑">人类首张在太空录制的专辑</a>
+                        <p class="title"><a class="ln-title" href="/story/925" title="人类首张在太空录制的专辑" th:href="'/story/'+${storyList[0].id}" th:text="+${storyList[0].title}">人类首张在太空录制的专辑</a>
                         </p>
-                        <p class="author"><a href="http://www.luoo.net/author/essays/1057783" class="author">李卤味</a></p>
+                        <p class="author"><a href="/author/1057783" class="author" th:href="'/author/'+${storyList[0].author.id}" th:text="${storyList[0].author.name}">李卤味</a></p>
                     </div>
                 </div>
 
                 <div class="essay-item">
-                    <a href="http://www.luoo.net/essay/926" class="cover-wrapper">
-                        <img src="./js/Ft3KtUoW1x3JtRIIpwaQXp9AwRLu.jpg" alt="Sugar Man：隐没在城市里的一把声音"
-                             class="cover rounded">
+                    <a href="/story/926" class="cover-wrapper" th:href="'/story/'+${storyList[1].id}">
+                        <img src="./js/Ft3KtUoW1x3JtRIIpwaQXp9AwRLu.jpg" alt="Sugar Man：隐没在城市里的一把声音" class="cover rounded" th:src="'../'+${storyList[1].photos[1].imgAddr}" th:alt="+${storyList[1].title}">
                     </a>
                     <div class="meta rounded">
-                        <p class="title"><a class="ln-title" href="http://www.luoo.net/essay/926"
-                                            title="Sugar Man：隐没在城市里的一把声音">Sugar Man：隐没在城市里的一把声音</a></p>
-                        <p class="author"><a href="http://www.luoo.net/author/essays/5183" class="author">LUO</a></p>
+                        <p class="title"><a class="ln-title" href="/story/926" title="Sugar Man：隐没在城市里的一把声音"  th:href="'/story/'+${storyList[1].id}" th:text="+${storyList[1].title}">Sugar Man：隐没在城市里的一把声音</a></p>
+                        <p class="author"><a href="/author/1057784" class="author" th:href="'/author/'+${storyList[1].author.id}" th:text="${storyList[1].author.name}">LUO</a></p>
                     </div>
                 </div>
             </div>
@@ -201,101 +191,28 @@
     <div class="section-event">
         <div class="section-head clearfix">
             <h3><span class="section-head-label"></span>热门活动</h3>
-            <div class="fright">
-                <a href="http://www.luoo.net/event/index/city/100002" class="tag">北京</a>
-                <a href="http://www.luoo.net/event/index/city/100819" class="tag">上海</a>
-                <a href="http://www.luoo.net/event/index/city/101991" class="tag">广州</a>
-                <a href="http://www.luoo.net/event/index/city/102015" class="tag">深圳</a>
-                <a href="http://www.luoo.net/event/index/city/101733" class="tag">武汉</a>
-                <a href="http://www.luoo.net/event/index/city/102323" class="tag">成都</a>
-                <a href="http://www.luoo.net/event/index/city/103296" class="tag">台湾</a>
-                <a href="http://www.luoo.net/event/index/city/103269" class="tag">香港</a>
-                <a href="http://www.luoo.net/event/" class="tag ln-more">更多<span class="icon-more"></span></a>
+            <div class="fright" >
+                <a href="/event/city/100002" class="tag" th:href="'/event/city/'+${city.id}" th:text="${city.name}" th:if="${cityStat.index<6}" th:each="city,cityStat:${cityList}">北京</a>
+                <a href="/event/" class="tag ln-more">更多<span class="icon-more"></span></a>
             </div>
         </div>
         <div class="section-ct clearfix" id="eventHolder">
 
-            <div class="event-item">
-                <a href="http://www.luoo.net/event/15660" class="cover-wrapper">
-                    <img src="./js/180x225" alt="墨西哥后摇 Childs 中国巡演" class="cover rounded">
+            <div class="event-item" th:each="event,eventStat:${eventList}" th:if="${eventStat.index<6}">
+                <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${event.id}">
+                    <img src="./js/180x225" alt="墨西哥后摇 Childs 中国巡演" class="cover rounded" th:src="'../'+${event.photos[0].imgAddr}" th:alt="${event.name}">
                 </a>
                 <div class="info">
-                    <a href="http://www.luoo.net/event/15660" class="title" title="墨西哥后摇 Childs 中国巡演">墨西哥后摇 Childs
+                    <a href="http://www.luoo.net/event/15660" class="title" title="墨西哥后摇 Childs 中国巡演" th:href="'/event/'${event.id}" th:title="${event.name}" th:text="${event.name}">墨西哥后摇 Childs
                         中国巡演</a>
-                    <p class="meta">时间：2018-06-03</p>
-                    <p class="meta">地点：上海</p>
-                    <p class="meta">场所：万代南梦宫上海文化中心未来剧场</p>
-                    <p class="meta">费用：180元 - 220元</p>
+                    <p class="meta" th:text="'时间：'+${event.time}">时间：2018-06-03</p>
+                    <p class="meta" th:text="'地点：'+${event.city.name}">地点：上海</p>
+                    <p class="meta" th:text="'场所：'+${event.location}">场所：万代南梦宫上海文化中心未来剧场</p>
+                    <p class="meta" th:text="'费用：'+${event.money}">费用：180元 - 220元</p>
                 </div>
             </div>
 
-            <div class="event-item">
-                <a href="http://www.luoo.net/event/15666" class="cover-wrapper">
-                    <img src="./js/180x225(1)" alt="美国电子Shigeto上海专场" class="cover rounded">
-                </a>
-                <div class="info">
-                    <a href="http://www.luoo.net/event/15666" class="title" title="美国电子Shigeto上海专场">美国电子Shigeto上海专场</a>
-                    <p class="meta">时间：2018-05-15</p>
-                    <p class="meta">地点：上海</p>
-                    <p class="meta">场所：育音堂</p>
-                    <p class="meta">费用：80元 - 100元</p>
-                </div>
-            </div>
 
-            <div class="event-item margin-right-0">
-                <a href="http://www.luoo.net/event/15657" class="cover-wrapper">
-                    <img src="./js/180x225(2)" alt="英伦民谣 Rhodes 中国巡演" class="cover rounded">
-                </a>
-                <div class="info">
-                    <a href="http://www.luoo.net/event/15657" class="title" title="英伦民谣 Rhodes 中国巡演">英伦民谣 Rhodes
-                        中国巡演</a>
-                    <p class="meta">时间：2018-05-10</p>
-                    <p class="meta">地点：上海</p>
-                    <p class="meta">场所：育音堂</p>
-                    <p class="meta">费用：120元 - 160元</p>
-                </div>
-            </div>
-
-            <div class="event-item">
-                <a href="http://www.luoo.net/event/15650" class="cover-wrapper">
-                    <img src="./js/180x225(3)" alt="丹麦梦幻电子Lydmor中国巡演" class="cover rounded">
-                </a>
-                <div class="info">
-                    <a href="http://www.luoo.net/event/15650" class="title"
-                       title="丹麦梦幻电子Lydmor中国巡演">丹麦梦幻电子Lydmor中国巡演</a>
-                    <p class="meta">时间：2018-04-19</p>
-                    <p class="meta">地点：上海</p>
-
-                    <p class="meta">费用：80元 - 100元</p>
-                </div>
-            </div>
-
-            <div class="event-item">
-                <a href="http://www.luoo.net/event/15649" class="cover-wrapper">
-                    <img src="./js/180x225(4)" alt="智利迷幻大团Föllakzoid中国巡演" class="cover rounded">
-                </a>
-                <div class="info">
-                    <a href="http://www.luoo.net/event/15649" class="title" title="智利迷幻大团Föllakzoid中国巡演">智利迷幻大团Föllakzoid中国巡演</a>
-                    <p class="meta">时间：2018-03-17</p>
-                    <p class="meta">地点：上海</p>
-                    <p class="meta">场所：万代南梦宫上海文化中心未来剧场</p>
-                    <p class="meta">费用：免费</p>
-                </div>
-            </div>
-
-            <div class="event-item margin-right-0">
-                <a href="http://www.luoo.net/event/15639" class="cover-wrapper">
-                    <img src="./img/event.jpg" alt="英国盯鞋乐团 RIDE 2018亚洲巡演上海站" class="cover rounded">
-                </a>
-                <div class="info">
-                    <a href="http://www.luoo.net/event/15639" class="title" title="英国盯鞋乐团 RIDE 2018亚洲巡演上海站">英国盯鞋乐团 RIDE
-                        2018亚洲巡演上海站</a>
-                    <p class="meta">时间：2018-02-28</p>
-                    <p class="meta">地点：上海</p>
-                    <p class="meta">场所：modernsky lab</p>
-                    <p class="meta">费用：320元 - 400元</p>
-                </div>
-            </div>
 
         </div>
     </div>
