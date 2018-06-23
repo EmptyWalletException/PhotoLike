@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Photo {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String name;
     private String imgAddr;
@@ -23,6 +23,7 @@ public class Photo {
 
     @ManyToOne(optional = false)
     private Story story;
+
 
     public long getId() {
         return id;

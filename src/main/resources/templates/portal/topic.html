@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -85,29 +84,27 @@
             <div class="page-nav rounded clearfix">
 
                 <div class="curt-nav">
-                    <a href="/column/" class="item actived">最新期刊</a>
+                    <a href="/topic" class="item actived">最新专辑</a>
                 </div>
-                <!--TODO : 遍历并取出分类 -->
                 <div class="pagenav-wrapper">
-                    <a href="/column/rock" class="item">摇滚</a>
+                    <a href="/topic/filtrate?category=1&pn=1" class="item" th:href="'/topic/filtrate?category='+category.id"  th:text="${category.name}" th:each="category,categoryStat:${categoryPage.content}">摇滚</a>
                 </div>
             </div>
             <!-- vol-list -->
             <div class="vol-list">
-                <!--TODO : 遍历并取出专栏  -->
-                <div class="item">
-                    <a href="http://www.luoo.net/vol/index/1374" class="cover-wrapper" title="关于爱的表达方式">
-                        <img src="./js/640x452" alt="关于爱的表达方式" class="cover rounded">
+                <div class="item" th:each="topic:${topicPage.content}">
+                    <a href="/topic/1374" class="cover-wrapper" title="关于爱的表达方式" th:title="${topic.title}" th:href="'/topic/'+${topic.id}">
+                        <img src="./js/640x452" alt="关于爱的表达方式" class="cover rounded" th:alt="${topic.title}" >
                     </a>
                     <div class="meta rounded clearfix">
-                        <a href="http://www.luoo.net/vol/index/1374" class="name" title="关于爱的表达方式">vol.991 关于爱的表达方式</a>
+                        <a href="/topic/1374" class="name" title="关于爱的表达方式" th:title="${topic.title}" th:text="'Top.'+${topic.id}+' '+${topic.title}">vol.991 关于爱的表达方式</a>
                         <span class="comments">
 									<span class="icon-comment-count"></span>
-									238
+                                    [[${topic.collectNumber}]]
 								</span>
                         <span class="favs">
 									<span class="icon-favd"></span>
-									7325
+                                   [[${topic.commentNumber}]]
 								</span>
                     </div>
                 </div>
@@ -116,10 +113,10 @@
             <!-- vol-list end-->
             <!--TODO 遍历并取出分页数据: -->
             <div class="paginator">
-                <a class="previous disabled" rel="nofollow" href="javascript:;">上一页</a><a class="page actived"
+                <a class="previous disabled" rel="nofollow" href="javascript:;" >上一页</a><a class="page actived"
                                                                                           rel="nofollow"
                                                                                           href="javascript:;">1</a><a
-                    class="page" href="http://www.luoo.net/tag/?p=2">2</a><a class="page"
+                    class="page" href="/topic/tag/?p=2">2</a><a class="page"
                                                                              href="http://www.luoo.net/tag/?p=3">3</a><a
                     class="page" href="http://www.luoo.net/tag/?p=4">4</a><a class="page"
                                                                              href="http://www.luoo.net/tag/?p=5">5</a><a

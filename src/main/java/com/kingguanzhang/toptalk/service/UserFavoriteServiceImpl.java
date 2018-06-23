@@ -1,7 +1,7 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.Category;
-import com.kingguanzhang.toptalk.repositories.CategoryRepository;
+import com.kingguanzhang.toptalk.entity.UserFavorite;
+import com.kingguanzhang.toptalk.repositories.UserFavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -12,20 +12,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryServiceImpl {
-
+public class UserFavoriteServiceImpl {
+    
     @Autowired
-    private CategoryRepository categoryRepository;
-
+    private UserFavoriteRepository userFavoriteRepository;
 
     /**
      * 分页查询所有;
      * @return
      */
-    public Page<Category> findAll(Pageable pageable){
-        Page<Category> page;
+    public Page<UserFavorite> findAll(Pageable pageable){
+        Page<UserFavorite> page;
         try {
-            page = categoryRepository.findAll(pageable);
+            page = userFavoriteRepository.findAll(pageable);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("查询数据库字段时出现异常");
@@ -39,8 +38,8 @@ public class CategoryServiceImpl {
      * @param id
      * @return
      */
-    public Category findById(Long id){
-        Optional<Category> temp = categoryRepository.findById(id);
+    public UserFavorite findById(Long id){
+        Optional<UserFavorite> temp = userFavoriteRepository.findById(id);
         return temp.get();
     }
 
@@ -49,8 +48,8 @@ public class CategoryServiceImpl {
      * @param example
      * @return
      */
-    public Category findOne(Example<Category> example){
-        Optional<Category> temp = categoryRepository.findOne(example);
+    public UserFavorite findOne(Example<UserFavorite> example){
+        Optional<UserFavorite> temp = userFavoriteRepository.findOne(example);
         return temp.get();
     }
 
@@ -60,8 +59,8 @@ public class CategoryServiceImpl {
      * @param pageable
      * @return
      */
-    public Page<Category> findAllByExample(Example<Category> example, Pageable pageable){
-        Page<Category> page = categoryRepository.findAll(example, pageable);
+    public Page<UserFavorite> findAllByExample(Example<UserFavorite> example, Pageable pageable){
+        Page<UserFavorite> page = userFavoriteRepository.findAll(example, pageable);
         return page;
     }
 
@@ -70,8 +69,8 @@ public class CategoryServiceImpl {
      * @param list
      * @return
      */
-    public List<Category> findAllById(List<Long> list){
-        List<Category> allById = categoryRepository.findAllById(list);
+    public List<UserFavorite> findAllById(List<Long> list){
+        List<UserFavorite> allById = userFavoriteRepository.findAllById(list);
         return allById;
     }
 
@@ -79,29 +78,30 @@ public class CategoryServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    public void save(Category object){
+    public void save(UserFavorite object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            categoryRepository.save(object);
+            userFavoriteRepository.save(object);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("更新数据库字段时出现异常");
         }
     }
+
     /**
-     * 持久化并返回id;
+     * 持久化并返回id;注意此方法不要用在批量持久化中,会出现id重复的异常;
      * @param object
      */
-    public long saveAndFlush(Category object){
+    public long saveAndFlush(UserFavorite object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            Category temp = categoryRepository.saveAndFlush(object);
+            UserFavorite temp = userFavoriteRepository.saveAndFlush(object);
             id = temp.getId();
         }catch (Exception e){
             e.printStackTrace();
@@ -114,13 +114,13 @@ public class CategoryServiceImpl {
      * 持久化所有;
      * @param list
      */
-    public void saveAll(List<Category> list){
+    public void saveAll(List<UserFavorite> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            categoryRepository.saveAll(list);
+            userFavoriteRepository.saveAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("持久化数据库字段时出现异常");
@@ -136,7 +136,7 @@ public class CategoryServiceImpl {
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            categoryRepository.deleteById(id);
+            userFavoriteRepository.deleteById(id);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -147,12 +147,12 @@ public class CategoryServiceImpl {
      * 删除所有;
      * @param list
      */
-    public void deleteAll(List<Category> list){
+    public void deleteAll(List<UserFavorite> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            categoryRepository.deleteAll(list);
+            userFavoriteRepository.deleteAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -164,7 +164,7 @@ public class CategoryServiceImpl {
      * @return
      */
     public Long count(){
-        long count = categoryRepository.count();
+        long count = userFavoriteRepository.count();
         return count;
     }
 
@@ -173,9 +173,8 @@ public class CategoryServiceImpl {
      * @param example
      * @return
      */
-    public Long countByExample(Example<Category> example){
-        long count = categoryRepository.count(example);
+    public Long countByExample(Example<UserFavorite> example){
+        long count = userFavoriteRepository.count(example);
         return count;
     }
-
 }

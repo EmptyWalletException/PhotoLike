@@ -1,7 +1,7 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.Category;
-import com.kingguanzhang.toptalk.repositories.CategoryRepository;
+import com.kingguanzhang.toptalk.entity.CategoryRelateTopic;
+import com.kingguanzhang.toptalk.repositories.CRTRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -12,20 +12,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryServiceImpl {
+public class CRTServiceImpl {
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
+    private CRTRepository crtRepository;
 
     /**
      * 分页查询所有;
      * @return
      */
-    public Page<Category> findAll(Pageable pageable){
-        Page<Category> page;
+    public Page<CategoryRelateTopic> findAll(Pageable pageable){
+        Page<CategoryRelateTopic> page;
         try {
-            page = categoryRepository.findAll(pageable);
+            page = crtRepository.findAll(pageable);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("查询数据库字段时出现异常");
@@ -39,8 +38,8 @@ public class CategoryServiceImpl {
      * @param id
      * @return
      */
-    public Category findById(Long id){
-        Optional<Category> temp = categoryRepository.findById(id);
+    public CategoryRelateTopic findById(Long id){
+        Optional<CategoryRelateTopic> temp = crtRepository.findById(id);
         return temp.get();
     }
 
@@ -49,8 +48,8 @@ public class CategoryServiceImpl {
      * @param example
      * @return
      */
-    public Category findOne(Example<Category> example){
-        Optional<Category> temp = categoryRepository.findOne(example);
+    public CategoryRelateTopic findOne(Example<CategoryRelateTopic> example){
+        Optional<CategoryRelateTopic> temp = crtRepository.findOne(example);
         return temp.get();
     }
 
@@ -60,8 +59,8 @@ public class CategoryServiceImpl {
      * @param pageable
      * @return
      */
-    public Page<Category> findAllByExample(Example<Category> example, Pageable pageable){
-        Page<Category> page = categoryRepository.findAll(example, pageable);
+    public Page<CategoryRelateTopic> findAllByExample(Example<CategoryRelateTopic> example, Pageable pageable){
+        Page<CategoryRelateTopic> page = crtRepository.findAll(example, pageable);
         return page;
     }
 
@@ -70,8 +69,8 @@ public class CategoryServiceImpl {
      * @param list
      * @return
      */
-    public List<Category> findAllById(List<Long> list){
-        List<Category> allById = categoryRepository.findAllById(list);
+    public List<CategoryRelateTopic> findAllById(List<Long> list){
+        List<CategoryRelateTopic> allById = crtRepository.findAllById(list);
         return allById;
     }
 
@@ -79,29 +78,30 @@ public class CategoryServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    public void save(Category object){
+    public void save(CategoryRelateTopic object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            categoryRepository.save(object);
+            crtRepository.save(object);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("更新数据库字段时出现异常");
         }
     }
+
     /**
      * 持久化并返回id;
      * @param object
      */
-    public long saveAndFlush(Category object){
+    public long saveAndFlush(CategoryRelateTopic object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            Category temp = categoryRepository.saveAndFlush(object);
+            CategoryRelateTopic temp = crtRepository.saveAndFlush(object);
             id = temp.getId();
         }catch (Exception e){
             e.printStackTrace();
@@ -114,13 +114,13 @@ public class CategoryServiceImpl {
      * 持久化所有;
      * @param list
      */
-    public void saveAll(List<Category> list){
+    public void saveAll(List<CategoryRelateTopic> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            categoryRepository.saveAll(list);
+            crtRepository.saveAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("持久化数据库字段时出现异常");
@@ -136,7 +136,7 @@ public class CategoryServiceImpl {
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            categoryRepository.deleteById(id);
+            crtRepository.deleteById(id);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -147,12 +147,12 @@ public class CategoryServiceImpl {
      * 删除所有;
      * @param list
      */
-    public void deleteAll(List<Category> list){
+    public void deleteAll(List<CategoryRelateTopic> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            categoryRepository.deleteAll(list);
+            crtRepository.deleteAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -164,7 +164,7 @@ public class CategoryServiceImpl {
      * @return
      */
     public Long count(){
-        long count = categoryRepository.count();
+        long count = crtRepository.count();
         return count;
     }
 
@@ -173,9 +173,8 @@ public class CategoryServiceImpl {
      * @param example
      * @return
      */
-    public Long countByExample(Example<Category> example){
-        long count = categoryRepository.count(example);
+    public Long countByExample(Example<CategoryRelateTopic> example){
+        long count = crtRepository.count(example);
         return count;
     }
-
 }

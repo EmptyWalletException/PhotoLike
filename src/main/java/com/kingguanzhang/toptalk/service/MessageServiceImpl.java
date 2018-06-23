@@ -1,7 +1,6 @@
 package com.kingguanzhang.toptalk.service;
 
 import com.kingguanzhang.toptalk.entity.Message;
-import com.kingguanzhang.toptalk.entity.User;
 import com.kingguanzhang.toptalk.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

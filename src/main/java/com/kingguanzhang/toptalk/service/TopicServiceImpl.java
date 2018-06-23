@@ -1,7 +1,6 @@
 package com.kingguanzhang.toptalk.service;
 
 import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.entity.User;
 import com.kingguanzhang.toptalk.repositories.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -17,6 +16,11 @@ public class TopicServiceImpl {
 
     @Autowired
     private TopicRepository topicRepository;
+
+    public Page<Topic> findAllByCategoryId(Long categoryId,Pageable pageable){
+     // TODO 需要实现通过分类id分页查询所有topic:
+        return null;
+    }
 
     /**
      * 分页查询所有;

@@ -1,9 +1,6 @@
 package com.kingguanzhang.toptalk.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -13,24 +10,54 @@ import java.util.List;
 public class Topic {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
     private String title;
     private String content;
     private Date creatTime;
+    private long collectNumber;
+    private long commentNumber;
 
     @ManyToOne(optional = false)
-    private User author;
+    private User author;//废弃多对多及一对多级联功能后保留了此属性;
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+   /* @ManyToOne(optional = false)
+    private User author;*/
     /**
      * 多对多采用第三张表来关联,这里就采用自动生成第三张表的方式来配置
-     */
+     *//*
     @ManyToMany
     @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(name = "category_topic",
             joinColumns = {@JoinColumn(name = "topic_id")},//本类Category所对应的表与中间表的外键对应关系
             inverseJoinColumns = {@JoinColumn(name = "category_id")}//另一个表Column与第三张表中的外键对应关系
     )
-    private List<Category> categorys;//多对多关系;
+    private List<Category> categorys;//多对多关系;*/
+
+
+    public long getCollectNumber() {
+        return collectNumber;
+    }
+
+    public void setCollectNumber(long collectNumber) {
+        this.collectNumber = collectNumber;
+    }
+
+    public long getCommentNumber() {
+        return commentNumber;
+    }
+
+    public void setCommentNumber(long commentNumber) {
+        this.commentNumber = commentNumber;
+    }
 
     /**
      * 在OneToMany关联关系的注解中,joinCloum(name="指定本类主键所对应的外表的外键名字"),
@@ -47,7 +74,7 @@ public class Topic {
 //    @JoinColumn(name = "topic_id")//joinColumn会生在数据库表中生成一个新的列,而mappedBy则不会;
     private List<Photo> photos;//一对多关系
 
-    @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)//,mappedBy = "topic_id"
+   /* @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)//,mappedBy = "topic_id"
 //    @JoinColumn(name = "topicId")
     private List<Comment> comments;//评论;一对多关系
 
@@ -64,13 +91,14 @@ public class Topic {
     @JsonBackReference
     public void setCategorys(List<Category> categorys) {
         this.categorys = categorys;
-    }
+    }*/
 
-    public Long getId() {
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -99,27 +127,21 @@ public class Topic {
     }
 
 
-    public User getAuthor() {
+   /* public User getAuthor() {
         return author;
     }
-    @JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在关系中较多的一方的引用对方的set方法上;
+   // @JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在关系中较多的一方的引用对方的set方法上;
     public void setAuthor(User author) {
         this.author = author;
-    }
-
+    }*/
+/*
     public List<Category> getCategorys() {
         return categorys;
     }
 
 
 
-    public List<Photo> getPhotos() {
-        return photos;
-    }
 
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
-    }
 
     public List<Comment> getComments() {
         return comments;
@@ -135,7 +157,13 @@ public class Topic {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
+    }*/
+   public List<Photo> getPhotos() {
+       return photos;
+   }
 
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 
 }

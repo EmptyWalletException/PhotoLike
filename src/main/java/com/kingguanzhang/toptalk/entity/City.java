@@ -1,18 +1,18 @@
 package com.kingguanzhang.toptalk.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "city")
 public class City {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String name;
     private Integer rank;//用于排序;
-    @OneToMany(mappedBy = "city")
-    private List<Event> events;//此地点下的活动;
+
+   /* @OneToMany(mappedBy = "city")
+    private List<Event> events;//此地点下的活动;*/
 
 
     public long getId() {
@@ -39,11 +39,11 @@ public class City {
         this.rank = rank;
     }
 
-    public List<Event> getEvents() {
+  /*  public List<Event> getEvents() {
         return events;
     }
 
     public void setEvents(List<Event> events) {
         this.events = events;
-    }
+    }*/
 }

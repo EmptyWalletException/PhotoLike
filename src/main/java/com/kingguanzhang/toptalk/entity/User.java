@@ -1,19 +1,15 @@
 package com.kingguanzhang.toptalk.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
     private String account;//邮箱格式;
     private String password;
     private String nickname;
@@ -26,7 +22,7 @@ public class User {
     /**
      * 关于一对多与多对一;
     *story表相对于user表是主控方，在主控方story类只需写@ManyToOne即可，其下面一行的属性名为被控表user中mappedBy中的值。
-     */
+     *//*
     @OneToMany(mappedBy = "author")
     private List<Story> createdStroy;//创作的故事
 
@@ -38,10 +34,10 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     private List<Comment> createdComment;//创作的评论
+*/
 
     /**
      * 多对多采用第三张表来关联,这里就采用自动生成第三张表的方式来配置
-     */
     @ManyToMany
     @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(name = "user_favorite",
@@ -64,13 +60,14 @@ public class User {
             joinColumns = {@JoinColumn(name="user_id")},//本类Category所对应的表与中间表的外键对应关系
             inverseJoinColumns = {@JoinColumn(name = "story_id")}//另一个表Column与第三张表中的外键对应关系
     )
-    private List<Story> story;//一对多关系
+    private List<Story> story;//一对多关系*/
 
-    public Long getId() {
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -138,17 +135,17 @@ public class User {
         this.location = location;
     }
 
-    public List<Essay> getEssay() {
+    /*public List<Essay> getEssay() {
         return essay;
     }
 
     @JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在多对多关系中较多的一方的引用对方的set方法上;
     public void setEssay(List<Essay> essay) {
         this.essay = essay;
-    }
+    }*/
 
 
-    public List<Topic> getTopic() {
+   /* public List<Topic> getTopic() {
         return Topic;
     }
 
@@ -200,5 +197,5 @@ public class User {
     @JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在多对多关系中较多的一方的引用对方的set方法上;
     public void setCreatedComment(List<Comment> createdComment) {
         this.createdComment = createdComment;
-    }
+    }*/
 }

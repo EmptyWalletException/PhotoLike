@@ -43,26 +43,142 @@ public class CrudTest {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private CRESTServiceImpl crestService;
+
+    @Autowired
+    private CRTServiceImpl crtService;
+
+    @Autowired
+    private MessageServiceImpl messageService;
+
+    @Autowired
+    private UserFavoriteServiceImpl userFavoriteService;
+
+
+
+
+
     @Test
     public void save(){
+        for (int i =1 ; i<30; i++){
 
-        for (int i =0 ; i<15; i++){
-            Topic topic = new Topic();
-            topic.setTitle("测试标题"+i);
-            topic.setCreatTime(new Date(System.currentTimeMillis()));
+           Date date= new Date(System.currentTimeMillis());
+
+            City city = new City();
+            city.setId(i);
+
             User user = new User();
-            user.setId((long) 1);
-            topic.setAuthor(user);
-            topic.setContent("测试正文"+i);
-            topicService.save(topic);
-        }
+            user.setId(i);
 
-        for (int i =0 ; i<15; i++){
+            Event event = new Event();
+            event.setId(i);
+
+            Story story = new Story();
+            story.setId(i);
+
+            Topic topic = new Topic();
+            topic.setId(i);
+
             Category category = new Category();
-            category.setName("测试分类"+i);
+            category.setId(i);
+
+            Comment  comment= new Comment();
+            comment.setId(i);
+
+            Essay essay = new Essay();
+            essay.setId(i);
+
+            Message message = new Message();
+            message.setId(i);
+
+            CategoryRelateTopic categoryRelateTopic =new CategoryRelateTopic();
+            categoryRelateTopic.setId(i);
+
+            CommentRelateEST commentRelateEST= new CommentRelateEST();
+            commentRelateEST.setId(i);
+
+            UserFavorite userFavorite = new UserFavorite();
+            userFavorite.setId(i);
+
+            user.setAccount("testuser"+i);
+            user.setGender(1);
+            user.setImgAddr("upload/user.jpg");
+            user.setJoinTime(date);
+            user.setLocation("艾泽拉斯");
+            user.setNickname("测试用户"+i);
+            user.setPassword("password"+i);
+            user.setSignature("测试签名"+i);
+            userService.save(user);
+
+            city.setName("城市"+i);
+            city.setRank(i);
+            cityService.save(city);
+
+            category.setName("分类"+i);
             category.setRank(i+10);
             categoryService.save(category);
+
+            message.setContent("测试消息正文"+i);
+            message.setCreatTime(date);
+            messageService.save(message);
+
+            essay.setAuthor(user);
+            essay.setCollectNumber(i*100);
+            essay.setContent("测试随笔内容"+i);
+            essay.setTitle("测试随笔标题"+i);
+            essay.setCreatTime(date);
+            essay.setImgAddr("upload/1.img");
+            essayService.save(essay);
+
+            event.setContent("测试活动正文"+i);
+            event.setLocation("测试活动位置"+i);
+            event.setMoney("$5");
+            event.setName("线下聚会");
+            event.setTime(date);
+            event.setTheme("聚会");
+            event.setCity(city);
+            eventService.save(event);
+
+
+            story.setCreatTime(date);
+            story.setTitle("测试标题"+i);
+            story.setAuthor(user);
+            story.setCollectNumber(i*100);
+            story.setCommentNumber(i*20);
+            storyService.save(story);
+
+
+            topic.setTitle("测试标题"+i);
+            topic.setCreatTime(date);
+            topic.setAuthor(user);
+            topic.setContent("测试正文"+i);
+            topic.setCollectNumber(i*100);
+            topic.setCommentNumber(i*20);
+            topicService.save(topic);
+
+            commentRelateEST.setCommentId(i);
+            commentRelateEST.setTopicId(i);
+            crestService.save(commentRelateEST);
+
+            categoryRelateTopic.setCategoryId(i);
+            categoryRelateTopic.setTopicId(i);
+            crtService.save(categoryRelateTopic);
+
+            comment.setContent("测试评论正文");
+            comment.setCreatTime(date);
+            comment.setSupcommentId(1);
+            comment.setAuthor(user);
+            commentService.save(comment);
+
+            userFavorite.setUserId(i);
+            userFavorite.setTopicId(i);
+            userFavoriteService.save(userFavorite);
         }
+
+
+
+
 
     }
 

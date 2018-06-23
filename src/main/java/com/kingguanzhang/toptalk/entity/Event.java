@@ -1,36 +1,46 @@
 package com.kingguanzhang.toptalk.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "event")
 public class Event {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
     private String name ;
-    private String time;
+    private Date time;
     private String money;
     private String location;//活动具体场所
-    private String topic;//活动主题;
+    private String theme;//活动主题;
     private String content;
 
     @ManyToOne(optional = false)
+    private City city;//废弃级联功能时保留了此属性;
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+    /* @ManyToOne(optional = false)
     private City city;//活动城市地点
 
     @OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
-    /*@JoinColumn(name = "event_id")*/
-    private List<Photo> photos;//包括缩略图和内容图;
+    *//*@JoinColumn(name = "event_id")*//*
+    private List<Photo> photos;//包括缩略图和内容图;*/
 
-    public Long getId() {
+
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -42,11 +52,11 @@ public class Event {
         this.name = name;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -58,12 +68,12 @@ public class Event {
         this.money = money;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getTheme() {
+        return theme;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     public String getContent() {
@@ -74,7 +84,7 @@ public class Event {
         this.content = content;
     }
 
-    public List<Photo> getPhotos() {
+  /*  public List<Photo> getPhotos() {
         return photos;
     }
 
@@ -85,7 +95,11 @@ public class Event {
     public City getCity() {
         return city;
     }
-
+    @JsonBackReference
+    public void setCity(City city) {
+        this.city = city;
+    }
+*/
     public String getLocation() {
         return location;
     }
@@ -94,8 +108,5 @@ public class Event {
         this.location = location;
     }
 
-    @JsonBackReference
-    public void setCity(City city) {
-        this.city = city;
-    }
+
 }

@@ -3,21 +3,26 @@ package com.kingguanzhang.toptalk.entity;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * 站内消息,派发给所有用户;
+ */
 @Entity
 @Table(name = "message")
 public class Message {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
     private String content;
     private Date creatTime;
 
-    public Long getId() {
+
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

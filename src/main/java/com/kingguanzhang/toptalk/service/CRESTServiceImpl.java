@@ -1,7 +1,7 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.Category;
-import com.kingguanzhang.toptalk.repositories.CategoryRepository;
+import com.kingguanzhang.toptalk.entity.CommentRelateEST;
+import com.kingguanzhang.toptalk.repositories.CRESTRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -12,20 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryServiceImpl {
-
+public class CRESTServiceImpl {
     @Autowired
-    private CategoryRepository categoryRepository;
-
+    private CRESTRepository crestRepository;
 
     /**
      * 分页查询所有;
      * @return
      */
-    public Page<Category> findAll(Pageable pageable){
-        Page<Category> page;
+    public Page<CommentRelateEST> findAll(Pageable pageable){
+        Page<CommentRelateEST> page;
         try {
-            page = categoryRepository.findAll(pageable);
+            page = crestRepository.findAll(pageable);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("查询数据库字段时出现异常");
@@ -39,8 +37,8 @@ public class CategoryServiceImpl {
      * @param id
      * @return
      */
-    public Category findById(Long id){
-        Optional<Category> temp = categoryRepository.findById(id);
+    public CommentRelateEST findById(Long id){
+        Optional<CommentRelateEST> temp = crestRepository.findById(id);
         return temp.get();
     }
 
@@ -49,8 +47,8 @@ public class CategoryServiceImpl {
      * @param example
      * @return
      */
-    public Category findOne(Example<Category> example){
-        Optional<Category> temp = categoryRepository.findOne(example);
+    public CommentRelateEST findOne(Example<CommentRelateEST> example){
+        Optional<CommentRelateEST> temp = crestRepository.findOne(example);
         return temp.get();
     }
 
@@ -60,8 +58,8 @@ public class CategoryServiceImpl {
      * @param pageable
      * @return
      */
-    public Page<Category> findAllByExample(Example<Category> example, Pageable pageable){
-        Page<Category> page = categoryRepository.findAll(example, pageable);
+    public Page<CommentRelateEST> findAllByExample(Example<CommentRelateEST> example, Pageable pageable){
+        Page<CommentRelateEST> page = crestRepository.findAll(example, pageable);
         return page;
     }
 
@@ -70,8 +68,8 @@ public class CategoryServiceImpl {
      * @param list
      * @return
      */
-    public List<Category> findAllById(List<Long> list){
-        List<Category> allById = categoryRepository.findAllById(list);
+    public List<CommentRelateEST> findAllById(List<Long> list){
+        List<CommentRelateEST> allById = crestRepository.findAllById(list);
         return allById;
     }
 
@@ -79,29 +77,30 @@ public class CategoryServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    public void save(Category object){
+    public void save(CommentRelateEST object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            categoryRepository.save(object);
+            crestRepository.save(object);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("更新数据库字段时出现异常");
         }
     }
+
     /**
      * 持久化并返回id;
      * @param object
      */
-    public long saveAndFlush(Category object){
+    public long saveAndFlush(CommentRelateEST object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            Category temp = categoryRepository.saveAndFlush(object);
+            CommentRelateEST temp = crestRepository.saveAndFlush(object);
             id = temp.getId();
         }catch (Exception e){
             e.printStackTrace();
@@ -114,13 +113,13 @@ public class CategoryServiceImpl {
      * 持久化所有;
      * @param list
      */
-    public void saveAll(List<Category> list){
+    public void saveAll(List<CommentRelateEST> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            categoryRepository.saveAll(list);
+            crestRepository.saveAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("持久化数据库字段时出现异常");
@@ -136,7 +135,7 @@ public class CategoryServiceImpl {
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            categoryRepository.deleteById(id);
+            crestRepository.deleteById(id);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -147,12 +146,12 @@ public class CategoryServiceImpl {
      * 删除所有;
      * @param list
      */
-    public void deleteAll(List<Category> list){
+    public void deleteAll(List<CommentRelateEST> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            categoryRepository.deleteAll(list);
+            crestRepository.deleteAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -164,7 +163,7 @@ public class CategoryServiceImpl {
      * @return
      */
     public Long count(){
-        long count = categoryRepository.count();
+        long count = crestRepository.count();
         return count;
     }
 
@@ -173,9 +172,8 @@ public class CategoryServiceImpl {
      * @param example
      * @return
      */
-    public Long countByExample(Example<Category> example){
-        long count = categoryRepository.count(example);
+    public Long countByExample(Example<CommentRelateEST> example){
+        long count = crestRepository.count(example);
         return count;
     }
-
 }
