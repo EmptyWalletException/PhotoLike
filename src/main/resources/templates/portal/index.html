@@ -36,44 +36,44 @@
 
             <div class="fright" >
                 <!--只显示5条-->
-                <a href="/topic/filtrate?category=1" class="tag" th:href="'/topic/filtrate?category='+${category.id}"  th:text="${category.name}+' '" th:if="${categoryStat.index<9}" th:each="category,categoryStat:${categoryList}">摇滚</a>
+                <a href="/topic?category=1" class="tag" th:href="'/topic?category='+${category.id}"  th:text="${category.name}+' '" th:if="${categoryStat.index<9}" th:each="category,categoryStat:${categoryList}">摇滚</a>
 
-                <a href="/topic" class="tag ln-more">更多<span class="icon-more"></span></a>
+                <a href="/topic?pn=1" class="tag ln-more">更多<span class="icon-more"></span></a>
             </div>
         </div>
 
         <div class="section-ct clearfix">
             <div class="vol-item-lg" >
-                <a href="/topic/1374" class="cover-wrapper cover-wrapper-lg" th:href="${topicList[0].id}" >
+                <a href="/topic/1374" class="cover-wrapper cover-wrapper-lg" th:href="'/topic/'+${topicList[0].id}" >
                     <!--th:src="'/'+${topicList[0].photos[0].imgAddr}"-->
                     <img src="/js/640x452"  alt="关于爱的表达方式" class="cover-lg rounded"  th:alt="${topicList[0].title}" >
-                    <span class="icon-play-lg" style="opacity: 1;"></span>
-                    <div class="play-btn-mask" style="opacity: 0.5;"></div>
+                    <span class="icon-play-lg" style="opacity: 0;"></span>
+                    <div class="play-btn-mask" style="opacity: 0;"></div>
                 </a>
 
-                <a href="http://www.luoo.net/vol/index/1374" class="title"  th:href="${topicList[0].id}" th:text="'Top.'+${topicList[0].id}+${topicList[0].title}">Vol.999 关于爱的表达方式</a>
+                <a href="http://www.luoo.net/vol/index/1374" class="title"  th:href="'/topic/'+${topicList[0].id}" th:text="'Top.'+${topicList[0].id}+${topicList[0].title}">Vol.999 关于爱的表达方式</a>
             </div>
 
             <div class="vol-item">
-                <a href="http://www.luoo.net/vol/index/1373"  th:href="${topicList[1].id}" class="cover-wrapper">
+                <a href="http://www.luoo.net/vol/index/1373"  th:href="'/topic/'+${topicList[1].id}" class="cover-wrapper">
                     <!--th:src="'/'+${topicList[1].photos[1].imgAddr}"-->
                     <img src="/js/640x452(1)" alt="故事的最后" class="cover rounded"  th:alt="${topicList[1].title}">
                     <span class="icon-play"></span>
                     <div class="play-btn-mask"></div>
                 </a>
 
-                <a class="title" href="http://www.luoo.net/vol/index/1373" th:href="${topicList[1].id}" th:text="'Top.'+${topicList[1].id}+${topicList[1].title}">vol.990 故事的最后</a>
+                <a class="title" href="http://www.luoo.net/vol/index/1373" th:href="'/topic/'+${topicList[1].id}" th:text="'Top.'+${topicList[1].id}+${topicList[1].title}">vol.990 故事的最后</a>
             </div>
 
             <div class="vol-item">
-                <a href="http://www.luoo.net/vol/index/1372" class="cover-wrapper"  th:href="${topicList[2].id}" >
+                <a href="http://www.luoo.net/vol/index/1372" class="cover-wrapper"  th:href="'/topic/'+${topicList[2].id}" >
                     <!--th:src="'/'+${topicList[2].photos[2].imgAddr}"-->
                     <img src="/js/640x452(2)" alt="美好从未停歇" class="cover rounded"  th:alt="${topicList[2].title}">
                     <span class="icon-play" style="opacity: 0;"></span>
                     <div class="play-btn-mask" style="opacity: 0;"></div>
                 </a>
 
-                <a class="title" href="http://www.luoo.net/vol/index/1372" th:href="${topicList[2].id}" th:text="'Top.'+${topicList[2].id}+${topicList[2].title}">vol.989 美好从未停歇</a>
+                <a class="title" href="http://www.luoo.net/vol/index/1372" th:href="'/topic/'+${topicList[2].id}" th:text="'Top.'+${topicList[2].id}+${topicList[2].title}">vol.989 美好从未停歇</a>
             </div>
         </div>
     </div>
@@ -91,8 +91,9 @@
                     <div class="title">
                         <div class="align-fix">
                             <div>
-                                <a href="/essay" class="single-name" th:href="'/essay/'+${essayList[0].id}" th:text="${essayList[0].title}">开心就足够</a>
-                                <p class="artist" th:text="${essayList[0].author.nickname}">徐真真</p>
+                                <a href="/essay" class="single-name" th:href="'/essay?essayId='+${essayList[0].id}" th:text="${essayList[0].title}">开心就足够</a>
+                                <br/>
+                                <a class="artist" th:text="${essayList[0].author.nickname}" th:href="'/user/'+${essayList[0].author.id}">徐真真</a>
                                 <p class="pubdate" th:text="${#dates.format(essayList[0].creatTime,'yyyy-MM-dd')}">2017-11-29</p>
                             </div>
                         </div>
@@ -125,7 +126,7 @@
                     <div class="meta rounded">
                         <p class="title"><a class="ln-title" href="/story/925" title="人类首张在太空录制的专辑" th:href="'/story/'+${storyList[0].id}" th:text="${storyList[0].title}">人类首张在太空录制的专辑</a>
                         </p>
-                        <p class="author"><a href="/author/1057783" class="author" th:href="'/author/'+${storyList[0].author.id}" th:text="${storyList[0].author.nickname}">李卤味</a></p>
+                        <p class="author"><a href="/user/1057783" class="author" th:href="'/user/'+${storyList[0].author.id}" th:text="${storyList[0].author.nickname}">李卤味</a></p>
                     </div>
                 </div>
 
@@ -136,7 +137,7 @@
                     </a>
                     <div class="meta rounded">
                         <p class="title"><a class="ln-title" href="/story/926" title="Sugar Man：隐没在城市里的一把声音"  th:href="'/story/'+${storyList[1].id}" th:text="${storyList[1].title}">Sugar Man：隐没在城市里的一把声音</a></p>
-                        <p class="author"><a href="/author/1057784" class="author" th:href="'/author/'+${storyList[1].author.id}" th:text="${storyList[1].author.nickname}">LUO</a></p>
+                        <p class="author"><a href="/user/1057784" class="author" th:href="'/user/'+${storyList[1].author.id}" th:text="${storyList[1].author.nickname}">LUO</a></p>
                     </div>
                 </div>
             </div>

@@ -24,7 +24,6 @@ public class TopicServiceImpl {
      * @return
      */
     public Page<Topic> findAllByCategoryId(Long categoryId,Pageable pageable){
-     // TODO 需要实现通过分类id分页查询所有topic:
         Page<Topic> topicPage = topicRepository.findByCategoryId(categoryId, pageable);
         return topicPage;
     }
@@ -50,7 +49,7 @@ public class TopicServiceImpl {
      * @param id
      * @return
      */
-    public Topic findById(Long id){
+    public Topic findById(long id){
         Optional<Topic> temp = topicRepository.findById(id);
         return temp.get();
     }

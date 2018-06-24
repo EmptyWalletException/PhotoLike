@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0029)http://www.luoo.net/musician/ -->
+<!-- saved from url=(0038)http://www.luoo.net/musician/index/229 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -80,282 +80,108 @@
 <div class="header" th:replace="~{portal/nav :: topbar}">
 
 </div>
-<!--/// header end --><!-- container start -->
+<!--/// header end -->
 <!-- container start -->
-<div class="container" id="luooPlayerPlaylist" style="min-height: 460px;">
+<div class="container" id="luooPlayerPlaylist" style="min-height: 499px;">
 
     <div class="musician-banner clearfix">
-        <img src="/js/Fp7W4f0QjY8aQylkdCmRG6gkMcIV.bmp" alt="开心就足够" class="cover">
+        <img src="/js/m_56447ca3da96c.jpg" alt="#" class="cover" th:alt="${upEssay.title}">
         <div class="meta">
-            <a href="javascript:;" class="title active" id="track22422" data-id="22422">
-                开心就足够
-                <span class="icon-play" style="display: none;"></span>
-                <span class="icon-pause" style="display: inline-block;"></span>
+            <a href="#" class="title active" id="track15491" data-id="15491" th:text="${upEssay.title}"
+               th:href="'/essay?essayId='+${upEssay.id}">
+                I Couldn't Regret
+                <span class="icon-play" style="display: inline-block;"></span>
+                <span class="icon-pause" style="display: none;"></span>
             </a>
-            <p class="performer">徐真真</p>
-            <p class="remark" id="remark22422"><span class="quote-before"></span> <span>人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</span>
-                <span class="quote-after"></span></p>
-            <div class="lyric" id="lyric22422"></div>
-            <p class="date">推荐人： AngelaDaddy・2017-11-29</p>
+            <!--<p class="performer" >Life Was All Silence</p>-->
+            <br/>
+            <p class="remark" id="remark15491"><span class="quote-before"></span>
+                <span th:text="${upEssay.content}">这是一场追求极简主义的声音实验，无论是传统的、民族的，还是电子的、世界的，任君采撷，来去自如。不同声音取向相互碰撞，营造出广阔、破碎、忧郁的氛围效果。只有万籁俱静的时候，我们才能瞥见这奇妙的化学反应，如同镜中花，水中月，若隐若现，似有幻无。
+</span> <span class="quote-after"></span></p>
+            <div class="lyric" id="lyric15491"></div>
+            <p class="date">
+                <a  style="color: #6c6c6c" th:text="'作者:'+${upEssay.author.nickname}+','+${#dates.format(upEssay.creatTime,'yyyy-MM-dd')}" th:href="'/user/'+${upEssay.author.id}">推荐人：
+                    快活林・2015-11-12</a>
+            </p>
             <div class="sns">
                 <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share" data-app="musician"
-                   data-id="578" data-text="推荐徐真真的歌曲开心就足够（分享自@落网）"
-                   data-img="http://img-cdn2.luoo.net/pics/albums/14823/pics/albums/201711/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg!/fwfh/580x580">
+                   data-id="229" data-text="推荐Life Was All Silence的歌曲I Couldn&#39;t Regret（分享自@落网）"
+                   data-img="http://img-cdn2.luoo.net/pics/albums/7971/cover.jpg!/fwfh/580x580">
                 </a>
-                <a href="javascript:;" rel="nofollow" id="btnLike22422" class="btn-action-like icon-faved"
-                   data-id="22422" data-type="single" data-from_id="578" data-from_type="musician"
-                   data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
+                <a href="javascript:;" rel="nofollow" id="btnLike15491" class="btn-action-like icon-fav" data-id="15491"
+                   data-type="single" data-from_id="229" data-from_type="musician" data-cback="musician_like_callback"
+                   data-langliked="取消收藏" data-langlike="收藏">
                 </a>
-                <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22422"></a>
+                <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="15491"></a>
             </div>
         </div>
     </div>
     <div class="clearfix">
+
         <!-- article start-->
         <div class="article article-sm">
             <!-- musician-list -->
             <div class="musician-list">
 
-                <div class="item">
+                <!--遍历并生成10个随笔-->
+                <div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayStat.index}<11">
                     <div class="cover-wrapper">
-                        <img class="cover rounded" src="/js/FhSHzkIc80rv0zJZjfrh7HCIeOKF.jpg" alt="红头发">
+                        <img class="cover rounded" src="./单曲推荐-落网_files/Fp7W4f0QjY8aQylkdCmRG6gkMcIV.bmp" alt="开心就足够"
+                             th:alt="${essay.title}">
                     </div>
                     <div class="musician-wrapper">
-                        <a href="javascript:;" title="红头发" class="title" id="track22393" data-id="22393">
-                            红头发
+                        <a href="#" title="开心就足够" class="title" id="track22422" data-id="22422"
+                           th:title="${essay.title}" th:text="${essay.title}" th:id="${essay.id}"
+                           th:href="'/essay?essayId='+${essay.id}">
+                            开心就足够
                             <span class="icon-play" style="display: none;"></span>
-                            <span class="icon-pause" style="display: inline;"></span>
+                            <span class="icon-pause" style="display: none;"></span>
                         </a>
-                        <p class="performer">王艺洁</p>
-                        <p class="remark" id="remark22393" style="display: none;">
-                            这首歌描绘的是中古世纪欧洲某海峡上一个丘陵上的国度里的一段两小无猜的故事，画面凌乱又莫名和谐。因为故事里有开始和结局，跌宕起伏后尘埃落定。王艺洁似乎用一首歌的时间讲述了一部电影的原委，起承转合，结构细腻，画面感十足，用听觉调动视觉，不断的敲击着你的想象空间大门，那个红头发的背影，你期待的人，你幻想的情感，似乎都能用一首歌的时间好好的咀嚼消化，结束的钟声响起，平静的空气中是依旧是熟悉的味道。</p>
-                        <div class="lyric" id="lyric22393" style="display: block;">
-                            <div class="single-report"><a href="javascript:;"
-                                                          class="icon-single-report btn-single-report" data-sname="红头发"
-                                                          data-sid="22393">报错</a></div>
-                            22
-                        </div>
-                        <p class="date">推荐人： 李卤味・2017-11-27</p>
-                        <div class="sns">
-                            <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="577" data-text="推荐王艺洁的歌曲红头发（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14801/pics/albums/201711/FpUeJCf1l2Hl7NvM_B7iz8Qd9mpd.jpg!/fwfh/580x580">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" id="btnLike22393" class="btn-action-like icon-fav"
-                               data-id="22393" data-type="single" data-from_id="577" data-from_type="musician"
-                               data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22393"></a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="cover-wrapper">
-                        <img class="cover rounded" src="/js/FraVGr_XtZPboagMIZPxA0vmc3ua.jpg"
-                             alt="The Seaside Bus">
-                    </div>
-                    <div class="musician-wrapper">
-                        <a href="javascript:;" title="The Seaside Bus" class="title" id="track22368" data-id="22368">
-                            The Seaside Bus
-                            <span class="icon-play" style="display: none;"></span>
-                            <span class="icon-pause" style="display: inline;"></span>
-                        </a>
-                        <p class="performer">Doris何小河</p>
-                        <p class="remark" id="remark22368" style="display: none;">
-                            有时我们在真实世界里丢失了一些东西，在梦里也许可以被找回。何小河用最真实最赤裸的感情和带着一丝鬼魅的声音为我们构建了一个最接近温柔的梦境世界。这个梦境无比轻柔，像一张柔软的毛毯，在你真实世界坍塌的时候，轻轻地为你盖上，让你做个温暖的梦。随着她的音乐，梦境里的场景不断变换，潺潺流水、唱歌的鸟儿、演奏中的乐器，让我们寒冷的心获得抚慰。醒来之后，带着这份温暖，继续生活下去。</p>
-                        <div class="lyric" id="lyric22368" style="display: block;">
-                            <div class="single-report"><a href="javascript:;"
-                                                          class="icon-single-report btn-single-report"
-                                                          data-sname="The Seaside Bus" data-sid="22368">报错</a></div>
-                            I would wander aimless in the night,<br>
-                            and I'm riding on the bus seaside.<br>
-                            Reprised, reprised, reprised.<br>
-                            Reprised, reprised, in mind.<br>
-                            <br>
-                            It's raining out of the fiction,<br>
-                            And I'm riding on the bus seaside.<br>
-                            Scenes without melt into the night,<br>
-                            Reprised, reprised, in mind.<br>
-                            <br>
-                            Traveling in moonlight,<br>
-                            fading out by the winds in night.<br>
-                            Reprised, reprised, reprised.<br>
-                            Reprised, reprised. in mind.<br>
-                            <br>
-                            Who has arrived that destination,<br>
-                            in a whisper reprised in mind.<br>
-                            Turn around and finally around.<br>
-                            Reprised, reprised, reprised.<br>
-                            Reprised, reprised, in mind.<br>
-                            <br>
-                            I have waited aimless in the night,<br>
-                            and I'm riding on the bus.
-                        </div>
-                        <p class="date">推荐人： 李卤味・2017-11-24</p>
-                        <div class="sns">
-                            <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="576" data-text="推荐Doris何小河的歌曲The Seaside Bus（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14782/pics/albums/201711/FlDoPsOp6ibL9SXnqLe_gkfH27xZ.jpg!/fwfh/580x580">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" id="btnLike22368" class="btn-action-like icon-fav"
-                               data-id="22368" data-type="single" data-from_id="576" data-from_type="musician"
-                               data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22368"></a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="cover-wrapper">
-                        <img class="cover rounded" src="/js/Fj1P4BIuaJ_9PxtmGXwnmTG5shgB.bmp" alt="青城山">
-                    </div>
-                    <div class="musician-wrapper">
-                        <a href="javascript:;" title="青城山" class="title" id="track22313" data-id="22313">
-                            青城山
-                            <span class="icon-play" style="display: none;"></span>
-                            <span class="icon-pause" style="display: inline;"></span>
-                        </a>
-                        <p class="performer">鹤这豹脾气</p>
-                        <p class="remark" id="remark22313" style="display: none;">
-                            “问道青城山，拜水都江堰”。青城山位于四川成都，是中国四大道教名山之一。人杰地灵的四川，孕育着最为仙气的山水，青城山的仙风道骨都在音乐人「鹤这豹脾气」一曲中浓缩。中国传统五声音阶“宫商角徵羽”融入现代略带Chill-Out电子乐的编曲中，眼前仿佛再现青城山下白素贞，洞中千年修此身之境。听罢此曲，如游弋仙境中，观闲云与白鹤，怎一个仙字了得？</p>
-                        <div class="lyric" id="lyric22313" style="display: block;"><p
-                                style="margin: 60px auto; text-align: center;"><a href="javascript:;"
-                                                                                  class="btn btn-positive btn-add-lyric"
-                                                                                  data-sid="22313">添加歌词</a></p></div>
-                        <p class="date">推荐人： AngelaDaddy・2017-11-23</p>
-                        <div class="sns">
-                            <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="575" data-text="推荐鹤这豹脾气的歌曲青城山（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14750/5a1675426b6c0.jpg!/fwfh/580x580">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" id="btnLike22313" class="btn-action-like icon-fav"
-                               data-id="22313" data-type="single" data-from_id="575" data-from_type="musician"
-                               data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22313"></a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="cover-wrapper">
-                        <img class="cover rounded" src="/js/FvvXrc0Q6WCD8LTvTZht9Pmf8-tp.jpg"
-                             alt="Flo Rida">
-                    </div>
-                    <div class="musician-wrapper">
-                        <a href="javascript:;" title="Flo Rida" class="title" id="track22284" data-id="22284">
-                            Flo Rida
-                            <span class="icon-play" style="display: none;"></span>
-                            <span class="icon-pause" style="display: inline;"></span>
-                        </a>
-                        <p class="performer">Higher Brothers</p>
-                        <p class="remark" id="remark22284" style="display: none;">成都的说唱组合Higher Brothers发行了他们的新单曲《Flo
-                            Rida》。在这首与南佛罗里达说唱新星Ski Mask The Slump God合作的歌中， Higher
-                            Brothers将东半球和西半球的嘻哈融合到了一起，他们正在向世界展示他们为什么是“最瞩目的中国说唱组合”。</p>
-                        <div class="lyric" id="lyric22284" style="display: block;"><p
-                                style="margin: 60px auto; text-align: center;"><a href="javascript:;"
-                                                                                  class="btn btn-positive btn-add-lyric"
-                                                                                  data-sid="22284">添加歌词</a></p></div>
-                        <p class="date">推荐人： 李卤味・2017-11-22</p>
-                        <div class="sns">
-                            <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="574" data-text="推荐Higher Brothers的歌曲Flo Rida（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14725/pics/albums/201711/FkHxIhlc20ZStAF6tsmzifG1f2rB.jpg!/fwfh/580x580">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" id="btnLike22284" class="btn-action-like icon-fav"
-                               data-id="22284" data-type="single" data-from_id="574" data-from_type="musician"
-                               data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22284"></a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="cover-wrapper">
-                        <img class="cover rounded" src="/js/FracF48jfCkyosEp8kd43IaKIB_J.jpg"
-                             alt="很可爱的歌 (Remix featuring 梁晓雪)">
-                    </div>
-                    <div class="musician-wrapper">
-                        <a href="javascript:;" title="很可爱的歌 (Remix featuring 梁晓雪)" class="title" id="track22273"
-                           data-id="22273">
-                            很可爱的歌 (Remix featuring 梁晓雪)
-                            <span class="icon-play" style="display: none;"></span>
-                            <span class="icon-pause" style="display: inline;"></span>
-                        </a>
-                        <p class="performer">Lu1 / 梁晓雪</p>
-                        <p class="remark" id="remark22273">
-                            “我现在口袋里还真的没有几两银子，但有朝一日我一定要去买台凌志。可以像追风少年追寻我梦想旅程，顺便问Hello小姐我顺路载你一程。”此番在是爵士音乐家李世海翻转出的全新作品，它脱离了原版浓厚的Bossa
-                            Nova气息，带来一股复古的摇摆氛围。而Lu1也做了有趣的swing尝试，与梁晓雪一起摇摆。总之，这就是一首很可爱很可爱的歌。</p>
-                        <div class="lyric" id="lyric22273"></div>
-                        <p class="date">推荐人： -小漪・2017-11-21</p>
-                        <div class="sns">
-                            <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="573"
-                               data-text="推荐Lu1 / 梁晓雪的歌曲很可爱的歌 (Remix featuring 梁晓雪)（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14715/pics/albums/201711/FkXUYZ_aOMoytOdQWn4bLxtTY5e0.jpg!/fwfh/580x580">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" id="btnLike22273" class="btn-action-like icon-fav"
-                               data-id="22273" data-type="single" data-from_id="573" data-from_type="musician"
-                               data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
-                            </a>
-                            <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22273"></a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="cover-wrapper">
-                        <img class="cover rounded" src="/js/FhDV8sEdxTjr5XYYtJ5O-zv0Tzeb.jpg" alt="Sky">
-                    </div>
-                    <div class="musician-wrapper">
-                        <a href="javascript:;" title="Sky" class="title" id="track22234" data-id="22234">
-                            Sky
-                            <span class="icon-play" style="display: none;"></span>
-                            <span class="icon-pause" style="display: inline;"></span>
-                        </a>
-                        <p class="performer">大魔王</p>
-                        <p class="remark" id="remark22234">都市霓虹光影下的灵魂，站在CBD高楼林立的中央，身边景致没落，时过境迁，恍然若失。
-                            世事并不能全如人所愿，如流水于指尖，佳期如梦，只在乎曾经拥有。广州Emo乐队大魔王的解散让许多乐迷叹息不已，但有些东西永远不会消失，正如乐队所说：“后来我们发现，怀念玩乐队的时光，也热爱现在平凡的生活。最珍贵的收获不是那几首精心编排的歌，而是一起成长的伙伴们。”成立十周年之际，乐队推出纪念专辑，融入电子元素，让人耳目一新。此时迷途或偏执的你，不如一齐听着这首歌，抬头看看这片蔚然蓝蓝的天？
+                        <!--<p class="performer">徐真真</p>-->
+                        <br/>
+                        <p class="remark" id="remark22422" th:text="${essay.content}">
+                            人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</p>
+                        <div class="lyric" id="lyric22422"></div>
+                        <p class="date">
+                            <a style="color: #6c6c6c"
+                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/user/'+${essay.author.id}">
+                                推荐人： AngelaDaddy・2017-11-29</a>
                         </p>
-                        <div class="lyric" id="lyric22234"></div>
-                        <p class="date">推荐人： AngelaDaddy・2017-11-19</p>
                         <div class="sns">
                             <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="572" data-text="推荐大魔王的歌曲Sky（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14683/pics/albums/201711/FoUks0Pv-13k9-N95yDPHENV7BE5.jpg!/fwfh/580x580">
+                               data-app="musician" data-id="578" data-text="推荐徐真真的歌曲开心就足够（分享自@落网）"
+                               data-img="http://img-cdn2.luoo.net/pics/albums/14823/pics/albums/201711/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg!/fwfh/580x580">
                             </a>
-                            <a href="javascript:;" rel="nofollow" id="btnLike22234" class="btn-action-like icon-fav"
-                               data-id="22234" data-type="single" data-from_id="572" data-from_type="musician"
+                            <a href="javascript:;" rel="nofollow" id="btnLike22422" class="btn-action-like icon-fav"
+                               data-id="22422" data-type="single" data-from_id="578" data-from_type="musician"
                                data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
                             </a>
-                            <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22234"></a>
+                            <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22422"></a>
                         </div>
 
                     </div>
                 </div>
+
             </div>
             <!--/// musician-list end-->
             <div>
                 <div id="luooPlayerContent" style="width: 0px; height: 0px;"><img id="jp_poster_0"
-                                                                                  style="width: 0px; height: 0px; display: none;"
+                                                                                  style="width: 0px; height: 0px; display: inline;"
                                                                                   src="/js/580x580">
                     <audio id="jp_audio_0" preload="metadata"
-                           src="http://mp3-cdn2.luoo.net/low/chinese/20171129.mp3"></audio>
+                           src="http://mp3-cdn2.luoo.net/low/chinese/20151112.mp3"></audio>
                 </div>
                 <div class="jp-playlist" style="display:none;">
                     <ul style="display: block;">
                         <li class="jp-playlist-current">
                             <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                    href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1">开心就足够
-                                <span class="jp-artist">by 徐真真</span></a></div>
+                                    href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1">I
+                                Couldn't Regret <span class="jp-artist">by Life Was All Silence</span></a></div>
+                        </li>
+                        <li>
+                            <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                    href="javascript:;" class="jp-playlist-item" tabindex="1">开心就足够 <span
+                                    class="jp-artist">by 徐真真</span></a></div>
                         </li>
                         <li>
                             <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
@@ -382,28 +208,38 @@
                                     href="javascript:;" class="jp-playlist-item" tabindex="1">很可爱的歌 (Remix featuring
                                 梁晓雪) <span class="jp-artist">by Lu1 / 梁晓雪</span></a></div>
                         </li>
-                        <li>
-                            <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                    href="javascript:;" class="jp-playlist-item" tabindex="1">Sky <span
-                                    class="jp-artist">by 大魔王</span></a></div>
-                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="paginator">
-                <a class="previous disabled" rel="nofollow" href="javascript:;">上一页</a><a class="page actived"
-                                                                                          rel="nofollow"
-                                                                                          href="javascript:;">1</a><a
-                    class="page" href="http://www.luoo.net/musician/?p=2">2</a><a class="page"
-                                                                                  href="http://www.luoo.net/musician/?p=3">3</a><a
-                    class="page" href="http://www.luoo.net/musician/?p=4">4</a><a class="page"
-                                                                                  href="http://www.luoo.net/musician/?p=5">5</a><a
-                    class="page" href="http://www.luoo.net/musician/?p=6">6</a><a class="page"
-                                                                                  href="http://www.luoo.net/musician/?p=7">7</a><a
-                    class="page" href="http://www.luoo.net/musician/?p=8">8</a><span class="break">...</span><a
-                    class="page" href="http://www.luoo.net/musician/?p=78">78</a><a class="next"
-                                                                                    href="http://www.luoo.net/musician/?p=2">下一页</a>
+                <a class="previous" href="/essay?pn=1" th:href="'/essay?pn=1'">首页</a>
+                <a class="previous" th:href="'/essay?pn='+${essayPage.number}"
+                   th:if="${essayPage.hasPrevious()}">上一页</a>
+                <!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number -3}" th:text="${essayPage.number -3}"
+                   th:if="${essayPage.number } >3 ">1</a>
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number -2}" th:text="${essayPage.number -2}"
+                   th:if="${essayPage.number } >2 ">2</a>
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number -1}" th:text="${essayPage.number -1}"
+                   th:if="${essayPage.number } >1 ">3</a>
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number }" th:text="${essayPage.number}"
+                   th:if="${essayPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
+                <a class="page actived" href="#" rel="nofollow" th:href="'/essay?pn='+${essayPage.number+1}"
+                   th:text="${essayPage.number +1}">5</a>
+                <!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number +2}" th:text="${essayPage.number +2}"
+                   th:if="${essayPage.number +2} <= ${essayPage.totalPages }">6</a><!--判断如果在当前页面有后面的页面则生成-->
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number +3}" th:text="${essayPage.number +3}"
+                   th:if="${essayPage.number +3} <= ${essayPage.totalPages }">7</a>
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number +4}" th:text="${essayPage.number +4}"
+                   th:if="${essayPage.number +4} <= ${essayPage.totalPages }">8</a>
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number +5}" th:text="${essayPage.number +5}"
+                   th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a>
+                <a class="page" href="#" th:href="'/essay?pn='+${essayPage.number +6}" th:text="${essayPage.number +6}"
+                   th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a>
+                <a class="next" href="#" th:href="'/essay?pn='+${essayPage.number +2}" th:if="${essayPage.hasNext()}">下一页</a>
+                <a class="next" href="#" th:href="'/essay?pn='+${essayPage.totalPages }">尾页</a>
             </div>
         </div>
         <!--/// article end-->
@@ -413,62 +249,25 @@
 
             <div class="widget">
                 <div class="widget-head">
-                    <span class="title">推荐单曲</span>
+                    <span class="title">热门随笔</span>
                 </div>
 
                 <div class="widget-ct pic-widget">
 
-                    <div class="item">
-                        <a href="http://www.luoo.net/musician/index/225" class="cover-wrapper">
-                            <img src="/js/m_563c6f02ad1f5.jpg" alt="鸢尾的呼唤" class="essay-cover rounded">
+                    <div class="item" th:each="hotEssay,hotEssayStat:${hotEssayPage}" th:if="${hotEssayStat.index}<6">
+                        <a href="#" class="cover-wrapper" th:href="'/essay?essayId='+${hotEssay.id}">
+                            <img src="/js/m_5666753fe0dfe.jpg" alt="那下午她在新居砸电视" class="essay-cover rounded"
+                                 th:alt="${hotEssay.title}">
                         </a>
                         <div class="info">
-                            <a href="http://www.luoo.net/musician/index/225" title="鸢尾的呼唤" class="title">鸢尾的呼唤</a>
-                            <p class="description">基诺乐队</p>
+                            <a href="#" title="那下午她在新居砸电视"
+                               class="title" th:alt="${hotEssay.title}" th:text="${hotEssay.title}"
+                               th:href="'/essay?essayId='+${hotEssay.id}">那下午她在新居砸电视</a>
+                            <a class="description" th:text="${hotEssay.author.nickname}" th:href="'/user/'+${hotEssay.author.id}">Monster KaR</a>
                         </div>
                     </div>
 
-                    <div class="item">
-                        <a href="http://www.luoo.net/musician/index/183" class="cover-wrapper">
-                            <img src="/js/m_55d1b2658ca45.jpg" alt="16" class="essay-cover rounded">
-                        </a>
-                        <div class="info">
-                            <a href="http://www.luoo.net/musician/index/183" title="16" class="title">16</a>
-                            <p class="description">DA BANG</p>
-                        </div>
-                    </div>
 
-                    <div class="item">
-                        <a href="http://www.luoo.net/musician/index/153" class="cover-wrapper">
-                            <img src="/js/m_556536a1e336d.jpg" alt="Beautiful Night"
-                                 class="essay-cover rounded">
-                        </a>
-                        <div class="info">
-                            <a href="http://www.luoo.net/musician/index/153" title="Beautiful Night" class="title">Beautiful
-                                Night</a>
-                            <p class="description">...HUH!?</p>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <a href="http://www.luoo.net/musician/index/143" class="cover-wrapper">
-                            <img src="/js/m_553ef9004fcd3.jpg" alt="警车的主题" class="essay-cover rounded">
-                        </a>
-                        <div class="info">
-                            <a href="http://www.luoo.net/musician/index/143" title="警车的主题" class="title">警车的主题</a>
-                            <p class="description">兰亭乐团</p>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <a href="http://www.luoo.net/musician/index/114" class="cover-wrapper">
-                            <img src="/js/m_54c1bcb042948.jpg" alt="旋转轴心" class="essay-cover rounded">
-                        </a>
-                        <div class="info">
-                            <a href="http://www.luoo.net/musician/index/114" title="旋转轴心" class="title">旋转轴心</a>
-                            <p class="description">Spin Axis</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -479,25 +278,124 @@
 <!--/// container end -->
 <script>
     try {
-        var pl = "U2FsdGVkX19EScAfF8lcDYATzPQqHio0kgS0P6duBOn6O2mQ0vK+gFobmaj7eC872oPakVViY7R+p2ogVxJBZ14dIwFFNdXezAdu2TkiCCMyhXkJ5iqOId6YKy0o78ZNLIvRHMhFA/DZ/g1bnMUcdGT0hdbnriIyfibSMCgCFpxHv3O+RofOg+Kx13YXKVQuoFD5BaZ35rqS57FSJUVfNRhg1OLALA/a5KXOrp+M+WWDe3R9Qq6hymOWbMJMTz254R3WFH94Ls0q0TCh2PuOnlI+rCKTUROFTkJF1OYNK7g7YHnlO+8SkAS5QbHNkYbWRDBDuHf0PFqlls+a3uWPO9VYnVoQV2G8aqbeZxopDXY2CsSC4OkTIccnmaL4d1AzuiWQFb6D2JojgdnkRQpY3viylGVmSksacNb20lkxNT7pv9rYdaTUoUjM0yMPN7hF6toCtEDZ31WDCaiddpklcwa4g3FE/tb9UDBEzXjndyAGOZkZa1ddc49j33xm1De21yJ5WBXOcIpFkUfE3fRzaS6p02Jx7klEtkLip9xXLajGq7aynM0L9zduA1UnFBYtvDmiH+q4h7keHAraMs4M+pxzMFPIP2lAYIRnjaYuxiVsriIIRJ5qynfKwP2Lb81HEO/0FcxCsm7JKC9tf8vTYgaC7mNdFvpdb7xIuyIfQQrL83ZIrAVORA/dLWjmyGfOiodyFiPsCDFlncB+URZ5sDCN61aygPAszsNInIRtu8EbgUSO5F9cM/NFCI9od70g1cZf92C79WJuVPc+6q1yr5XIFjds95mjWDjCdy9DPqEhg9Rdjq01XqqGux1V+c0FRR0rfq3yx6v5VxIsvYyNBCLKor9qRuBX9qzjJ1/eHSGYN+lzedGId4S0cM1gcZyJHaylNR+Ogi2qDDq9+l0/Pe4331FXchIEaE0dZa6L0RwXvLeWyk9EE1jS/Js5BC3uQMiZgLtLAN7HLjya7EsmK6vKqbU9dbiUfgKgzwViTmaZUgViCjBMggPXARoA1GRuJwCA6PhivbJbVgrfihBdDot1NCvIN7onYcQuaSz1YC8jIHbcVDml0y3ROyq84ihv6UHhFEQIlLon2MIIaP2Y1CrSl27fquZuHjSwIM6D3/ijTrxd+mcnKMv1ayISinUJR3GVmQ0Rl5VTnTzzg0gJjfzRi3f6kXsgrM/hcujxdZwVMVqZpiBfg3r96430e1e3GoOmM8KWM+EPxsy7tP29NbmemYlKpaElILODityvaumvgEA0SyAd+cdA2YJXgmPJKPJT0WbtdUAEuYWl5V4QGI4k/yL3dg2BEXkAnkcVBuBdYr631WLpNdXEoyDx9qbjD3a8YHmtYxkkRVCowql3h86DwyyeJUW6o0Ln6t/l9v7sypVxaJrBaMM+k6hC86eP3WBpd90L9HDBfbMxMyITmydIrJrThDcS6yyCB3NeuJQOgniYcjPol74gBRr4EzG778VA2xsMDGkOXr1nazEgua1r2Owx8YgHzRe1AQGWvrQsZRDybVHeW7480FlwXtf7ptjnd51d3VUlVZYQW/twEMjmQu4A1e/5jTuvPvWZF10rmb5pIzbSrTF4P2OlWeztAMWtA08lPSMijGhwUg+nJKCjQntSqazgVGB6M6/BN1hc2fbSNP3+ytYKdsv5Okznf66ZPBePTAZSMMRLS6QW1k6pnFSbvdNR+PaREitJUjBzYhetVHU2GWjKMbViZ/v4Jp3Zp3Uaf9ZClW+8+R0m0enNVP0TbKEOHxVk7OTObtgLy68MJN/njWiuBCLn15y2TWR2vCGNuKjZ1ghZpnc7FwThfBgytRdDYsNWhsaBIugytANKmEXN29DPQFwmfccxitExuawHIvOp0AHCMd8EHkGg93FX/tsF0C1c1754tt7LoHTujBEakwDm2Ex/SgLStOtcLUiLIG5zQezXJ2BjR8V8exebaysXB6YwQy9I8IGWw3rZENZ0gBHQzR20Yv8Z6URuDAINyqAYzrQn+gGyNqFJBdTaZ5alYbKTJRdZiHFq0mPfq+jJXoQhusW3Vo6tTMsCKhN7hI61uvLg0+Wm2Q/HmQ4v3J87FBRb1L/sk+XHh9o0ShE7/z0AOC732U1W+d3HiwdDghXwr32WxPRwMR9G4RF15y8VutEKFo4mkeFvtT4MNEXWeHk7Dqf3yqe04FW4ATRsXh3Ob8lXg1AnqnKTM0nbNlMQJ7SaM6Pkjz0n5GveyxaucQESjITe1Jxe3MayGjz5A05jvl4Kr8ooJ4skiMHSOrV5EyBIXM4c0/xr3SFRpcG9287YeKz3TYMrC/RZSOxbFFNYc7qq4Osm8XQqpexU3vV5meGfY3iXGjsPa3QNnCtdlaALZrlLcS/wgtow/WZvTlhW5iW0zSRvRjq0rAGUEcizIZLqaTTKeaYW/jCwUh+OQ8RMbPbxCkdWGmGUqkCSc3Txk/+MBYfSEFWahDbZl3gG9qZ4EtehMuMnRpFjzZ/sWTDnZKebsr7vgpcJ1n47O+s3Rib+E2SuN8LOAboFrrsQ2jZttYgEW2ypWrN/1ki5TfMDxQV0cR1Sg8rWC2GDsQUkk3wOaAsXHDhQA2f+I2m1BY1G1VF21jT3ufa1fOW3LZm5m/AK50k1x6thcscZI2g5D7fhNEyKT+POZz6YmSVr70DAy39RS4FAsV3SDZ5dmILXaQnzIWr4eC9WPXPUBynAR0IS9nKTMhzwxCQtioewyKvXHJ83FtDfKlvX+1nEXr8Zfe2/oyy9km1MpGyRfceOELPBxl0Pjpi6B7e7GgiUkRiCFgb5u0RjCrkRhQPrRS/v7z6qVb7/8q/iff4HDxDzGSGbFYJr5Pt+xBRD1u1XbeSuJaqzxoHe9cap9yLoclQxKvgyqq0RuMHIPHAItdSsL1X5RY/3JtthuNejYASXkTE1jqb0TKEylFUQozE5bvQlNt7L8Jayw0ZBDtkd/cFSd0CQc8URaeVh9FMPRPozD6Y2T4bT5R9P9thRBmykiu2E7aX47DtUkebtRIulnJ/qkFBwZ1COc5II4Al2cQDZgXsB+KZ7WBCd8FPOMXc5HG+WIwlYvnGJ27VynMWVcMPHpMEHsB8qUwRGWelCSIEthayTfjJJa9ZZvpdtpLonV5xFH3T7qjUnQG8rdtsYFpkmCnSw47ot5cEFSarMMKvEhy8RWCa8NSQOcxkV9b4CFqO5bE9l87z+W11JH+rrkHZYiHckX2oOhuHj6HAZOArvY5gFIxzLMdM4Ix1yOabc6aClq8TeS5WuK2W+POEnRT6g54Ls+wMYdu5EgL0abIZak7t/Q4pWEwqZW7EUP/sAOyTEI8RgLifb7q/IMMVGECFogvYb5WohBhk1OoSiBttQUjkok665iKOBXtIHnjkxzAlQgJtEoh/LzMbf/QEXz1LCuJKAXPJM8FldF/wOrwsfY/X35Ru2LgwhRJBVoFYArymJFRwWLpgev+GwONg8OPpszDFLC/2W0nkgrMxUvRPyW1cBi6obed/DalufEA6cMOSFYvGwJ9hlsBRrRd1X2oMYgZz97z3qAGp5nr/A+0lIxMnajCZWTdk6G+Ipn7YdP1AWBBkP0/fQaXMNTQkEhwEs1mV7kZMpIzR649eQ5k5o2iX2kUBcTQMJCjXAG2/jKZaFdhhjxx6x2TdJqxdGWHSetjU84iv0t/zWbA7PsK5y2ruSV6/UkjKl+F4QLflgYlayYEYqMjnGLFF4xklryPMthC2+QAV1RpWZeREIPigf5nYsnaNXM01mHlId69+dfuO3X4ud5jbiRT/GYzoQL3A0ONc+NTas4fnqxeJcZiem6U60wFLyY0ZhUQkWvZfJt2cnoEd8p5PNcADJ7v3RHz2P00HnUbfIvPelxGavS+b/uv3xPD8rU11xk1ftNOvd1HhAtmxTEs6t1JCvIXSleUzfraY+XMI7d6hN1k84dlRV2BBv/+/PNt4yjABBjmhFA0zwUq9DjnKToyYybJw7aMIKuysfRIHNubeq7EnWMuxNfEYOtYcP81j58nYzE7QfQRjDHYZ7QuIlnIcgvpf3pyLpDfMOV18A9ADG7CBWwl/YQnut/IPl9w8YxAHk4HL5P85R8Eg9v4oePAcgH7MDppCHhaqA194iR5PvgAgjEpBbW72oZObPmJyVl9sfZtsMuqiNz+TiRdh/dVc8SZI4t4wcqu86XrYMNrPluqygizlrfR38sV+KDUYNFdl6ROt6RMV9Baf+ODAQWoHnljOZfBj2ZriiKQvUzAR7gB5LfQWfaR7qgNQtBGUsXveFw1L7q6zdd+t6uwh+d8uU+IHWMX8XcDVUfOKU13F3vebZebnLPm8XgD8GfaGsNQP6siDWA8cgaNPr92Oqp2uqg/MMkTcwXcSd5LKG7GjaAwjxxZ09oiTU0EunCGJGNfpTna3xKDOxXQms9zhNpiiJxAQokwT5r1F5WvvQCgRCLLO0dutSJ2dpvmeHzZwnM1xFiIad7czCb5fRL/xh3d4oRyQua0/+F51lanFLG8RFD56bJhMItMMQcBvTaOptsfgSQrlE90QkTuEARoo2JB6zHDLXro6qUv47jVkRTgOuMPVE01JylojS5bPF5Rv7lkFldE5QuJBzJzqS8PxFS4be+C88OVJ28stYrv78Jsah0I/9HcwqYvpNfd3Gcq6RR06gbgvQSxf0rIFUvAWISR0k/f0BEtmeJ0czMF3KI5XsqYS1U2EdNmp2CZQEItKefcDY1wgKty5cbCETAY1fXzbAk7Dahhpi/bbJ0W+3RUkcqbYvqtous5sSqReOeDqCRfLaMWxU4QQ1lTkyyW2cHA2E+47Dy8skuh107Hbvqnb8nQ+9EQuL+NKA4Ke/QUvYx+KvcqFb/yEGbVpBBiVY0JmDLiAn0K+f1xcwJf86fATgS6Xq+Zc1lTlO8Miyt8CXRsVFb9PElHI8IcjiExapGKbKULelE8sDKzTMbB0iMRRV7CuTeRVVjW8TJJ7y7l9HY3PX6rpjrW5/EbS8XdqfG9PZPwezX9NrpeyEiZ5zdLQTWAeauViDhn6AbcQHRvHcUqpOXSlpRTBXoW1Z6mUUcBUsbIfHayhLbfz6XKrtEF+yc8FXIIXE0ek3Z14PTTZgPTOC1FKaoMTk3dE6K3Hvpo+MFprxe08KMwDbQ8l6RbNBGQpLo3pUsY9zKQP8hFOaHcMlcV0+oh118lhzKXK1/GcQ7ByS0Wpr4bpOWWmW7IVYB5HVfTmLDabbXl2OWu4nY3kOt8RyngfaomR3pADm1W2bzUXlHENFw95HbTaxGj+OLk4Fc5FiiQpvwoEv69qrjbwo7xUv8oqa6L+2WghX1YnIylqWuTQeoAhhWmVmxjxUabEzCbaCiFbTdIDV/NEmJIYnasvdDpPq1+Ng9+lBX/v56lVtQqeoYi/GZDjaJ4zfsXNNAqWzuJNinwc/xzyPeEVJEA7Px0hIfpB0sCWPlnJkZYKZ/1CGOUoqHbcfBqCwaLB9MENs8TnUkR2ODK9dBRaJBxGO+AIXnQ2bTa5R+i2gUnKvk84GppOUHlP9yjiq++bhaqq3sPVP4Os1uByz1nnXqA2WHGdou2F9GMNnEqZP7aEvkfhEA149+RB/8zi7+jjxXgds6DahsCN+r0MlaZCc8LEoZhrh23wyukIw73taIO5XJIAkxvZ6fbFMH0QRMYEMTuvUMcHIC6E/nY/+odTOnJA7fCMs5I9yg7QCD4xcwIEKgYA9pa+sIUUQdOSnN2y9fPY/gHFtUPblNsFoCu3XKZCs7SEMk/45mGVt7n+ufAs47v+T7/ffgHXx69eQmcJyZunMYei6/iuwKHyivH+h+CRiZ764R1xcNHKa05EIeXz4W8SJUBuwFzaqLWK7Cqy+SZAx72ahvVYJkbJ4oBy+m3zFHWTd7y6VHw+uAhD3hnzCA7ODDUrZlMAtKLC0x0SFZ+21noc13xb1ETRjXuGUYUeXFBi549MJQ+VSHRg7UzPMbx0lzQnGqkliT1JLs/1CDUR0IS1TEQcKKfr9yiRAsZYdYsxWST7EMD0htOhk8raCqE+iMuvv1Umfh2GRgf0iTzArCIkR9q9eAdHpKjmbArvry3RG3lVawOBx8+Vp8QNkEQjCVRdU3GxGWoi8vW0XDzjinG4e4OT6xjhzm7Ju1y0wMr5Iz8FmGtpnjW/5N0SV/MbhN7QMoyS0g4VpU5E6Yh44/QGQZnd9YAyqZXGuUw23WLVmWA+iHI0v9q4vobo5+HvCMYkSywoq0n1P/G92uqd2HOZSxxOKgH8o/p6YQCmuLgkSxXhzsRTJWU8XBAP+Q+WgL4n+zSi4+ShlFpSCt/CstY8fwU3RagpJ0WHTH/PwGiivEx8MV0mSvwV2jBKIKOFQEkitUHHfN+kdkgi+x8ZKwrWJyAc/kpK7vST7e1Wh8HntxBKImBZucLsP91gxxBF5RgZsgp2jZQLyXbQahPLS+++rZfdAQuCJvuTMwyRTvis0xhTx8X4gFKJBvzqTjJPLBZ6fQ4gdo5pGu3UVsLZX/uzK3poYFlp+3vQe3GfVXCclp9vse1Ys5LEM8Dq+XjX96fRR3rM7cc5TODxvl5+HXRiub9ApvvQ6trIGroqLVfP5faJAnGw0qg2TLYdPCIx9wkw6OfA6hooRYdFE+OKw9bH62uARd9FEpARmp97lUb8oh43rvZZPkBdzTcmjw9VcvLDHiiTkRV0cTC5M8MNY71lzlLbdCa7ASxAwEVABlt/rOY0IkdNz+4MJ308gleGgkFaZg02n79Gw2bw/s8tqEfM/fcfcIrjpQJ6gNUdwJ/AHuNifEn8EEKKlRMI5c3OavjQG1X79xsTtHzB+CNDXNgflxJTY+ACs6bVl7pzkUA1+Ek+w1EO6vJix4KT7oFXoer29IpbOKTAghjXBBll4cjd78epG1ngfxMTuSwFybjaq4xphK09hrg88rsAScpPKuKtkuere2xqfkJjbITj590ZwxsL4y+LGCSe/OGvFrCwdB1Ez93HVYvGLYBFMkTlOGHRcM0SbkJ5Q8nqee2wnpg+Xb5T6GxqcplEWztOKcTpw65Mh8G9kqBisOEr5UX1UkmCtEnOpwuHRnFYy6qiSWQr5+E8+Tc2sF+1/g14uXiYRNcWYlmS94wTXI8wnaaPwMdL0cD/LDiMeRQzARghjz2wrghPrArC6O9JgcrbJxRlLshxJo5Pbgw7DRUgqvxD15435+ZC3WpPbIJlKBycMNyDJS8ekmG5zRA0f3Km47KKO/cp8joj8XwT7x5GOO7ScOeyu0N4TIpVX8OyMF2ekvgd+1LpdsxlnuU6nMivVWtisFdsMb6x+zBa8ysLdFv44FzVRRwpqFSLlI6/7OvsJq8kg0w6woK2REfWGMdeWHVSwGKvSd5Py3GtjbJemjv20iRvsCReMct9p7PqtuW1Qpri7dDCdrO0ocur4N20xV7vVWjjXEas4Yg21Vh8O+6AcQ5tGCeGUnjMIKBbQPkUlOu9jrOd0U+VDwU63jw/fN8uNap8rdN/GluVZ22M58Eq+qqDdNyvEzkcRakqFc7XrJWiZvD9fbZk/HTDay66+qWnZ2hErXVjYpCYxrhQWH81hj6kyF7G+bHIBKQ3Leg2IOiYkT/js/OpTyKN8q2YM6VNW/67nsetXbj2cK6+0J3zggOpBFoiEWVlX3+mG4EqYtx0v21vTNndblIUFU+7C2xaBKDHwTQnTwjrJj3n4atcMKkCq1IyLTqXS/KfyI6k4uPqWlmeckDVuqOZEyObhTEosQqFxOcwPNMX838AENoN6oExSyD7uwEGA4slXMfVXjeWU+zLlurNicsWg4p+uVjS1FWneXpKKb0QdiWSJV8yORGCEd8dmEOhYPPhPONx6gp/jnxVpetbz+VvlOC83DWO5QcWO+qh/kdUzOepwgkZ1yPn2Xud8HJGuJAveL727Dv0nMAOR1W5wJVkuSIFHMwp9DoiotlRGB0wzfVmZ/MfkFaz3tz2qiWNt2zRsbupmc0UBWucfSgN9RF968RduHoIh7UtWuGaxUCy7eLXFUsLaEl9qBksQNDsF2gcVKhImJL98BG0sHaeTNqM77/PuUFlFXYoNzg8R6IvLbSCWYP26fXUft+a02rS6vEcXJ3YNS9iBQmA33GpdWxA9+amjD24oaf0lmtMeyNUpNFqL0gMlw3+5r63cUV/oyRN474IvBHYfwAvBoYp75ZWOsLiS57ZR7dKFdbRO+v0UMsV4vf3hVCEo+yw/Iyww0WQAnPIjyuPrhFB6x/oyFREpH7S3ImsSZ2MO1dw5XeANs+D4XI4ntY5VtY+SSrjQ3aF/jwzVXet+qcuz6shN2l8d3uZ8RoFBZz7drFQ7lGURVnechzNXXfpCBi63sNTq/1mdRfyBjDNtNKFwR7SyyHJpkuk9nVjXs9TnTXQjoBmUFr558SDRN+KtzNkdBo/juBuRCGBJgC1hcy/MkqA91J2tbkbc/xFYYzE9eWicoiy1zZxisnsFRqwy6ahYwdhepeeabPuVPX0J5lVWhmDQ3IcjW5ghQDfyWTLVCzbaRpVaBKFR+Zh9HIDtGYjI4aKjSedlCqvqrX7Tn0pH4X037O1kd6tK3oWC9dqOmQbvpGh2FNpfdRlXlfEm/snAsEZy7TgwNgfmEX4Fv45fjP7ySPTbuD7xwWBkeEk0CTwaHe0uwaPtS/PA1crKbqKLUb251lOOOabWblk7MkGtZERV6oIXSPbpPnHYHjfmIqZZiL2rAiBezAN0ETRR6QcD6z7lZoYha4G6mU193VKJphYgcB5hCbv5X7MgMzRBYZRtxPtNB8UYPHGBBQ2Uw2dHROfoYbBcC5t6JII1duAmhM0Qty7aMuv6BAavBdj2MCTGg9fBvjQEzoJPfeDed4XiMCng2DGiPBT6KspKR6Ce/9S1E47lnyducPhhTl61AGmF2QJjRdwS9lXc9V1lXiSwjbrpT7HwTzoI6I3dQ2gDsvjVB9yG+KkgmMPKh1mS/D9x47pIiRYoRcCpNbTsHc8b0Nc578d0PMtRXiYndo4Q/UrMZ7SifHFbSPSZjsIYOCvu8ujFvQ37/rtzRXWsPNhrXcY7GkHEDUCO+s0MtshUfqFt52UsZBlFxtL4DMQax4kUsa27s/cRXZKDipjLLRdOse+fHsYLw/51xEfUOABSY7G4uAY/Zp8xevf+Z7/oXXtttjHEG707Cu+JV0dWhwASszCJq/wRyrRucvh1OQfEtJqJu3+ujLLOKnVSQ/Of2vBZXG8t3hAY8CEr/yT1e2mSc+qXLewmwOsj5R8ZvVJauxeFMoFlkzU5rL9gclecc2WDOO+awNYEnFIF/EntjdI+k8J473E1AtSxM0DV0UkMCceHiF8ktRsV2Gi0ragwb8g/bJAwXn6z6CBTVhY/dvoKgDeziZ5fCylMSF8rZU+ZB0ZaL1CPKbdwAE+AsTqClp0jlpww1PQiLPrwXeCJNhaQkfuNdpajYeb8cOh0IzNjGsBtoQm7IWS6VV5LiIyk0WrnXXaf4F9NKCqix3z7xIzLq7gDlRdMyKzs14aZo4iK1HTVvVsty3l+1Yff2PlrSBeGnf5CIhfXzl2p8V+GO1bvVPtu6C1ccvbfaHeBY5l1jFWht914/Ca6yVbdO8TL4vealoBr9U3bkRGwfqBNjhRlL2vLVvfJZLk3hIHVGV9tAC0yVQwnAT/OLOeWW3hTzPuJRq4TAX8Kt+NJeuUomkR8MkdHMNFIZ4zsWYiCczQj6k0YPZOX42f5l4WSNuFHlux3CYAIJT6Js/VnmFcKLySr8HwAC3LInylyGQucCBHyCwgZF9n+m9owZTOXbC9TfzQ26VDWI27Aji7XbvUoxgiAgwhKo5GEUIqux6YSY7qygD+PCR4DPvbAZT+U9qH+iijrEgTD0bzyF/q5Q/sC6aTVh+GTuDVx9nCunq1egZyWJXSycPFa1aMZVmdOfJ9r7xbI6GqYEAkPeDS5DrjTk1xQcabSA/0fAfxB2xVWekQ+6infIVRdnDBbDSi/4E+/4MjQMPrgN9UDRaVHIiUVRnbEHiD0OSYpzI2paTK9YWCFyJ7N9Z14I93Oc2AMky+kkHMoI3rVVBfl2a0Mkb0SSCHm27gdzNeg7hRiPBgFK10dGHbiEA84iMnRSfKdJkZ1nVymS3xPzVFE3mJPeYvcZmseMbusWs8Yr5svBO3LJYCPxwL7ZT7Sm3k5EBNZ3U9Vzcz38CoySaJSCiIQXBg85DkidA4elmIiFQ3bRrq9xIUAW5JbwX/GHRTbvr9se0v9NvgP73gBwCcpoeLeSV98MFBWY7zQzGd6wQmLHjp0f5m4N3F1pGwU2zZ5chpxoO9hGARDjgttc7bEC0HZKaXaok+/ttYgRP19xBL8BXHVrkP9U5l+ikue9Ujg8r3oFUFfEvpaSA/ic6UWFNtSB3RgDaG7p8D/8As7oByMKh6H769yluaf6AntQ70tlDVb/FDJqqbXFkY7OM2it+l7QwNA4RuzRpmftyk5PPutcok69OiJLp/PY8qWqndlKt/KlOaM/6MHHO0dPjLcIlOjJjEy1CHNNXIzMdVlXfiPo+tAvYNlU0CnHHJGXZE7BoUHJUyLFwdgkNvbeqp24vTefJWkJ90s+85cn/EPD1zsND9KZxQGg0/HH6N05+/w6dw0Ru/aXtT8H85QPEG82rBIARrjq1Wjsy8GQxkBbWIWGyk9aSTonq8zvTy29QAhbz1QuiTGo9+nj606rEZ3UxnuaATIACNXvbwGuGs9JlDtLf7axthZ4s78XN3uu4Z3scsQIZoUzSh9AXFgT3+2OCc5JpOmsSWUV0iERMdmUj6z9eANNN1GEg3wEOX8+ORtflzBDqAKIKvCpx1yhiQtNFBDBiGcwSpVgsTddbYHFngxMUTJmjl3aWmQXRYOXwIk4bntu3tUu5YWRn/dYywDZqfCp9II+G4Slp6voRt93QXhmbODb6rmGeRlf/ZPH/76ddtWW7hsmzdC7iiOfWLQUgMm6Pteze6i7kdlEAd/lc4RrWDcRDuiG5IfByfhf9V7VG6ZkHUGxYshvVduaKYqw4bHYb4v8i7uVnNWGj+s31z4MljgR643ed9d5twvrbjQOLakFM1oRhOdvEDnS3EhzvR3bPNiurag98bkMsC1B9De3FlEbqeqqxmTrFrPYUmdKZYybO36Dbfxx0IlZivuMNGgTVwsho0cT1LcfxjBsyoQMIao14xGbDnm1G95zy/jLDSmUWgnEbSbSjtDzlb/pQsKcYAA8RPc95Cn6GI5W0kA3ZfU3jN6BNRrbCmIPVTfXrdWlEJ3f1Pn/vuoB8nZ4eVRGKCNfLaM1NfMoB0tssQmONRJqsNuc2YaityOt2twPtImdVaOH+rZSd7XxLs+BczO/vB1aqm/7dUzHijaFXN1/U6U2Ci/DRe+nIvdnAJNFQDMutfCjaolXFpl5614QrGS1Mgh0vi/q/C5XzOZ/P4IX7nmDYFXvwQJb6+tAsMj5/uFlOZzPJqtTJ6nxBxdAjoTfzQEeFyyZZcbYFc6saqE5b67Xso9JKTL5UZiG7LQOkus5IE26oaF4JzNXKc+Sfq6cUBcD5X0ajjPlV7YUkaDjksyaSUc+iTzSKsYwN3DGAS1iv3pgLkgPQM17yjqrzF/KZ5Z6wdLLDR/LodT+ZmLf51u3f/ZTSBtUwpWXwMDMNTOOWHWu35P06oTaGeTB4UH87b5GFt7IJuvJTOKJQPPG5o2l8UzNAP/Q4IxSVsCRw+lbG2uTtnzTMDaCuO1l3t+KqhZdcyDeTxzzcAp1vkzuD0UE9ztZjb/h3sAf1wCW7lpZBvwyNa6Y93MI6G53tvbOC0X4oaQv2YLtDWws3A71hMP6QqTDjtkqYu077nurCc/xnTK2quautUfutVKaDxawg6SMXFj95+mxdDDtfdyAyN2H0u2FVarV83C80WLxqWWFSWEu/42hUEB+suvt+14PIN6r/AhLeomXbX4bWhESoU98nnCYGWo+mSRp4imTn4aoGxOJqIxvCMajE09sMkEhSrPa8920icp8TaUxc/s+4Byi0PlmEHhUb928VmEVPWJ3gtwtSsOBma1ylqgkexYAxDN/lXBtdiUUbCSx6kOufJJ7MgLDSZStX+qaJjhjKmPKfzmaBlcovzXctxYbR74KZ5/c/WXJvf9I/Aw9kKSQMm7n3ifool5mxqGfIV/1zPJoRZMb6sDKLw8RuxLhXuNoyV9X9t6m+L5d3rMALsSNdaagnUdQjVHYcHbXYOHybZpIDAMBPOt+5QQncuCowuFgHLcTVyJmFWtTCxUmwrWgJXkHhDWg5/VYfptzIctV/xB7MGuvwpPBVtU2vjdritojvewCNmk6Dem8nRi/Lm/N8R6UimqpH/BdC3vh66vk8iXE+X3E1WwXeXEAPMMdpRJ1It+l6kVG/FBE/9YYPlLMNU6MKcAUf041gdyxSF8us2mplGCRA9JgWC+r5uM/mgRpfNRAljV67HnEhvVORfAJJLBI5mvlWzPnK5cyAukCeHoX6WSGQvMwzXoOOnrsQee9U2x4g6Q7GgJ996GA6WQ2MZ1QUDYDKExnB3TafMD/kV74hYd8O2j/+n8fW9zBrnbL6gDTHwh8nrpZHdOnoWGOFL3QfjVlX2J/SlthuZBfuCLBu8mdodkdx0LTIWnFS6fArGZRqIlO7fMLmczQ7L4mSJZByf5fQPD3vL5rqRsxp5rcrzL/loDMy+MeiTI5oDc0Ny2QeImahjpGggismNDhZBBGCPdgCCXCXSwHT0x4UddbFpTafLp5dlxPNmReQoMPWrJ9FyqQ9p+hYHXsdotX1JJ9/YzgaFcvpn1WvUKGcmrRU4FH3jROp5eFTP07Ox/gHDs9yuXbYE1N80q0QHl0KCX4By/NHOYr6S3GPAOQ6ZonZJOOHcfMBqt+Y0MnFHVjHv2gDMVZW5yHRiM6fWXT2sJR0N6XCDPdfN9+ySd5sRjSDzkub8659qLskQwOvmdv+BsiO2Qq3oTHr538pqrx9FeAQ1MJk4KEspsjLyvjI5iiUqCNJqdCQ+aGeAh/8alJUpXD6eqZWENfHUNVngM1k74eC77LhnTGxlt62xzKlxSmYohU/h+21FXlg69zhxNGp93Ql8Sc27unhXeqXUeFsRc+gVtfd6VXJ7b++7on3GQP+wMtxfNjiOipFiUU2cs/JJOLmr6IpO4zGdyBarcfaAudrky4SbRiscunBjVXcpc7EkGmsFqoIJW+HN/7U2SoqDiKs5rP8W8ciLmsp/FWTrMjA1K+C2/sz9azDYgXaTD5vivHEcSeSalsZ2L1IjknrFHhFm5XF+RlTy1w7NEi/MBewfLidJVsuzaqaO77S0BZ69xMWPFbwDnsy0eAzT55l7DtmU+CIKo3oXblDoQe5LbCPe0783MEAP9TCOHmbEmGwAi/5aXkjdWKLfJGIt707naT/f8EcJsPUxFHBlQS3t2AYY5Bt1Jf80MTEVTFQn0+ldDx75bxucpCEHNHVH8o9nf+MC7QFWCFxcNQrM9m8JpGocK60n0PI/vau1cSOq1g0GidyZxQ/PW36mzqMMN610UDbUK0dSaC7WiQK3UzTRv02KnCLqPq4dxxB2u77ozPUX8EZp/DNdVGcnZxCdkEeUinfaDOmEji+IuPHM4QW0KwwuZxm+q+1sxIQN5m2fB6D5olqdm3zTqdvVSiE2cPtpv9jK98sWQ4fzYmsitNtWCIh9aW7DxSJOCr4bVhGbYiGezznaaRwW/rSuMx398QcUY9VMZHm+k3KUnajwPQyU0i/4jE8V4TyBT6V5kdwYtgbDVO9UVqEM56+UbuFVXsrvmT9m1gFjbdgaWxmHvctawHyS0rIZStZCjyNBXVSH8pQXskbq/CA3W5Ogt8l3tav1FZtzBF8INtn2/anHbttp0ZhG9CZhNLD6pUQztBKAEh4uK/mQFc/yC+ROQj3scJCia4vbrhO7Jq30+YwhZ3crEqW4xIQqXLTf2ipPbCqKP+6LX3Jw60F1YNzb7a2CL9GVLcinZBWXAh9u8tM6vadkBB4KbZrjyeri3xfnwFA8FWq3sH1l0T15Xn9+70i0RhZImOyCtiQNI8BHF8gsRwIc9B/W+Olbz6R8/4/erOLxvny8L+gJHiA8uKimGlAf0Fdhi6FKQKKVJDRSg5HQEI2o9U7CVrRePIx2LFjLrLPR5pnsck9IaQT/em27cmD+EX6XwalJP2jrpSZ4bXfS8VgyzcOU1cGBbDpijMvZowSyijg7xfjSx0m9jKrGmatxY2q2RIjKoIIbqvqCgIMHOzWSUK0YoVhTvqu7BkzC1hcnlVTqhw4ZliNz9dktOOcztVssf4CZGpcHoGsVF7q6oLdX5rJ2ZKolIO73DgJcmNBn3VMi90iGVUcd8FL7V3FNcMy37W/nk4c2N8UWGBNVsSeYdRc8oPzH0p+/4TS58HebWyVuBBEOB0twVj5bEt5Ablm3Ow3x69IVaQ+5tMcNdT1w9XqI0hddu+ctKLCtoo9t+jdEO9k1W2EDVeBn2ApCiFYGa3KEfuH27FQE5uFInx9bICP2+hSnI9K8HnUuvZrNN2VjIPiatKhMcqpdPwI2YbP1oAn5htrp+6BTjJv+tixoe49e6tHEOLHwna7lq8DPvIHDS55ZtBeJWc56zHNdMQ9PzSmPIOpRkllGNPLQf4Nt7YNwk6tLTpqCRJcz+ALLWK19B6A0rVjmTBrrIQ0SZvatJzNEHG384jLs2frreg6CW1qikS/pgycgZNEbqeucsza1tMDIL7ekhHpy0uhkq283Tr1eCbFYrBA+G05XemAnvUE+pPIZfnSX/3oBpyeLJZ7fY916UVv7Ky6N0Do3oW4et4dKkxCCR2pkuP1FhInfsUTxBewMhCAzD1N20oSkIG1lqKRf8DnpPN3ubKCtsxTkQT1rnStmM+OZAKZtsLAOGValL1HgdnHXqSsQSFB7PkrMtV1a/22fIRoHlyvffoAxYuPhHI5NBRlGJNA62izHGCE1CLSijeCZDRvQTwHeM61NjhgQyhgJBOgJAkREBeHMyQZk0khSeZ5glc4ednHdhO7/L/YzWtTI8MOj1+2es8Qq6y4oRoY5U0bIMyneJft/yyLsDI7jekeJHwpxKwTLrlYOmHigwr8wAEPs4g6R16IInZHr4ELG7iel35SxLwRm2d/OkolAYuMf9BvZRqWH/v3/CVM3de0/KQyc+wBGzLrM0A62HvLi63Qx22uS51tKBYGe/c9MV9gO5baUQxqn/qAoK1FEvVj5/vNZOlXAimi79A9SET4UZedJH8T774chg03ZsYSGhSZRx2KmjhAxK4qKOM97XNcZCVXGwZwkYBhOTr9mmrXFne6IPMe3w/inQDLaI1jK9NI9wlbV2PDAjGD+SMu2VUCIax20Ipz44a//9rYEnxGISf+Ny4VN6KcOx/3WQU1lvuheYw15rZwgYShqm+gsBwMHivQcj3AGUZS1J8tLnVBIQSF4jr/b/Al9LF0yvbu/RD7BfUww5hsqPZHWVb4ntMDjxFaYaVIOLNYCdjawxNlAR4xDyrpg9O/ZJtnUvr/DVIfpnM0ihP6+x+TorS3KhDl4Pr03mZRV3knX4auq9vuHEe8eIeOixDoN91VgG0ZmvROPmza8JcCV7D3JBgBioSVu80yfOrnS+xKnqXVnW9g/H8iRPo9DM0ghacpH8gzUuQv+AXcFnDvZaGsFOC9v3Yg0XDf0oSuwHk5GtF4yuWT2sg0GWoT1GaVFz1aK+97F+AhVi9TEl1/0xXzecB3kpeDPkJqlT2HbaEi8QEMRr";
+        var pl = "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";
     } catch (e) {
     }
 </script>
-<script src="/js/essay.js"></script>
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
-
+<script src="/js/musician.js"></script>
+<div class="footer">
+    <div class="foot-ct clearfix">
+        <div class="about-wrapper">
+            <h4 class="foot-item-head">关于</h4>
+            <p><a class="ln-about" href="http://www.luoo.net/about/">关于落网</a></p>
+            <p><a class="ln-about" href="http://www.luoo.net/m/page/jobs">加入我们</a></p>
+            <p><a class="ln-about" href="http://www.luoo.net/m/page/contact">联系合作</a></p>
+            <p><a class="ln-about" href="javascript:;" id="feedback">反馈建议</a></p>
+            <p><a class="ln-about" href="http://www.luoo.net/links/">友情链接</a></p>
+        </div>
+        <div class="app-wrapper">
+            <h4 class="foot-item-head">APP</h4>
+            <p>
+                <a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-ios"></span>&nbsp;&nbsp;for
+                    iPhone</a>
+            </p>
+            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-android"></span>&nbsp;&nbsp;for
+                Android</a></p>
+            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-wp"></span>&nbsp;&nbsp;for Windows
+                Phone 8</a></p>
+        </div>
+        <div class="sns-wrapper">
+            <h4 class="foot-item-head">关注落网</h4>
+            <div class="sns-items">
+                <a class="icon-sns-qq" id="luooQqAccount">
+					<span class="qq-group">
+						落网QQ官方群
+						·324063420
+						<br>
+						·55728744
+					</span>
+                </a>
+                <a href="/js/wechat-qr.gif" target="_blank" class="icon-sns-wechat" id="luooWechatAccount">
+                    <img src="/js/wechat-qr.gif" alt="wechat" class="wechat-qr">
+                </a>
+                <a href="http://weibo.com/luoofm" target="_blank" class="icon-sns-weibo"></a>
+                <a href="http://www.douban.com/group/luoo/" target="_blank" class="icon-sns-douban"></a>
+                <!-- <a href="https://twitter.com/Luoofm" target="_blank" class="icon-sns-twitter"></a>
+                <a href="https://www.facebook.com/luoofm" target="_blank" class="icon-sns-fb"></a>
+                <a href="http://instagram.com/luoofm" target="_blank" class="icon-sns-ins"></a> -->
+            </div>
+            <p class="icp">© 2018 落网</p>
+            <p class="slogan">
+                <span class="icon-slogan"></span>
+            </p>
+        </div>
+    </div>
 </div>
 <div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+<div id="feedbackWrapper" style="display:none;">
+    <div class="common-dialog-wrapper">
+        <form id="frmFeedback" action="http://www.luoo.net/feedback/" callback="feedback_cback" class="form-ajax">
+            <p class="fb-group">
+                <textarea name="content" class="rounded"></textarea>
+            </p>
+            <p class="fb-group helper" id="feedbackMsg">※ 请具体描述你的问题或建议</p>
+            <!-- <p class="fb-group file-group">
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive btn-screenshot">问题截图</a>
+                <input type="file" name="screen" class="btn-file">
+                <span class="helper">※ 请具体描述你的问题或建议</span>
+            </p> -->
+            <p class="fb-group">
+                <span class="label">联系方式</span>
+                <input type="text" name="contact">
+            </p>
+            <p class="fb-group">
+                <span class="label">验证码</span>
+                <input type="text" name="code" class="code" maxlength="4">
+                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
+                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/musician/index/229"
+                         class="captcha">
+                </a>
 
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnFeedbackSubmit">提交</a>
+                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnFeedbackCancle">取消</a>
+                <input type="hidden" name="ref" id="txtFeedbackRef" value="http://www.luoo.net/musician/index/229">
+            </p>
+        </form>
+        <div id="feedbackResult" class="ajax-result">
+            提交成功，非常感谢你的反馈，必要时我们将联系你。<br><br><span class="helper">窗口将在3秒后关闭。</span>
+        </div>
+    </div>
 </div>
 
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
+<div id="mailWrapper" style="display:none;">
+    <div class="common-dialog-wrapper">
+        <form id="frmMail" action="http://www.luoo.net/mail/send" callback="send_mail_cback" class="form-ajax">
+            <p class="fb-group helper">给"<span id="mailUserName"></span>"发私信</p>
 
+            <p class="fb-group">
+                <textarea name="content" class="rounded"></textarea>
+            </p>
+            <p class="fb-group helper" id="sendMailMsg"></p>
+            <p class="fb-group">
+                <span class="label">验证码</span>
+                <input type="text" name="code" class="code" maxlength="4">
+                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
+                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/musician/index/229"
+                         class="captcha">
+                </a>
+
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnSendMail">发送</a>
+                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnCancleMail">取消</a>
+                <input type="hidden" name="uid" id="mailUserId">
+            </p>
+        </form>
+        <div id="sendMailResult" class="ajax-result">
+            发送成功。<br><br><span class="helper">窗口将在3秒后关闭。</span>
+        </div>
+    </div>
 </div>
-<!--底部结束-->
-<img src="/img/loading_W.gif" style="display:none;">
+
+<img src="/js/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
     <div id="qrcodeContent" class="qrcode-content" title="http://www.luoo.net/">
         <canvas width="240" height="240" style="display: none;"></canvas>
@@ -538,7 +436,7 @@
                 "album": 26,
                 "page": 27,
                 "essay_topic": 28
-            }, "uid": "1405418", "sessid": "i843kl6u09nof4p8vifad1e4i7"
+            }, "uid": null, "sessid": "q5hc9kh3mir3n6vn737sj6ihn2"
         },
         cfg: {"auto_play": true, "aes": "b6ce159334e155d8"}
     });

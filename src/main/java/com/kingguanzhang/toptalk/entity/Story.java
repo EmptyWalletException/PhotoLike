@@ -13,6 +13,8 @@ public class Story {
     private long id;
     private String title;
     private Date creatTime;
+    private String subscribe;
+    private String content;
     private long collectNumber;
     private long commentNumber;
 
@@ -21,6 +23,8 @@ public class Story {
 
     @ManyToOne(optional = false)
     private User author;//废弃多对多及一对多级联功能后保留了此属性;
+
+
 
     /**
      * 关于一对多与多对一;
@@ -40,6 +44,22 @@ public class Story {
 
    /*  set  get  */
 
+
+    public String getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(String subscribe) {
+        this.subscribe = subscribe;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public User getAuthor() {
         return author;

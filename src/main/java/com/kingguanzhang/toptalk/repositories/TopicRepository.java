@@ -14,7 +14,12 @@ import java.util.List;
 @Repository
 public interface TopicRepository extends JpaRepository<Topic,Long> {
 
-
+    /**
+     * 自定义查询语句,通过categoryId查询出所有topic并且分页排序;
+     * @param categoryId
+     * @param pageable
+     * @return
+     */
     @Query(nativeQuery = true, value = "select * from topic  where id in (select topic_id from category_topic where category_id= :categoryId)",//ORDER BY ?#{#pageable}
             countQuery = "select count(*) from topic  where id in (select topic_id from category_topic where category_id= :categoryId)")
     Page<Topic> findByCategoryId(@Param("categoryId")Long categoryId,Pageable pageable);

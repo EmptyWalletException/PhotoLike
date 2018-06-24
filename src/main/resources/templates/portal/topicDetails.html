@@ -135,42 +135,39 @@ Where there&#39;s music and there&#39;...">
 <!--/// header end -->
 
 <div class="container ct-sm" style="min-height: 499px;">
-    <!--TODO 取出单张专辑详情: -->
     <div class="vol-tags clearfix">
-        <a href="http://www.luoo.net/music/" class="nav-back">
+        <a href="/topic" class="nav-back">
             <i class="icon-back"></i>
             返回期刊首页
         </a>
+        <!--TODO 根据topicid查询分类并遍历生成元素: -->
         <a href="http://www.luoo.net/music/pop" target="_blank" class="vol-tag-item">#流行</a><a
             href="http://www.luoo.net/music/britpop" target="_blank" class="vol-tag-item">#英伦</a></div>
     <h1 class="vol-name">
-        <span class="vol-number rounded">900</span>
-        <span class="vol-title">在这场叫做今天的戏剧中</span>
+        <span class="vol-number rounded" th:text="${topic.id}">900</span>
+        <span class="vol-title" th:text="${topic.title}">在这场叫做今天的戏剧中</span>
     </h1>
     <div class="vol-cover-wrapper" id="volCoverWrapper">
-        <img src="/js/640x452" alt="在这场叫做今天的戏剧中" class="vol-cover">
+        <img src="/js/640x452" alt="在这场叫做今天的戏剧中" class="vol-cover" th:alt="${topic.title}">
+        <!--TODO  这里可以改造成轮播图片的功能: -->
         <a href="http://www.luoo.net/vol/index/982" class="nav-prev" title="后一期">&nbsp;</a><a
             href="http://www.luoo.net/vol/index/975" class="nav-next" title="前一期">&nbsp;</a>
     </div>
 
-    <div class="vol-desc">
+    <div class="vol-desc" th:text="${topic.content}">
         Take me out tonight<br>今夜带我出去吧<br>Where there's music and there's people<br>那里有音乐和人群<br>And they're young and
         alive<br>那里青春永不息<br>Driving in your car<br>坐上你的车<br>I never never want to go home<br>我真不想回家<br>Because I haven't
         got one<br>那是因为我<br>Anymore<br>一无所有<br><br>- The Smiths <br><br>Every breaking wave on the
         shore<br>每一个破碎在岸上的浪花<br>Tells the next one there'll be one more<br>告知今后还会有更多的前赴后继<br>And every gambler knows
         that to lose<br>每个赌徒都清楚失败<br>Is what you're really there for<br>正是你真实的存在过<br><br>- U2 <br><br>It's not a
         case<br>努力使你满足<br>of aiming to please<br>那根本不是什么难事<br>You know you're always crying<br>但你懂你为什么总是在哭泣<br>It's just
-        your part<br>这就是你的角色<br>In the play<br>在这场叫做 今天<br>for today<br>的戏剧中<br><br>- The Cure <br>
-        <br>本期音乐为落网第900期音乐期刊，我们又跨过了一个具有象征意义的数字。
-        <br><br>在那时，我们在意路上匆忙的人群、在意明媚午后、在意自己是否时髦、以及在意脑海里的所有肆意妄为。在今天，这样一个信息快速且泛滥的时代里，我们再也找不回一整张专辑翻来覆去的听得稀巴烂的状态，只剩下回味里假想的脉脉温情，以及对未来充满着暴力色彩的急切渴求与期盼。在这么多年过去后，我们依然沒有得到自己想要的,可好像這一切也沒有那么糟。
-        <br><br>音乐无非就两种，一种是浮在表面的，而另一种则是渗人灵魂的。感谢所有曾经在黑夜中给予我们孤独的灵魂以安抚的声音。
-        <br><br>我们明天见。<br><br>本期音乐为英伦音乐专题。<br><br>Cover
+        your part<br>这就是你的角色<br>In the play<br>在这场叫做 今天<br>for today<br>的戏剧中<br><br>- The Cure <br><br>本期音乐为落网第900期音乐期刊，我们又跨过了一个具有象征意义的数字。<br><br>在那时，我们在意路上匆忙的人群、在意明媚午后、在意自己是否时髦、以及在意脑海里的所有肆意妄为。在今天，这样一个信息快速且泛滥的时代里，我们再也找不回一整张专辑翻来覆去的听得稀巴烂的状态，只剩下回味里假想的脉脉温情，以及对未来充满着暴力色彩的急切渴求与期盼。在这么多年过去后，我们依然沒有得到自己想要的,可好像這一切也沒有那么糟。<br><br>音乐无非就两种，一种是浮在表面的，而另一种则是渗人灵魂的。感谢所有曾经在黑夜中给予我们孤独的灵魂以安抚的声音。<br><br>我们明天见。<br><br>本期音乐为英伦音乐专题。<br><br>Cover
         From Vincent Bourilhon<br></div>
     <div class="clearfix vol-meta">
-        <img src="/js/128x128" alt="落在低处" class="author-avatar rounded">
-        <a class="vol-author" href="http://www.luoo.net/author/5000" target="_blank">落在低处</a>
+        <img src="/js/128x128" alt="落在低处" class="author-avatar rounded" th:alt="${topic.author.nickname}">
+        <a class="vol-author" href="http://www.luoo.net/user/5000" target="_blank" th:text="${topic.author.nickname}" th:href="'/user/'+${topic.author.id}">落在低处</a>
         <span class="separator fleft">・</span>
-        <span class="vol-date">2017-03-14</span>
+        <span class="vol-date" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}">2017-03-14</span>
         <a href="javascript:;" class="btn-action-like icon-fav" data-id="977" data-langliked="取消收藏" data-langlike="收藏"
            data-type="vol" data-tipid="volFavorDialog" title="收藏"></a> <a href="javascript:;"
                                                                           class="icon-share btn-action-share"
@@ -180,6 +177,733 @@ Where there&#39;s music and there&#39;...">
                                                                           rel="nofollow">
     </a>
 
+    </div>
+    <!-- tracklist -->
+    <div class="vol-tracklist" id="luooPlayerPlaylist">
+        <div class="player-large rounded clearfix">
+            <div class="cover-wrapper">
+                <img src="/js/580x580" class="cover rounded PLCover">
+            </div>
+
+            <div class="player-ct" id="playerCt" style="display: block;">
+                <div class="clearfix">
+                    <a href="javascript:;" rel="nofollow" class="icon-lyric"></a>
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share PLShare"
+                       data-app="single"></a>
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon-fav PLFav" data-type="single"
+                       data-cback="single_like_callback"></a>
+                </div>
+                <div class="trackname">
+                    <p class="PLTrackname" title="Take It Out On Me">Take It Out On Me</p>
+                </div>
+                <p class="track-meta">Artist: <span class="PLArtist" title="White Lies">White Lies</span></p>
+                <p class="track-meta">Album: <span class="PLAlbum" title="Friends">Friends</span></p>
+                <div class="btn-wrapper">
+                    <a href="javascript:;" rel="nofollow" class="jp-previous" title="上一曲">
+                        <span class="icon-prev-lg"></span>
+                    </a>
+                    <a href="javascript:;" rel="nofollow" class="jp-play" title="播放" style="display: none;">
+                        <span class="icon-play-lg"></span>
+                    </a>
+                    <a href="javascript:;" rel="nofollow" class="jp-pause" title="暂停" style="">
+                        <span class="icon-pause-lg"></span>
+                    </a>
+                    <a href="javascript:;" rel="nofollow" class="jp-next margin-right-0" title="下一曲">
+                        <span class="icon-next-lg"></span>
+                    </a>
+                </div>
+                <div class="clearfix">
+                    <div class="progress rounded">
+                        <div class="loaded rounded" style="width: 100%;">
+                            <div class="escaped rounded" style="width: 10.6157%;"></div>
+                        </div>
+                    </div>
+                    <div class="duration" id="PLDuration">
+                        <span class="current-time">00:24</span><span>/</span><span class="total-time">03:50</span>
+                    </div>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-volume" id="PLBtnVolume">
+                        <span class="icon-unmute"></span>
+                    </a>
+
+                    <div class="volume-bar-wrapper" id="PLVolBar">
+                        <div class="volume-bar jp-volume-bar">
+                            <div class="volume-bar-value jp-volume-bar-value" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-repeat jp-repeatone-off" title="列表循环">
+                        <span class="icon-repeat"></span>
+                    </a>
+                    <a href="javascript:;" rel="nofollow" class="btn-repeat jp-repeatone" title="单曲循环"
+                       style="display: none;">
+                        <span class="icon-repeat-one"></span>
+                    </a>
+                </div>
+            </div>
+            <!-- playerCt end /// -->
+            <div class="lyric-wrapper" id="lyricWrapper" style="display: none;">
+                <div class="lyric-hd clearfix">
+                    <div class="track-info">
+                        <p class="trackname PLTrackname" title="Take It Out On Me">Take It Out On Me</p>
+                        <p class="artist PLArtist" title="White Lies">White Lies</p>
+                    </div>
+                    <a href="javascript:;" rel="nofollow" class="icon-lyric-active"></a>
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share PLShare"
+                       data-app="single"></a>
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon-fav PLFav" data-type="single"
+                       data-cback="single_like_callback"></a>
+                </div>
+
+                <div class="lyric-ct" id="lyricCt"></div>
+            </div>
+        </div>
+        <!-- player-large end /// -->
+
+        <ul>
+
+            <li class="track-item rounded" id="track17988" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: inline-block;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">01. Take It Out On Me</a>
+                    <span class="artist btn-play">White Lies</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17988"
+                       data-sname="Take It Out On Me" style="visibility: visible;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17988" data-text="推荐White Lies的歌曲《Take It Out On Me》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11466/cover.jpg!/fwfh/580x580"
+                       style="visibility: visible;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17988"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: visible;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17988">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580" alt="Friends" class="cover rounded">
+                            <p class="name">Take It Out On Me</p>
+                            <p class="artist">Artist: White Lies</p>
+                            <p class="album">Album: Friends</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17989" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">02. Forget My Name</a>
+                    <span class="artist btn-play">One Night Only</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17989" data-sname="Forget My Name"
+                       style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17989" data-text="推荐One Night Only的歌曲《Forget My Name》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11467/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17989"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17989">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(1)" alt="Forget My Name" class="cover rounded">
+                            <p class="name">Forget My Name</p>
+                            <p class="artist">Artist: One Night Only</p>
+                            <p class="album">Album: Forget My Name</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17990" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">03. Everybody's Changing</a>
+                    <span class="artist btn-play">Keane</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17990"
+                       data-sname="Everybody&#39;s Changing" style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17990" data-text="推荐Keane的歌曲《Everybody&#39;s Changing》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/6/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17990"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17990">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(2)" alt="Hopes And Fears" class="cover rounded">
+                            <p class="name">Everybody's Changing</p>
+                            <p class="artist">Artist: Keane</p>
+                            <p class="album">Album: Hopes And Fears</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17991" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">04. Do No Wrong</a>
+                    <span class="artist btn-play">Thirteen Senses</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17991" data-sname="Do No Wrong"
+                       style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17991" data-text="推荐Thirteen Senses的歌曲《Do No Wrong》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/10/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17991"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17991">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(3)" alt="The Invitation" class="cover rounded">
+                            <p class="name">Do No Wrong</p>
+                            <p class="artist">Artist: Thirteen Senses</p>
+                            <p class="album">Album: The Invitation</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17992" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">05. For Anyone</a>
+                    <span class="artist btn-play">Beady Eye</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17992" data-sname="For Anyone"
+                       style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17992" data-text="推荐Beady Eye的歌曲《For Anyone》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11468/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17992"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17992">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(4)" alt="Different Gear, Still Speeding" class="cover rounded">
+                            <p class="name">For Anyone</p>
+                            <p class="artist">Artist: Beady Eye</p>
+                            <p class="album">Album: Different Gear, Still Speeding</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17993" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">06. Autumnsong</a>
+                    <span class="artist btn-play">Manic Street Preachers</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17993" data-sname="Autumnsong"
+                       style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17993" data-text="推荐Manic Street Preachers的歌曲《Autumnsong》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11469/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17993"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17993">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(5)" alt="Send Away The Tigers" class="cover rounded">
+                            <p class="name">Autumnsong</p>
+                            <p class="artist">Artist: Manic Street Preachers</p>
+                            <p class="album">Album: Send Away The Tigers</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17994" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">07. Round In Circles</a>
+                    <span class="artist btn-play">Hurricane #1</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17994"
+                       data-sname="Round In Circles" style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17994" data-text="推荐Hurricane #1的歌曲《Round In Circles》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11470/58c6e9dc4db59.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17994"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17994">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(6)" alt="Find What You Love and Let It Kill You"
+                                 class="cover rounded">
+                            <p class="name">Round In Circles</p>
+                            <p class="artist">Artist: Hurricane #1</p>
+                            <p class="album">Album: Find What You Love and Let It Kill You</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17995" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">08. Sonnet</a>
+                    <span class="artist btn-play">The Verve</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17995" data-sname="Sonnet"
+                       style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17995" data-text="推荐The Verve的歌曲《Sonnet》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11471/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17995"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17995">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(7)" alt="Sonnet" class="cover rounded">
+                            <p class="name">Sonnet</p>
+                            <p class="artist">Artist: The Verve</p>
+                            <p class="album">Album: Sonnet</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17996" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">09. Lines Of Light</a>
+                    <span class="artist btn-play">The Subways</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17996" data-sname="Lines Of Light"
+                       style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17996" data-text="推荐The Subways的歌曲《Lines Of Light》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/7705/58c6cc3462a49.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17996"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17996">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(8)" alt="Young For Eternity" class="cover rounded">
+                            <p class="name">Lines Of Light</p>
+                            <p class="artist">Artist: The Subways</p>
+                            <p class="album">Album: Young For Eternity</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17998" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">10. Every Breaking Wave</a>
+                    <span class="artist btn-play">U2</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17998"
+                       data-sname="Every Breaking Wave" style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17998" data-text="推荐U2的歌曲《Every Breaking Wave》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11473/5a35614d0a49f.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17998"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17998">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(9)" alt="Songs of Innocence" class="cover rounded">
+                            <p class="name">Every Breaking Wave</p>
+                            <p class="artist">Artist: U2</p>
+                            <p class="album">Album: Songs of Innocence</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17999" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">11. There Is a Light That Never
+                        Goes Out</a>
+                    <span class="artist btn-play">The Smiths</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17999"
+                       data-sname="There Is a Light That Never Goes Out" style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17999" data-text="推荐The Smiths的歌曲《There Is a Light That Never Goes Out》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11474/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17999"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17999">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(10)" alt="There Is a Light That Never Goes Out" class="cover rounded">
+                            <p class="name">There Is a Light That Never Goes Out</p>
+                            <p class="artist">Artist: The Smiths</p>
+                            <p class="album">Album: There Is a Light That Never Goes Out</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+
+            <li class="track-item rounded" id="track17997" data-fav="0">
+                <div class="track-wrapper clearfix">
+								<span class="btn-control btn-play">
+									<i class="icon-status-play" style="display: none;"></i>
+									<i class="icon-status-pause" style="display: none;"></i>
+								</span>
+                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">12. Play For Today</a>
+                    <span class="artist btn-play">The Cure</span>
+
+                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17997" data-sname="Play For Today"
+                       style="visibility: hidden;"></a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
+                       data-id="17997" data-text="推荐The Cure的歌曲《Play For Today》（分享自@落网）"
+                       data-img="http://img-cdn2.luoo.net/pics/albums/11472/cover.jpg!/fwfh/580x580"
+                       style="visibility: hidden;">
+                    </a>
+
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17997"
+                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
+                       style="visibility: hidden;">
+                    </a>
+
+                </div>
+                <div class="track-detail-wrapper" id="trackDetailWrapper17997">
+                    <div class="track-detail-arrow">
+                        <img src="/js/trian.png">
+                    </div>
+                    <div class="track-detail rounded clearfix">
+                        <div class="player-wrapper">
+                            <img src="/js/580x580(11)" alt="Seventeen Seconds" class="cover rounded">
+                            <p class="name">Play For Today</p>
+                            <p class="artist">Artist: The Cure</p>
+                            <p class="album">Album: Seventeen Seconds</p>
+                        </div>
+                        <div class="lyric-wrapper">
+                            <div class="lyric-content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--track-detail-wrapper end-->
+            </li>
+        </ul>
+        <!--/// tracklist end -->
+
+        <!-- player-follow -->
+        <div class="player-follow clearfix" id="playerFollow">
+            <img src="/js/580x580" class="cover" id="PFCover">
+            <div class="fleft">
+                <p class="name" id="PFName" title="Take It Out On Me">Take It Out On Me</p>
+                <p class="artist" id="PFArtist" title="White Lies">White Lies</p>
+                <p class="sns" id="PFSns">
+                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon-follow-fav PFFav"
+                       data-type="single" data-cback="single_like_callback"></a>
+                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-follow-share PFShare"
+                       data-app="single"></a>
+                </p>
+            </div>
+            <a href="javascript:;" rel="nofollow" class="jp-previous">
+                <span class="icon-follow-prev"></span>
+            </a>
+            <a href="javascript:;" rel="nofollow" class="jp-play" style="display: none;">
+                <span class="icon-follow-play"></span>
+            </a>
+            <a href="javascript:;" rel="nofollow" class="jp-pause" style="">
+                <span class="icon-follow-pause"></span>
+            </a>
+            <a href="javascript:;" rel="nofollow" class="jp-next">
+                <span class="icon-follow-next"></span>
+            </a>
+
+            <a href="javascript:;" rel="nofollow" class="btn-volume" id="PFBtnVolume">
+                <span class="icon-unmute"></span>
+            </a>
+
+            <div class="volume-bar-wrapper" id="PFVolBar">
+                <div class="volume-bar jp-volume-bar">
+                    <div class="volume-bar-value jp-volume-bar-value" style="width: 80%;"></div>
+                </div>
+            </div>
+        </div>
+        <!-- player-follow end ///-->
+
+        <div>
+            <div id="luooPlayerContent" style="width: 0px; height: 0px;"><img id="jp_poster_0"
+                                                                              style="width: 0px; height: 0px; display: inline;"
+                                                                              src="/js/580x580">
+                <audio id="jp_audio_0" preload="metadata"
+                       src="http://mp3-cdn2.luoo.net/low/luoo/radio900/01.mp3"></audio>
+            </div>
+            <div class="jp-playlist" style="display:none;">
+                <ul style="display: block;">
+                    <li class="jp-playlist-current">
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1">Take It
+                            Out On Me <span class="jp-artist">by White Lies</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Forget My Name <span
+                                class="jp-artist">by One Night Only</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Everybody's Changing <span
+                                class="jp-artist">by Keane</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Do No Wrong <span
+                                class="jp-artist">by Thirteen Senses</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">For Anyone <span
+                                class="jp-artist">by Beady Eye</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Autumnsong <span
+                                class="jp-artist">by Manic Street Preachers</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Round In Circles <span
+                                class="jp-artist">by Hurricane #1</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Sonnet <span
+                                class="jp-artist">by The Verve</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Lines Of Light <span
+                                class="jp-artist">by The Subways</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Every Breaking Wave <span
+                                class="jp-artist">by U2</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">There Is a Light That Never
+                            Goes Out <span class="jp-artist">by The Smiths</span></a></div>
+                    </li>
+                    <li>
+                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
+                                href="javascript:;" class="jp-playlist-item" tabindex="1">Play For Today <span
+                                class="jp-artist">by The Cure</span></a></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!--thanks block-->
@@ -231,28 +955,25 @@ Where there&#39;s music and there&#39;...">
 
     <!-- relative vol -->
     <div class="relative-vol">
-        <h3>相似期刊</h3>
+        <h3>最热期刊</h3>
         <div class="clearfix">
+            <div class="item" th:each="topic,topicStat:${hotTopicPage}" th:if="${topicStat.index}<4">
+                <a href="http://www.luoo.net/vol/index/89" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
 
-            <!--TODO 遍历并取出相似期刊: -->
-            <div class="item">
-                <a href="http://www.luoo.net/vol/index/89" class="cover-wrapper">
-
-                    <img src="/js/160x120" alt="光的深处" class="cover rounded">
+                    <img src="/js/160x120" alt="光的深处" class="cover rounded" th:alt="${topic.title}">
                 </a>
                 <div class="vol-info">
-                    <a href="http://www.luoo.net/vol/index/89" title="光的深处" class="title">vol.395 光的深处</a>
-                    <p class="description">18237人收藏</p>
+                    <a href="http://www.luoo.net/vol/index/89" title="光的深处" class="title"
+                       th:href="'/topic/'+${topic.id}" th:title="${topic.title}"
+                       th:text="'Top.'+${topic.id}+${topic.title}">vol.395 光的深处</a>
+                    <p class="description" th:text="${topic.collectNumber}+'人收藏'">1111收藏</p>
                 </div>
             </div>
-
-
         </div>
     </div>
     <!--// relative vol end-->
 
     <!--// comment-wrapper end-->
-    <!--评论区域-->
     <div class="comment-wrapper" id="comment">
         <h3 class="volcount">评论·
             <small id="volcount">227</small>
@@ -260,7 +981,7 @@ Where there&#39;s music and there&#39;...">
 
         <div class="comment-editor">
             <a href="javascript:;" class="avatar-wrapper" id="commentAvatarHolder" rel="nofollow">
-                <img src="/js/avatar.gif" alt="" class="avatar rounded">
+                <img src="/img/avatar.gif" alt="" class="avatar rounded">
             </a>
             <div class="editor-wrapper">
                 <form action="http://www.luoo.net/comment/add" id="commentForm">
@@ -317,12 +1038,11 @@ Where there&#39;s music and there&#39;...">
 
         <div class="comment-list" id="commentList">
             <div id="commentItems">
-                <!--TODO 遍历取出评论及子评论: -->
                 <div class="item">
 
 
                     <a href="http://www.luoo.net/user/1367452" class="avatar-wrapper" target="_blank">
-                        <img src="/js/128x128(11)" alt="如如乖" class="avatar rounded">
+                        <img src="/img/128x128(11)" alt="如如乖" class="avatar rounded">
                     </a>
                     <div class="item-wrapper">
                         <div class="helper">
@@ -398,12 +1118,11 @@ Where there&#39;s music and there&#39;...">
 
                     </div>
                 </div>
-
                 <div class="item">
 
 
                     <a href="http://www.luoo.net/user/1373964" class="avatar-wrapper" target="_blank">
-                        <img src="/js/128x128(12)" alt="清谷" class="avatar rounded">
+                        <img src="/img/128x128(12)" alt="清谷" class="avatar rounded">
                     </a>
                     <div class="item-wrapper">
                         <div class="helper">
@@ -478,293 +1197,1566 @@ Where there&#39;s music and there&#39;...">
 
                     </div>
                 </div>
+                <div class="item">
 
 
-            </div>
-        </div>
-        <div class="paginator" id="paginator"><a class="previous disabled" rel="nofollow"
-                                                 href="javascript:void(0);">上一页</a><a class="page actived"
-                                                                                      rel="nofollow"
-                                                                                      href="javascript:void(0);">1</a><a
-                class="page" rel="nofollow" href="javascript:void(0);" data-page="2">2</a><a class="page" rel="nofollow"
-                                                                                             href="javascript:void(0);"
-                                                                                             data-page="3">3</a><a
-                class="page" rel="nofollow" href="javascript:void(0);" data-page="4">4</a><a class="page" rel="nofollow"
-                                                                                             href="javascript:void(0);"
-                                                                                             data-page="5">5</a><a
-                class="page" rel="nofollow" href="javascript:void(0);" data-page="6">6</a><a class="page" rel="nofollow"
-                                                                                             href="javascript:void(0);"
-                                                                                             data-page="7">7</a><a
-                class="page" rel="nofollow" href="javascript:void(0);" data-page="8">8</a><a class="page" rel="nofollow"
-                                                                                             href="javascript:void(0);"
-                                                                                             data-page="9">9</a><a
-                class="page" rel="nofollow" href="javascript:void(0);" data-page="10">10</a><a class="next"
-                                                                                               href="javascript:void(0);"
-                                                                                               data-page="2">下一页</a>
-        </div>
-
-        <!--评论的回复-->
-        <script id="sub-comment-template" type="text/template">
-            <%
-            if(typeof avatar == 'undefined') avatar = '';
-            if(typeof vote_count == 'undefined' || vote_count == null) vote_count = 0;
-            if(typeof create_time == 'undefined') create_time = '';
-            if(typeof content == 'undefined') content = '';
-            if(typeof pretty_time == 'undefined') pretty_time = '';
-            if(typeof(uid) == "undefined" || user_name == null) uid = -1;
-            if(typeof(comment_id) == "undefined") comment_id = 0;
-
-            if(vote_count && vote_count != 0){
-            if(typeof(is_voted) != 'undefined'){
-            vote = '<a data-res="' + comment_id + '" data-app="5" class="btn-vote btn-action-vote hide"
-                       href="javascript:void(0);" rel="nofollow"> <i class="icon-vote-actived"></i>
-                <span>赞了</span></a>';
-            }else{
-            vote = '<a data-res="' + comment_id + '" data-app="5" data-tipid="commentVoteDialog' + comment_id + '"
-                       data-width="235" class="btn-vote btn-action-vote hide" href="javascript:void(0);" rel="nofollow"><i
-                    class="icon-vote"></i> <span>赞</span></a>';
-            }
-            vote_count_html = '<span class="vote-count" data-count="' + vote_count + '">' + vote_count + '赞</span>';
-            }else{
-            vote = '<a data-res="' + comment_id + '" data-app="5" data-tipid="commentVoteDialog' + comment_id + '"
-                       data-width="235" class="btn-vote btn-action-vote hide" href="javascript:void(0);" rel="nofollow"><i
-                    class="icon-vote"></i> <span>赞</span></a>';
-            vote_count_html = '<span class="vote-count" style="display:none;" data-count="0">0赞</span>';
-            }
-
-            // 删除 举报
-            var del = '', report = '';
-            if(author_view){
-            del = '<a href="javascript:void(0);" class="comment-more-item btn-delcom hide" data-id="' + comment_id + '"
-                      rel="nofollow"><span class="icon icon-trash"></span> 删除</a>';
-            }else{
-            if( (typeof(comment_reports) != 'undefined') && (comment_reports.indexOf(comment_id) != -1) ){
-            report = '<a href="javascript:void(0);" class="comment-more-item btn-report hide" rel="nofollow"><span
-                    class="icon icon-report"></span> <span class="report-status">已举报</span></a>';
-            }else{
-            report = '<a href="javascript:void(0);" class="comment-more-item btn-report hide"
-                         data-res="' + comment_id + '" data-app="5" data-tipid="commentReportDialog' + comment_id + '"
-                         data-width="235" rel="nofollow"><span class="icon-report"></span><span class="report-status"> 举报</span></a>';
-            }
-            }
-
-            // 签名、历史评论
-            if(uid == -1){
-            user_link = 'javascript:void(0);';
-            user_name = '';
-            user_text = '<a href="javascript:void(0);" class="helper" rel="nofollow"></a>（历史评论）';
-            target = '';
-            }else{
-            user_link = 'http://www.luoo.net/user/' + uid;
-            reply_html = '';
-            if(comment_at != top_id){
-            reply_user_link = 'http://www.luoo.net/user/' + reply_uid;
-            reply_html = ' <span class="reply">回复</span> <a href="' + reply_user_link + '" class="username"
-                                                            target="_blank">' + reply_uname + '</a>';
-            }
-            user_text = '<a href="' + user_link + '" class="username" target="_blank">' + user_name +
-                '</a>' + reply_html;
-            target = '_blank';
-            }
-            %>
-            <a href="<%=user_link%>" class="avatar-wrapper" target="<%=target%>">
-                <img src="<%=avatar%>" alt="<%=user_name%>" class="avatar rounded">
-            </a>
-            <div class="item-wrapper">
-                <%=user_text%>
-                <div class="comment-ct">
-                    <% if(status == 3){ %>
-                    <p class="helper">原评论已被删除</p>
-                    <% }else{ %>
-                    <p class="the-comment" data-vote="<%=vote_count%>" data-ct="<%=create_time%>"><%=content%></p>
-                    <% } %>
-                </div>
-                <div class="helper clearfix">
-                    <%=pretty_time%>
-                    <% if(status != 3 && uid != -1){ %>
-                    <%=vote%>
-                    <a href="javascript:void(0);" class="btn-reply btn-action-reply hide" data-res="<%=comment_id%>"
-                       data-user="<%=user_name%>">
-                        <span class="icon-reply"></span>
-                        回复
+                    <a href="http://www.luoo.net/user/1356436" class="avatar-wrapper" target="_blank">
+                        <img src="/img/up155784551-1.jpg" alt="神妪" class="avatar rounded">
                     </a>
-                    <%=report%>
-                    <%=del%>
-                    <%=vote_count_html%>
-                    <% } %>
-                </div>
-            </div>
-            <form action="http://www.luoo.net/comment/add" class="editor-wrapper form-comment-at hide">
-                <div class="editor">
-                    <textarea name="content" class="editor-comment-at" spellcheck="false" autocomplete="off"></textarea>
-                </div>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1356436" class="username" target="_blank">神妪</a>
 
-                <div class="toolbar clearfix">
-                    <div class="btn-group">
-                        <a href="javascript:void(0);" class="btn-link btn-action-cancel-at">取消</a>
-                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
-                                data-tipid="commentSubmitDialog" data-remote="http://www.luoo.net/login/dialog"
-                                data-width="235">评论
-                        </button>
-                    </div>
-                </div>
-
-                <input type="hidden" name="app_id" value="1">
-                <input type="hidden" name="res_id" value="977">
-                <input type="hidden" name="comment_at" value="<%=comment_id%>">
-            </form>
-        </script>
-
-        <!--评论模板-->
-        <script id="comment-template" type="text/template">
-            <%
-            if(typeof avatar == 'undefined') avatar = '';
-            if(typeof vote_count == 'undefined' || vote_count == null) vote_count = 0;
-            if(typeof create_time == 'undefined') create_time = '';
-            if(typeof content == 'undefined') content = '';
-            if(typeof pretty_time == 'undefined') pretty_time = '';
-            if(typeof(uid) == "undefined" || user_name == null) uid = -1;
-            if(typeof(comment_id) == "undefined") comment_id = 0;
-
-            if((typeof(vote_count) != "undefined") && vote_count != 0){
-            if(typeof(is_voted) != 'undefined'){
-            vote = '<a data-res="' + comment_id + '" data-app="5" class="btn-vote btn-action-vote"
-                       href="javascript:void(0);" rel="nofollow"> <i class="icon-vote-actived"></i>
-                <span>赞了</span></a>';
-            }else{
-            vote = '<a data-res="' + comment_id + '" data-app="5" data-tipid="commentVoteDialog' + comment_id + '"
-                       data-width="235" class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
-                    class="icon-vote"></i> <span>赞</span></a>';
-            }
-            vote_count_html = '<span class="vote-count" data-count="' + vote_count + '">' + vote_count + '赞</span>';
-            }else{
-            vote = '<a data-res="' + comment_id + '" data-app="5" data-tipid="commentVoteDialog' + comment_id + '"
-                       data-width="235" class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
-                    class="icon-vote"></i> <span>赞</span></a>';
-            vote_count_html = '<span class="vote-count" style="display:none;" data-count="0">0赞</span>';
-            }
-
-            // 删除 举报
-            var del = '', report = '';
-            if(author_view){
-            del = '<a href="javascript:void(0);" class="comment-more-item btn-delcom" data-id="' + comment_id + '"
-                      rel="nofollow"><span class="icon icon-trash"></span> 删除</a>';
-            }else{
-            if( (typeof(comment_reports) != 'undefined') && (comment_reports.indexOf(comment_id) != -1) ){
-            report = '<a href="javascript:void(0);" class="comment-more-item btn-report" rel="nofollow"><span
-                    class="icon icon-report"></span> <span class="report-status">已举报</span></a>';
-            }else{
-            report = '<a href="javascript:void(0);" class="comment-more-item btn-report" data-res="' + comment_id + '"
-                         data-app="5" data-tipid="commentReportDialog' + comment_id + '" data-width="235"
-                         rel="nofollow"><span class="icon-report"></span><span class="report-status"> 举报</span></a>';
-            }
-            }
-
-            // 签名、历史评论
-            if(uid == -1){
-            user_link = 'javascript:void(0);';
-            user_name = '';
-            user_text = '<a href="javascript:void(0);" class="helper" rel="nofollow"></a>（历史评论）';
-            target = '';
-            }else{
-            user_link = 'http://www.luoo.net/user/' + uid;
-            user_text = '<a href="' + user_link + '" class="username" target="_blank">' + user_name + '</a>';
-            if(mood){
-            user_text += '，' + mood;
-            }
-            target = '_blank';
-            }
-
-            // 来自客户端
-            from = '';
-            if(client != 1){
-            from = '<a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>';
-            }
-            %>
-
-            <a href="<%=user_link%>" class="avatar-wrapper" target="<%=target%>">
-                <img src="<%=avatar%>" alt="<%=user_name%>" class="avatar rounded">
-            </a>
-            <div class="item-wrapper">
-                <div class="helper">
-                    <%=user_text%>
-                    <% if(status != 3 && uid != -1){ %>
-                    <div class="more">
+                            <div class="more">
                                         <span class="icon-more">
                                             ▼
                                             <span class="more-menu">
-                                                <%=del%>
-                                                <%=report%>
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="635486" data-app="5" data-tipid="commentReportDialog635486"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
                                             </span>
                                         </span>
-                    </div>
-                    <% } %>
-                </div>
-                <div class="comment-ct">
-                    <% if(status == 3){ %>
-                    <p class="helper">原评论已被删除</p>
-                    <% }else{ %>
-                    <p class="the-comment" data-vote="<%=vote_count%>" data-ct="<%=create_time%>"><%=content%></p>
-                    <% } %>
-                </div>
-                <div class="helper clearfix">
-                    <%=pretty_time%>
-                    <%=from%>
-                    <% if(status != 3 && uid != -1){ %>
-                    <%=vote%>
-                    <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="<%=comment_id%>"
-                       data-user="<%=user_name%>">
-                        <span class="icon-reply"></span>
-                        回复
-                    </a>
-                    <%=vote_count_html%>
-                    <% } %>
-                </div>
-
-                <% if(status != 3){ %>
-                <div class="sub-comment clearfix <%=sub_comm?'':'hide'%>">
-                    <span class="arrows"></span>
-
-                    <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
-                        <div class="editor">
-                            <textarea name="content" class="editor-comment-at" spellcheck="false"
-                                      autocomplete="off"></textarea>
-                        </div>
-
-                        <div class="toolbar clearfix">
-                            <div class="btn-group">
-                                <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
-                                <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
-                                        data-tipid="commentSubmitDialog" data-remote="http://www.luoo.net/login/dialog"
-                                        data-width="235">评论
-                                </button>
                             </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1518854279">11 call me by your name</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2018-02-17
+
+
+                            <a data-res="635486" data-app="5" data-tipid="commentVoteDialog635486" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="635486"
+                               data-user="神妪">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
                         </div>
 
-                        <input type="hidden" name="app_id" value="1">
-                        <input type="hidden" name="res_id" value="977">
-                        <input type="hidden" name="comment_at" value="<%=comment_id%>">
-                    </form>
-                    <div class="clearfix items">
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="635486">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
 
                     </div>
-                    <%
-                    if(sub_comm && at_count > 10){
-                    %>
-                    <!--<div class="more-comment">
-                        <a href="javascript:void(0);" class="all-comment" data-topid="<%=comment_id%>" data-size="<%=(at_count-10)%>" data-url="http://www.luoo.net/comment/get_sub_comm">显示全部<%=(at_count-10)%>条评论</a>
-                    </div>-->
-                    <%
-                    }
-                    %>
                 </div>
-                <% } %>
+                <div class="item">
 
+
+                    <a href="http://www.luoo.net/user/986174" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(13)" alt="Israel" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/986174" class="username" target="_blank">Israel</a>，噼里啪啦
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="630854" data-app="5" data-tipid="commentReportDialog630854"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1517544510">10</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2018-02-02
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="630854" data-app="5" data-tipid="commentVoteDialog630854" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="630854"
+                               data-user="Israel">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="630854">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/581874" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(14)" alt="秋祥梦" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/581874" class="username" target="_blank">秋祥梦</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="615290" data-app="5" data-tipid="commentReportDialog615290"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1513851911">在那天分别，没有了以后</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-12-21
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="615290" data-app="5" data-tipid="commentVoteDialog615290" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="615290"
+                               data-user="秋祥梦">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="615290">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/129342" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(15)" alt="陈彧屿" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/129342" class="username" target="_blank">陈彧屿</a>，夜尽天明
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="607034" data-app="5" data-tipid="commentReportDialog607034"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1512313901">今天听觉得第三首还挺喜欢的。</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-12-03
+
+
+                            <a data-res="607034" data-app="5" data-tipid="commentVoteDialog607034" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="607034"
+                               data-user="陈彧屿">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="607034">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/1285850" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1285850" class="username" target="_blank">秋刀鱼-</a>，我不但是后摇狗，还是核狗.
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="597380" data-app="5" data-tipid="commentReportDialog597380"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="1" data-ct="1510312452">现在每一张歌单都巨尼玛难听，选的都什么东西</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-11-10
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="597380" data-app="5" data-tipid="commentVoteDialog597380" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="597380"
+                               data-user="秋刀鱼-">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" data-count="1">1赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix ">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="597380">
+                            </form>
+                            <div class="clearfix items">
+
+                                <div class="item">
+
+                                    <a href="http://www.luoo.net/user/844440" class="avatar-wrapper" target="_blank">
+                                        <img src="/img/128x128(17)" alt="捞星少年" class="avatar rounded">
+                                    </a>
+                                    <div class="item-wrapper">
+                                        <a href="http://www.luoo.net/user/844440" class="username"
+                                           target="_blank">捞星少年</a>
+                                        <div class="comment-ct">
+
+                                            <p class="the-comment" data-vote="1" data-ct="1512961397">
+                                                觉得难听说明这一期不符合你的口味，右上角关闭就好了，非要来评论刷下存在感有意思吗。同样是听后摇和核的，为你的素质感到悲哀</p>
+
+                                        </div>
+                                        <div class="helper clearfix">
+                                            2017-12-11
+
+                                            <a data-res="611072" data-app="5" data-tipid="commentVoteDialog611072"
+                                               data-width="235" class="btn-vote btn-action-vote hide"
+                                               href="javascript:void(0);" rel="nofollow"><i class="icon-vote"></i>
+                                                <span>赞</span></a>
+                                            <a href="javascript:void(0);" class="btn-reply btn-action-reply hide"
+                                               data-res="611072" data-user="捞星少年">
+                                                <span class="icon-reply"></span>
+                                                回复
+                                            </a>
+                                            <a href="javascript:void(0);" class="comment-more-item btn-report hide"
+                                               data-res="611072" data-app="5" data-tipid="commentReportDialog611072"
+                                               data-width="235" rel="nofollow"><span class="icon-report"></span><span
+                                                    class="report-status"> 举报</span></a>
+
+                                            <span class="vote-count" data-count="1">1赞</span>
+
+                                        </div>
+                                    </div>
+                                    <form action="http://www.luoo.net/comment/add"
+                                          class="editor-wrapper form-comment-at hide">
+                                        <div class="editor">
+                                            <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                                      autocomplete="off"></textarea>
+                                        </div>
+
+                                        <div class="toolbar clearfix">
+                                            <div class="btn-group">
+                                                <a href="javascript:void(0);"
+                                                   class="btn-link btn-action-cancel-at">取消</a>
+                                                <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                        data-tipid="commentSubmitDialog"
+                                                        data-remote="http://www.luoo.net/login/dialog" data-width="235">
+                                                    评论
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" name="app_id" value="1">
+                                        <input type="hidden" name="res_id" value="977">
+                                        <input type="hidden" name="comment_at" value="611072">
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/1285850" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1285850" class="username" target="_blank">秋刀鱼-</a>，我不但是后摇狗，还是核狗.
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="597379" data-app="5" data-tipid="commentReportDialog597379"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1510312374">真尼玛难听</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-11-10
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="597379" data-app="5" data-tipid="commentVoteDialog597379" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="597379"
+                               data-user="秋刀鱼-">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="597379">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/462775" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(18)" alt="XXXXBLAZE" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/462775" class="username" target="_blank">XXXXBLAZE</a>，因为喜欢所以热爱
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="590598" data-app="5" data-tipid="commentReportDialog590598"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1508686551">最近几个月又开始想起你不管是时间还是距离</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-10-22
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="590598" data-app="5" data-tipid="commentVoteDialog590598" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="590598"
+                               data-user="XXXXBLAZE">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="590598">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/274819" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(19)" alt="Yuer" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/274819" class="username" target="_blank">Yuer</a>，每个人的心中都有一团火，路过的人只看到烟。
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="552361" data-app="5" data-tipid="commentReportDialog552361"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="2" data-ct="1503071072">喜欢每晚听上几首歌然后睡去，那么，晚安了</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-08-18
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="552361" data-app="5" data-tipid="commentVoteDialog552361" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="552361"
+                               data-user="Yuer">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" data-count="2">2赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="552361">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/644602" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(20)" alt="readiness" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/644602" class="username" target="_blank">readiness</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="541936" data-app="5" data-tipid="commentReportDialog541936"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1502102973">封面很美</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-08-07
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="541936" data-app="5" data-tipid="commentVoteDialog541936" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="541936"
+                               data-user="readiness">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="541936">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/619072" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(21)" alt="听首歌" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/619072" class="username" target="_blank">听首歌</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="540837" data-app="5" data-tipid="commentReportDialog540837"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="2" data-ct="1501984100">defeat有名词形式失败和动词形式战胜两种意思～<br><br>突然有种上英语课的感觉_(:з」∠)_
+                            </p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-08-06
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="540837" data-app="5" data-tipid="commentVoteDialog540837" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="540837"
+                               data-user="听首歌">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" data-count="2">2赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="540837">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/1259147" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(22)" alt="卡特琳娜" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1259147" class="username" target="_blank">卡特琳娜</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="540574" data-app="5" data-tipid="commentReportDialog540574"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1501940584">perfect</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-08-05
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="540574" data-app="5" data-tipid="commentVoteDialog540574" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="540574"
+                               data-user="卡特琳娜">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="540574">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/292637" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(23)" alt="管中行" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/292637" class="username" target="_blank">管中行</a>，画地为牢，困住的是一场场杀戮！
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="533904" data-app="5" data-tipid="commentReportDialog533904"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1501298295">中</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-07-29
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="533904" data-app="5" data-tipid="commentVoteDialog533904" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="533904"
+                               data-user="管中行">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="533904">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/235092" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(24)" alt="Whisperange" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/235092" class="username" target="_blank">Whisperange</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="532954" data-app="5" data-tipid="commentReportDialog532954"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="1" data-ct="1501216874">推荐第四首歌的那个乐队。</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-07-28
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="532954" data-app="5" data-tipid="commentVoteDialog532954" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="532954"
+                               data-user="Whisperange">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" data-count="1">1赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="532954">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/1085956" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(25)" alt="蓝-" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1085956" class="username" target="_blank">蓝-</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="500102" data-app="5" data-tipid="commentReportDialog500102"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="2" data-ct="1496327578">居然能在落网听到听过的歌</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-06-01
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="500102" data-app="5" data-tipid="commentVoteDialog500102" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="500102"
+                               data-user="蓝-">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" data-count="2">2赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="500102">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/1211572" class="avatar-wrapper" target="_blank">
+                        <img src="/img/100" alt="余生_qq8467" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1211572" class="username" target="_blank">余生_qq8467</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="494355" data-app="5" data-tipid="commentReportDialog494355"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="2" data-ct="1495342971">爱你就像稀巴烂</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-05-21
+
+
+                            <a data-res="494355" data-app="5" data-tipid="commentVoteDialog494355" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="494355"
+                               data-user="余生_qq8467">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" data-count="2">2赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="494355">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/105478" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(26)" alt="10Hy" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/105478" class="username" target="_blank">10Hy</a>，我想念你一如独自撸管的悲伤
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="491603" data-app="5" data-tipid="commentReportDialog491603"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1494926334">三年零六天<br>又打开了落网</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-05-16
+
+
+                            <a data-res="491603" data-app="5" data-tipid="commentVoteDialog491603" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="491603"
+                               data-user="10Hy">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="491603">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/1192876" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(27)" alt="Damien-rice" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1192876" class="username" target="_blank">Damien-rice</a>，胶卷映出的阿司匹林般缄默。
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="484351" data-app="5" data-tipid="commentReportDialog484351"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1493292297">英伦带来雨中的温暖。</p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-04-27
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="484351" data-app="5" data-tipid="commentVoteDialog484351" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="484351"
+                               data-user="Damien-rice">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="484351">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="item">
+
+
+                    <a href="http://www.luoo.net/user/1180940" class="avatar-wrapper" target="_blank">
+                        <img src="/img/128x128(28)" alt="我的私享" class="avatar rounded">
+                    </a>
+                    <div class="item-wrapper">
+                        <div class="helper">
+                            <a href="http://www.luoo.net/user/1180940" class="username" target="_blank">我的私享</a>
+
+                            <div class="more">
+                                        <span class="icon-more">
+                                            ▼
+                                            <span class="more-menu">
+                                                
+                                                <a href="javascript:void(0);" class="comment-more-item btn-report"
+                                                   data-res="482264" data-app="5" data-tipid="commentReportDialog482264"
+                                                   data-width="235" rel="nofollow"><span
+                                                        class="icon-report"></span><span
+                                                        class="report-status"> 举报</span></a>
+                                            </span>
+                                        </span>
+                            </div>
+
+                        </div>
+                        <div class="comment-ct">
+
+                            <p class="the-comment" data-vote="0" data-ct="1492772365">九00多期了<br></p>
+
+                        </div>
+                        <div class="helper clearfix">
+                            2017-04-21
+                            <a class="ln-comment-from" href="http://www.luoo.net/app/" target="_blank"> 来自落网客户端</a>
+
+                            <a data-res="482264" data-app="5" data-tipid="commentVoteDialog482264" data-width="235"
+                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote"></i> <span>赞</span></a>
+                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res="482264"
+                               data-user="我的私享">
+                                <span class="icon-reply"></span>
+                                回复
+                            </a>
+                            <span class="vote-count" style="display:none;" data-count="0">0赞</span>
+
+                        </div>
+
+
+                        <div class="sub-comment clearfix hide">
+                            <span class="arrows"></span>
+
+                            <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                                <div class="editor">
+                                    <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                              autocomplete="off"></textarea>
+                                </div>
+
+                                <div class="toolbar clearfix">
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                                data-tipid="commentSubmitDialog"
+                                                data-remote="http://www.luoo.net/login/dialog" data-width="235">评论
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="app_id" value="1">
+                                <input type="hidden" name="res_id" value="977">
+                                <input type="hidden" name="comment_at" value="482264">
+                            </form>
+                            <div class="clearfix items">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
-        </script>
+            <div class="paginator" id="paginator"><a class="previous disabled" rel="nofollow"
+                                                     href="javascript:void(0);">上一页</a><a class="page actived"
+                                                                                          rel="nofollow"
+                                                                                          href="javascript:void(0);">1</a><a
+                    class="page" rel="nofollow" href="javascript:void(0);" data-page="2">2</a><a class="page"
+                                                                                                 rel="nofollow"
+                                                                                                 href="javascript:void(0);"
+                                                                                                 data-page="3">3</a><a
+                    class="page" rel="nofollow" href="javascript:void(0);" data-page="4">4</a><a class="page"
+                                                                                                 rel="nofollow"
+                                                                                                 href="javascript:void(0);"
+                                                                                                 data-page="5">5</a><a
+                    class="page" rel="nofollow" href="javascript:void(0);" data-page="6">6</a><a class="page"
+                                                                                                 rel="nofollow"
+                                                                                                 href="javascript:void(0);"
+                                                                                                 data-page="7">7</a><a
+                    class="page" rel="nofollow" href="javascript:void(0);" data-page="8">8</a><a class="page"
+                                                                                                 rel="nofollow"
+                                                                                                 href="javascript:void(0);"
+                                                                                                 data-page="9">9</a><a
+                    class="page" rel="nofollow" href="javascript:void(0);" data-page="10">10</a><a class="next"
+                                                                                                   href="javascript:void(0);"
+                                                                                                   data-page="2">下一页</a>
+            </div>
+
+            <script id="sub-comment-template" type="text/template">
+
+                <form action="http://www.luoo.net/comment/add" class="editor-wrapper form-comment-at hide">
+                    <div class="editor">
+                        <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                  autocomplete="off"></textarea>
+                    </div>
+
+                    <div class="toolbar clearfix">
+                        <div class="btn-group">
+                            <a href="javascript:void(0);" class="btn-link btn-action-cancel-at">取消</a>
+                            <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                    data-tipid="commentSubmitDialog" data-remote="http://www.luoo.net/login/dialog"
+                                    data-width="235">评论
+                            </button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="app_id" value="1">
+                    <input type="hidden" name="res_id" value="977">
+                    <input type="hidden" name="comment_at" value="<%=comment_id%>">
+                </form>
+            </script>
+
+            <script id="comment-template" type="text/template">
+                <form action="http://www.luoo.net/comment/add" class="editor-wrapper hide form-comment-at">
+                    <div class="editor">
+                        <textarea name="content" class="editor-comment-at" spellcheck="false"
+                                  autocomplete="off"></textarea>
+                    </div>
+
+                    <div class="toolbar clearfix">
+                        <div class="btn-group">
+                            <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
+                            <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+                                    data-tipid="commentSubmitDialog" data-remote="http://www.luoo.net/login/dialog"
+                                    data-width="235">评论
+                            </button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="app_id" value="1">
+                    <input type="hidden" name="res_id" value="977">
+                    <input type="hidden" name="comment_at" value="<%=comment_id%>">
+                </form>
+                <div class="clearfix items">
+
+                </div>
+            </script>
+        </div>
     </div>
-</div>
-<!--/// comment-wrapper end -->
+    <!--/// comment-wrapper end -->
 </div>
 
 
@@ -944,24 +2936,133 @@ Where there&#39;s music and there&#39;...">
 
 </script>
 
+<!-- APP']['vol']; ?>", id:"977", url: "http://www.luoo.net/comment/get", commid: "0"})
+		.getComments();
+	})
+</script>
+<!--
+<script src="http://s.luoo.net/thirdparty/emojify.js/emojify.min.js?4bf3b5f"></script>
+<script src="http://s.luoo.net/thirdparty/jquery.textcomplete/jquery.textcomplete.min.js?4bf3b5f"></script>
+<script src="http://s.luoo.net/thirdparty/jquery.textcomplete/emoji.js?4bf3b5f"></script>
+ -->
 <script src="/js/jquery.sticky-kit.min.js"></script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/backbone-min.js"></script>
 <script src="/js/vol.js"></script>
 <script src="/js/comment.js"></script>
 <script src="/js/jquery.artDialog.js"></script>
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
-
+<div class="footer">
+    <div class="foot-ct clearfix">
+        <div class="about-wrapper">
+            <h4 class="foot-item-head">关于</h4>
+            <p><a class="ln-about" href="http://www.luoo.net/about/">关于落网</a></p>
+            <p><a class="ln-about" href="http://www.luoo.net/m/page/jobs">加入我们</a></p>
+            <p><a class="ln-about" href="http://www.luoo.net/m/page/contact">联系合作</a></p>
+            <p><a class="ln-about" href="javascript:;" id="feedback">反馈建议</a></p>
+            <p><a class="ln-about" href="http://www.luoo.net/links/">友情链接</a></p>
+        </div>
+        <div class="app-wrapper">
+            <h4 class="foot-item-head">APP</h4>
+            <p>
+                <a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-ios"></span>&nbsp;&nbsp;for
+                    iPhone</a>
+            </p>
+            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-android"></span>&nbsp;&nbsp;for
+                Android</a></p>
+            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-wp"></span>&nbsp;&nbsp;for Windows
+                Phone 8</a></p>
+        </div>
+        <div class="sns-wrapper">
+            <h4 class="foot-item-head">关注落网</h4>
+            <div class="sns-items">
+                <a class="icon-sns-qq" id="luooQqAccount">
+					<span class="qq-group">
+						落网QQ官方群
+						·324063420
+						<br>
+						·55728744
+					</span>
+                </a>
+                <a href="/img/wechat-qr.gif" target="_blank" class="icon-sns-wechat" id="luooWechatAccount">
+                    <img src="/img/wechat-qr.gif" alt="wechat" class="wechat-qr">
+                </a>
+                <a href="http://weibo.com/luoofm" target="_blank" class="icon-sns-weibo"></a>
+                <a href="http://www.douban.com/group/luoo/" target="_blank" class="icon-sns-douban"></a>
+                <!-- <a href="https://twitter.com/Luoofm" target="_blank" class="icon-sns-twitter"></a>
+                <a href="https://www.facebook.com/luoofm" target="_blank" class="icon-sns-fb"></a>
+                <a href="http://instagram.com/luoofm" target="_blank" class="icon-sns-ins"></a> -->
+            </div>
+            <p class="icp">© 2018 落网</p>
+            <p class="slogan">
+                <span class="icon-slogan"></span>
+            </p>
+        </div>
+    </div>
 </div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+<div id="backTop" style="display: block; left: 1451.5px; bottom: 10px;">&nbsp;</div>
+<div id="feedbackWrapper" style="display:none;">
+    <div class="common-dialog-wrapper">
+        <form id="frmFeedback" action="http://www.luoo.net/feedback/" callback="feedback_cback" class="form-ajax">
+            <p class="fb-group">
+                <textarea name="content" class="rounded"></textarea>
+            </p>
+            <p class="fb-group helper" id="feedbackMsg">※ 请具体描述你的问题或建议</p>
+            <!-- <p class="fb-group file-group">
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive btn-screenshot">问题截图</a>
+                <input type="file" name="screen" class="btn-file">
+                <span class="helper">※ 请具体描述你的问题或建议</span>
+            </p> -->
+            <p class="fb-group">
+                <span class="label">联系方式</span>
+                <input type="text" name="contact">
+            </p>
+            <p class="fb-group">
+                <span class="label">验证码</span>
+                <input type="text" name="code" class="code" maxlength="4">
+                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
+                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/vol/index/977"
+                         class="captcha">
+                </a>
 
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnFeedbackSubmit">提交</a>
+                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnFeedbackCancle">取消</a>
+                <input type="hidden" name="ref" id="txtFeedbackRef" value="http://www.luoo.net/vol/index/977">
+            </p>
+        </form>
+        <div id="feedbackResult" class="ajax-result">
+            提交成功，非常感谢你的反馈，必要时我们将联系你。<br><br><span class="helper">窗口将在3秒后关闭。</span>
+        </div>
+    </div>
 </div>
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
 
+<div id="mailWrapper" style="display:none;">
+    <div class="common-dialog-wrapper">
+        <form id="frmMail" action="http://www.luoo.net/mail/send" callback="send_mail_cback" class="form-ajax">
+            <p class="fb-group helper">给"<span id="mailUserName"></span>"发私信</p>
+
+            <p class="fb-group">
+                <textarea name="content" class="rounded"></textarea>
+            </p>
+            <p class="fb-group helper" id="sendMailMsg"></p>
+            <p class="fb-group">
+                <span class="label">验证码</span>
+                <input type="text" name="code" class="code" maxlength="4">
+                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
+                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/vol/index/977"
+                         class="captcha">
+                </a>
+
+                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnSendMail">发送</a>
+                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnCancleMail">取消</a>
+                <input type="hidden" name="uid" id="mailUserId">
+            </p>
+        </form>
+        <div id="sendMailResult" class="ajax-result">
+            发送成功。<br><br><span class="helper">窗口将在3秒后关闭。</span>
+        </div>
+    </div>
 </div>
-<!--底部结束-->
+
 <img src="/img/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
     <div id="qrcodeContent" class="qrcode-content" title="http://www.luoo.net/">
@@ -1015,7 +3116,21 @@ Where there&#39;s music and there&#39;...">
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
-
+<!--[if lt IE 9]>
+<script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
+<script>
+    $(function () {
+        if (window.PIE) {
+            $('.rounded,.page').each(function () {
+                try {
+                    PIE.attach(this);
+                } catch (e) {
+                }
+            });
+        }
+    })
+</script>
+<![endif]-->
 <script>
     var _hmt = _hmt || [];
     (function () {
