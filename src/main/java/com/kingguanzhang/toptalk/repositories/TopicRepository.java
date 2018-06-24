@@ -14,7 +14,10 @@ import java.util.List;
 @Repository
 public interface TopicRepository extends JpaRepository<Topic,Long> {
 
-    /*@Modifying
-    @Query(value = "select '*' from topic  where id in (select topic_id from category_topic where category_id= :categoryId) limit :beginNum,:pageSize")
-    List<Topic> modify(@Param("categoryId") Long categoryId, @Param("beginNum")long beginNum, @Param("pageSize")long pageSize );*/
+
+    @Query(nativeQuery = true, value = "select * from topic  where id in (select topic_id from category_topic where category_id= :categoryId)",//ORDER BY ?#{#pageable}
+            countQuery = "select count(*) from topic  where id in (select topic_id from category_topic where category_id= :categoryId)")
+    Page<Topic> findByCategoryId(@Param("categoryId")Long categoryId,Pageable pageable);
+
+
 }

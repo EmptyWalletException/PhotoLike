@@ -61,7 +61,7 @@ public class CrudTest {
 
     @Test
     public void save(){
-        for (int i =1 ; i<30; i++){
+        for (int i =30 ; i<60; i++){
 
            Date date= new Date(System.currentTimeMillis());
 
@@ -109,19 +109,19 @@ public class CrudTest {
             user.setNickname("测试用户"+i);
             user.setPassword("password"+i);
             user.setSignature("测试签名"+i);
-            userService.save(user);
+//            userService.save(user);
 
             city.setName("城市"+i);
             city.setRank(i);
-            cityService.save(city);
+//            cityService.save(city);
 
             category.setName("分类"+i);
             category.setRank(i+10);
-            categoryService.save(category);
+//            categoryService.save(category);
 
             message.setContent("测试消息正文"+i);
             message.setCreatTime(date);
-            messageService.save(message);
+//            messageService.save(message);
 
             essay.setAuthor(user);
             essay.setCollectNumber(i*100);
@@ -129,7 +129,7 @@ public class CrudTest {
             essay.setTitle("测试随笔标题"+i);
             essay.setCreatTime(date);
             essay.setImgAddr("upload/1.img");
-            essayService.save(essay);
+//            essayService.save(essay);
 
             event.setContent("测试活动正文"+i);
             event.setLocation("测试活动位置"+i);
@@ -138,7 +138,7 @@ public class CrudTest {
             event.setTime(date);
             event.setTheme("聚会");
             event.setCity(city);
-            eventService.save(event);
+//            eventService.save(event);
 
 
             story.setCreatTime(date);
@@ -146,11 +146,12 @@ public class CrudTest {
             story.setAuthor(user);
             story.setCollectNumber(i*100);
             story.setCommentNumber(i*20);
-            storyService.save(story);
+//            storyService.save(story);
 
 
             topic.setTitle("测试标题"+i);
             topic.setCreatTime(date);
+            user.setId(1);
             topic.setAuthor(user);
             topic.setContent("测试正文"+i);
             topic.setCollectNumber(i*100);
@@ -159,21 +160,21 @@ public class CrudTest {
 
             commentRelateEST.setCommentId(i);
             commentRelateEST.setTopicId(i);
-            crestService.save(commentRelateEST);
+//            crestService.save(commentRelateEST);
 
             categoryRelateTopic.setCategoryId(i);
             categoryRelateTopic.setTopicId(i);
-            crtService.save(categoryRelateTopic);
+//            crtService.save(categoryRelateTopic);
 
             comment.setContent("测试评论正文");
             comment.setCreatTime(date);
             comment.setSupcommentId(1);
             comment.setAuthor(user);
-            commentService.save(comment);
+//            commentService.save(comment);
 
             userFavorite.setUserId(i);
             userFavorite.setTopicId(i);
-            userFavoriteService.save(userFavorite);
+//            userFavoriteService.save(userFavorite);
         }
 
 

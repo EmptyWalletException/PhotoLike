@@ -17,9 +17,16 @@ public class TopicServiceImpl {
     @Autowired
     private TopicRepository topicRepository;
 
+    /**
+     * 自定义的查询方法,通过分类id分页查询所有topic;
+     * @param categoryId
+     * @param pageable
+     * @return
+     */
     public Page<Topic> findAllByCategoryId(Long categoryId,Pageable pageable){
      // TODO 需要实现通过分类id分页查询所有topic:
-        return null;
+        Page<Topic> topicPage = topicRepository.findByCategoryId(categoryId, pageable);
+        return topicPage;
     }
 
     /**

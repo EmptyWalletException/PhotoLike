@@ -6,6 +6,16 @@ TopTalk网站,照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 
 2018/6/22:
 
+1:完成了通过分类id查询topic并且返回page<Topic>的功能,解决的问题:开发时遇到自定义查询能完成查询但是却不能分页,总是查询出所有的记录,在网上搜索了很多遇到相同问题的记录,后来有网友解释早先版本是因为bug问题不能按照官方文档上的说明来实现分页,解决方案是在语句后加order by ?#{#pageable}来实现分页,但是从spring 2.0.4版本之后修复了这个bug,分页排序可以直接传pageable,加了这段语句反而不能分页,
+        
+        spring2.0.4之前需要在value语句后加ORDER BY ?#{#pageable}并且在接口方法里传pageable来实现分页和排序 ;
+        spring2.0.4之后直接传pageable即可,再加ORDER BY ?#{#pageable}反而不能分页排序;       
+         @Query(nativeQuery = true, value = "select * from topic  where id in (select topic_id from category_topic where category_id= :categoryId)",//ORDER BY ?#{#pageable}
+                    countQuery = "select count(*) from topic  where id in (select topic_id from category_topic where category_id= :categoryId)")
+            Page<Topic> findByCategoryId(@Param("categoryId")Long categoryId,Pageable pageable);
+
+2018/6/22:
+
 1:经过跟网友的讨论,重新整理了实体类,废弃了多对多的级联映射,以提高性能及数据操作的灵活性;
 
 2:在数据库中重新注入了测试数据;

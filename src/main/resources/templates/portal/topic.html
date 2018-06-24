@@ -9,12 +9,12 @@
     <title>专辑</title>
     <meta name="description" content=" ">
     <meta name="keywords" content="">
-    <link rel="stylesheet" href="./css/vol.css">
+    <link rel="stylesheet" href="/css/vol.css">
     <link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
-    <script type="text/javascript" async="" src="./js/ga.js"></script>
-    <script src="./js/hm.js"></script>
-    <script src="./js/jquery-1.11.0.min.js"></script>
-    <script src="./js/luoo.js"></script>
+    <script type="text/javascript" async="" src="/js/ga.js"></script>
+    <script src="/js/hm.js"></script>
+    <script src="/js/jquery-1.11.0.min.js"></script>
+    <script src="/js/luoo.js"></script>
 
 </head>
 <body>
@@ -87,14 +87,14 @@
                     <a href="/topic" class="item actived">最新专辑</a>
                 </div>
                 <div class="pagenav-wrapper">
-                    <a href="/topic/filtrate?category=1&pn=1" class="item" th:href="'/topic/filtrate?category='+category.id"  th:text="${category.name}" th:each="category,categoryStat:${categoryPage.content}">摇滚</a>
+                    <a href="/topic/filtrate?category=1&pn=1" class="item" th:href="'/topic/filtrate?category='+${category.id}"  th:text="${category.name}" th:each="category,categoryStat:${categoryPage.content}">摇滚</a>
                 </div>
             </div>
             <!-- vol-list -->
             <div class="vol-list">
                 <div class="item" th:each="topic:${topicPage.content}">
                     <a href="/topic/1374" class="cover-wrapper" title="关于爱的表达方式" th:title="${topic.title}" th:href="'/topic/'+${topic.id}">
-                        <img src="./js/640x452" alt="关于爱的表达方式" class="cover rounded" th:alt="${topic.title}" >
+                        <img src="/js/640x452" alt="关于爱的表达方式" class="cover rounded" th:alt="${topic.title}" >
                     </a>
                     <div class="meta rounded clearfix">
                         <a href="/topic/1374" class="name" title="关于爱的表达方式" th:title="${topic.title}" th:text="'Top.'+${topic.id}+' '+${topic.title}">vol.991 关于爱的表达方式</a>
@@ -143,7 +143,7 @@
 
                     <div class="item">
                         <a href="http://www.luoo.net/vol/index/335" class="cover-wrapper">
-                            <img src="./js/160x120" alt="夜车" class="vol-cover rounded">
+                            <img src="/js/160x120" alt="夜车" class="vol-cover rounded">
                         </a>
                         <div class="info">
                             <a href="http://www.luoo.net/vol/index/335" title="夜车" class="title">夜车</a>
@@ -169,7 +169,7 @@
             });
     })
 </script>
-<script src="./js/jquery.sticky-kit.min.js"></script>
+<script src="/js/jquery.sticky-kit.min.js"></script>
 <!--/// container end -->
 <!--底部区域开始-->
 <div class="footer" th:replace="~{portal/footer :: footer}">
@@ -184,7 +184,7 @@
 </div>
 <!--底部结束-->
 
-<img src="./img/loading_W.gif" style="display:none;">
+<img src="/img/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
     <div id="qrcodeContent" class="qrcode-content" title="http://www.luoo.net/">
         <canvas width="240" height="240" style="display: none;"></canvas>
@@ -233,10 +233,10 @@
     $('#txtFeedbackRef').val(document.location.href);
 </script>
 
-<script src="./js/jquery.artDialog.js"></script>
-<script src="./js/jquery.qtip.min.js"></script>
-<script src="./js/jquery.cookie.js"></script>
-<script src="./js/qrcode.min.js"></script>
+<script src="/js/jquery.artDialog.js"></script>
+<script src="/js/jquery.qtip.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/qrcode.min.js"></script>
 <script>
     var _hmt = _hmt || [];
     (function () {

@@ -43,13 +43,13 @@ public class TopController {
     }
 
     @RequestMapping("/topic/filtrate")
-    public String toTopicPageByCategory(Model model,@RequestParam(value = "category",defaultValue = "1")Integer categoryId, @RequestParam(name = "pn",defaultValue = "0") Integer pn){
+    public String toTopicPageByCategory(Model model,@RequestParam(value = "category",defaultValue = "1")Integer categoryId, @RequestParam(name = "pn",defaultValue = "1") Integer pn){
         /**
          * 获取所有的分类显示在页面上方的分页导航;
          */
         Pageable pageable = new PageRequest(pn-1,100,  new Sort(Sort.Direction.DESC,"id"));
         Page<Category> categoryPage = categoryService.findAll(pageable);
-        model.addAttribute("categoryList",categoryPage);
+        model.addAttribute("categoryPage",categoryPage);
 
         /**
          * 通过用户点击的分类获取topic
