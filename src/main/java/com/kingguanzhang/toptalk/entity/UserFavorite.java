@@ -12,12 +12,11 @@ public class UserFavorite {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
-
     private long userId;
-
     private long essayId;
     private long storyId;
     private long topicId;
+
 
     public long getId() {
         return id;

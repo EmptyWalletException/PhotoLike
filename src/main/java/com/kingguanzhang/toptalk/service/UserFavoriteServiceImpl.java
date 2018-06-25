@@ -1,6 +1,12 @@
 package com.kingguanzhang.toptalk.service;
 
+import com.kingguanzhang.toptalk.entity.Essay;
+import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.entity.Topic;
 import com.kingguanzhang.toptalk.entity.UserFavorite;
+import com.kingguanzhang.toptalk.repositories.EssayRepository;
+import com.kingguanzhang.toptalk.repositories.StoryRepository;
+import com.kingguanzhang.toptalk.repositories.TopicRepository;
 import com.kingguanzhang.toptalk.repositories.UserFavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -17,6 +23,13 @@ public class UserFavoriteServiceImpl {
     @Autowired
     private UserFavoriteRepository userFavoriteRepository;
 
+    @Autowired
+    private StoryRepository storyRepository;
+    @Autowired
+    private TopicRepository topicRepository;
+    @Autowired
+    private EssayRepository essayRepository;
+
     /**
      * 分页查询所有;
      * @return
@@ -31,6 +44,61 @@ public class UserFavoriteServiceImpl {
         }
 
         return  page;
+    }
+
+    /**
+     * 查询用户收藏的story,分页并排序;
+     * @param userId
+     * @param pageable
+     * @return
+     */
+    public Page<Story> findFavoriteStory(Long userId,Pageable pageable){
+        Page<Story> story;
+        try {
+            story = storyRepository.findFavoriteStory(userId, pageable);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("查询数据库字段时出现异常");
+        }
+        return story;
+
+    }
+
+    /**
+     * 查询用户收藏的topic,分页并排序;
+     * @param userId
+     * @param pageable
+     * @return
+     */
+    public Page<Topic> findFavoriteTopic(Long userId,Pageable pageable){
+        Page<Topic> topic;
+        try {
+            topic = topicRepository.findFavoriteTopic(userId, pageable);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("查询数据库字段时出现异常");
+        }
+        return topic;
+
+    }
+
+
+    /**
+     * 查询用户收藏的essay,分页并排序;
+     * @param userId
+     * @param pageable
+     * @return
+     */
+    public Page<Essay> findFavoriteEssay(Long userId, Pageable pageable){
+        Page<Essay> topic;
+        try {
+            topic = essayRepository.findFavoriteEssay(userId, pageable);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("查询数据库字段时出现异常");
+        }
+        return topic;
+
     }
 
     /**
