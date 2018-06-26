@@ -197,11 +197,16 @@
     };
 </script>
 		<!-- uc-ct -->
-		<div class="uc-ct">			
+		<div class="uc-ct">
+			<div th:if="${storyPage==null || storyPage.content.size()==0}" >
+				<br/>
+				<p >该用户没有收藏故事</p>
+				<br/>
+			</div>
 			<!-- fav-essays -->
 			<div class="fav-essays">
 				
-						<div class="item" th:each="story,storyStat:${storyPage}" th:if="${storyStat.index}<10">
+						<div class="item" th:each="story,storyStat:${storyPage}" th:if="${storyPage!=null && storyStat.size!=0 && storyStat.index<10 }">
 							<div class="clearfix">
 								<a href="/story/921" class="cover-wrapper" th:href="'/story/'+${story.id}">
 									<img src="/js/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp" alt="Seas of Years : 带你三十秒潜入海底，穿越大洋" class="cover" th:alt="${story.title}">

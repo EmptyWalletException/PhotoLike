@@ -33,135 +33,83 @@
 	<div class="container ct-sm" style="min-height: 460px;">	
 		<!-- author-head -->
 		<div class="author-head clearfix">
-			<img src="/js/128x128" alt="李卤味" class="avatar">
+			<img src="/js/128x128" alt="测试用户" class="avatar" th:alt="${user.nickname}">
 			<div class="uinfo">
-				<h1 class="uname">李卤味</h1>
+				<h1 class="uname" th:text="${user.nickname}">测试用户</h1>
 				<p class="sign"></p>
 			</div>
 			<div class="fright">
-				<p class="join">落网作者</p>
+				<p class="join">活跃作家</p>
 				<p class="sns-accounts">
-									</p>
+				</p>
 			</div>
 		</div>
 		<!--/// author-head end-->
 
-		
-			<h3 class="author-nav-title">
-				李卤味的文章
-			</h3>
+		<div class="uc-nav rounded clearfix">
+			<a href="/user?userId=1" rel="nofollow" class="nav-item actived">专辑</a>
+			<a href="/user/essay?userId=1" rel="nofollow" class="nav-item">随笔</a>
+			<a href="/user/story?userId=1" rel="nofollow" class="nav-item ">故事</a>
+		</div>
+
 				
 
 		<!-- uc-ct -->
 		<div class="author-ct">
 
-			<!-- fav-essays -->
-			<div class="fav-essays">
-				
-					<div class="item">
-						<div class="clearfix">
-							<a href="http://www.luoo.net/essay/910" class="cover-wrapper">
-								<img src="/js/FsRGavY9jaYHL5MRzDmCFTNkDraj.jpg" alt="加拿大小众灵魂之声" class="cover rounded">
-							</a>
-							<div class="item-ct">
-								<a href="http://www.luoo.net/essay/910" class="title">加拿大小众灵魂之声</a>
-								<p class="subscribe">令人惊艳的独立音乐人不断涌现，当民谣遇上魁北克法式小调，就是加拿大独有的小众灵魂之声。</p>
-							</div>
-						</div>
-						<div class="clearfix">
-							<span class="time">2017-10-25</span>
-							<a href="javascript:;" class="share btn-action-share" data-app="vol" data-id="910" data-text="这篇文章值得一读【加拿大小众灵魂之声 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201710/FsRGavY9jaYHL5MRzDmCFTNkDraj.jpg">
-								<i class="icon icon-share"></i>
-								&nbsp;<span>分享</span>
-							</a>					
-						</div>
-					</div>
-					
-					<div class="item">
-						<div class="clearfix">
-							<a href="http://www.luoo.net/essay/907" class="cover-wrapper">
-								<img src="/js/FvrFlPZyBd4EoO-UdATrF7kgBENP.jpg" alt="很遗憾，你并不能永远年轻" class="cover rounded">
-							</a>
-							<div class="item-ct">
-								<a href="http://www.luoo.net/essay/907" class="title">很遗憾，你并不能永远年轻</a>
-								<p class="subscribe">不要因为肉体的衰老而让内心同步老去，不要因为疲惫就收回触碰世界的双手。谁说我们不能摇滚到八十岁呢？</p>
-							</div>
-						</div>
-						<div class="clearfix">
-							<span class="time">2017-10-17</span>
-							<a href="javascript:;" class="share btn-action-share" data-app="vol" data-id="907" data-text="这篇文章值得一读【很遗憾，你并不能永远年轻 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201710/FvrFlPZyBd4EoO-UdATrF7kgBENP.jpg">
-								<i class="icon icon-share"></i>
-								&nbsp;<span>分享</span>
-							</a>					
-						</div>
-					</div>
-					
-					<div class="item">
-						<div class="clearfix">
-							<a href="http://www.luoo.net/essay/906" class="cover-wrapper">
-								<img src="/js/FusczfSoWbOYtRSGHO4R5d8WB7rQ.jpg" alt="人工智能音乐令人类岌岌可危？" class="cover rounded">
-							</a>
-							<div class="item-ct">
-								<a href="http://www.luoo.net/essay/906" class="title">人工智能音乐令人类岌岌可危？</a>
-								<p class="subscribe">“我们怕是要完蛋了！”
-——我朋友听完人工智能专辑之后</p>
-							</div>
-						</div>
-						<div class="clearfix">
-							<span class="time">2017-10-13</span>
-							<a href="javascript:;" class="share btn-action-share" data-app="vol" data-id="906" data-text="这篇文章值得一读【人工智能音乐令人类岌岌可危？ 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201710/FusczfSoWbOYtRSGHO4R5d8WB7rQ.jpg">
-								<i class="icon icon-share"></i>
-								&nbsp;<span>分享</span>
-							</a>					
-						</div>
-					</div>
-					
-					<div class="item">
-						<div class="clearfix">
-							<a href="http://www.luoo.net/essay/903" class="cover-wrapper">
-								<img src="/js/FqWF-fWQs-helGMXqPRwdQd93APK.jpg" alt="谁是第一位获得诺贝尔文学奖的音乐人" class="cover rounded">
-							</a>
-							<div class="item-ct">
-								<a href="http://www.luoo.net/essay/903" class="title">谁是第一位获得诺贝尔文学奖的音乐人</a>
-								<p class="subscribe">“世界用色彩与我对话，我的灵魂用音乐回答。"</p>
-							</div>
-						</div>
-						<div class="clearfix">
-							<span class="time">2017-10-10</span>
-							<a href="javascript:;" class="share btn-action-share" data-app="vol" data-id="903" data-text="这篇文章值得一读【谁是第一位获得诺贝尔文学奖的音乐人 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201710/FqWF-fWQs-helGMXqPRwdQd93APK.jpg">
-								<i class="icon icon-share"></i>
-								&nbsp;<span>分享</span>
-							</a>					
-						</div>
-					</div>
-					
-					<div class="item">
-						<div class="clearfix">
-							<a href="http://www.luoo.net/essay/899" class="cover-wrapper">
-								<img src="/js/FvUsmYTAKsj8NmZlh62CPu_GZ0kg.jpg" alt="荐碟 | 这是你的十月煲碟指南" class="cover rounded">
-							</a>
-							<div class="item-ct">
-								<a href="http://www.luoo.net/essay/899" class="title">荐碟 | 这是你的十月煲碟指南</a>
-								<p class="subscribe">我不知道你的十月会否忙碌，反正耳朵是肯定停不下来了。</p>
-							</div>
-						</div>
-						<div class="clearfix">
-							<span class="time">2017-09-29</span>
-							<a href="javascript:;" class="share btn-action-share" data-app="vol" data-id="899" data-text="这篇文章值得一读【荐碟 | 这是你的十月煲碟指南 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201709/FvUsmYTAKsj8NmZlh62CPu_GZ0kg.jpg">
-								<i class="icon icon-share"></i>
-								&nbsp;<span>分享</span>
-							</a>					
-						</div>
-					</div>
-									
-				<div class="paginator">
-					<a class="previous" href="http://www.luoo.net/author/essays/1057783?p=1">上一页</a><a class="page" href="http://www.luoo.net/author/essays/1057783?p=1">1</a><a class="page actived" rel="nofollow" href="javascript:;">2</a><a class="page" href="http://www.luoo.net/author/essays/1057783?p=3">3</a><a class="page" href="http://www.luoo.net/author/essays/1057783?p=4">4</a><a class="page" href="http://www.luoo.net/author/essays/1057783?p=5">5</a><a class="next" href="http://www.luoo.net/author/essays/1057783?p=3">下一页</a>				</div>
-			</div>
+			<!-- fav-vols -->
+			<div class="fav-vols">
+				<div th:if="${topicPage==null || topicPage.content.size()==0}" >
+					<br/>
+					<p >该用户没有发表专辑</p>
+					<br/>
+				</div>
+				<div class="item-wrapper">
+					<div class="item" th:each="topic,topicStat:${topicPage}" th:if="${topicPage!=null && topicStat.size!=0 && topicStat.index<9}" >
+						<a href="topic/1373" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
+							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:alt="${topic.title}" >
+						</a>
+						<a href="/topic/1373" class="name" th:href="'/topic/'+${topic.id}" th:text="${topic.title}">故事的最后</a>
+						<div class="op-bar">
+							<span class="time">2018-06-21</span>
 
-			<!-- ///fav-essays -->			
+							<a href="javascript:;" rel="nofollow" class="btn-action-like unfav" data-id="1373" data-type="vol" data-cback="vol_unlike_cback" data-confirm="确定取消收藏该期刊吗？">
+								<i class="icon icon-trash"></i>
+								删除
+							</a>
+
+							<a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
+								<i class="icon icon-share"></i>
+								分享
+							</a>
+						</div>
+						<!--每生成三个就输出一个换行来保持漂亮的板式  -->
+						<br th:if="${topicStat.index+1}%3==0"/>
+					</div>
+				</div>
+			</div>
+			<!-- /// fav-vols -->
+			<div class="paginator">
+				<a class="previous" href="/user?userId=1&pn=1" th:href="'/user?userId='+${user.id}+'&pn=1'" >首页</a>
+				<a class="previous"  th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
+				<a class="page actived" href="#" rel="nofollow" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
+				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
+				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
+				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.totalPages }" >尾页</a>
+			</div>		
 		</div>
 		<!--/// uc-ct end -->
 	</div>
+	</div>
+
 	<!--/// container end -->
 <!--底部区域开始-->
 <div class="footer" th:replace="~{portal/footer :: footer}">

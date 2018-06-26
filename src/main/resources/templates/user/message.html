@@ -7,7 +7,7 @@
 	<meta property="qc:admins" content="4553322067645776654">
 	<meta property="wb:webmaster" content="78f40d1511de8c6b">
 	<meta name="baidu-site-verification" content="xC1m9aYTgX">
-	<title>落网 - 独立音乐推荐</title>
+	<title>最新消息</title>
 	<meta name="description" content="落网是一个推荐国内外独立音乐的网站，我们致力于推荐这个时代里最朴素、最有质感的声音，让更多的独立文化作品得到更好的传播。 ">
 	<meta name="keywords" content="落网,独立音乐,独立音乐人,音乐电台,音乐期刊,摇滚音乐,小众音乐,乐评网站,音乐演出,演出门票">
 	<link rel="stylesheet" href="/css/message.css">
@@ -34,78 +34,15 @@
 		<div class="message-list">
 			<h1>全部消息</h1>
 			
-			
-						<div class="separate-item">
-							2014-11-07
-						</div>
-								<div class="notice-item" id="">
-									<div class="notice-title">
-										<span class="icon-notice">系统通知：</span>
-										关于安卓版本心情日记男女性别符号问题
-									</div>
-									<div class="notice-content">
-										<p>安卓版本的心情日记男女符号反过来了，下一个版本会改正，我们已经发现这个问题，感谢你提出!</p>
-
-									</div>
+						<div th:each="message,messageStat:${messagePage}" th:if="${messageStat.index}<10">
+							<div class="notice-item" >
+								<div class="notice-title">
+									<span class="icon-notice" th:text="${#dates.format(message.creatTime,'yyyy-MM-dd')}">2014-11-07：</span>
+									<p th:text="${message.content}"></p>
 								</div>
-								<div class="notice-item" id="">
-									<div class="notice-title">
-										<span class="icon-notice">系统通知：</span>
-										请不要在落网发加群广告刷屏
-									</div>
-									<div class="notice-content">
-										<p>尊敬的用户你好，落网旨在为用户营造一种简单的用户体验。请不要频繁的在留言处发加群信息，十分感谢您的配合。如果您有聊得好的朋友，可以通过落网私信沟通，感谢！</p>
-
-									</div>
-								</div>
-						<div class="separate-item">
-							2014-02-15
+							</div>
 						</div>
-								<div class="notice-item" id="">
-									<div class="notice-title">
-										<span class="icon-notice">系统通知：</span>
-										落网IOS客户端正式上线苹果软件商店！
-									</div>
-									<div class="notice-content">
-										<p>使用苹果手机的朋友可到软件商店里下载使用并给个好评吧！下载地址：<a href="https://itunes.apple.com/cn/app/luoo/id788474943?mt=8">https://itunes.apple.com/cn/app/luoo/id788474943?mt=8</a></p>
-
-									</div>
-								</div>
-						<div class="separate-item">
-							2014-01-22
-						</div>
-								<div class="notice-item" id="">
-									<div class="notice-title">
-										<span class="icon-notice">系统通知：</span>
-										【落网IOS客户端抢先体验!】
-									</div>
-									<div class="notice-content">
-										<p>IPA文件下载：<a href="http://t.cn/8F5TBZk" style="text-decoration: none; color: rgb(48, 125, 116); font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 23px; background-color: rgb(250, 250, 250);" target="_blank" title="http://pan.baidu.com/s/1sjJaw6x">http://t.cn/8F5TBZk</a>&nbsp;</p>
-
-<p>本版本只适合已越狱的用户，如有任何意见和建议，可以在软件中给我们留言反馈。</p>
-
-<p>待审核通过后，大家即可通过app store下载安装。</p>
-
-<p>另外安卓和WP的版本近期也会上线。</p>
-
-									</div>
-								</div>
-						<div class="separate-item">
-							2013-12-30
-						</div>
-								<div class="notice-item" id="">
-									<div class="notice-title">
-										<span class="icon-notice">系统通知：</span>
-										落网消息提醒功能正式上线！
-									</div>
-									<div class="notice-content">
-										<p>落网消息提醒功能已经正式上线，接下来会有更多新鲜有趣的功能推出。如果大家在使用落网时有什么建议，可以通过网站底部的“反馈建议”提交给我们！预祝大家新年快乐！</p>
-									</div>
-								</div>					
-			
 		</div>
-		<div class="paginator">
-					</div>
 	</div>
 	<!-- container end-->
 

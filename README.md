@@ -6,6 +6,26 @@ TopTalk网站,照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 
 2018/6/25:
 
+1:在开发查询用户信息时发现jpa的example查询会查出不区分大小写的记录;
+        
+        //创建的example,withMatcher()已经设置了属性account区分大小写,然后又将整个example的withIgnoreCase()忽略大小写设置成了false,
+            ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("account",ExampleMatcher.GenericPropertyMatchers.caseSensitive()).withIgnorePaths("id").withIgnoreCase(false);
+        //然而还是查询多条不区分大小写的记录,原因在于mysql数据库查询时不区分大小写;
+            报错信息:query did not return a unique result: 3; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 3
+        //解决方法,以下方法任选一个即可:
+        //1:在查询语句中加上binary;  
+            select * from user where account = binary 'testuser'
+        //2:在mysql设置文件里开启区别大小写;可以修改my.ini或者my.cnf 
+                [mysqld] 
+                lower_case_table_names=1 
+                （0：区分；1：不区分）
+        //3:修改表中的字段使其区别大小写;
+            alter table user change account account varchar(225) binary;
+  
+2:完成了浏览用户发布的专辑,随笔,故事三个页面,并完善了一下用户收藏页面的逻辑,当查询不到记录时显示提示;     
+
+2018/6/25:
+
 1:完成了用户信息里的随笔收藏,专辑收藏,故事收藏这三个板块的浏览页面;
 
 2018/6/24:
@@ -32,7 +52,7 @@ TopTalk网站,照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 
 2018/6/21 : 创建项目,导入前端页面;
 
-2018/6/22 : 
+2018/6/20 : 
 
 1:根据前端页面及功能设计了一些实体类,通过hibernate注解配置好了实体类及实体类之间的级联关系,生成了数据库表;
 

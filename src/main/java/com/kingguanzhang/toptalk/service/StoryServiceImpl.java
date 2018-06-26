@@ -34,6 +34,7 @@ public class StoryServiceImpl {
         return  page;
     }
 
+
     /**
      * 通过id查询单个;
      * @param id

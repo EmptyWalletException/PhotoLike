@@ -9,7 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private long id ;
     private String account;//邮箱格式;
     private String password;
     private String nickname;

@@ -197,11 +197,15 @@
 </script>
 		<!-- uc-ct -->
 		<div class="uc-ct">
-
+			<div th:if="${essayPage==null || essayPage.content.size()==0}" >
+				<br/>
+				<p >该用户没有收藏随笔</p>
+				<br/>
+			</div>
 			<!-- fav-vols -->
 			<div class="fav-vols">
 				<div class="item-wrapper">
-					<div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayStat.index}<9" >
+					<div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayPage!=null && essayStat.size!=0 && essayStat.index<9 }"  >
 						<a href="/essay?essayId=1" class="cover-wrapper" th:href="'/essay?essayId='+${essay.id}">
 							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:alt="${essay.title}" >
 						</a>

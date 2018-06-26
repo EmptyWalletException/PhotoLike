@@ -100,7 +100,7 @@
 </span> <span class="quote-after"></span></p>
             <div class="lyric" id="lyric15491"></div>
             <p class="date">
-                <a  style="color: #6c6c6c" th:text="'作者:'+${upEssay.author.nickname}+','+${#dates.format(upEssay.creatTime,'yyyy-MM-dd')}" th:href="'/user/'+${upEssay.author.id}">推荐人：
+                <a  style="color: #6c6c6c" th:text="'作者:'+${upEssay.author.nickname}+','+${#dates.format(upEssay.creatTime,'yyyy-MM-dd')}" th:href="'/user?userId='+${upEssay.author.id}">推荐人：
                     快活林・2015-11-12</a>
             </p>
             <div class="sns">
@@ -144,7 +144,7 @@
                         <div class="lyric" id="lyric22422"></div>
                         <p class="date">
                             <a style="color: #6c6c6c"
-                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/user/'+${essay.author.id}">
+                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/user?userId='+${essay.author.id}">
                                 推荐人： AngelaDaddy・2017-11-29</a>
                         </p>
                         <div class="sns">
@@ -263,7 +263,7 @@
                             <a href="#" title="那下午她在新居砸电视"
                                class="title" th:alt="${hotEssay.title}" th:text="${hotEssay.title}"
                                th:href="'/essay?essayId='+${hotEssay.id}">那下午她在新居砸电视</a>
-                            <a class="description" th:text="${hotEssay.author.nickname}" th:href="'/user/'+${hotEssay.author.id}">Monster KaR</a>
+                            <a class="description" th:text="${hotEssay.author.nickname}" th:href="'/user?userId='+${hotEssay.author.id}">Monster KaR</a>
                         </div>
                     </div>
 
