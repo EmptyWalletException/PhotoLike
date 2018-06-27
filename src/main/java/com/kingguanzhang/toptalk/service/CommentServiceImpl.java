@@ -35,6 +35,41 @@ public class CommentServiceImpl {
     }
 
     /**
+     * 通过topicId查询关联的commentId;分页并排序;
+     * @param topicId
+     * @param pageable
+     * @return
+     */
+    public Page<Comment> findByTopicId(long topicId,Pageable pageable){
+        Page<Comment> page;
+        try {
+            page = commentRepository.findByTopicId(topicId,pageable);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("查询数据库字段时出现异常");
+        }
+        return  page;
+    }
+
+    /**
+     * 通过storyId查询关联的commentId;分页并排序;
+     * @param storyId
+     * @param pageable
+     * @return
+     */
+    public Page<Comment> findByStoryId(long storyId,Pageable pageable){
+        Page<Comment> page;
+        try {
+            page = commentRepository.findByStoryId(storyId,pageable);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("查询数据库字段时出现异常");
+        }
+        return  page;
+    }
+
+
+    /**
      * 通过id查询单个;
      * @param id
      * @return

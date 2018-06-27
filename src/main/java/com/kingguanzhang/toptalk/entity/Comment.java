@@ -1,7 +1,10 @@
 package com.kingguanzhang.toptalk.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "comment")
@@ -14,14 +17,6 @@ public class Comment {
     private Date creatTime;
     private long supcommentId;//上级评论的ID;
 
-    /*@ManyToOne(optional = false)
-    private User author;
-
-    @ManyToOne(optional = false)
-    private Story story;
-
-    @ManyToOne(optional = false)
-    private Topic topic;*/
 
     @ManyToOne(optional = false)
     private User author;//废弃多对多及一对多级联功能后保留了此属性;
@@ -29,15 +24,16 @@ public class Comment {
     public User getAuthor() {
         return author;
     }
-
+    //@JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在关系中较多的一方的引用对方的set方法上;这注释掉是因为发现评论的json中author没有生成;
     public void setAuthor(User author) {
         this.author = author;
     }
 
     /**
      * 对自身的一对多关系,通常出现在有下级菜单或下级评论的情况下;建议使用第三张表关联来注入下级评论;这里使用自身映射来注入;
-
-    @OneToMany(mappedBy = "supcommentId",cascade = CascadeType.ALL)
+     * 最新的设计,废弃此级联,原因在于采用此方法无法在子评论区域分页并排序;建议在页面用js来实现;
+     */
+   /* @OneToMany(mappedBy = "supcommentId",cascade = CascadeType.ALL)
     private List<Comment> subComments;//下级评论;*/
 
 
@@ -73,37 +69,4 @@ public class Comment {
         this.supcommentId = supcommentId;
     }
 
-  /*  public User getAuthor() {
-        return author;
-    }
-    @JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在关系中较多的一方的引用对方的set方法上;
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-
-
-    public Story getStory() {
-        return story;
-    }
-    @JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在关系中较多的一方的引用对方的set方法上;
-    public void setStory(Story story) {
-        this.story = story;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-    @JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在关系中较多的一方的引用对方的set方法上;
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
-
-    public List<Comment> getSubComments() {
-        return subComments;
-    }
-
-    public void setSubComments(List<Comment> subComments) {
-        this.subComments = subComments;
-    }*/
 }

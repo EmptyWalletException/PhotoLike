@@ -103,7 +103,8 @@
 				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
 				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
 				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.totalPages }" >尾页</a>
+				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
+				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
 			</div>		
 		</div>
 		<!--/// uc-ct end -->

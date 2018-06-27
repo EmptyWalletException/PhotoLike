@@ -35,6 +35,24 @@ public class CategoryServiceImpl {
     }
 
     /**
+     * 通过topicId查询关联的categoryId;分页并排序;
+     * @param topicId
+     * @param pageable
+     * @return
+     */
+    public Page<Category> findByTopicId(long topicId,Pageable pageable){
+        Page<Category> page;
+        try {
+            page = categoryRepository.findByTopicId(topicId,pageable);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("查询数据库字段时出现异常");
+        }
+
+        return  page;
+    }
+
+    /**
      * 通过id查询单个;
      * @param id
      * @return

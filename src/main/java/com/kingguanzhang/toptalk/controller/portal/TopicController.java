@@ -1,8 +1,10 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
 import com.kingguanzhang.toptalk.entity.Category;
+import com.kingguanzhang.toptalk.entity.Comment;
 import com.kingguanzhang.toptalk.entity.Topic;
 import com.kingguanzhang.toptalk.service.CategoryServiceImpl;
+import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.TopicServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,30 +26,51 @@ public class TopicController {
     private CategoryServiceImpl categoryService;
     @Autowired
     private TopicServiceImpl topicService;
+    @Autowired
+    private CommentServiceImpl commentService;
+
 
     /**
-     * topic专栏默认的分页排序显示所有topic
+     * topic详情
      * @param model
      * @param id
      * @return
      */
     @RequestMapping("/topic/{topicId}")
-    public String toTopicPage(Model model, @PathVariable("topicId") Long id){
+    public String toTopicPage(Model model, @PathVariable("topicId")String id,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
 
         /**
          * 获取指定id的topic;
          */
-        Topic topic = topicService.findById(id);
+        Topic topic = topicService.findById(Long.parseLong(id));
         model.addAttribute("topic",topic);
 
         /**
-         * 获取热专栏
+         * 获取热专栏,只显示5个;
          */
-        Pageable pageable3 = new PageRequest(0,4,  new Sort(Sort.Direction.DESC,"collectNumber"));
+        Pageable pageable3 = new PageRequest(0,5,  new Sort(Sort.Direction.DESC,"collectNumber"));
         Page<Topic> hotTopicPage = topicService.findAll(pageable3);
         model.addAttribute("hotTopicPage",hotTopicPage);
+
+        /**
+         * 获取topic关联的category,只显示4个即可
+         */
+        Pageable pageable4 = new PageRequest(0,4,  new Sort(Sort.Direction.DESC,"id"));
+        Page<Category> categoryPage = categoryService.findByTopicId(Long.parseLong(id), pageable4);
+        model.addAttribute("categoryPage",categoryPage);
+
+        /**
+         * 获取topic关联的父Comment,sql语句中已经排除了评论表中supcomment_id 不等于0的情况(即排除掉此评论为子评论时的情况);
+         */
+        Pageable pageable5 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
+        Page<Comment> commentPage = commentService.findByTopicId(Long.parseLong(id), pageable5);
+        model.addAttribute("commentPage",commentPage);
+
         return "portal/topicDetails";
     }
+
+
+
 
     /**
      * 点击分类后获取分类下的topic并分页排序;
@@ -103,7 +126,4 @@ public class TopicController {
         return "portal/topic";
     }
 
-    /*public String toTopicDetails(){
-
-    }*/
 }

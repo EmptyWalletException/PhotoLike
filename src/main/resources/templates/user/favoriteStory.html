@@ -244,7 +244,8 @@
 				<a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +5}" th:text="${storyPage.number +5}" th:if="${storyPage.number +5} <= ${storyPage.totalPages }">9</a>
 				<a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +6}" th:text="${storyPage.number +6}" th:if="${storyPage.number +6} <= ${storyPage.totalPages }">10</a>
 				<a class="next" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +2}" th:if="${storyPage.hasNext()}">下一页</a>
-				<a class="next" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.totalPages }" >尾页</a>
+				<a class="next" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.totalPages }" th:if="${storyPage.totalPages }>0">尾页</a>
+				<a class="next" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn=1'" th:if="${storyPage.totalPages }==0" >尾页</a>
 			</div>
 
 		</div>

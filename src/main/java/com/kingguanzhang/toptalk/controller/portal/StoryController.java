@@ -1,6 +1,9 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
+import com.kingguanzhang.toptalk.entity.Comment;
 import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.repositories.CategoryRepository;
+import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +21,8 @@ public class StoryController {
 
     @Autowired
     private StoryServiceImpl storyService;
+    @Autowired
+    private CommentServiceImpl commentService;
 
     /**
      * 获取所有故事,分页并排序;
@@ -44,6 +49,7 @@ public class StoryController {
         return "/portal/story";
     }
 
+
     /**
      * 获取故事详情;
      * @param model
@@ -51,9 +57,19 @@ public class StoryController {
      * @return
      */
     @RequestMapping("/story/{storyId}")
-    public String toStoryDetailsPage(Model model, @PathVariable("storyId")Long storyId){
-        Story story = storyService.findById(storyId);
+    public String toStoryDetailsPage(Model model, @PathVariable("storyId")String storyId,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+        Story story = storyService.findById(Long.parseLong(storyId));
         model.addAttribute("story",story);
+
+
+        /**
+         * 获取topic关联的父Comment,sql语句中已经排除了评论表中supcomment_id 不等于0的情况(即排除掉此评论为子评论时的情况);
+         */
+        Pageable pageable5 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
+        Page<Comment> commentPage = commentService.findByStoryId(Long.parseLong(storyId), pageable5);
+        model.addAttribute("commentPage",commentPage);
+
         return "/portal/storyDetails";
+
     }
 }

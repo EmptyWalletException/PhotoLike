@@ -243,7 +243,8 @@
 				<a class="page" href="#" th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn='+${essayPage.number +5}" th:text="${essayPage.number +5}" th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a>
 				<a class="page" href="#" th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn='+${essayPage.number +6}" th:text="${essayPage.number +6}" th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a>
 				<a class="next" href="#" th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn='+${essayPage.number +2}" th:if="${essayPage.hasNext()}">下一页</a>
-				<a class="next" href="#" th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn='+${essayPage.totalPages }" >尾页</a>
+				<a class="next" href="#" th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn='+${essayPage.totalPages }" th:if="${essayPage.totalPages }>0">尾页</a>
+				<a class="next" href="#" th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn=1'" th:if="${essayPage.totalPages }==0" >尾页</a>
 			</div>
 		</div>
 		<!--/// uc-ct end -->

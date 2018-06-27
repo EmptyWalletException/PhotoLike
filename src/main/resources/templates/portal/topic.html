@@ -130,7 +130,8 @@
                 <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
                 <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
                 <a class="next" href="#" th:href="'/topic?pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-                <a class="next" href="#" th:href="'/topic?pn='+${topicPage.totalPages }" >尾页</a>
+                <a class="next" href="#" th:href="'/topic?pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
+                <a class="next" href="#" th:href="'/topic?pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
             </div>
 
             <!--生成的带分类参数的页面跳转url-->
@@ -148,7 +149,8 @@
                 <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
                 <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
                 <a class="next" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-                <a class="next" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.totalPages }" >尾页</a>
+                <a class="next" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
+                <a class="next" href="#" th:href="'/topic?category='+${categoryId}+'&pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
             </div>
         </div>
         <!--/// article end-->
@@ -160,7 +162,6 @@
                 <div class="widget-head">
                     <span class="title">最近热门专栏</span>
                 </div>
-                <!--TODO 遍历并取出热门专栏,思路按收藏数分页排序取出前几个专栏: -->
                 <div class="widget-ct pic-widget">
                     <div class="item" th:each="hotTopic,hotTopicStat:${hotTopicPage}" th:if="${hotTopicStat.index}<5">
                         <a href="/topic/335" class="cover-wrapper" th:href="'/topic/'+${hotTopic.id}">

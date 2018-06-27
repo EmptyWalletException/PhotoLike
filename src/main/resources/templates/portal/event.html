@@ -126,18 +126,20 @@
                 <!-- event-list -->
                 <div class="event-list">
 
-                    <div class="item item-expired clearfix" th:each="event,eventStat:${eventPage}" th:if="${eventStat.index}<10">
+                    <div class="item item-expired clearfix" th:each="event,eventStat:${eventPage}"
+                         th:if="${eventStat.index}<10">
                         <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${event.id}">
                             <img src="/js/180x225" alt="墨西哥后摇 Childs 中国巡演" class="cover rounded" th:alt="${event.name}">
                         </a>
                         <ul class="info">
                             <li>
-                                <a href="/event/15660" class="name"  th:href="'/event/'+${event.id}" th:text="${event.name}">墨西哥后摇 Childs 中国巡演（已结束）</a>
+                                <a href="/event/15660" class="name" th:href="'/event/'+${event.id}"
+                                   th:text="${event.name}">墨西哥后摇 Childs 中国巡演（已结束）</a>
                             </li>
-                            <li >时间： [[${#dates.format(event.time,'yyyy-MM-dd')}]]</li>
-                            <li >主题： [[${event.theme}]]</li>
-                            <li >场所： [[${event.location}]]</li>
-                            <li >费用： [[${event.money}]]</li>
+                            <li>时间： [[${#dates.format(event.time,'yyyy-MM-dd')}]]</li>
+                            <li>主题： [[${event.theme}]]</li>
+                            <li>场所： [[${event.location}]]</li>
+                            <li>费用： [[${event.money}]]</li>
                         </ul>
                     </div>
 
@@ -174,7 +176,8 @@
                 <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +6}" th:text="${eventPage.number +6}"
                    th:if="${eventPage.number +6} <= ${eventPage.totalPages }">10</a>
                 <a class="next" href="#" th:href="'/event?pn='+${eventPage.number +2}" th:if="${eventPage.hasNext()}">下一页</a>
-                <a class="next" href="#" th:href="'/event?pn='+${eventPage.totalPages }">尾页</a>
+                <a class="next" href="#" th:href="'/event?pn='+${eventPage.totalPages }" th:if="${eventPage.totalPages }>0">尾页</a>
+                <a class="next" href="#" th:href="'/event?pn=1'" th:if="${eventPage.totalPages }==0" >尾页</a>
             </div>
         </div>
         <!--/// article end-->
@@ -189,16 +192,19 @@
 
                 <div class="widget-ct pic-widget">
 
-                    <div class="item" th:each="newestEvent,newestEventStat:${newestEventPage}" th:if="${newestEventStat.index}<5">
+                    <div class="item" th:each="newestEvent,newestEventStat:${newestEventPage}"
+                         th:if="${newestEventStat.index}<5">
                         <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${newestEvent.id}">
-                            <img src="/js/180x225" alt="墨西哥后摇 Childs 中国巡演" class="event-cover rounded" th:alt="${newestEvent.name}">
+                            <img src="/js/180x225" alt="墨西哥后摇 Childs 中国巡演" class="event-cover rounded"
+                                 th:alt="${newestEvent.name}">
                         </a>
                         <div class="info">
-                            <a href="/event/15660" title="墨西哥后摇 Childs 中国巡演" class="wrap-title" th:title="${newestEvent.name}" th:text="${newestEvent.name}" th:href="'/event/'+${newestEvent.id}">墨西哥后摇
+                            <a href="/event/15660" title="墨西哥后摇 Childs 中国巡演" class="wrap-title"
+                               th:title="${newestEvent.name}" th:text="${newestEvent.name}"
+                               th:href="'/event/'+${newestEvent.id}">墨西哥后摇
                                 Childs 中国巡演</a>
                         </div>
                     </div>
-
 
 
                 </div>
