@@ -284,117 +284,18 @@
     }
 </script>
 <script src="/js/musician.js"></script>
-<div class="footer">
-    <div class="foot-ct clearfix">
-        <div class="about-wrapper">
-            <h4 class="foot-item-head">关于</h4>
-            <p><a class="ln-about" href="http://www.luoo.net/about/">关于落网</a></p>
-            <p><a class="ln-about" href="http://www.luoo.net/m/page/jobs">加入我们</a></p>
-            <p><a class="ln-about" href="http://www.luoo.net/m/page/contact">联系合作</a></p>
-            <p><a class="ln-about" href="javascript:;" id="feedback">反馈建议</a></p>
-            <p><a class="ln-about" href="http://www.luoo.net/links/">友情链接</a></p>
-        </div>
-        <div class="app-wrapper">
-            <h4 class="foot-item-head">APP</h4>
-            <p>
-                <a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-ios"></span>&nbsp;&nbsp;for
-                    iPhone</a>
-            </p>
-            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-android"></span>&nbsp;&nbsp;for
-                Android</a></p>
-            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-wp"></span>&nbsp;&nbsp;for Windows
-                Phone 8</a></p>
-        </div>
-        <div class="sns-wrapper">
-            <h4 class="foot-item-head">关注落网</h4>
-            <div class="sns-items">
-                <a class="icon-sns-qq" id="luooQqAccount">
-					<span class="qq-group">
-						落网QQ官方群
-						·324063420
-						<br>
-						·55728744
-					</span>
-                </a>
-                <a href="/js/wechat-qr.gif" target="_blank" class="icon-sns-wechat" id="luooWechatAccount">
-                    <img src="/js/wechat-qr.gif" alt="wechat" class="wechat-qr">
-                </a>
-                <a href="http://weibo.com/luoofm" target="_blank" class="icon-sns-weibo"></a>
-                <a href="http://www.douban.com/group/luoo/" target="_blank" class="icon-sns-douban"></a>
-                <!-- <a href="https://twitter.com/Luoofm" target="_blank" class="icon-sns-twitter"></a>
-                <a href="https://www.facebook.com/luoofm" target="_blank" class="icon-sns-fb"></a>
-                <a href="http://instagram.com/luoofm" target="_blank" class="icon-sns-ins"></a> -->
-            </div>
-            <p class="icp">© 2018 落网</p>
-            <p class="slogan">
-                <span class="icon-slogan"></span>
-            </p>
-        </div>
-    </div>
+<!--底部区域开始-->
+<div class="footer" th:replace="~{portal/footer :: footer}">
+
 </div>
 <div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;">
-    <div class="common-dialog-wrapper">
-        <form id="frmFeedback" action="http://www.luoo.net/feedback/" callback="feedback_cback" class="form-ajax">
-            <p class="fb-group">
-                <textarea name="content" class="rounded"></textarea>
-            </p>
-            <p class="fb-group helper" id="feedbackMsg">※ 请具体描述你的问题或建议</p>
-            <!-- <p class="fb-group file-group">
-                <a href="javascript:;" rel="nofollow" class="btn btn-positive btn-screenshot">问题截图</a>
-                <input type="file" name="screen" class="btn-file">
-                <span class="helper">※ 请具体描述你的问题或建议</span>
-            </p> -->
-            <p class="fb-group">
-                <span class="label">联系方式</span>
-                <input type="text" name="contact">
-            </p>
-            <p class="fb-group">
-                <span class="label">验证码</span>
-                <input type="text" name="code" class="code" maxlength="4">
-                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
-                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/musician/index/229"
-                         class="captcha">
-                </a>
+<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
 
-                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnFeedbackSubmit">提交</a>
-                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnFeedbackCancle">取消</a>
-                <input type="hidden" name="ref" id="txtFeedbackRef" value="http://www.luoo.net/musician/index/229">
-            </p>
-        </form>
-        <div id="feedbackResult" class="ajax-result">
-            提交成功，非常感谢你的反馈，必要时我们将联系你。<br><br><span class="helper">窗口将在3秒后关闭。</span>
-        </div>
-    </div>
 </div>
+<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
 
-<div id="mailWrapper" style="display:none;">
-    <div class="common-dialog-wrapper">
-        <form id="frmMail" action="http://www.luoo.net/mail/send" callback="send_mail_cback" class="form-ajax">
-            <p class="fb-group helper">给"<span id="mailUserName"></span>"发私信</p>
-
-            <p class="fb-group">
-                <textarea name="content" class="rounded"></textarea>
-            </p>
-            <p class="fb-group helper" id="sendMailMsg"></p>
-            <p class="fb-group">
-                <span class="label">验证码</span>
-                <input type="text" name="code" class="code" maxlength="4">
-                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
-                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/musician/index/229"
-                         class="captcha">
-                </a>
-
-                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnSendMail">发送</a>
-                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnCancleMail">取消</a>
-                <input type="hidden" name="uid" id="mailUserId">
-            </p>
-        </form>
-        <div id="sendMailResult" class="ajax-result">
-            发送成功。<br><br><span class="helper">窗口将在3秒后关闭。</span>
-        </div>
-    </div>
 </div>
+<!--底部结束-->
 
 <img src="/js/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
