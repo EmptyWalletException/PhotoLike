@@ -87,6 +87,14 @@
             <version>1.2</version>
         </dependency>
 
+        <!--百度ue富文本编辑器-->
+        <!-- https://mvnrepository.com/artifact/cn.songxinqiang/com.baidu.ueditor -->
+        <dependency>
+            <groupId>cn.songxinqiang</groupId>
+            <artifactId>com.baidu.ueditor</artifactId>
+            <version>1.1.2-offical</version>
+        </dependency>
+
 
         <!--下面四个jar包是由于java9移除了这些jarEE包导致hibernate运行时抛出java.lang.ClassNotFoundException: javax.xml.bind.JAXBException-->
         <dependency>

@@ -7,8 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ContributeController {
 
 
-    @RequestMapping("/portal/contribute")
-    public String toContributePage(){
-        return "/portal/contribute";
+    @RequestMapping("/portal/topicContribute")
+    public String toTopicContributePage(){
+        return "/portal/topicContribute";
+    }
+
+    @RequestMapping("/portal/storyContribute")
+    public String toStoryContributePage(){
+        return "/portal/storyContribute";
+    }
+    @RequestMapping("/ue")
+    public String toUEPage(){
+        return "/portal/ue";
     }
 }

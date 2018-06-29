@@ -105,6 +105,7 @@ window.onload = function(){
         singleInput.value = "";   // 将singleInput值清空
         //清空图片预览
         $('.singleImgEle').remove();
+
         singleInput.click();
     }
 
@@ -112,6 +113,7 @@ window.onload = function(){
         oInput.value = "";   // 将oInput值清空
         //清空图片预览
         $('.imgEle').remove();
+        multifileDataArr = [];
         index = 0;
     }
 
@@ -119,6 +121,7 @@ window.onload = function(){
         oInput.value = "";   // 将oInput值清空
         //清空图片预览
         $('.imgEle').remove();
+        multifileDataArr = [];
         index = 0;
     }
     oSelect.onclick=function(){
