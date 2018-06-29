@@ -108,123 +108,64 @@ function clearLocalData () {
     UE.getEditor('editor').execCommand( "clearlocaldata" );
     alert("已清空草稿箱")
 }
+
+UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+UE.Editor.prototype.getActionUrl = function(action) {
+    if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+        return 'http://localhost:8080/imgUpload'; //在这里返回我们实际的上传图片地址
+    } else {
+        return this._bkGetActionUrl.call(this, action);
+    }
+}
 /*富文本编辑器js结束*/
 
-/*多图片上传并回显*/
-window.onload = function(){
-    var input = document.getElementById("file_input");
-    var result;
-    var dataArr = []; // 储存所选图片的结果(文件名和base64数据)
-    var fd;  //FormData方式发送请求
-    var oSelect = document.getElementById("select");
-    var clear = document.getElementById("clear");
-    var oAdd = document.getElementById("add");
-    var oSubmit = document.getElementById("submit");
-    var oInput = document.getElementById("file_input");
+/*封面图片上传并回显*/
+var result;
+var singleInput = document.getElementById("file_single_input");
 
-    if(typeof FileReader==='undefined'){
-        alert("抱歉，你的浏览器不支持 FileReader");
-        input.setAttribute('disabled','disabled');
-    }else{
-        input.addEventListener('change',readFile,false);
-    }　　　　　//handler
+$('#file_single_input').on('change',function(){
+    $("#file_single_input").value = "";   // 将singleInput值清空
+    //清空图片预览
+    $('.singleImgEle').remove();
 
+    var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
+        fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),
+        src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
 
-    function readFile(){
-        fd = new FormData();
-        var iLen = this.files.length;
-        var index = 0;
-        for(var i=0;i<iLen;i++){
-            if (!input['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)){　　//判断上传文件格式
-                return alert("上传的图片格式不正确，请重新选择");
-            }
-            var reader = new FileReader();
-            reader.index = i;
-            fd.append(i,this.files[i]);
-            reader.readAsDataURL(this.files[i]);  //转成base64
-            reader.fileName = this.files[i].name;
+    // 检查是否是图片
+    if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {
+        alert('上传错误,文件格式必须为：png/jpg/jpeg');
+        return;
+    }
 
-
-            reader.onload = function(e){
-                var imgMsg = {
-                    name : this.fileName,//获取文件名
-                    base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
-                }
-                dataArr.push(imgMsg);
-                result = '<img src="'+this.result+'" alt=""/>';
-                var div = document.createElement('p');
-                div.innerHTML = result;
-                div['style'] = 'float:left;';
-                div['className'] = 'imgEle';
-                div['index'] = index;
-                $("#photoEcho").append(div); 　　//插入dom树
-                var img = div.getElementsByTagName('img')[0];
-                img.onload = function(){
-                    var nowHeight = ReSizePic(this); //设置图片大小
-                    this.parentNode.style.display = 'block';
-                    var oParent = this.parentNode;
-                    if(nowHeight){
-                        oParent.style.paddingTop = (oParent.offsetHeight - nowHeight)/2 + 'px';
-                    }
-
-                }
-
-
-                div.onclick = function(){
-                    this.remove();                  // 在页面中删除该图片元素
-                    delete dataArr[this.index];  // 删除dataArr对应的数据
-
-                }
-                index++;
-            }
+    result = '<img src="'+src+'" alt="封面图片"/>';
+    var div = document.createElement('p');
+    div.innerHTML = result;
+    div['style'] = 'float:left;';
+    div['className'] = 'singleImgEle';
+    $("#singlePhotoEcho").append(div); 　　//在封面图片预览区域插入dom树
+    var img = div.getElementsByTagName('img')[0]; //取出图片元素,然后在下面重新设置
+    img.onload = function(){
+        var nowHeight = ReSizePic(this); //设置图片大小
+        this.parentNode.style.display = 'block';
+        var oParent = this.parentNode;
+        if(nowHeight){
+            oParent.style.paddingTop = (oParent.offsetHeight - nowHeight)/2 + 'px';
         }
+
     }
 
-
-    function send(){
-
-
-        var submitArr = [];
-        for (var i = 0; i < dataArr.length; i++) {
-            if (dataArr[i]) {
-                submitArr.push(dataArr[i]);
-            }
-        }
-        // console.log('提交的数据：'+JSON.stringify(submitArr))
-        $.ajax({
-            url : 'http://123.206.89.242:9999',
-            type : 'post',
-            data : JSON.stringify(submitArr),
-            dataType: 'json',
-            //processData: false,   用FormData传fd时需有这两项
-            //contentType: false,
-            success : function(data){
-                console.log('返回的数据：'+JSON.stringify(data))
-            }
-
-        })
-    }
+});
 
 
-    oInput.onclick=function(){ //在多文件上传是单次点击选择图片按钮默认是重新选择图片;
-        oInput.value = "";   // 将oInput值清空
-        //清空图片预览
-        $('.imgEle').remove();
-        dataArr = [];
-        index = 0;
-    }
+selectCover.onclick=function(){ //单次点击选择图片按钮默认是重新选择图片;
+    singleInput.value = "";   // 将singleInput值清空
+    //清空图片预览
+    $('.singleImgEle').remove();
 
-
-
-
-    oSubmit.onclick=function(){
-        if(!dataArr.length){
-            return alert('请先选择文件');
-        }
-        send();
-    }
-
+    singleInput.click();
 }
+
 /*
  用ajax发送fd参数时要告诉jQuery不要去处理发送的数据，
  不要去设置Content-Type请求头才可以发送成功，否则会报“Illegal invocation”的错误，

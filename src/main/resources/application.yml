@@ -9,3 +9,7 @@ spring:
     hibernate:
       ddl-auto: update  #配置当实体类更新时创建或更新数据表
     show-sql: true
+
+    #临时保存上传图片的系统目录
+custom:
+  tmpLocation: D:/temp

@@ -1,9 +1,14 @@
 package com.kingguanzhang.toptalk.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import javax.servlet.MultipartConfigElement;
 
 /**
  * 扩展springMvc
@@ -11,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 //@EnableAutoConfiguration(exclude = {MultipartAutoConfiguration.class})
 @Configuration
 public class MyMvcConfig extends WebMvcConfigurerAdapter {
+
+
     @Override
     /*注册视图解析器,所有在localhost:8080后面加上的路径会被springMvc以返回的字符串解析
     并在templates路径下寻找对应的html*/
@@ -46,6 +53,18 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         //registry.addResourceHandler("/ueditor/video/**").addResourceLocations("/upload/video/");
         super.addResourceHandlers(registry);
     }
+
+    /**
+     * 设置文件上传的临时目录
+     * @return
+     */
+    @Bean
+    MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setLocation("D:/temp");
+        return factory.createMultipartConfig();
+    }
+
 
 
 /*    @Bean(name = "multipartResolver")

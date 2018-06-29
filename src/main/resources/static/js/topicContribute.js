@@ -101,13 +101,7 @@ window.onload = function(){
     }
 
 
-    selectCover.onclick=function(){ //单次点击选择图片按钮默认是重新选择图片;
-        singleInput.value = "";   // 将singleInput值清空
-        //清空图片预览
-        $('.singleImgEle').remove();
-
-        singleInput.click();
-    }
+    c
 
     oInput.onclick=function(){ //在多文件上传是单次点击选择图片按钮默认是重新选择图片;
         oInput.value = "";   // 将oInput值清空
