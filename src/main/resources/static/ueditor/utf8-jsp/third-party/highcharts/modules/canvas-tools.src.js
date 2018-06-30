@@ -533,7 +533,7 @@ if(!Array.prototype.indexOf){
 			// length extensions
 			this.Length = {
 				DPI: function(viewPort) {
-					return 96.0; // TODO: compute?
+					return 96.0;
 				},
 				
 				EM: function(viewPort) {
@@ -1391,7 +1391,6 @@ if(!Array.prototype.indexOf){
 			this.base(node);
 					
 			var d = this.attribute('d').value;
-			// TODO: convert to real lexer based on http://www.w3.org/TR/SVG11/paths.html#PathDataBNF
 			d = d.replace(/,/gm,' '); // get rid of all commas
 			d = d.replace(/([MmZzLlHhVvCcSsQqTtAa])([MmZzLlHhVvCcSsQqTtAa])/gm,'$1 $2'); // separate commands from commands
 			d = d.replace(/([MmZzLlHhVvCcSsQqTtAa])([MmZzLlHhVvCcSsQqTtAa])/gm,'$1 $2'); // separate commands from commands
@@ -1660,7 +1659,7 @@ if(!Array.prototype.indexOf){
 							pp.addMarkerAngle(halfWay, (a1 + ad) / 2 + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
 							pp.addMarkerAngle(cp, ad + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
 
-							bb.addPoint(cp.x, cp.y); // TODO: this is too naive, make it better
+							bb.addPoint(cp.x, cp.y);
 							if (ctx != null) {
 								var r = rx > ry ? rx : ry;
 								var sx = rx > ry ? 1 : rx / ry;

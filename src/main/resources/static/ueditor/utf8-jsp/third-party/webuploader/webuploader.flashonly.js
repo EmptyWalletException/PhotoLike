@@ -1187,7 +1187,7 @@
             this.name = file.name || ('untitled' + uid++);
             ext = rExt.exec( file.name ) ? RegExp.$1.toLowerCase() : '';
     
-            // todo 支持其他类型文件的转换。
+            //  支持其他类型文件的转换。
     
             // 如果有mimetype, 但是文件名里面没有找出后缀规律
             if ( !ext && this.type ) {
@@ -3877,7 +3877,7 @@
             this.jsreciver = jsreciver;
     
             this.destory = function() {
-                // @todo 删除池子中的所有实例
+                // @ 删除池子中的所有实例
                 return destory && destory.apply( this, arguments );
             };
     
@@ -3888,7 +3888,7 @@
                 return flash.exec( this.uid, comp, fn, args );
             };
     
-            // @todo
+            // @
         }
     
         Base.inherits( Runtime, {
@@ -3943,7 +3943,7 @@
         FlashRuntime.register = function( name, component ) {
             component = components[ name ] = Base.inherits( CompBase, $.extend({
     
-                // @todo fix this later
+                // @ fix this later
                 flashExec: function() {
                     var owner = this.owner,
                         runtime = this.getRuntime();
@@ -3990,7 +3990,7 @@
             },
     
             destroy: function() {
-                // todo
+                // 
             }
         });
     });

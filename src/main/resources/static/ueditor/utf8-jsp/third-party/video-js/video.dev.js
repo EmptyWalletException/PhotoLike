@@ -423,7 +423,7 @@ vjs.fixEvent = function(event) {
     // IE8 Doesn't like when you mess with native event properties
     // Firefox returns false for event.hasOwnProperty('type') and other props
     //  which makes copying more difficult.
-    // TODO: Probably best to create a whitelist of event props
+    //  Probably best to create a whitelist of event props
     for (var key in old) {
       // Safari 6.0.3 warns you if you try to copy deprecated layerX/Y
       if (key !== 'layerX' && key !== 'layerY') {
@@ -2073,7 +2073,7 @@ vjs.Component.prototype.dimension = function(widthOrHeight, num, skipListeners){
 
   // No px so using % or no style was set, so falling back to offsetWidth/height
   // If component has display:none, offset will return 0
-  // TODO: handle display:none and no dimension style using px
+  //  handle display:none and no dimension style using px
   } else {
 
     return parseInt(this.el_['offset'+vjs.capitalize(widthOrHeight)], 10);
@@ -2125,7 +2125,7 @@ vjs.Component.prototype.emitTapEvents = function(){
   noTap = function(){
     couldBeTap = false;
   };
-  // TODO: Listen to the original target. http://youtu.be/DujfpXOKUp8?t=13m8s
+  //  Listen to the original target. http://youtu.be/DujfpXOKUp8?t=13m8s
   this.on('touchmove', noTap);
   this.on('touchleave', noTap);
   this.on('touchcancel', noTap);
@@ -2201,7 +2201,7 @@ vjs.Button.prototype.createEl = function(type, props){
 };
 
 vjs.Button.prototype.buildCSSClass = function(){
-  // TODO: Change vjs-control to vjs-button?
+  //  Change vjs-control to vjs-button?
   return 'vjs-control ' + vjs.Component.prototype.buildCSSClass.call(this);
 };
 
@@ -2740,7 +2740,7 @@ vjs.Player = vjs.Component.extend({
       this.addClass('vjs-controls-disabled');
     }
 
-    // TODO: Make this smarter. Toggle user state between touching/mousing
+    //  Make this smarter. Toggle user state between touching/mousing
     // using events, since devices can have both touch and mouse events.
     // if (vjs.TOUCH_ENABLED) {
     //   this.addClass('vjs-touch-enabled');
@@ -3027,7 +3027,7 @@ vjs.Player.prototype.trackProgress = function(){
   this.progressInterval = setInterval(vjs.bind(this, function(){
     // Don't trigger unless buffered amount is greater than last time
     // log(this.cache_.bufferEnd, this.buffered().end(0), this.duration())
-    /* TODO: update for multiple buffered regions */
+    /*  update for multiple buffered regions */
     if (this.cache_.bufferEnd < this.buffered().end(0)) {
       this.trigger('progress');
     } else if (this.bufferedPercent() == 1) {
@@ -4008,7 +4008,7 @@ vjs.Player.prototype.listenForUserActivity = function(){
 // controller: function(){ return this.techCall('controller'); },
 // defaultMuted: function(){ return this.techCall('defaultMuted'); }
 
-// TODO
+// 
 // currentSrcList: the array of sources including other formats and bitrates
 // playList: array of source lists in order of playback
 
@@ -4710,7 +4710,7 @@ vjs.MuteToggle.prototype.update = function(){
       }
   }
 
-  /* TODO improve muted icon classes */
+  /*  improve muted icon classes */
   for (var i = 0; i < 4; i++) {
     vjs.removeClass(this.el_, 'vjs-vol-'+i);
   }
@@ -5309,7 +5309,7 @@ vjs.Html5.canPlaySource = function(srcObj){
   } catch(e) {
     return '';
   }
-  // TODO: Check Type
+  //  Check Type
   // If no Type, check ext
   // Check Media Type
 };
@@ -5386,7 +5386,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         objId = player.id()+'_flash_api',
 
         // Store player options in local var for optimization
-        // TODO: switch to using player methods instead of options
+        //  switch to using player methods instead of options
         // e.g. player.autoplay();
         playerOptions = player.options_,
 
@@ -5986,7 +5986,7 @@ vjs.Player.prototype.addTextTrack = function(kind, label, language, options){
   tracks.push(track);
 
   // If track.dflt() is set, start showing immediately
-  // TODO: Add a process to deterime the best track to show for the specific kind
+  //  Add a process to deterime the best track to show for the specific kind
   // Incase there are mulitple defaulted tracks of the same kind
   // Or the user has a set preference of a specific language that should override the default
   // if (track.dflt()) {
@@ -6377,7 +6377,7 @@ vjs.TextTrack.prototype.onError = function(err){
 };
 
 // Parse the WebVTT text format for cue times.
-// TODO: Separate parser into own class so alternative timed text formats can be used. (TTML, DFXP)
+//  Separate parser into own class so alternative timed text formats can be used. (TTML, DFXP)
 vjs.TextTrack.prototype.parseCues = function(srcContent) {
   var cue, time, text,
       lines = srcContent.split('\n'),
@@ -6450,7 +6450,7 @@ vjs.TextTrack.prototype.parseCueTime = function(timeText) {
   }
 
   // Break other (seconds, milliseconds, and flags) by spaces
-  // TODO: Make additional cue layout settings work with flags
+  //  Make additional cue layout settings work with flags
   other = other.split(/\s+/);
   // Remove seconds. Seconds is the first part before any spaces.
   seconds = other.splice(0,1)[0];

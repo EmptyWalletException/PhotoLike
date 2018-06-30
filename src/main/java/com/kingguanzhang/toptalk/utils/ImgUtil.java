@@ -23,19 +23,20 @@ public class ImgUtil {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
     private static final Random r = new Random();
 
-    public static String generateThumbnail(MultipartFile upfile,Integer width,Integer height){
+    public static String generateThumbnail(MultipartFile upfile,String centreAddr,Integer width,Integer height){
         //获取随机文件名
         String randomName = getRandomFileName();
         // 获取文件名
         String fileName = upfile.getOriginalFilename();
         //获取文件扩展名
         String extension = fileName.substring(fileName.lastIndexOf("."));
-        //确保文件夹存在
-       // makeDirPath(PathUtil.getImgBasePath());
+
         //评价成文件名: 234415.jpg
-        String relativeAddr =  randomName +extension;
+        String relativeName =  randomName +extension;
         //拼接成完整文件路径; D:/projectdev/images/upload/235545.jpg
-        String imgAddr = PathUtil.getImgBasePath()+ relativeAddr;
+        String imgAddr = PathUtil.getImgBasePath()+centreAddr+relativeName;
+        //确保文件夹存在
+         makeDirPath(PathUtil.getImgBasePath()+centreAddr);
         //建立文件连接;
         File dest = new File (imgAddr);
         try{
@@ -50,7 +51,7 @@ public class ImgUtil {
             imgAddr = "D:/test.jpg";
             e.printStackTrace();
         }
-        return relativeAddr;
+        return "/upload"+centreAddr+relativeName;
     }
 
     /**
@@ -67,11 +68,10 @@ public class ImgUtil {
 
     /**
      * 生成文件路径所涉及到的目录;
-     * @param targetAddr
+     * @param addr
      */
-    private static void makeDirPath(String targetAddr) {
-        String realFileParentPath = PathUtil.getImgBasePath() + targetAddr;
-        File dirPath = new File(realFileParentPath);
+    private static void makeDirPath(String addr) {
+        File dirPath = new File(addr);
         if(!dirPath.exists()){
             dirPath.mkdirs();
         }

@@ -6443,7 +6443,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                 start, tmp, parent;
             if ( browser.ie9below ) {
                 if ( !range ) {
-                    //todo 给第一个值可能会有问题
+                    // 给第一个值可能会有问题
                     return this.document.body.firstChild;
                 }
                 //control元素
@@ -9379,7 +9379,7 @@ var filterWord = UE.filterWord = function () {
  */
 
 var htmlparser = UE.htmlparser = function (htmlstr,ignoreBlank) {
-    //todo 原来的方式  [^"'<>\/] 有\/就不能配对上 <TD vAlign=top background=../AAA.JPG> 这样的标签了
+    // 原来的方式  [^"'<>\/] 有\/就不能配对上 <TD vAlign=top background=../AAA.JPG> 这样的标签了
     //先去掉了，加上的原因忘了，这里先记录
     var re_tag = /<(?:(?:\/([^>]+)>)|(?:!--([\S|\s]*?)-->)|(?:([^\s\/<>]+)\s*((?:(?:"[^"]*")|(?:'[^']*')|[^"'<>])*)\/?>))/g,
         re_attr = /([\w\-:.]+)(?:(?:\s*=\s*(?:(?:"([^"]*)")|(?:'([^']*)')|([^\s>]+)))|(?=\s|$))/g;
@@ -9615,7 +9615,7 @@ var filterNode = UE.filterNode = function () {
                            var tmpAttrs = {},tmpVal;
                            for(var a in attrs){
                                tmpVal = node.getAttr(a);
-                               //todo 只先对style单独处理
+                               // 只先对style单独处理
                                if(a == 'style' && utils.isArray(attrs[a])){
                                    var tmpCssStyle = [];
                                    utils.each(attrs[a],function(v){
@@ -10011,7 +10011,7 @@ UE.plugins['defaultfilter'] = function () {
                         }
                         break;
                     case 'img':
-                        //todo base64暂时去掉，后边做远程图片上传后，干掉这个
+                        // base64暂时去掉，后边做远程图片上传后，干掉这个
                         if (val = node.getAttr('src')) {
                             if (/^data:/.test(val)) {
                                 node.parentNode.removeChild(node);
@@ -15722,7 +15722,7 @@ UE.plugins['list'] = function () {
             }
         }
         //只以开始为准
-        //todo 后续改进
+        // 后续改进
         var li = domUtils.findParentByTagName(range.startContainer, 'li', true);
         if(li){
 
@@ -16186,7 +16186,7 @@ UE.plugins['list'] = function () {
         textarea: function (editor, holder){
             var textarea = holder.ownerDocument.createElement('textarea');
             textarea.style.cssText = 'position:absolute;resize:none;width:100%;height:100%;border:0;padding:0;margin:0;overflow-y:auto;';
-            // todo: IE下只有onresize属性可用... 很纠结
+            // : IE下只有onresize属性可用... 很纠结
             if (browser.ie && browser.version < 8) {
                 textarea.style.width = holder.offsetWidth + 'px';
                 textarea.style.height = holder.offsetHeight + 'px';
@@ -16210,14 +16210,14 @@ UE.plugins['list'] = function () {
                         range.collapse(true);
                         range.select();
                     } else {
-                        //todo: chrome下无法设置焦点
+                        //: chrome下无法设置焦点
                         textarea.setSelectionRange(0, 0);
                         textarea.focus();
                     }
                 },
                 dispose: function (){
                     holder.removeChild(textarea);
-                    // todo
+                    // 
                     holder.onresize = null;
                     textarea = null;
                     holder = null;
@@ -17151,7 +17151,7 @@ UE.plugins['fiximgclick'] = (function () {
                                 me.selection.getRange().selectNode(target).select();
                             }
                         });
-                        //TODO 有iframe的情况，mousedown不能往下传。。
+                        // 有iframe的情况，mousedown不能往下传。。
                         domUtils.on(imageScale.resizer, 'mousedown', function (e) {
                             me.selection.getNative().removeAllRanges();
                             var ele = e.target || e.srcElement;
@@ -18102,7 +18102,7 @@ UE.plugins['video'] = function (){
                         if (tmpEnd > end && flag) break;
                         if (cell == tmpCell || end == tmpEnd) {
                             //只获取单一的单元格
-                            //todo 仅获取单一单元格在特定情况下会造成returns为空，从而影响后续的拖拽实现，修正这个。需考虑性能
+                            // 仅获取单一单元格在特定情况下会造成returns为空，从而影响后续的拖拽实现，修正这个。需考虑性能
                             if (tmpCell[flag ? "colSpan" : "rowSpan"] == 1) {
                                 returns.push(tmpCell);
                             }
@@ -18991,7 +18991,7 @@ UE.plugins['video'] = function (){
                 tableWidth = firstParentBlock.offsetWidth,
                 tdWidth = Math.floor(tableWidth / opt.numCols - defaultValue.tdPadding * 2 - defaultValue.tdBorder);
 
-            //todo其他属性
+            //其他属性
             !opt.tdvalign && (opt.tdvalign = me.options.tdvalign);
             me.execCommand("inserthtml", createTable(opt, tdWidth));
         }
@@ -19801,7 +19801,7 @@ UE.plugins['video'] = function (){
             if (!table) return -1;
             var interlaced = table.getAttribute("interlaced");
             if (cmd == "interlacetable") {
-                //TODO 待定
+                // 待定
                 //是否需要待定，如果设置，则命令只能单次执行成功，但反射具备toggle效果；否则可以覆盖前次命令，但反射将不存在toggle效果
                 return (interlaced === "enabled") ? -1 : 0;
             } else {
@@ -19940,7 +19940,7 @@ UE.plugins['table'] = function () {
         dragTd = null;    //发生拖动的目标td
 
     var mousedown = false,
-    //todo 判断混乱模式
+    // 判断混乱模式
         needIEHack = true;
 
     me.setOpt({
@@ -20174,7 +20174,7 @@ UE.plugins['table'] = function () {
                             for (var j = 0, cj; cj = ci[j++];) {
                                 if (td) {
                                     td.innerHTML = cj.innerHTML;
-                                    //todo 定制处理
+                                    // 定制处理
                                     cj.getAttribute('width') && td.setAttribute('width', cj.getAttribute('width'));
                                     cj.getAttribute('vAlign') && td.setAttribute('vAlign', cj.getAttribute('vAlign'));
                                     cj.getAttribute('align') && td.setAttribute('align', cj.getAttribute('align'));
@@ -20285,7 +20285,7 @@ UE.plugins['table'] = function () {
 
 
         //内容变化时触发索引更新
-        //todo 可否考虑标记检测，如果不涉及表格的变化就不进行索引重建和更新
+        // 可否考虑标记检测，如果不涉及表格的变化就不进行索引重建和更新
         me.addListener("contentchange", function () {
             var me = this;
             //尽可能排除一些不需要更新的状况
@@ -22338,7 +22338,7 @@ UE.plugins['contextmenu'] = function () {
                             }
                         }
                         contextItems.push( {
-                            //todo 修正成自动获取方式
+                            // 修正成自动获取方式
                             'label':getLabel(),
                             className:'edui-for-' + item.icon,
                             'subMenu':{
@@ -26833,7 +26833,7 @@ UE.ui = baidu.editor.ui = {};
 ///import ui/menu.js
 ///import ui/splitbutton.js
 (function (){
-    // todo: menu和item提成通用list
+    // : menu和item提成通用list
     var utils = baidu.editor.utils,
         uiUtils = baidu.editor.ui.uiUtils,
         Menu = baidu.editor.ui.Menu,
@@ -27163,7 +27163,7 @@ UE.ui = baidu.editor.ui = {};
                 '</div></div></div>';
         },
         postRender: function (){
-            // todo: 保持居中/记住上次关闭位置选项
+            // : 保持居中/记住上次关闭位置选项
             if (!this.modalMask.getDom()) {
                 this.modalMask.render();
                 this.modalMask.hide();
@@ -27957,7 +27957,7 @@ UE.ui = baidu.editor.ui = {};
     for (var p in dialogBtns) {
         (function (type, vals) {
             for (var i = 0, ci; ci = vals[i++];) {
-                //todo opera下存在问题
+                // opera下存在问题
                 if (browser.opera && ci === "searchreplace") {
                     continue;
                 }
@@ -28413,7 +28413,7 @@ UE.ui = baidu.editor.ui = {};
         if (!val.length)return;
         for (var i = 0, ci, items = []; ci = val[i++];) {
             items.push({
-                //todo:写死了
+                //:写死了
                 label:ci,
                 value:ci,
                 theme:editor.options.theme,
@@ -28899,7 +28899,7 @@ UE.ui = baidu.editor.ui = {};
                                     '<span onclick=$$._onRemoveButtonClick(\'anchor\') class="edui-clickable">' + editor.getLang("delete") + '</span></nobr>');
                         }
                         if (img.getAttribute("word_img")) {
-                            //todo 放到dialog去做查询
+                            // 放到dialog去做查询
                             editor.word_img = [img.getAttribute("word_img")];
                             dialogName = "wordimageDialog"
                         }
@@ -29415,7 +29415,7 @@ UE.ui = baidu.editor.ui = {};
                         ci.style.display =  displays[i]
                     }
                     //编辑器最外容器设置了高度，会导致，编辑器不占位
-                    //todo 先去掉，没有找到原因
+                    // 先去掉，没有找到原因
                     if(holder.style.height){
                         holder.style.height = ''
                     }

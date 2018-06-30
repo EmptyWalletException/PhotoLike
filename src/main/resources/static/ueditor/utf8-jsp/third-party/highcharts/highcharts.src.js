@@ -3325,7 +3325,6 @@ SVGRenderer.prototype = {
 										textStyles.fontSize
 								).h,
 								// Safari 6.0.2 - too optimized for its own good (#1539)
-								// TODO: revisit this with future versions of Safari
 								isWebKit && tspan.offsetHeight
 							);
 						}
@@ -9332,7 +9331,7 @@ Pointer.prototype = {
 
 		
 		// Set geometry for clipping, selection and transformation
-		if (!inverted) { // TODO: implement clipping for inverted charts
+		if (!inverted) { //  implement clipping for inverted charts
 			clip[xy] = clipXY - plotLeftTop;
 			clip[wh] = selectionWH;
 		}
@@ -10499,7 +10498,6 @@ Legend.prototype = {
 };
 
 // Workaround for #2030, horizontal legend items not displaying in IE11 Preview.
-// TODO: When IE11 is released, check again for this bug, and remove the fix
 // or make a better one.
 if (/Trident.*?11\.0/.test(userAgent)) {
 	wrap(Legend.prototype, 'positionItem', function (proceed, item) {
@@ -10736,7 +10734,7 @@ Chart.prototype = {
 			redrawLegend = chart.isDirtyLegend,
 			hasStackedSeries,
 			hasDirtyStacks,
-			isDirtyBox = chart.isDirtyBox, // todo: check if it has actually changed?
+			isDirtyBox = chart.isDirtyBox, //  check if it has actually changed?
 			seriesLength = series.length,
 			i = seriesLength,
 			serie,
@@ -13112,7 +13110,7 @@ Series.prototype = {
 		}
 
 		// Shift the first point off the parallel arrays
-		// todo: consider series.removePoint(i) method
+		//  consider series.removePoint(i) method
 		if (shift) {
 			if (data[0] && data[0].remove) {
 				data[0].remove(false);
@@ -15330,7 +15328,6 @@ var AreaSeries = extendClass(Series, {
 		}
 		if (options.stacking && !this.closedStacks) {
 			
-			// Follow stack back. Todo: implement areaspline. A general solution could be to 
 			// reverse the entire graphPath of the previous series, though may be hard with
 			// splines and with series with different extremes
 			for (i = segment.length - 1; i >= 0; i--) {

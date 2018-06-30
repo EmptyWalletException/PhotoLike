@@ -85,7 +85,7 @@
 <div class="container" id="luooPlayerPlaylist" style="min-height: 499px;">
 
     <div class="musician-banner clearfix">
-        <img src="/js/m_56447ca3da96c.jpg" alt="#" class="cover" th:alt="${upEssay.title}">
+        <img src="/js/m_56447ca3da96c.jpg" alt="#" class="cover" th:src="${upEssay.imgAddr}" th:alt="${upEssay.title}">
         <div class="meta">
             <a href="#" class="title active" id="track15491" data-id="15491" th:text="${upEssay.title}"
                th:href="'/essay?essayId='+${upEssay.id}">
@@ -116,6 +116,8 @@
             </div>
         </div>
     </div>
+
+    <!--随笔主体区域-->
     <div class="clearfix">
 
         <!-- article start-->
@@ -126,7 +128,7 @@
                 <!--遍历并生成10个随笔-->
                 <div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayStat.index}<11">
                     <div class="cover-wrapper">
-                        <img class="cover rounded" src="./单曲推荐-落网_files/Fp7W4f0QjY8aQylkdCmRG6gkMcIV.bmp" alt="开心就足够"
+                        <img class="cover rounded" src="./单曲推荐-落网_files/Fp7W4f0QjY8aQylkdCmRG6gkMcIV.bmp" alt="开心就足够"  th:src="${essay.imgAddr}"
                              th:alt="${essay.title}">
                     </div>
                     <div class="musician-wrapper">
@@ -257,8 +259,8 @@
 
                     <div class="item" th:each="hotEssay,hotEssayStat:${hotEssayPage}" th:if="${hotEssayStat.index}<6">
                         <a href="#" class="cover-wrapper" th:href="'/essay?essayId='+${hotEssay.id}">
-                            <img src="/js/m_5666753fe0dfe.jpg" alt="那下午她在新居砸电视" class="essay-cover rounded"
-                                 th:alt="${hotEssay.title}">
+                            <img src="/js/m_5666753fe0dfe.jpg"  alt="那下午她在新居砸电视" class="essay-cover rounded"
+                             th:src="${hotEssay.imgAddr}"    th:alt="${hotEssay.title}">
                         </a>
                         <div class="info">
                             <a href="#" title="那下午她在新居砸电视"

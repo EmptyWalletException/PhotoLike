@@ -22,10 +22,10 @@ public class ImgUploadController {
         }
         try {
             //使用工具类保存图片并返回文件名给网页;
-            String fileName = ImgUtil.generateThumbnail(upfile,720,720);
+            String fileName = ImgUtil.generateThumbnail(upfile,"/temp",720,720);
             //url为文件访问的完整路径,注意应该配合mvc中配置的虚拟路径"/upload"
             String config = "{\"state\": \"SUCCESS\"," +
-                    "\"url\": \"" + "/upload/" + fileName + "\"," +
+                    "\"url\": \"" + fileName + "\"," +
                     "\"title\": \"" + fileName + "\"," +
                     "\"original\": \"" + fileName + "\"}";
             return config;

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +84,8 @@ public class EssayServiceImpl {
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
+        object.setCollectNumber(0);
+        object.setCreatTime(new Date(System.currentTimeMillis()));
         Long id=null;
         try {
             essayRepository.save(object);
@@ -100,7 +103,7 @@ public class EssayServiceImpl {
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
-        Long id=null;
+           Long id=null;
         try {
             Essay temp = essayRepository.saveAndFlush(object);
             id = temp.getId();

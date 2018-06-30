@@ -1548,7 +1548,7 @@
             this.name = file.name || ('untitled' + uid++);
             ext = rExt.exec( file.name ) ? RegExp.$1.toLowerCase() : '';
     
-            // todo 支持其他类型文件的转换。
+            //  支持其他类型文件的转换。
     
             // 如果有mimetype, 但是文件名里面没有找出后缀规律
             if ( !ext && this.type ) {
@@ -4011,7 +4011,7 @@
             };
     
             me.destory = function() {
-                // @todo 删除池子中的所有实例
+                // @ 删除池子中的所有实例
                 return destory && destory.apply( this, arguments );
             };
         }
@@ -4363,7 +4363,7 @@
                     input.attr( 'multiple', 'multiple' );
                 }
     
-                // @todo Firefox不支持单独指定后缀
+                // @ Firefox不支持单独指定后缀
                 if ( opts.accept && opts.accept.length > 0 ) {
                     arr = [];
     
@@ -4408,7 +4408,7 @@
             },
     
             destroy: function() {
-                // todo
+                // 
             }
         });
     });
@@ -5354,7 +5354,7 @@
     });
     /**
      * @fileOverview Transport
-     * @todo 支持chunked传输，优势：
+     * @ 支持chunked传输，优势：
      * 可以将大文件分成小块，挨个传输，可以提高大文件成功率，当失败的时候，也只需要重传那小部分，
      * 而不需要重头再传一次。另外断点续传也需要用chunked方式。
      */
