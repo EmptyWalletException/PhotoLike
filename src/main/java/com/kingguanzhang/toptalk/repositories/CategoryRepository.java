@@ -12,12 +12,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Long> {
 
-    /**
+    /*
      * 自定义查询语句,通过topicId查询出所有category;分页并排序;
      * @param topicId
      * @return
-     */
     @Query(nativeQuery = true, value = "select * from category where id in (select category_id from category_topic where topic_id= :topicId)",//ORDER BY ?#{#pageable}
             countQuery = "select count(*) from category where id in (select category_id from category_topic where topic_id= :topicId)")
     Page<Category> findByTopicId(@Param("topicId")Long topicId,Pageable pageable);
+    */
 }

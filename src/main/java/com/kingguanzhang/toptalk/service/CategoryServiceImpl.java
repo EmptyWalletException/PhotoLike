@@ -34,12 +34,12 @@ public class CategoryServiceImpl {
         return  page;
     }
 
-    /**
+  /*  *//**
      * 通过topicId查询关联的categoryId;分页并排序;
      * @param topicId
      * @param pageable
      * @return
-     */
+     *//*
     public Page<Category> findByTopicId(long topicId,Pageable pageable){
         Page<Category> page;
         try {
@@ -50,7 +50,7 @@ public class CategoryServiceImpl {
         }
 
         return  page;
-    }
+    }*/
 
     /**
      * 通过id查询单个;

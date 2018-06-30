@@ -1,19 +1,15 @@
 package com.kingguanzhang.toptalk.controller.componentController;
 
-import com.kingguanzhang.toptalk.utils.ImgUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ImgUploadController {
 
     /**
-     * 保存ue富文本编辑器上传的图片并回显;
+     * 保存ue富文本编辑器上传的图片并回显;已经移交给StoryController处理,此处保留一个被注释掉的模板供以后参考;
      * @param upfile
      * @return
-     */
+     *//*
     @RequestMapping(value = "/imgUpload")
     @ResponseBody
     public String imgUpload3(MultipartFile upfile) {
@@ -33,7 +29,7 @@ public class ImgUploadController {
             e.printStackTrace();
         }
         return "error";
-    }
+    }*/
 
 
 }

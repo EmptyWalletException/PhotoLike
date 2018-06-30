@@ -85,6 +85,7 @@ public class StoryServiceImpl {
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
+        //因为long类型的id默认初始值是0,此处需要重置为空才能防止在数据库表中重复;
         Long id=null;
         try {
             storyRepository.save(object);

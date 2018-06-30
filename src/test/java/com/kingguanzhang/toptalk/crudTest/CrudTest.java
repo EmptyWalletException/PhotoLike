@@ -46,8 +46,6 @@ public class CrudTest {
     @Autowired
     private CRESTServiceImpl crestService;
 
-    @Autowired
-    private CRTServiceImpl crtService;
 
     @Autowired
     private MessageServiceImpl messageService;
@@ -92,8 +90,6 @@ public class CrudTest {
             Message message = new Message();
             message.setId(i);
 
-            CategoryRelateTopic categoryRelateTopic =new CategoryRelateTopic();
-            categoryRelateTopic.setId(i);
 
             CommentRelateEST commentRelateEST= new CommentRelateEST();
             commentRelateEST.setId(i);
@@ -162,9 +158,6 @@ public class CrudTest {
             commentRelateEST.setTopicId(i);
 //            crestService.save(commentRelateEST);
 
-            categoryRelateTopic.setCategoryId(i);
-            categoryRelateTopic.setTopicId(i);
-//            crtService.save(categoryRelateTopic);
 
             comment.setContent("测试评论正文");
             comment.setCreatTime(date);

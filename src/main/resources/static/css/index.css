@@ -2225,7 +2225,7 @@ html[xmlns] .slides {
     height: 115px;
     width: 115px;
     position: absolute;
-    top: 169px;
+    top: 129px;
     left: 262px;
     z-index: 9;
     opacity: 0;
@@ -2243,7 +2243,7 @@ html[xmlns] .slides {
     left: 124px;
     opacity: 0;
     position: absolute;
-    top: 75px;
+    top: 55px;
     z-index: 9;
     height: 59px;
     width: 55px
@@ -2315,12 +2315,12 @@ html[xmlns] .slides {
 .section-vol .cover-lg {
     border-radius: 4px;
     width: 640px;
-    height: 452px
+    max-height: 360px
 }
 
 .section-vol .vol-item {
     float: right;
-    width: 303px;
+    width: 291px;
     margin-bottom: 10px
 }
 
@@ -2335,8 +2335,8 @@ html[xmlns] .slides {
 
 .section-vol .cover {
     border-radius: 3px;
-    width: 302px;
-    height: 210px
+    width: 290px;
+    max-height: 163px
 }
 
 .section-vol .play-btn-mask {
@@ -2463,7 +2463,7 @@ html[xmlns] .slides {
 
 .section-essay .cover {
     width: 208px;
-    height: 148px;
+    max-height: 117px;
     border-radius: 4px
 }
 

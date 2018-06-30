@@ -106,7 +106,10 @@
             <button id="selectCover">选择封面图片</button>
         </div>
         <div >
-            撰写故事标题 : <input rows="1" class="Input" placeholder="请输入标题"  style="width: 500px;height: 22px">
+            撰写故事标题(限20字以内) : <input rows="1" id="title" class="Input" placeholder="请输入标题"  style="width: 500px;height: 22px">
+        </div>
+        <div >
+            撰写故事概述(限50字以内) : <input rows="1" id="subscribe" class="Input" placeholder="请输入概述"  style="width: 500px;height: 22px">
         </div>
     </div>
     <div>
@@ -114,7 +117,13 @@
         <!--style给定宽度可以影响编辑器的最终宽度-->
         <script id="editor" type="text/plain" style="width:940px;height:500px;"></script>
     </div>
+
+    <div>
+    <button id="submit">提交稿件</button>
+    </div>
 </div>
+            <br/>
+            <hr/>
 <h1>UMEDITOR 完整demo</h1>
 
 <div class="clear"></div>

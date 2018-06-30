@@ -166,6 +166,47 @@ selectCover.onclick=function(){ //单次点击选择图片按钮默认是重新�
     singleInput.click();
 }
 
+/*提交稿件*/
+$("#submit").click(function () {
+
+    /* 检查输入框是否符合正则表达式 */
+
+
+    /* 检查ajax校验用户名是否可用后的标记 */
+
+    /*因为涉及到文件的处理,无法直接用form封装到pojo中,所以先使用js代码来封装数据*/
+    var story={};
+    story.title = $("#title").val();
+    story.subscribe=$("#subscribe").val();
+    story.content= UE.getEditor('editor').getContent();
+    /*用户信息不能从页面往后台传,防止用户修改信息导致绑定了错误的作者*/
+
+    var img = $("#file_single_input")[0].files[0];
+    var formData = new FormData();
+    formData.append("storyStr",JSON.stringify(story));
+    formData.append("img",img);
+
+    $.ajax({
+        url:"/story/contribute",
+        type:"POST",
+        data:formData,
+        async: false,
+        contentType:false,
+        processData:false,
+        cache:false,
+        success:function(result){
+            /* 这里要检查一下后端是否返回了错误报告信息 */
+            if(200 == result.code){
+                alert("投稿成功,请等待审核!");
+            }else{
+                alert("投稿失败了!");
+                /* 判断从后台返回的错误字段是哪个,如果有,则显示错误信息 */
+
+            }
+        }
+    });
+});
+
 /*
  用ajax发送fd参数时要告诉jQuery不要去处理发送的数据，
  不要去设置Content-Type请求头才可以发送成功，否则会报“Illegal invocation”的错误，

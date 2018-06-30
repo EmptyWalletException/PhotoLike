@@ -97,7 +97,7 @@
                 <!--遍历topicPage里的topic列表并生成元素-->
                 <div class="item" th:each="topic:${topicPage}">
                     <a href="/topic/1374" class="cover-wrapper" title="关于爱的表达方式" th:title="${topic.title}" th:href="'/topic/'+${topic.id}">
-                        <img src="/js/640x452" alt="关于爱的表达方式" class="cover rounded" th:alt="${topic.title}" >
+                        <img src="/img/test/testTopic" alt="关于爱的表达方式" class="cover rounded" th:alt="${topic.title}" th:src="${topic.coverImgAddr}" >
                     </a>
                     <div class="meta rounded clearfix">
                         <a href="/topic/1374" class="name" title="关于爱的表达方式" th:href="'/topic/'+${topic.id}" th:title="${topic.title}" th:text="'Top.'+${topic.id}+' '+${topic.title}">vol.991 关于爱的表达方式</a>
@@ -165,7 +165,7 @@
                 <div class="widget-ct pic-widget">
                     <div class="item" th:each="hotTopic,hotTopicStat:${hotTopicPage}" th:if="${hotTopicStat.index}<5">
                         <a href="/topic/335" class="cover-wrapper" th:href="'/topic/'+${hotTopic.id}">
-                            <img src="/js/160x120" alt="夜车" class="vol-cover rounded" th:alt="${hotTopic.title}" ><!--th:src="'../'+${hotTopic.photo[0].imgAddr}"-->
+                            <img src="/img/test/testTopic" alt="夜车" class="vol-cover rounded" th:alt="${hotTopic.title}" th:src="${hotTopic.coverImgAddr}"><!--th:src="'../'+${hotTopic.photo[0].imgAddr}"-->
                         </a>
                         <div class="info">
                             <a href="http://www.luoo.net/vol/index/335" title="夜车" class="title"  th:title="${hotTopic.title}"  th:text="${hotTopic.title}" th:href="'/topic/'+${hotTopic.id}">夜车</a>

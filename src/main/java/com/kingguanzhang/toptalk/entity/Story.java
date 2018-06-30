@@ -12,14 +12,15 @@ public class Story {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String title;
+    private String coverImgAddr;
     private Date creatTime;
     private String subscribe;
     private String content;
     private long collectNumber;
     private long commentNumber;
 
-    @OneToMany(mappedBy = "story",cascade = CascadeType.ALL) //    @JoinColumn(name = "story_id")
-    private List<Photo> photos;//一对多;
+   /* @OneToMany(mappedBy = "story",cascade = CascadeType.ALL) //    @JoinColumn(name = "story_id")
+    private List<Photo> photos;//一对多;*///采用富文本编辑器后废弃此方案
 
     @ManyToOne(optional = false)
     private User author;//废弃多对多及一对多级联功能后保留了此属性;
@@ -111,13 +112,14 @@ public class Story {
         this.users = users;
     }*/
 
-    public List<Photo> getPhotos() {
-        return photos;
+    public String getCoverImgAddr() {
+        return coverImgAddr;
     }
 
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
+    public void setCoverImgAddr(String coverImgAddr) {
+        this.coverImgAddr = coverImgAddr;
     }
+
     public long getId() {
         return id;
     }

@@ -87,7 +87,7 @@
     <div class="essay-banner clearfix">
         <a href="/story/926" class="cover-wrapper" th:href="'/story/'+${storyPage.content[0].id}">
             <img src="/js/FuM6NJm4JecMPU4ggaXAKjKQM2ab.jpg" alt="人类首张在太空录制的专辑" class="cover"
-                th:alt="${storyPage.content[0].title}"  >
+                th:alt="${storyPage.content[0].title}"  th:src="${storyPage.content[0].coverImgAddr}">
         </a>
         <div class="meta">
             <a href="/story/925" class="title" th:href="'/story/'+${storyPage.content[0].id}"
@@ -100,6 +100,8 @@
             </p>
         </div>
     </div>
+
+    <!--循环遍历区域-->
     <div class="clearfix">
         <!-- article start-->
         <div class="article article-sm">
@@ -114,7 +116,7 @@
                 <div class="item" th:each="story,storyStat:${storyPage}" th:if="0 != ${storyStat.index}">
                     <a href="/story/926" class="cover-wrapper" th:href="'/story/'+${story.id}">
                         <img class="cover rounded" src="/js/Ft3KtUoW1x3JtRIIpwaQXp9AwRLu.jpg"
-                             alt="Sugar Man：隐没在城市里的一把声音" th:alt="${story.title}">
+                             alt="Sugar Man：隐没在城市里的一把声音" th:alt="${story.title}" th:src="${story.coverImgAddr}">
                     </a>
                     <div class="essay-wrapper">
                         <a href="/story/926" title="Sugar Man：隐没在城市里的一把声音" class="title" th:title="${story.title}"

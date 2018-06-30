@@ -1,35 +1,31 @@
 
+var result;
+var multifileDataArr = []; // 储存多图片上传所选图片的结果(文件名和base64数据)
 
+var fd;  //FormData方式发送请求
+var imgsSelect = document.getElementById("select");
+var clear = document.getElementById("clear");
+var imgsInput = document.getElementById("file_input");
+var singleInput = document.getElementById("file_single_input");
+var selectCover = document.getElementById("selectCover");
 
 /*多图片上传并回显*/
 window.onload = function(){
-    var input = document.getElementById("file_input");
-    var result;
-    var multifileDataArr = []; // 储存多图片上传所选图片的结果(文件名和base64数据)
-    var sinaleDataArr = []; // 储存单图所选图片的结果(文件名和base64数据)
-    var fd;  //FormData方式发送请求
-    var oSelect = document.getElementById("select");
-    var clear = document.getElementById("clear");
-    var oSubmit = document.getElementById("submit");
-    var oInput = document.getElementById("file_input");
-    var singleInput = document.getElementById("file_single_input");
-    var selectCover = document.getElementById("selectCover");
 
 
     if(typeof FileReader==='undefined'){
         alert("抱歉，你的浏览器不支持 FileReader");
-        input.setAttribute('disabled','disabled');
     }else{
-        input.addEventListener('change',readFile,false);
-    }　　　　　//handler
-
+        imgsInput.addEventListener('change',readFile,false);
+    }
 
     function readFile(){
         fd = new FormData();
+        multifileDataArr = []; //每次用户重新点击按钮时清空存储的图片数组;
         var iLen = this.files.length;
         var index = 0;
         for(var i=0;i<iLen;i++){
-            if (!input['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)){　　//判断上传文件格式
+            if (!imgsInput['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)){　　//判断上传文件格式
                 return alert("上传的图片格式不正确，请重新选择");
             }
             var multifileReader = new FileReader();
@@ -37,7 +33,6 @@ window.onload = function(){
             fd.append(i,this.files[i]);
             multifileReader.readAsDataURL(this.files[i]);  //转成base64
             multifileReader.fileName = this.files[i].name;
-
 
             multifileReader.onload = function(e){
                 var imgMsg = {
@@ -63,7 +58,6 @@ window.onload = function(){
 
                 }
 
-
                 div.onclick = function(){
                     this.remove();                  // 在页面中删除该图片元素
                     delete multifileDataArr[this.index];  // 删除multifileDataArr对应的数据
@@ -74,71 +68,34 @@ window.onload = function(){
         }
     }
 
-
-
-    function send(){
-
-
-        var submitArr = [];
-        for (var i = 0; i < multifileDataArr.length; i++) {
-            if (multifileDataArr[i]) {
-                submitArr.push(multifileDataArr[i]);
-            }
-        }
-        // console.log('提交的数据：'+JSON.stringify(submitArr))
-        $.ajax({
-            url : 'http://123.206.89.242:9999',
-            type : 'post',
-            data : JSON.stringify(submitArr),
-            dataType: 'json',
-            //processData: false,   用FormData传singleFd时需有这两项
-            //contentType: false,
-            success : function(data){
-                console.log('返回的数据：'+JSON.stringify(data))
-            }
-
-        })
-    }
-
-
-    c
-
-    oInput.onclick=function(){ //在多文件上传是单次点击选择图片按钮默认是重新选择图片;
-        oInput.value = "";   // 将oInput值清空
+    selectCover.onclick=function () {
+        singleInput.value = "";
         //清空图片预览
-        $('.imgEle').remove();
-        multifileDataArr = [];
-        index = 0;
+        $('.singleImgEle').remove();
+        singleInput.click();
+
     }
 
     clear.onclick=function() {
-        oInput.value = "";   // 将oInput值清空
         //清空图片预览
         $('.imgEle').remove();
         multifileDataArr = [];
         index = 0;
     }
-    oSelect.onclick=function(){
-        oInput.value = "";   // 先将oInput值清空，否则选择图片与上次相同时change事件不会触发
+    imgsSelect.onclick=function(){
         //清空已选图片
         $('.imgEle').remove();
         multifileDataArr = [];
         index = 0;
-        oInput.click();
+        imgsInput.click();
     }
 
 
-    oSubmit.onclick=function(){
-        if(!multifileDataArr.length){
-            return alert('请先选择文件');
-        }
-        send();
-    }
 
 }
 
 /*封面图片的回显,利用图片上传按钮改变时触发此事件*/
-$('#file_single_input').on('change',function(){
+$("#file_single_input").on('change',function(){
     $("#file_single_input").value = "";   // 将singleInput值清空
     //清空图片预览
     $('.singleImgEle').remove();
@@ -170,6 +127,54 @@ $('#file_single_input').on('change',function(){
 
     }
 
+});
+
+
+$("#submit").click(function () {
+
+    /* 检查输入框是否符合正则表达式 */
+
+
+    /* 检查ajax校验用户名是否可用后的标记 */
+
+    /*因为涉及到文件的处理,无法直接用form封装到pojo中,所以先使用js代码来封装数据*/
+    if(!multifileDataArr.length){
+        return alert('请先选择专辑图片集');
+    }
+    var topic={};
+    topic.title = $("#title").val();
+    topic.content= $("#myEditor").val();
+    topic.content= $("#myEditor").val();
+    var categoryId= $("#category option:selected").attr("value");
+
+    /*用户信息不能从页面往后台传,防止用户修改信息导致绑定了错误的作者*/
+
+    var img = $("#file_single_input")[0].files[0];
+
+    fd.append("topicStr",JSON.stringify(topic));
+    fd.append("img",img);
+    fd.append("categoryId",categoryId);
+
+
+    $.ajax({
+        url:"/topic/contribute",
+        type:"POST",
+        data:fd,
+        async: false,
+        contentType:false,
+        processData:false,
+        cache:false,
+        success:function(result){
+            /* 这里要检查一下后端是否返回了错误报告信息 */
+            if(200 == result.code){
+                alert("投稿成功,请等待审核!");
+            }else{
+                alert("投稿失败了!");
+                /* 判断从后台返回的错误字段是哪个,如果有,则显示错误信息 */
+
+            }
+        }
+    });
 });
 
 

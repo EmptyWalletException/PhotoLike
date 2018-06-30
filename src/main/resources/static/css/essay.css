@@ -2103,8 +2103,8 @@ table.aui_border, table.aui_dialog {
 .pic-widget .essay-cover {
     display: block;
     height: auto;
-    width: 46px;
-    height: 32px;
+    width: 63px;
+    height: 35px;
     border-radius: 3px
 }
 
@@ -2349,7 +2349,7 @@ table.aui_border, table.aui_dialog {
 .musician-banner .cover {
     float: left;
     width: 480px;
-    height: 340px;
+    height: 270px;
     border-radius: 4px;
     margin-right: 50px
 }
@@ -2436,7 +2436,7 @@ table.aui_border, table.aui_dialog {
     display: block;
     border-radius: 4px;
     width: 220px;
-    height: 155px;
+    height: 123px;
 }
 
 .musician-list .musician-wrapper {

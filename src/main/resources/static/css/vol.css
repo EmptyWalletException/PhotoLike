@@ -2008,7 +2008,8 @@ table.aui_border, table.aui_dialog {
 .pic-widget .vol-cover {
     display: block;
     height: auto;
-    max-width: 42px;
+    width: 42px;
+    height: 29px;
     border-radius: 3px
 }
 
@@ -3696,14 +3697,15 @@ table.aui_border, table.aui_dialog {
 }
 
 .vol-cover-wrapper .vol-cover {
-    max-width: 620px
+    width: 620px;
+    max-height: 348px;
 }
 
 .vol-cover-wrapper .nav-prev {
     background: url(../img/vol-bg.png) no-repeat 0 -268px;
     display: none;
     position: absolute;
-    top: 187px;
+    top: 139px;
     left: 0;
     width: 45px;
     height: 70px
@@ -3717,7 +3719,7 @@ table.aui_border, table.aui_dialog {
     background: url(../img/vol-bg.png) no-repeat 0 -91px;
     display: none;
     position: absolute;
-    top: 187px;
+    top: 139px;
     right: 0;
     width: 45px;
     height: 70px

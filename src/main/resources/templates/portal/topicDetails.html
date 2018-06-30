@@ -15,6 +15,7 @@ Where there&#39;s music and there&#39;...">
     <meta name="keywords" content="继续向前,英伦,流行,Britpop,Pop">
     <link rel="stylesheet" href="/css/vol.css">
     <link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/ft-carousel/css/ft-carousel.css" />
     <script type="text/javascript" async="" src="/js/ga.js"></script>
     <script src="/js/hm.js"></script>
     <script src="/js/jquery-1.11.0.min.js"></script>
@@ -26,6 +27,12 @@ Where there&#39;s music and there&#39;...">
             window.location.href = 'http://www.luoo.net/browser_not_supported/';
         }
     </script>
+
+
+    <style>
+        .example {width: 624px;height: 336px;font-size: 10px;text-align: center;margin: 5px auto;background-color: #464576;}
+        .carousel-item{line-height: 336px;color: #fff;font-family:  Arial Black}
+    </style>
 </head>
 <body>
 <div style="display: none; position: absolute;" class="">
@@ -141,21 +148,22 @@ Where there&#39;s music and there&#39;...">
             <i class="icon-back"></i>
             返回期刊首页
         </a>
-        <!--TODO 根据topicid查询分类并遍历生成元素: -->
-        <a href="/topic?category=1?pn=1" target="_blank" class="vol-tag-item" th:href="'/topic?category='+${category.id}" th:text="${category.name}" th:each="category,categoryStat:${categoryPage}" th:if="${categoryStat.index<4}">#流行</a>
+        <a href="/topic?category=1?pn=1" target="_blank" class="vol-tag-item" th:href="'/topic?category='+${topic.category.id}" th:text="'#'+${topic.category.name}" >#流行</a>
      </div>
     <h1 class="vol-name">
         <span class="vol-number rounded" th:text="${topic.id}">900</span>
         <span class="vol-title" th:text="${topic.title}">在这场叫做今天的戏剧中</span>
     </h1>
     <div class="vol-cover-wrapper" id="volCoverWrapper">
-        <img src="/js/640x452" alt="在这场叫做今天的戏剧中" class="vol-cover" th:alt="${topic.title}">
+        <img src="/js/640x452" alt="在这场叫做今天的戏剧中" class="vol-cover" th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
         <!--TODO  这里可以改造成轮播图片的功能: -->
         <a href="http://www.luoo.net/vol/index/982" class="nav-prev" title="后一期">&nbsp;</a><a
             href="http://www.luoo.net/vol/index/975" class="nav-next" title="前一期">&nbsp;</a>
     </div>
 
-    <div class="vol-desc" th:text="${topic.content}">
+    <div class="vol-desc" >
+        <hr/>
+        <div th:text="${topic.content}">
         Take me out tonight<br>今夜带我出去吧<br>Where there's music and there's people<br>那里有音乐和人群<br>And they're young and
         alive<br>那里青春永不息<br>Driving in your car<br>坐上你的车<br>I never never want to go home<br>我真不想回家<br>Because I haven't
         got one<br>那是因为我<br>Anymore<br>一无所有<br><br>- The Smiths <br><br>Every breaking wave on the
@@ -163,7 +171,20 @@ Where there&#39;s music and there&#39;...">
         that to lose<br>每个赌徒都清楚失败<br>Is what you're really there for<br>正是你真实的存在过<br><br>- U2 <br><br>It's not a
         case<br>努力使你满足<br>of aiming to please<br>那根本不是什么难事<br>You know you're always crying<br>但你懂你为什么总是在哭泣<br>It's just
         your part<br>这就是你的角色<br>In the play<br>在这场叫做 今天<br>for today<br>的戏剧中<br><br>- The Cure <br><br>本期音乐为落网第900期音乐期刊，我们又跨过了一个具有象征意义的数字。<br><br>在那时，我们在意路上匆忙的人群、在意明媚午后、在意自己是否时髦、以及在意脑海里的所有肆意妄为。在今天，这样一个信息快速且泛滥的时代里，我们再也找不回一整张专辑翻来覆去的听得稀巴烂的状态，只剩下回味里假想的脉脉温情，以及对未来充满着暴力色彩的急切渴求与期盼。在这么多年过去后，我们依然沒有得到自己想要的,可好像這一切也沒有那么糟。<br><br>音乐无非就两种，一种是浮在表面的，而另一种则是渗人灵魂的。感谢所有曾经在黑夜中给予我们孤独的灵魂以安抚的声音。<br><br>我们明天见。<br><br>本期音乐为英伦音乐专题。<br><br>Cover
-        From Vincent Bourilhon<br></div>
+        From Vincent Bourilhon<br>
+        </div>
+         <br/>
+        <div class="example">
+            <div class="ft-carousel" id="carousel_1">
+                <ul class="carousel-inner" style="padding-left: 0px">
+                    <li class="carousel-item"  th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${topic.imgAddrList != null}"><img src="/img/test/testTopicCarousel.jpg" th:src="${imgAddr}"  /></li>
+                    <li class="carousel-item"  th:if="${topic.imgAddrList == null}" ><img src="/img/test/testTopicCarousel.jpg"   /></li>
+                </ul>
+            </div>
+        </div>
+        <!--<hr/>
+        <img th:src="${imgAddr}" th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${imgAddrStat.size >0}"/>-->
+    </div>
     <div class="clearfix vol-meta">
         <img src="/js/128x128" alt="落在低处" class="author-avatar rounded" th:alt="${topic.author.nickname}">
         <a class="vol-author" href="http://www.luoo.net/user?userId=5000" target="_blank" th:text="${topic.author.nickname}" th:href="'/user?userId='+${topic.author.id}">落在低处</a>
@@ -179,780 +200,9 @@ Where there&#39;s music and there&#39;...">
     </a>
 
     </div>
-    <!-- tracklist -->
-    <div class="vol-tracklist" id="luooPlayerPlaylist">
-        <div class="player-large rounded clearfix">
-            <div class="cover-wrapper">
-                <img src="/js/580x580" class="cover rounded PLCover">
-            </div>
 
-            <div class="player-ct" id="playerCt" style="display: block;">
-                <div class="clearfix">
-                    <a href="javascript:;" rel="nofollow" class="icon-lyric"></a>
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share PLShare"
-                       data-app="single"></a>
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon-fav PLFav" data-type="single"
-                       data-cback="single_like_callback"></a>
-                </div>
-                <div class="trackname">
-                    <p class="PLTrackname" title="Take It Out On Me">Take It Out On Me</p>
-                </div>
-                <p class="track-meta">Artist: <span class="PLArtist" title="White Lies">White Lies</span></p>
-                <p class="track-meta">Album: <span class="PLAlbum" title="Friends">Friends</span></p>
-                <div class="btn-wrapper">
-                    <a href="javascript:;" rel="nofollow" class="jp-previous" title="上一曲">
-                        <span class="icon-prev-lg"></span>
-                    </a>
-                    <a href="javascript:;" rel="nofollow" class="jp-play" title="播放" style="display: none;">
-                        <span class="icon-play-lg"></span>
-                    </a>
-                    <a href="javascript:;" rel="nofollow" class="jp-pause" title="暂停" style="">
-                        <span class="icon-pause-lg"></span>
-                    </a>
-                    <a href="javascript:;" rel="nofollow" class="jp-next margin-right-0" title="下一曲">
-                        <span class="icon-next-lg"></span>
-                    </a>
-                </div>
-                <div class="clearfix">
-                    <div class="progress rounded">
-                        <div class="loaded rounded" style="width: 100%;">
-                            <div class="escaped rounded" style="width: 10.6157%;"></div>
-                        </div>
-                    </div>
-                    <div class="duration" id="PLDuration">
-                        <span class="current-time">00:24</span><span>/</span><span class="total-time">03:50</span>
-                    </div>
 
-                    <a href="javascript:;" rel="nofollow" class="btn-volume" id="PLBtnVolume">
-                        <span class="icon-unmute"></span>
-                    </a>
 
-                    <div class="volume-bar-wrapper" id="PLVolBar">
-                        <div class="volume-bar jp-volume-bar">
-                            <div class="volume-bar-value jp-volume-bar-value" style="width: 80%;"></div>
-                        </div>
-                    </div>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-repeat jp-repeatone-off" title="列表循环">
-                        <span class="icon-repeat"></span>
-                    </a>
-                    <a href="javascript:;" rel="nofollow" class="btn-repeat jp-repeatone" title="单曲循环"
-                       style="display: none;">
-                        <span class="icon-repeat-one"></span>
-                    </a>
-                </div>
-            </div>
-            <!-- playerCt end /// -->
-            <div class="lyric-wrapper" id="lyricWrapper" style="display: none;">
-                <div class="lyric-hd clearfix">
-                    <div class="track-info">
-                        <p class="trackname PLTrackname" title="Take It Out On Me">Take It Out On Me</p>
-                        <p class="artist PLArtist" title="White Lies">White Lies</p>
-                    </div>
-                    <a href="javascript:;" rel="nofollow" class="icon-lyric-active"></a>
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share PLShare"
-                       data-app="single"></a>
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon-fav PLFav" data-type="single"
-                       data-cback="single_like_callback"></a>
-                </div>
-
-                <div class="lyric-ct" id="lyricCt"></div>
-            </div>
-        </div>
-        <!-- player-large end /// -->
-
-        <ul>
-
-            <li class="track-item rounded" id="track17988" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: inline-block;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">01. Take It Out On Me</a>
-                    <span class="artist btn-play">White Lies</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17988"
-                       data-sname="Take It Out On Me" style="visibility: visible;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17988" data-text="推荐White Lies的歌曲《Take It Out On Me》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11466/cover.jpg!/fwfh/580x580"
-                       style="visibility: visible;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17988"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: visible;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17988">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580" alt="Friends" class="cover rounded">
-                            <p class="name">Take It Out On Me</p>
-                            <p class="artist">Artist: White Lies</p>
-                            <p class="album">Album: Friends</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17989" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">02. Forget My Name</a>
-                    <span class="artist btn-play">One Night Only</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17989" data-sname="Forget My Name"
-                       style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17989" data-text="推荐One Night Only的歌曲《Forget My Name》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11467/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17989"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17989">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(1)" alt="Forget My Name" class="cover rounded">
-                            <p class="name">Forget My Name</p>
-                            <p class="artist">Artist: One Night Only</p>
-                            <p class="album">Album: Forget My Name</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17990" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">03. Everybody's Changing</a>
-                    <span class="artist btn-play">Keane</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17990"
-                       data-sname="Everybody&#39;s Changing" style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17990" data-text="推荐Keane的歌曲《Everybody&#39;s Changing》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/6/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17990"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17990">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(2)" alt="Hopes And Fears" class="cover rounded">
-                            <p class="name">Everybody's Changing</p>
-                            <p class="artist">Artist: Keane</p>
-                            <p class="album">Album: Hopes And Fears</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17991" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">04. Do No Wrong</a>
-                    <span class="artist btn-play">Thirteen Senses</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17991" data-sname="Do No Wrong"
-                       style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17991" data-text="推荐Thirteen Senses的歌曲《Do No Wrong》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/10/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17991"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17991">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(3)" alt="The Invitation" class="cover rounded">
-                            <p class="name">Do No Wrong</p>
-                            <p class="artist">Artist: Thirteen Senses</p>
-                            <p class="album">Album: The Invitation</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17992" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">05. For Anyone</a>
-                    <span class="artist btn-play">Beady Eye</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17992" data-sname="For Anyone"
-                       style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17992" data-text="推荐Beady Eye的歌曲《For Anyone》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11468/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17992"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17992">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(4)" alt="Different Gear, Still Speeding" class="cover rounded">
-                            <p class="name">For Anyone</p>
-                            <p class="artist">Artist: Beady Eye</p>
-                            <p class="album">Album: Different Gear, Still Speeding</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17993" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">06. Autumnsong</a>
-                    <span class="artist btn-play">Manic Street Preachers</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17993" data-sname="Autumnsong"
-                       style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17993" data-text="推荐Manic Street Preachers的歌曲《Autumnsong》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11469/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17993"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17993">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(5)" alt="Send Away The Tigers" class="cover rounded">
-                            <p class="name">Autumnsong</p>
-                            <p class="artist">Artist: Manic Street Preachers</p>
-                            <p class="album">Album: Send Away The Tigers</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17994" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">07. Round In Circles</a>
-                    <span class="artist btn-play">Hurricane #1</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17994"
-                       data-sname="Round In Circles" style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17994" data-text="推荐Hurricane #1的歌曲《Round In Circles》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11470/58c6e9dc4db59.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17994"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17994">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(6)" alt="Find What You Love and Let It Kill You"
-                                 class="cover rounded">
-                            <p class="name">Round In Circles</p>
-                            <p class="artist">Artist: Hurricane #1</p>
-                            <p class="album">Album: Find What You Love and Let It Kill You</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17995" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">08. Sonnet</a>
-                    <span class="artist btn-play">The Verve</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17995" data-sname="Sonnet"
-                       style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17995" data-text="推荐The Verve的歌曲《Sonnet》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11471/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17995"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17995">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(7)" alt="Sonnet" class="cover rounded">
-                            <p class="name">Sonnet</p>
-                            <p class="artist">Artist: The Verve</p>
-                            <p class="album">Album: Sonnet</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17996" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">09. Lines Of Light</a>
-                    <span class="artist btn-play">The Subways</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17996" data-sname="Lines Of Light"
-                       style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17996" data-text="推荐The Subways的歌曲《Lines Of Light》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/7705/58c6cc3462a49.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17996"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17996">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(8)" alt="Young For Eternity" class="cover rounded">
-                            <p class="name">Lines Of Light</p>
-                            <p class="artist">Artist: The Subways</p>
-                            <p class="album">Album: Young For Eternity</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17998" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">10. Every Breaking Wave</a>
-                    <span class="artist btn-play">U2</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17998"
-                       data-sname="Every Breaking Wave" style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17998" data-text="推荐U2的歌曲《Every Breaking Wave》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11473/5a35614d0a49f.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17998"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17998">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(9)" alt="Songs of Innocence" class="cover rounded">
-                            <p class="name">Every Breaking Wave</p>
-                            <p class="artist">Artist: U2</p>
-                            <p class="album">Album: Songs of Innocence</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17999" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">11. There Is a Light That Never
-                        Goes Out</a>
-                    <span class="artist btn-play">The Smiths</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17999"
-                       data-sname="There Is a Light That Never Goes Out" style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17999" data-text="推荐The Smiths的歌曲《There Is a Light That Never Goes Out》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11474/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17999"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17999">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(10)" alt="There Is a Light That Never Goes Out" class="cover rounded">
-                            <p class="name">There Is a Light That Never Goes Out</p>
-                            <p class="artist">Artist: The Smiths</p>
-                            <p class="album">Album: There Is a Light That Never Goes Out</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-
-            <li class="track-item rounded" id="track17997" data-fav="0">
-                <div class="track-wrapper clearfix">
-								<span class="btn-control btn-play">
-									<i class="icon-status-play" style="display: none;"></i>
-									<i class="icon-status-pause" style="display: none;"></i>
-								</span>
-                    <a href="javascript:;" rel="nofollow" class="trackname btn-play">12. Play For Today</a>
-                    <span class="artist btn-play">The Cure</span>
-
-                    <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="17997" data-sname="Play For Today"
-                       style="visibility: hidden;"></a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-share" data-app="single"
-                       data-id="17997" data-text="推荐The Cure的歌曲《Play For Today》（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/albums/11472/cover.jpg!/fwfh/580x580"
-                       style="visibility: hidden;">
-                    </a>
-
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon icon-fav" data-id="17997"
-                       data-type="single" data-from_id="977" data-from_type="vol" data-cback="single_like_callback"
-                       style="visibility: hidden;">
-                    </a>
-
-                </div>
-                <div class="track-detail-wrapper" id="trackDetailWrapper17997">
-                    <div class="track-detail-arrow">
-                        <img src="/js/trian.png">
-                    </div>
-                    <div class="track-detail rounded clearfix">
-                        <div class="player-wrapper">
-                            <img src="/js/580x580(11)" alt="Seventeen Seconds" class="cover rounded">
-                            <p class="name">Play For Today</p>
-                            <p class="artist">Artist: The Cure</p>
-                            <p class="album">Album: Seventeen Seconds</p>
-                        </div>
-                        <div class="lyric-wrapper">
-                            <div class="lyric-content">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--track-detail-wrapper end-->
-            </li>
-        </ul>
-        <!--/// tracklist end -->
-
-        <!-- player-follow -->
-        <div class="player-follow clearfix" id="playerFollow">
-            <img src="/js/580x580" class="cover" id="PFCover">
-            <div class="fleft">
-                <p class="name" id="PFName" title="Take It Out On Me">Take It Out On Me</p>
-                <p class="artist" id="PFArtist" title="White Lies">White Lies</p>
-                <p class="sns" id="PFSns">
-                    <a href="javascript:;" rel="nofollow" class="btn-action-like icon-follow-fav PFFav"
-                       data-type="single" data-cback="single_like_callback"></a>
-                    <a href="javascript:;" rel="nofollow" class="btn-action-share icon-follow-share PFShare"
-                       data-app="single"></a>
-                </p>
-            </div>
-            <a href="javascript:;" rel="nofollow" class="jp-previous">
-                <span class="icon-follow-prev"></span>
-            </a>
-            <a href="javascript:;" rel="nofollow" class="jp-play" style="display: none;">
-                <span class="icon-follow-play"></span>
-            </a>
-            <a href="javascript:;" rel="nofollow" class="jp-pause" style="">
-                <span class="icon-follow-pause"></span>
-            </a>
-            <a href="javascript:;" rel="nofollow" class="jp-next">
-                <span class="icon-follow-next"></span>
-            </a>
-
-            <a href="javascript:;" rel="nofollow" class="btn-volume" id="PFBtnVolume">
-                <span class="icon-unmute"></span>
-            </a>
-
-            <div class="volume-bar-wrapper" id="PFVolBar">
-                <div class="volume-bar jp-volume-bar">
-                    <div class="volume-bar-value jp-volume-bar-value" style="width: 80%;"></div>
-                </div>
-            </div>
-        </div>
-        <!-- player-follow end ///-->
-
-        <div>
-            <div id="luooPlayerContent" style="width: 0px; height: 0px;"><img id="jp_poster_0"
-                                                                              style="width: 0px; height: 0px; display: inline;"
-                                                                              src="/js/580x580">
-                <audio id="jp_audio_0" preload="metadata"
-                       src="http://mp3-cdn2.luoo.net/low/luoo/radio900/01.mp3"></audio>
-            </div>
-            <div class="jp-playlist" style="display:none;">
-                <ul style="display: block;">
-                    <li class="jp-playlist-current">
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1">Take It
-                            Out On Me <span class="jp-artist">by White Lies</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Forget My Name <span
-                                class="jp-artist">by One Night Only</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Everybody's Changing <span
-                                class="jp-artist">by Keane</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Do No Wrong <span
-                                class="jp-artist">by Thirteen Senses</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">For Anyone <span
-                                class="jp-artist">by Beady Eye</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Autumnsong <span
-                                class="jp-artist">by Manic Street Preachers</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Round In Circles <span
-                                class="jp-artist">by Hurricane #1</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Sonnet <span
-                                class="jp-artist">by The Verve</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Lines Of Light <span
-                                class="jp-artist">by The Subways</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Every Breaking Wave <span
-                                class="jp-artist">by U2</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">There Is a Light That Never
-                            Goes Out <span class="jp-artist">by The Smiths</span></a></div>
-                    </li>
-                    <li>
-                        <div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a
-                                href="javascript:;" class="jp-playlist-item" tabindex="1">Play For Today <span
-                                class="jp-artist">by The Cure</span></a></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!--thanks block-->
-    <div class="thanks-block">
-
-        <p class="thanks-tips">你们的支持，会让落网走得更远。</p>
-
-        <div class="tanks-logo rounded" id="thanks_btn" data-tipid="thanksDialog" data-width="235"
-             data-remote="http://www.luoo.net/login/dialog">
-            <a href="javascript:">感谢</a>
-        </div>
-
-        <p class="count"><a href="javascript:" id="openList">已有73人表示感谢&gt;</a></p>
-        <ul class="thanksImg-list clearfix">
-            <li thankid="29277"><a target="_blank" href="http://www.luoo.net/user?userId=169920"><img src="/js/128x128(1)"
-                                                                                               class="rounded"
-                                                                                               title="其人际"></a></li>
-            <li thankid="27512"><a target="_blank" href="http://www.luoo.net/user?userId=612288"><img src="/js/128x128(2)"
-                                                                                               class="rounded"
-                                                                                               title="隔壁老马"></a></li>
-            <li thankid="25276"><a target="_blank" href="http://www.luoo.net/user?userId=1045237"><img src="/js/128x128(3)"
-                                                                                                class="rounded"
-                                                                                                title="应如意"></a></li>
-            <li thankid="25230"><a target="_blank" href="http://www.luoo.net/user?userId=1239288"><img src="/js/128x128(4)"
-                                                                                                class="rounded"
-                                                                                                title="妮妮soda"></a></li>
-            <li thankid="25225"><a target="_blank" href="http://www.luoo.net/user?userId=1243524"><img src="/js/128x128(5)"
-                                                                                                class="rounded"
-                                                                                                title="bladow"></a></li>
-            <li thankid="25021"><a target="_blank" href="http://www.luoo.net/user?userId=1238606"><img src="/js/128x128(6)"
-                                                                                                class="rounded"
-                                                                                                title="坑死睡觉"></a></li>
-            <li thankid="24863"><a target="_blank" href="http://www.luoo.net/user?userId=30500"><img src="/js/128x128(7)"
-                                                                                              class="rounded"
-                                                                                              title="大毛sir248"></a></li>
-            <li thankid="24660"><a target="_blank" href="http://www.luoo.net/user?userId=1229042"><img src="/js/128x128(8)"
-                                                                                                class="rounded"
-                                                                                                title="滚滚滚"></a></li>
-            <li thankid="24357"><a target="_blank" href="http://www.luoo.net/user?userId=1199812"><img src="/js/128x128(9)"
-                                                                                                class="rounded"
-                                                                                                title="普利斯"></a></li>
-            <li thankid="23952"><a target="_blank" href="http://www.luoo.net/user?userId=1213397"><img src="/js/128x128(10)"
-                                                                                                class="rounded"
-                                                                                                title="缺心眼子"></a></li>
-        </ul>
-
-
-    </div>
 
     <!-- relative vol -->
     <div class="relative-vol">
@@ -961,7 +211,7 @@ Where there&#39;s music and there&#39;...">
             <div class="item" th:each="topic,topicStat:${hotTopicPage}" th:if="${topicStat.index}<4">
                 <a href="http://www.luoo.net/vol/index/89" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
 
-                    <img src="/js/160x120" alt="光的深处" class="cover rounded" th:alt="${topic.title}">
+                    <img src="/js/160x120" alt="光的深处" class="cover rounded" th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
                 </a>
                 <div class="vol-info">
                     <a href="http://www.luoo.net/vol/index/89" title="光的深处" class="title"
@@ -1527,6 +777,18 @@ Where there&#39;s music and there&#39;...">
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+<!--图片轮播插件-->
+<script src="/ft-carousel/js/ft-carousel.min.js"></script>
+<!--图片轮播js代码-->
+<script type="text/javascript">
+    $("#carousel_1").FtCarousel({
+        time: 3000,
+       /* index: 0,
+        auto: true,
+        indicators: false,
+        buttons: true*/
+    });
+</script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>

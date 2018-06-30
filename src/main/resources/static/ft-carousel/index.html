@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ft-carousel.js图片无缝轮播切换代码</title>
+
+<link rel="stylesheet" href="css/ft-carousel.css" />
+<style>
+body{margin: 0;font-family: "微软雅黑";background-color: #1F1F1F;}
+.example {width: 624px;height: 336px;font-size: 40px;text-align: center;margin: 20px auto;background-color: #464576;}
+.carousel-item{line-height: 336px;color: #fff;font-family:  Arial Black}
+</style>
+
+</head>
+<body><script src="/demos/googlegg.js"></script>
+
+<div class="example">
+	<div class="ft-carousel" id="carousel_1">
+		<ul class="carousel-inner">
+			<li class="carousel-item"><img src="img/a1.jpg" /></li>
+			<li class="carousel-item"><img src="img/a2.jpg" /></li>
+			<li class="carousel-item"><img src="img/a3.jpg" /></li>
+			<li class="carousel-item"><img src="img/a4.jpg" /></li>
+			<li class="carousel-item"><img src="img/a5.jpg" /></li>
+			<li class="carousel-item"><img src="img/a6.jpg" /></li>
+		</ul>
+	</div>
+</div>
+
+<div class="example">
+	<div class="ft-carousel" id="carousel_2">
+		<ul class="carousel-inner">
+			<li class="carousel-item">1</li>
+			<li class="carousel-item">2</li>
+			<li class="carousel-item">3</li>
+			<li class="carousel-item">4</li>
+			<li class="carousel-item">5</li>
+		</ul>
+	</div>
+</div>
+
+<div class="example">
+	<div class="ft-carousel" id="carousel_3">
+		<ul class="carousel-inner">
+			<li class="carousel-item">1</li>
+			<li class="carousel-item">2</li>
+			<li class="carousel-item">3</li>
+			<li class="carousel-item">4</li>
+			<li class="carousel-item">5</li>
+			<li class="carousel-item">6</li>
+			<li class="carousel-item">7</li>
+		</ul>
+	</div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/ft-carousel.min.js"></script>
+<script type="text/javascript">
+	$("#carousel_1").FtCarousel();
+
+	$("#carousel_2").FtCarousel({
+		index: 1,
+		auto: false
+	});
+
+	$("#carousel_3").FtCarousel({
+		index: 0,
+		auto: true,
+		time: 3000,
+		indicators: false,
+		buttons: true
+	});
+</script>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';color:#ffffff">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+<p>来源：<a href="http://www.lanrenzhijia.com" target="_blank">懒人</a></p>
+</div>
+</body>
+</html>

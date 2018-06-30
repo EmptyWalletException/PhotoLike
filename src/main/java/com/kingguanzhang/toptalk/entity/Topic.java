@@ -17,6 +17,13 @@ public class Topic {
     private Date creatTime;
     private long collectNumber;
     private long commentNumber;
+    private String coverImgAddr;
+    private String contentImgsAddr;//这是topic里所有内容图片的地址拼接成的字符串;方便以后数据库中取出后分隔;
+    @Transient
+    private List<String> imgAddrList; //这是方便储存分隔后的字符串的list,用于存在topic实体里发送给前端,不与数据库映射;
+
+    @ManyToOne(optional = false)
+    private Category category;
 
     @ManyToOne(optional = false)
     private User author;//废弃多对多及一对多级联功能后保留了此属性;
@@ -42,6 +49,37 @@ public class Topic {
     )
     private List<Category> categorys;//多对多关系;*/
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getContentImgsAddr() {
+        return contentImgsAddr;
+    }
+
+    public void setContentImgsAddr(String contentImgsAddr) {
+        this.contentImgsAddr = contentImgsAddr;
+    }
+
+    public String getCoverImgAddr() {
+        return coverImgAddr;
+    }
+
+    public void setCoverImgAddr(String coverImgAddr) {
+        this.coverImgAddr = coverImgAddr;
+    }
+
+    public List<String> getImgAddrList() {
+        return imgAddrList;
+    }
+
+    public void setImgAddrList(List<String> imgAddrList) {
+        this.imgAddrList = imgAddrList;
+    }
 
     public long getCollectNumber() {
         return collectNumber;
@@ -70,9 +108,9 @@ public class Topic {
      * 例如在此类中,List<Photo> 所关联的是photo类中的名为topicId的外键,
      * hibernate会根据List指定的泛型Photo类自动找到数据库中photo表的外键topicId
      */
-    @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)//mappedBy = "topic_id",
+   /* @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)//mappedBy = "topic_id",
 //    @JoinColumn(name = "topic_id")//joinColumn会生在数据库表中生成一个新的列,而mappedBy则不会;
-    private List<Photo> photos;//一对多关系
+    private List<Photo> photos;//一对多关系*/
 
    /* @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)//,mappedBy = "topic_id"
 //    @JoinColumn(name = "topicId")
@@ -92,6 +130,7 @@ public class Topic {
     public void setCategorys(List<Category> categorys) {
         this.categorys = categorys;
     }*/
+
 
 
     public long getId() {
@@ -158,12 +197,12 @@ public class Topic {
     public void setUsers(List<User> users) {
         this.users = users;
     }*/
-   public List<Photo> getPhotos() {
+  /* public List<Photo> getPhotos() {
        return photos;
    }
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
-    }
+    }*/
 
 }

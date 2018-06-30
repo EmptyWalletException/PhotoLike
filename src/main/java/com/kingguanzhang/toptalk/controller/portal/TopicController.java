@@ -1,11 +1,16 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.Category;
 import com.kingguanzhang.toptalk.entity.Comment;
 import com.kingguanzhang.toptalk.entity.Topic;
+import com.kingguanzhang.toptalk.entity.User;
 import com.kingguanzhang.toptalk.service.CategoryServiceImpl;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.TopicServiceImpl;
+import com.kingguanzhang.toptalk.utils.ImgUtil;
+import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,11 +18,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TopicController {
@@ -40,9 +50,18 @@ public class TopicController {
     public String toTopicPage(Model model, @PathVariable("topicId")String id,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
 
         /**
-         * 获取指定id的topic;
+         * 获取指定id的topic;这里需要处理一下内容图片的地址字符串;
          */
         Topic topic = topicService.findById(Long.parseLong(id));
+        if (null != topic.getContentImgsAddr()){
+            String contentImgsAddr = topic.getContentImgsAddr();
+            String[] imgAddrArry = contentImgsAddr.split(",");
+            List<String> imgAddrLisg = new ArrayList<>();
+            for (String imgAddr:imgAddrArry){
+                imgAddrLisg.add(imgAddr);
+            }
+            topic.setImgAddrList(imgAddrLisg);
+        }
         model.addAttribute("topic",topic);
 
         /**
@@ -52,12 +71,11 @@ public class TopicController {
         Page<Topic> hotTopicPage = topicService.findAll(pageable3);
         model.addAttribute("hotTopicPage",hotTopicPage);
 
-        /**
+        /** 新方案中规范每个topic只对应一个分类,所以可以通过级联查询出分类;
          * 获取topic关联的category,只显示4个即可
-         */
         Pageable pageable4 = new PageRequest(0,4,  new Sort(Sort.Direction.DESC,"id"));
         Page<Category> categoryPage = categoryService.findByTopicId(Long.parseLong(id), pageable4);
-        model.addAttribute("categoryPage",categoryPage);
+        model.addAttribute("categoryPage",categoryPage);*/
 
         /**
          * 获取topic关联的父Comment,sql语句中已经排除了评论表中supcomment_id 不等于0的情况(即排除掉此评论为子评论时的情况);
@@ -124,6 +142,76 @@ public class TopicController {
         }
 
         return "portal/topic";
+    }
+
+    /**
+     * 持久化用户投稿
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/topic/contribute",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg storyContribute(HttpServletRequest request){
+        //从前端传来的请求中获取键为shopStr的值;
+        String topicStr = RequestUtil.parserString(request, "topicStr");
+        System.out.print("storyStr的值是:" + topicStr);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Topic topic = null;
+        try {
+            //将字符串转成实体类
+            topic = objectMapper.readValue(topicStr, Topic.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Msg.fail().setMsg("读取稿件信息失败!");
+        }
+
+        //从request中解析出上传的所有文件图片;
+        Map<String, MultipartFile> fileMap = ((MultipartRequest) request).getFileMap();
+        //单独拿出封面图片
+        MultipartFile coverImg = fileMap.get("img");
+        //再移除封面图片,剩下内容图片;
+        fileMap.remove("img");
+
+
+        // TODO 这里先默认author id为1,后面改成从session中根据登录名获取user id;:
+        User author = new User();
+        author.setId(1);
+        topic.setAuthor(author);
+        if (null != topic && null != coverImg) {
+            //设置中间文件夹,方便整理图片
+            String centreAddr = "/topic/"+author.getId()+"/";
+            //保存封面图片并返回地址;
+            String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,750, 530);
+
+            //用于接收遍历出的每一个图片文件;
+            MultipartFile contentImg;
+            //保存内容图片并返回地址,拼接成字符串方便存在数据库表中;;
+            String contentImgsAddr = "";
+            List<String> contentImgAddrList = new ArrayList<>();
+             for (int i = 0 ; i<fileMap.size() ; i ++ ){
+                contentImg = fileMap.get(i+"");
+                 contentImgsAddr += ImgUtil.generateThumbnail(contentImg, centreAddr, 750, 530)+",";
+            }
+            //将最后一个","逗号去掉;
+            contentImgsAddr = contentImgsAddr.substring(0, contentImgsAddr.length() - 1);
+            /**
+             * 开始储存topic实体信息;
+             */
+            topic.setCommentNumber(134);
+            topic.setCollectNumber(342);
+            topic.setCreatTime(new Date(System.currentTimeMillis()));
+            topic.setCoverImgAddr(imgAddr);
+            topic.setContentImgsAddr(contentImgsAddr);
+            String categoryId = request.getParameter("categoryId");//取出前端传入的categoryId,级联保存;
+            Category category = new Category();
+            category.setId(Long.parseLong(categoryId));
+
+            topicService.save(topic);
+            //返回注册店铺的最终结果;
+            return Msg.success().setMsg("投稿成功,请等待审核.");
+        } else {
+            return Msg.fail().setMsg("投稿失败,稿件信息不完整!");
+        }
     }
 
 }

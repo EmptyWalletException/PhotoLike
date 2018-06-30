@@ -46,7 +46,7 @@
             <div class="vol-item-lg" >
                 <a href="/topic/1374" class="cover-wrapper cover-wrapper-lg" th:href="'/topic/'+${topicList[0].id}" >
                     <!--th:src="'/'+${topicList[0].photos[0].imgAddr}"-->
-                    <img src="/js/640x452"  alt="关于爱的表达方式" class="cover-lg rounded"  th:alt="${topicList[0].title}" >
+                    <img src="/js/640x452"  alt="关于爱的表达方式" class="cover-lg rounded"  th:alt="${topicList[0].title}" th:src="${topicList[0].coverImgAddr}">
                     <span class="icon-play-lg" style="opacity: 0;"></span>
                     <div class="play-btn-mask" style="opacity: 0;"></div>
                 </a>
@@ -57,7 +57,7 @@
             <div class="vol-item">
                 <a href="http://www.luoo.net/vol/index/1373"  th:href="'/topic/'+${topicList[1].id}" class="cover-wrapper">
                     <!--th:src="'/'+${topicList[1].photos[1].imgAddr}"-->
-                    <img src="/js/640x452(1)" alt="故事的最后" class="cover rounded"  th:alt="${topicList[1].title}">
+                    <img src="/js/640x452(1)" alt="故事的最后" class="cover rounded"  th:alt="${topicList[1].title}" th:src="${topicList[1].coverImgAddr}">
                     <span class="icon-play"></span>
                     <div class="play-btn-mask"></div>
                 </a>
@@ -68,7 +68,7 @@
             <div class="vol-item">
                 <a href="http://www.luoo.net/vol/index/1372" class="cover-wrapper"  th:href="'/topic/'+${topicList[2].id}" >
                     <!--th:src="'/'+${topicList[2].photos[2].imgAddr}"-->
-                    <img src="/js/640x452(2)" alt="美好从未停歇" class="cover rounded"  th:alt="${topicList[2].title}">
+                    <img src="/js/640x452(2)" alt="美好从未停歇" class="cover rounded"  th:alt="${topicList[2].title}" th:src="${topicList[2].coverImgAddr}">
                     <span class="icon-play" style="opacity: 0;"></span>
                     <div class="play-btn-mask" style="opacity: 0;"></div>
                 </a>
@@ -87,7 +87,7 @@
             </div>
             <div class="section-ct">
                 <div class="clearfix">
-                    <img src="/js/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg" alt="徐真真-开心就足够" class="cover rounded" th:src="'/'+${essayList[0].imgAddr}" th:alt="${essayList[0].title}">
+                    <img src="/js/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg" alt="徐真真-开心就足够" class="cover rounded" th:src="${essayList[0].imgAddr}" th:alt="${essayList[0].title}">
                     <div class="title">
                         <div class="align-fix">
                             <div>
@@ -121,7 +121,7 @@
                 <div class="essay-item">
                     <a href="/story/925" class="cover-wrapper" th:href="'/story/'+${storyList[0].id}">
                         <!--th:src="'/'+${storyList[0].photos[0].imgAddr}"-->
-                        <img src="/FuM6NJm4JecMPU4ggaXAKjKQM2ab.jpg" alt="人类首张在太空录制的专辑" class="cover rounded"  th:alt="${storyList[0].title}">
+                        <img src="/FuM6NJm4JecMPU4ggaXAKjKQM2ab.jpg" alt="人类首张在太空录制的专辑" class="cover rounded" th:src="${storyList[0].coverImgAddr}" th:alt="${storyList[0].title}">
                     </a>
                     <div class="meta rounded">
                         <p class="title"><a class="ln-title" href="/story/925" title="人类首张在太空录制的专辑" th:href="'/story/'+${storyList[0].id}" th:text="${storyList[0].title}">人类首张在太空录制的专辑</a>
@@ -133,7 +133,7 @@
                 <div class="essay-item">
                     <a href="/story/926" class="cover-wrapper" th:href="'/story/'+${storyList[1].id}">
                         <!--th:src="'/'+${storyList[1].photos[1].imgAddr}"-->
-                        <img src="/js/Ft3KtUoW1x3JtRIIpwaQXp9AwRLu.jpg" alt="Sugar Man：隐没在城市里的一把声音" class="cover rounded"  th:alt="${storyList[1].title}">
+                        <img src="/js/Ft3KtUoW1x3JtRIIpwaQXp9AwRLu.jpg" alt="Sugar Man：隐没在城市里的一把声音" class="cover rounded"  th:src="${storyList[1].coverImgAddr}" th:alt="${storyList[1].title}">
                     </a>
                     <div class="meta rounded">
                         <p class="title"><a class="ln-title" href="/story/926" title="Sugar Man：隐没在城市里的一把声音"  th:href="'/story/'+${storyList[1].id}" th:text="${storyList[1].title}">Sugar Man：隐没在城市里的一把声音</a></p>

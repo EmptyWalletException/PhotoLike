@@ -91,15 +91,13 @@
         <div id="singlePhotoEcho" >
             <p>封面图片预览区域:</p>
         </div>
-        <div class="clear" ></div>
-
         <div class="clear" >
             上传专辑封面 : <input type="file" hidden id="file_single_input" accept=".jpeg, .jpg, .png, .gif" /> <!--multiple，可选择多张图片-->
                         <button id="selectCover">选择封面图片</button>
         </div>
 
         <div >
-            撰写专辑标题 : <input rows="1" class="Input" placeholder="请输入标题"  style="width: 500px;height: 22px"/>
+            撰写专辑标题 : <input rows="1" id="title" class="Input" placeholder="请输入标题"  style="width: 500px;height: 22px"/>
         </div>
 
         <div id="photoEcho" >
@@ -111,7 +109,12 @@
             上传专辑图片 : <input type="file" hidden id="file_input" accept=".jpeg, .jpg, .png, .gif" multiple/> <!--multiple，可选择多张图片-->
             <button id="select">批量选择图片</button>
             <button id="clear">清除所有图片</button>
-            <button id="submit">提交</button>
+        </div>
+        <div >
+            <label  class="">选择所属分类 : </label>
+                <select  id="category" >
+                    <option th:each="category:${categoryPage}" th:value="${category.id}" th:text="' '+${category.name}+' '" >分类1</option>
+                </select>
         </div>
 
         <div style="width:960px;">
@@ -122,6 +125,9 @@
             </textarea>
         </div>
 
+        <div>
+            <button id="submit">提交稿件</button>
+        </div>
 
     </div>
 </div>

@@ -76,8 +76,6 @@ function ReSizePic(ThisPic) {
 
 $("#submit").click(function () {
 
- //单次点击选择图片按钮默认是重新选择图片;
-      // 将singleInput值清空
     /* 检查输入框是否符合正则表达式 */
 
 
