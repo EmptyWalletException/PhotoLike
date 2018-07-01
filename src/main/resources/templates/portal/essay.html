@@ -25,56 +25,6 @@
     </script>
 </head>
 <body>
-<div style="display: none; position: absolute;" class="">
-    <div class="aui_outer">
-        <table class="aui_border">
-            <tbody>
-            <tr>
-                <td class="aui_nw"></td>
-                <td class="aui_n"></td>
-                <td class="aui_ne"></td>
-            </tr>
-            <tr>
-                <td class="aui_w"></td>
-                <td class="aui_c">
-                    <div class="aui_inner">
-                        <table class="aui_dialog">
-                            <tbody>
-                            <tr>
-                                <td colspan="2" class="aui_header">
-                                    <div class="aui_titleBar">
-                                        <div class="aui_title" style="cursor: move;"></div>
-                                        <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="aui_icon" style="display: none;">
-                                    <div class="aui_iconBg" style="background: none;"></div>
-                                </td>
-                                <td class="aui_main" style="width: auto; height: auto;">
-                                    <div class="aui_content" style="padding: 20px 25px;"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="aui_footer">
-                                    <div class="aui_buttons" style="display: none;"></div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-                <td class="aui_e"></td>
-            </tr>
-            <tr>
-                <td class="aui_sw"></td>
-                <td class="aui_s"></td>
-                <td class="aui_se" style="cursor: se-resize;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <!-- header start -->
 <div class="header" th:replace="~{portal/nav :: topbar}">
@@ -85,7 +35,7 @@
 <div class="container" id="luooPlayerPlaylist" style="min-height: 499px;">
 
     <div class="musician-banner clearfix">
-        <img src="/js/m_56447ca3da96c.jpg" alt="#" class="cover" th:src="${upEssay.imgAddr}" th:alt="${upEssay.title}">
+        <a th:href="${upEssay.imgAddr}"><img src="/js/m_56447ca3da96c.jpg" alt="#" class="cover" th:src="${upEssay.imgAddr}" th:alt="${upEssay.title}"></a>
         <div class="meta">
             <a href="#" class="title active" id="track15491" data-id="15491" th:text="${upEssay.title}"
                th:href="'/essay?essayId='+${upEssay.id}">
@@ -128,8 +78,8 @@
                 <!--遍历并生成10个随笔-->
                 <div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayStat.index}<11">
                     <div class="cover-wrapper">
-                        <img class="cover rounded" src="./单曲推荐-落网_files/Fp7W4f0QjY8aQylkdCmRG6gkMcIV.bmp" alt="开心就足够"  th:src="${essay.imgAddr}"
-                             th:alt="${essay.title}">
+                        <a th:href="${essay.imgAddr}"><img class="cover rounded" src="/img/test.jpg" alt="开心就足够"  th:src="${essay.imgAddr}"
+                             th:alt="${essay.title}"></a>
                     </div>
                     <div class="musician-wrapper">
                         <a href="#" title="开心就足够" class="title" id="track22422" data-id="22422"

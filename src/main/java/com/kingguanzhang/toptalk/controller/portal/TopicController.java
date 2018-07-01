@@ -9,7 +9,9 @@ import com.kingguanzhang.toptalk.entity.User;
 import com.kingguanzhang.toptalk.service.CategoryServiceImpl;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.TopicServiceImpl;
+import com.kingguanzhang.toptalk.utils.DownloadZip;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
+import com.kingguanzhang.toptalk.utils.PathUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,12 +20,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +34,7 @@ import java.util.Map;
 
 @Controller
 public class TopicController {
+
 
     @Autowired
     private CategoryServiceImpl categoryService;
@@ -181,16 +185,20 @@ public class TopicController {
             //设置中间文件夹,方便整理图片
             String centreAddr = "/topic/"+author.getId()+"/";
             //保存封面图片并返回地址;
-            String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,750, 530);
+            String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,1920, 1080);
 
             //用于接收遍历出的每一个图片文件;
             MultipartFile contentImg;
             //保存内容图片并返回地址,拼接成字符串方便存在数据库表中;;
             String contentImgsAddr = "";
-            List<String> contentImgAddrList = new ArrayList<>();
+            //新建一个String数组储存图片实际地址用于下面的zip打包传值;注意length一定要和fileMap实际要保存的图片数量保持一致,否则downloadZip类遍历时会抛空指针异常;
+            String[] sourcePathArry = new String[fileMap.size()];
              for (int i = 0 ; i<fileMap.size() ; i ++ ){
                 contentImg = fileMap.get(i+"");
-                 contentImgsAddr += ImgUtil.generateThumbnail(contentImg, centreAddr, 750, 530)+",";
+                 String tempImgAddr = ImgUtil.generateThumbnail(contentImg, centreAddr, 1920, 1080)+",";
+                    //新增zip压缩打包功能,所以将原本的字符直接 += 废弃掉;
+                    sourcePathArry[i] = PathUtil.getImgBasePath() + tempImgAddr;
+                    contentImgsAddr = contentImgsAddr+tempImgAddr;
             }
             //将最后一个","逗号去掉;
             contentImgsAddr = contentImgsAddr.substring(0, contentImgsAddr.length() - 1);
@@ -205,12 +213,23 @@ public class TopicController {
             String categoryId = request.getParameter("categoryId");//取出前端传入的categoryId,级联保存;
             Category category = new Category();
             category.setId(Long.parseLong(categoryId));
+            topic.setCategory(category);
 
-            topicService.save(topic);
+            /**
+             * 新增zip打包功能,将用户上传的图片打包成zip,在页面提供zip下载地址;
+             */
+            try {// 将zip名字设置为"D:projectdev/images/upload/topic/{authouid}/{topicid}.zip"
+                DownloadZip.downLoadZIP(PathUtil.getImgBasePath()+"/upload"+centreAddr+".zip",sourcePathArry);
+                topic.setZipAddr("/upload"+centreAddr+".zip");
+                topicService.saveAndFlush(topic);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return Msg.fail().setMsg("投稿失败,保存稿件信息时出现异常");
+            }
             //返回注册店铺的最终结果;
-            return Msg.success().setMsg("投稿成功,请等待审核.");
+            return Msg.success().setMsg("投稿成功,请等待审核");
         } else {
-            return Msg.fail().setMsg("投稿失败,稿件信息不完整!");
+            return Msg.fail().setMsg("投稿失败,稿件信息读取不完整");
         }
     }
 

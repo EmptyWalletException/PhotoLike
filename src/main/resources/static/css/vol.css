@@ -3705,7 +3705,7 @@ table.aui_border, table.aui_dialog {
     background: url(../img/vol-bg.png) no-repeat 0 -268px;
     display: none;
     position: absolute;
-    top: 139px;
+    top: 235px;
     left: 0;
     width: 45px;
     height: 70px
@@ -3719,7 +3719,7 @@ table.aui_border, table.aui_dialog {
     background: url(../img/vol-bg.png) no-repeat 0 -91px;
     display: none;
     position: absolute;
-    top: 139px;
+    top: 235px;
     right: 0;
     width: 45px;
     height: 70px

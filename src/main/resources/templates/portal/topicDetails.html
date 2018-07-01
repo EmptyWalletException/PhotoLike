@@ -30,111 +30,11 @@ Where there&#39;s music and there&#39;...">
 
 
     <style>
-        .example {width: 624px;height: 336px;font-size: 10px;text-align: center;margin: 5px auto;background-color: #464576;}
-        .carousel-item{line-height: 336px;color: #fff;font-family:  Arial Black}
+        .example {width: 960px;height: 540px;font-size: 10px;text-align: center;margin: 5px auto;background-color: #464576;}
+        .carousel-item{line-height: 540px;color: #fff;font-family:  Arial Black}
     </style>
 </head>
 <body>
-<div style="display: none; position: absolute;" class="">
-    <div class="aui_outer">
-        <table class="aui_border">
-            <tbody>
-            <tr>
-                <td class="aui_nw"></td>
-                <td class="aui_n"></td>
-                <td class="aui_ne"></td>
-            </tr>
-            <tr>
-                <td class="aui_w"></td>
-                <td class="aui_c">
-                    <div class="aui_inner">
-                        <table class="aui_dialog">
-                            <tbody>
-                            <tr>
-                                <td colspan="2" class="aui_header">
-                                    <div class="aui_titleBar">
-                                        <div class="aui_title" style="cursor: move;"></div>
-                                        <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="aui_icon" style="display: none;">
-                                    <div class="aui_iconBg" style="background: none;"></div>
-                                </td>
-                                <td class="aui_main" style="width: auto; height: auto;">
-                                    <div class="aui_content" style="padding: 20px 25px;"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="aui_footer">
-                                    <div class="aui_buttons" style="display: none;"></div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-                <td class="aui_e"></td>
-            </tr>
-            <tr>
-                <td class="aui_sw"></td>
-                <td class="aui_s"></td>
-                <td class="aui_se" style="cursor: se-resize;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div style="display: none; position: absolute;" class="">
-    <div class="aui_outer">
-        <table class="aui_border">
-            <tbody>
-            <tr>
-                <td class="aui_nw"></td>
-                <td class="aui_n"></td>
-                <td class="aui_ne"></td>
-            </tr>
-            <tr>
-                <td class="aui_w"></td>
-                <td class="aui_c">
-                    <div class="aui_inner">
-                        <table class="aui_dialog">
-                            <tbody>
-                            <tr>
-                                <td colspan="2" class="aui_header">
-                                    <div class="aui_titleBar">
-                                        <div class="aui_title" style="cursor: move;"></div>
-                                        <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="aui_icon" style="display: none;">
-                                    <div class="aui_iconBg" style="background: none;"></div>
-                                </td>
-                                <td class="aui_main" style="width: auto; height: auto;">
-                                    <div class="aui_content" style="padding: 20px 25px;"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="aui_footer">
-                                    <div class="aui_buttons" style="display: none;"></div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-                <td class="aui_e"></td>
-            </tr>
-            <tr>
-                <td class="aui_sw"></td>
-                <td class="aui_s"></td>
-                <td class="aui_se" style="cursor: se-resize;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <!-- header start -->
 <div class="header" th:replace="~{portal/nav :: topbar}">
@@ -142,45 +42,48 @@ Where there&#39;s music and there&#39;...">
 </div>
 <!--/// header end -->
 
-<div class="container ct-sm" style="min-height: 499px;">
+<div class="container ct-sm" style="min-height: 499px;width: 960px">
     <div class="vol-tags clearfix">
         <a href="/topic" class="nav-back">
             <i class="icon-back"></i>
-            返回期刊首页
+            返回专辑首页
         </a>
         <a href="/topic?category=1?pn=1" target="_blank" class="vol-tag-item" th:href="'/topic?category='+${topic.category.id}" th:text="'#'+${topic.category.name}" >#流行</a>
      </div>
     <h1 class="vol-name">
-        <span class="vol-number rounded" th:text="${topic.id}">900</span>
-        <span class="vol-title" th:text="${topic.title}">在这场叫做今天的戏剧中</span>
+        <span class="vol-number rounded" th:text="${topic.id}">222</span>
+        <span class="vol-title" th:text="${topic.title}">专辑标题</span>
     </h1>
     <div class="vol-cover-wrapper" id="volCoverWrapper">
-        <img src="/js/640x452" alt="在这场叫做今天的戏剧中" class="vol-cover" th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
-        <!--TODO  这里可以改造成轮播图片的功能: -->
-        <a href="http://www.luoo.net/vol/index/982" class="nav-prev" title="后一期">&nbsp;</a><a
-            href="http://www.luoo.net/vol/index/975" class="nav-next" title="前一期">&nbsp;</a>
+        <img src="/js/640x452" alt="专辑标题" class="vol-cover" style="width: 960px;max-height: 540px;" th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
+        <a href="/topic/982" class="nav-prev" title="后一期" th:href="'/topic/'+${topic.id +1}">&nbsp;</a><a
+            href="/topic/975" class="nav-next" title="前一期" th:href="'/topic/'+${topic.id -1}">&nbsp;</a>
     </div>
 
     <div class="vol-desc" >
         <hr/>
-        <div th:text="${topic.content}">
-        Take me out tonight<br>今夜带我出去吧<br>Where there's music and there's people<br>那里有音乐和人群<br>And they're young and
-        alive<br>那里青春永不息<br>Driving in your car<br>坐上你的车<br>I never never want to go home<br>我真不想回家<br>Because I haven't
-        got one<br>那是因为我<br>Anymore<br>一无所有<br><br>- The Smiths <br><br>Every breaking wave on the
-        shore<br>每一个破碎在岸上的浪花<br>Tells the next one there'll be one more<br>告知今后还会有更多的前赴后继<br>And every gambler knows
-        that to lose<br>每个赌徒都清楚失败<br>Is what you're really there for<br>正是你真实的存在过<br><br>- U2 <br><br>It's not a
-        case<br>努力使你满足<br>of aiming to please<br>那根本不是什么难事<br>You know you're always crying<br>但你懂你为什么总是在哭泣<br>It's just
-        your part<br>这就是你的角色<br>In the play<br>在这场叫做 今天<br>for today<br>的戏剧中<br><br>- The Cure <br><br>本期音乐为落网第900期音乐期刊，我们又跨过了一个具有象征意义的数字。<br><br>在那时，我们在意路上匆忙的人群、在意明媚午后、在意自己是否时髦、以及在意脑海里的所有肆意妄为。在今天，这样一个信息快速且泛滥的时代里，我们再也找不回一整张专辑翻来覆去的听得稀巴烂的状态，只剩下回味里假想的脉脉温情，以及对未来充满着暴力色彩的急切渴求与期盼。在这么多年过去后，我们依然沒有得到自己想要的,可好像這一切也沒有那么糟。<br><br>音乐无非就两种，一种是浮在表面的，而另一种则是渗人灵魂的。感谢所有曾经在黑夜中给予我们孤独的灵魂以安抚的声音。<br><br>我们明天见。<br><br>本期音乐为英伦音乐专题。<br><br>Cover
-        From Vincent Bourilhon<br>
+        <div th:utext="${topic.content}">
+        正文区域
         </div>
          <br/>
         <div class="example">
             <div class="ft-carousel" id="carousel_1">
                 <ul class="carousel-inner" style="padding-left: 0px">
-                    <li class="carousel-item"  th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${topic.imgAddrList != null}"><img src="/img/test/testTopicCarousel.jpg" th:src="${imgAddr}"  /></li>
+                    <li class="carousel-item"  th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${topic.imgAddrList != null}"><a th:href="${imgAddr}"><img src="/img/test/testTopicCarousel.jpg" th:src="${imgAddr}"  /></a></li>
                     <li class="carousel-item"  th:if="${topic.imgAddrList == null}" ><img src="/img/test/testTopicCarousel.jpg"   /></li>
                 </ul>
             </div>
+        </div>
+        <br/>
+
+        <!--下载 区域-->
+        <div class="thanks-block">
+            <p class="thanks-tips">点击按钮下载本专辑所有图片</p>
+            <div class="tanks-logo rounded"  data-tipid="thanksDialog" data-width="235" >
+                <a th:href="${topic.zipAddr}" download="专辑图片集.zip" >下载</a>
+            </div>
+
+
         </div>
         <!--<hr/>
         <img th:src="${imgAddr}" th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${imgAddrStat.size >0}"/>-->

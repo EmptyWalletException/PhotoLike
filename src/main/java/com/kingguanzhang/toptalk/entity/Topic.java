@@ -19,6 +19,7 @@ public class Topic {
     private long commentNumber;
     private String coverImgAddr;
     private String contentImgsAddr;//这是topic里所有内容图片的地址拼接成的字符串;方便以后数据库中取出后分隔;
+    private String zipAddr;//这是新增的内容图片的zip压缩包路径;在页面上提供所有内容图片的打包下载;
     @Transient
     private List<String> imgAddrList; //这是方便储存分隔后的字符串的list,用于存在topic实体里发送给前端,不与数据库映射;
 
@@ -38,6 +39,15 @@ public class Topic {
 
    /* @ManyToOne(optional = false)
     private User author;*/
+
+    public String getZipAddr() {
+        return zipAddr;
+    }
+
+    public void setZipAddr(String zipAddr) {
+        this.zipAddr = zipAddr;
+    }
+
     /**
      * 多对多采用第三张表来关联,这里就采用自动生成第三张表的方式来配置
      *//*

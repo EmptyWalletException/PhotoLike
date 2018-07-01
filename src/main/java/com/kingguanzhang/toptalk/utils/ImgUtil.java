@@ -34,9 +34,9 @@ public class ImgUtil {
         //评价成文件名: 234415.jpg
         String relativeName =  randomName +extension;
         //拼接成完整文件路径; D:/projectdev/images/upload/235545.jpg
-        String imgAddr = PathUtil.getImgBasePath()+centreAddr+relativeName;
+        String imgAddr = PathUtil.getImgBasePath()+"/upload"+centreAddr+relativeName;
         //确保文件夹存在
-         makeDirPath(PathUtil.getImgBasePath()+centreAddr);
+         makeDirPath(PathUtil.getImgBasePath()+"/upload"+centreAddr);
         //建立文件连接;
         File dest = new File (imgAddr);
         try{
@@ -77,7 +77,7 @@ public class ImgUtil {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+   /* public static void main(String[] args) throws IOException {
         Thumbnails.of(new File("D:test.jpg")).size(100,100).toFile("D:test2.jpg");
-    }
+    }*/
 }

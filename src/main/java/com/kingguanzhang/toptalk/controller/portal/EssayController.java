@@ -100,7 +100,7 @@ public class EssayController {
         if (null != essay && null != essayImg) {
             //设置中间文件夹,方便整理图片
             String centreAddr = "/essay/"+author.getId()+"/";
-            String imgAddr = ImgUtil.generateThumbnail(essayImg, centreAddr,750, 530);
+            String imgAddr = ImgUtil.generateThumbnail(essayImg, centreAddr,1920, 1080);
             essay.setImgAddr(imgAddr);
             System.out.print("essayStr的值是:" + essayStr);
             essayService.save(essay);

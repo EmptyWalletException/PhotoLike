@@ -3,9 +3,7 @@ package com.kingguanzhang.toptalk.service;
 import com.kingguanzhang.toptalk.entity.Topic;
 import com.kingguanzhang.toptalk.repositories.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,8 +48,17 @@ public class TopicServiceImpl {
      * @return
      */
     public Topic findById(long id){
-        Optional<Topic> temp = topicRepository.findById(id);
-        return temp.get();
+        Optional<Topic> temp = null ;
+        try{
+            temp = topicRepository.findById(id);
+            return temp.get();
+        }catch (Exception e){ //如果没有找到此id相关的记录,则返回最新的那条记录;
+            Pageable pageable = new PageRequest(0,10,new Sort(Sort.Direction.DESC,"id"));
+            Page<Topic> topicPage = findAll(pageable);
+            Topic topic = topicPage.getContent().get(0);
+            return topic;
+        }
+
     }
 
     /**

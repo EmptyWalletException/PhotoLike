@@ -100,7 +100,7 @@ public class StoryController {
         String centreAddr = "/story/"+author.getId()+"/";
         try {
             //使用工具类保存图片并返回文件名给网页;
-            String fileName = ImgUtil.generateThumbnail(upfile,centreAddr,720,720);
+            String fileName = ImgUtil.generateThumbnail(upfile,centreAddr,1920,1080);
             //url为文件访问的完整路径,注意应该配合mvc中配置的虚拟路径"/upload"
             String config = "{\"state\": \"SUCCESS\"," +
                     "\"url\": \"" + fileName + "\"," +
@@ -146,7 +146,7 @@ public class StoryController {
         if (null != story && null != coverImg) {
             //设置中间文件夹,方便整理图片
             String centreAddr = "/story/"+author.getId()+"/";
-            String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,750, 530);
+            String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,1920, 1080);
             story.setCommentNumber(134);
             story.setCollectNumber(342);
             story.setCreatTime(new Date(System.currentTimeMillis()));
