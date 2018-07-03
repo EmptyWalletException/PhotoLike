@@ -1,7 +1,9 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
 import com.kingguanzhang.toptalk.entity.Category;
+import com.kingguanzhang.toptalk.entity.City;
 import com.kingguanzhang.toptalk.service.CategoryServiceImpl;
+import com.kingguanzhang.toptalk.service.CityServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,8 @@ public class ContributeController {
     
     @Autowired
     private CategoryServiceImpl categoryService;
+    @Autowired
+    private CityServiceImpl cityService;
 
     @RequestMapping("/portal/topicContribute")
     public String toTopicContributePage(Model model){
@@ -26,6 +30,14 @@ public class ContributeController {
         Page<Category> categoryPage = categoryService.findAll(pageable);
         model.addAttribute("categoryPage",categoryPage);
         return "/portal/topicContribute";
+    }
+
+    @RequestMapping("/portal/eventContribute")
+    public String toEventContributePage(Model model){
+        Pageable pageable = new PageRequest(0,200,new Sort(Sort.Direction.ASC,"rank"));
+        Page<City> cityPage = cityService.findAll(pageable);
+        model.addAttribute("cityPage",cityPage);
+        return "/portal/eventContribute";
     }
 
     @RequestMapping("/portal/storyContribute")

@@ -17,6 +17,17 @@ public class EventServiceImpl {
     @Autowired
     private EventRepository eventRepository;
 
+    /**
+     * 自定义的查询方法,通过城市id分页查询所有event;
+     * @param cityId
+     * @param pageable
+     * @return
+     */
+    public Page<Event> findAllByCityId(Long cityId,Pageable pageable){
+        Page<Event> eventPage = eventRepository.findByCategoryId(cityId, pageable);
+        return eventPage;
+    }
+
 
     /**
      * 分页查询所有;

@@ -112,7 +112,7 @@ function clearLocalData () {
 UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
 UE.Editor.prototype.getActionUrl = function(action) {
     if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-        return 'http://localhost:8080/storyContribute/imgUpload'; //在这里返回我们实际的上传图片地址
+        return 'http://localhost:8080/eventContribute/imgUpload'; //在这里返回我们实际的上传图片地址
     } else {
         return this._bkGetActionUrl.call(this, action);
     }
@@ -175,19 +175,24 @@ $("#submit").click(function () {
     /* 检查ajax校验用户名是否可用后的标记 */
 
     /*因为涉及到文件的处理,无法直接用form封装到pojo中,所以先使用js代码来封装数据*/
-    var story={};
-    story.title = $("#title").val();
-    story.subscribe=$("#subscribe").val();
-    story.content= UE.getEditor('editor').getContent();
+    var event={};
+    event.name = $("#name").val();
+    event.time = $("#time").val();
+    event.money = $("#money").val();
+    event.location = $("#location").val();
+    event.theme = $("#theme").val();
+    var cityId= $("#city option:selected").attr("value");
+    event.content= UE.getEditor('editor').getContent();
     /*用户信息不能从页面往后台传,防止用户修改信息导致绑定了错误的作者*/
 
     var img = $("#file_single_input")[0].files[0];
     var formData = new FormData();
-    formData.append("storyStr",JSON.stringify(story));
+    formData.append("eventStr",JSON.stringify(event));
     formData.append("img",img);
+    formData.append("cityId",cityId);
 
     $.ajax({
-        url:"/story/contribute",
+        url:"/event/contribute",
         type:"POST",
         data:formData,
         async: false,

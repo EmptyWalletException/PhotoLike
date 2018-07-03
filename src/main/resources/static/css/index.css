@@ -822,7 +822,7 @@ input::-moz-selection, textarea::-moz-selection, .btn-positive::-moz-selection {
     z-index: 99
 }
 
-.logged-out-wrapper {
+.login {
     color: #7d7d7d;
     display: none;
     float: right;

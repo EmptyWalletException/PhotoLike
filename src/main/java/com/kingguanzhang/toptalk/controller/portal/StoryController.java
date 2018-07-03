@@ -86,7 +86,7 @@ public class StoryController {
      * @param upfile
      * @return
      */
-    @RequestMapping(value = "/imgUpload")
+    @RequestMapping(value = "/storyContribute/imgUpload")
     @ResponseBody
     public String imgUpload3(MultipartFile upfile) {
         if (upfile.isEmpty()) {

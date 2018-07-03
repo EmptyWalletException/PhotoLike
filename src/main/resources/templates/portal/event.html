@@ -25,56 +25,6 @@
     </script>
 </head>
 <body>
-<div style="display: none; position: absolute;" class="">
-    <div class="aui_outer">
-        <table class="aui_border">
-            <tbody>
-            <tr>
-                <td class="aui_nw"></td>
-                <td class="aui_n"></td>
-                <td class="aui_ne"></td>
-            </tr>
-            <tr>
-                <td class="aui_w"></td>
-                <td class="aui_c">
-                    <div class="aui_inner">
-                        <table class="aui_dialog">
-                            <tbody>
-                            <tr>
-                                <td colspan="2" class="aui_header">
-                                    <div class="aui_titleBar">
-                                        <div class="aui_title" style="cursor: move;"></div>
-                                        <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="aui_icon" style="display: none;">
-                                    <div class="aui_iconBg" style="background: none;"></div>
-                                </td>
-                                <td class="aui_main" style="width: auto; height: auto;">
-                                    <div class="aui_content" style="padding: 20px 25px;"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="aui_footer">
-                                    <div class="aui_buttons" style="display: none;"></div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-                <td class="aui_e"></td>
-            </tr>
-            <tr>
-                <td class="aui_sw"></td>
-                <td class="aui_s"></td>
-                <td class="aui_se" style="cursor: se-resize;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <!-- header start -->
 <div class="header" th:replace="~{portal/nav :: topbar}">
@@ -87,39 +37,14 @@
         <div class="article article-sm">
             <!-- event-list-wrapper -->
             <div class="event-list-wrapper">
-                <div class="location-nav rounded clearfix">
-						<span class="current-area">
-							当前地区：上海						</span>
-                    <div class="area-filter">
-                        <p class="list-types">
-                            <a href="javascript:;" class="list-type actived">最新活动</a>
-                            <a href="http://www.luoo.net/livehouse/" class="list-type">演出场所</a>
-                        </p>
-                        <p class="area-types">
-                            <a href="http://www.luoo.net/event/index/city/100002" data-area="100002" class="area-item">北京</a>
-                            <a href="http://www.luoo.net/event/index/city/100819" data-area="100819" class="area-item">上海</a>
-                            <a href="http://www.luoo.net/event/index/city/101991" data-area="101991" class="area-item">广州</a>
-                            <a href="http://www.luoo.net/event/index/city/102015" data-area="102015" class="area-item">深圳</a>
-                            <a href="http://www.luoo.net/event/index/city/101733" data-area="101733" class="area-item">武汉</a>
-                            <a href="http://www.luoo.net/event/index/city/102323" data-area="102323" class="area-item">成都</a>
-                            <a href="http://www.luoo.net/event/index/city/103296" data-area="103296" class="area-item">台湾</a>
-                            <a href="http://www.luoo.net/event/index/city/103269" data-area="103269" class="area-item">香港</a>
-                            <a href="http://www.luoo.net/event/location" class="area-item">更多</a>
-                            <!-- <a href="http://www.luoo.net/event/index/city/100002-100819-101991-102015" data-area="100002-100819-101991-102015" class="area-item">北上广深</a> -->
-                            <!-- <div class="more" id="lnMoreArea" data-ct="moreHotAreas" data-adjustx="-3">
-                                <i class="icon icon-triangle-down"></i>
-                                <div id="moreHotAreas" style="display: none;">
-                                    <div class="more-areas-dialog">
-                                        <a href="http://www.luoo.net/event/index/city/100002" data-area="100002" class="area-item">北京</a>
-                                        <a href="http://www.luoo.net/event/index/city/100819" data-area="100819" class="area-item">上海</a>
-                                        <a href="http://www.luoo.net/event/index/city/101991" data-area="101991" class="area-item">广州</a>
-                                        <a href="http://www.luoo.net/event/index/city/102015" data-area="102015" class="area-item">深圳</a>
-                                        <a href="http://www.luoo.net/event/index/city/101733" data-area="101733" class="area-item">武汉</a>
-                                        <a href="http://www.luoo.net/event/index/city/102323" data-area="102323" class="area-item">成都</a>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </p>
+                <div class="page-nav rounded clearfix">
+                    <div class="curt-nav">
+                        <!--如果后台没有返回用户选择的分类Id,则将样式设置为激活-->
+                        <a href="/event?pn=1" class="item actived" th:class="${null==cityId?'item actived':'item'}">最新活动</a>
+                    </div>
+                    <div class="pagenav-wrapper">
+                        <!--遍历所有分类并生成元素,当后台返回的用户选择的分类Id等于遍历取出的分类Id时将css样式变为激活-->
+                        <a href="/event?city=1&pn=1" class="item" th:class="${city.id == cityId?'item actived':'item'}" th:href="'/event?city='+${city.id}"  th:text="${city.name}" th:each="city,cityStat:${cityPage.content}">上海</a>
                     </div>
                 </div>
 
@@ -129,7 +54,7 @@
                     <div class="item item-expired clearfix" th:each="event,eventStat:${eventPage}"
                          th:if="${eventStat.index}<10">
                         <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${event.id}">
-                            <img src="/js/180x225" alt="墨西哥后摇 Childs 中国巡演" class="cover rounded" th:alt="${event.name}">
+                            <img src="/img/test/testEventCoverImg.jpg" alt="墨西哥后摇 Childs 中国巡演" class="cover rounded" th:src="${event.coverImgAddr}" th:alt="${event.name}">
                         </a>
                         <ul class="info">
                             <li>
@@ -138,6 +63,7 @@
                             </li>
                             <li>时间： [[${#dates.format(event.time,'yyyy-MM-dd')}]]</li>
                             <li>主题： [[${event.theme}]]</li>
+                            <li>城市： [[${event.city.name}]]</li>
                             <li>场所： [[${event.location}]]</li>
                             <li>费用： [[${event.money}]]</li>
                         </ul>
@@ -149,36 +75,44 @@
             </div>
             <!--/// event-list-wrapper end-->
 
-            <div class="paginator">
-                <a class="previous" href="/event?pn=1" th:href="'/event?pn=1'">首页</a>
-                <a class="previous" th:href="'/event?pn='+${eventPage.number}"
-                   th:if="${eventPage.hasPrevious()}">上一页</a>
-                <!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number -3}" th:text="${eventPage.number -3}"
-                   th:if="${eventPage.number } >3 ">1</a>
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number -2}" th:text="${eventPage.number -2}"
-                   th:if="${eventPage.number } >2 ">2</a>
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number -1}" th:text="${eventPage.number -1}"
-                   th:if="${eventPage.number } >1 ">3</a>
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number }" th:text="${eventPage.number}"
-                   th:if="${eventPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-                <a class="page actived" href="#" rel="nofollow" th:href="'/event?pn='+${eventPage.number+1}"
-                   th:text="${eventPage.number +1}">5</a>
-                <!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +2}" th:text="${eventPage.number +2}"
-                   th:if="${eventPage.number +2} <= ${eventPage.totalPages }">6</a><!--判断如果在当前页面有后面的页面则生成-->
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +3}" th:text="${eventPage.number +3}"
-                   th:if="${eventPage.number +3} <= ${eventPage.totalPages }">7</a>
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +4}" th:text="${eventPage.number +4}"
-                   th:if="${eventPage.number +4} <= ${eventPage.totalPages }">8</a>
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +5}" th:text="${eventPage.number +5}"
-                   th:if="${eventPage.number +5} <= ${eventPage.totalPages }">9</a>
-                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +6}" th:text="${eventPage.number +6}"
-                   th:if="${eventPage.number +6} <= ${eventPage.totalPages }">10</a>
+            <!--生成的不带城市参数的页面跳转url-->
+            <div class="paginator" th:if="null == ${cityId}">
+                <a class="previous" href="/event?pn=1" th:href="'/event?pn=1'" >首页</a>
+                <a class="previous"  th:href="'/event?pn='+${eventPage.number}" th:if="${eventPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number -3}" th:text="${eventPage.number -3}" th:if="${eventPage.number } >3 ">1</a>
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number -2}" th:text="${eventPage.number -2}" th:if="${eventPage.number } >2 ">2</a>
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number -1}" th:text="${eventPage.number -1}" th:if="${eventPage.number } >1 ">3</a>
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number }" th:text="${eventPage.number}" th:if="${eventPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
+                <a class="page actived" href="#" rel="nofollow" th:href="'/event?pn='+${eventPage.number+1}" th:text="${eventPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +2}" th:text="${eventPage.number +2}" th:if="${eventPage.number +2} <= ${eventPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +3}" th:text="${eventPage.number +3}"  th:if="${eventPage.number +3} <= ${eventPage.totalPages }">7</a>
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +4}" th:text="${eventPage.number +4}"  th:if="${eventPage.number +4} <= ${eventPage.totalPages }">8</a>
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +5}" th:text="${eventPage.number +5}" th:if="${eventPage.number +5} <= ${eventPage.totalPages }">9</a>
+                <a class="page" href="#" th:href="'/event?pn='+${eventPage.number +6}" th:text="${eventPage.number +6}" th:if="${eventPage.number +6} <= ${eventPage.totalPages }">10</a>
                 <a class="next" href="#" th:href="'/event?pn='+${eventPage.number +2}" th:if="${eventPage.hasNext()}">下一页</a>
                 <a class="next" href="#" th:href="'/event?pn='+${eventPage.totalPages }" th:if="${eventPage.totalPages }>0">尾页</a>
                 <a class="next" href="#" th:href="'/event?pn=1'" th:if="${eventPage.totalPages }==0" >尾页</a>
             </div>
+
+            <!--生成的带城市参数的页面跳转url-->
+            <div class="paginator" th:if="null != ${cityId}">
+                <a class="previous" href="/event?city=1?pn=1" th:href="'/event?city='+${cityId}+'&pn=1'" >首页</a>
+                <a class="previous"  th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number}" th:if="${eventPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number -3}" th:text="${eventPage.number -3}" th:if="${eventPage.number } >3 ">1</a>
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number -2}" th:text="${eventPage.number -2}" th:if="${eventPage.number } >2 ">2</a>
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number -1}" th:text="${eventPage.number -1}" th:if="${eventPage.number } >1 ">3</a>
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number }" th:text="${eventPage.number}" th:if="${eventPage.number >0}">4</a>
+                <a class="page actived" href="#" rel="nofollow" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number+1}" th:text="${eventPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number +2}" th:text="${eventPage.number +2}" th:if="${eventPage.number +2} <= ${eventPage.totalPages }" >6</a>
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number +3}" th:text="${eventPage.number +3}"  th:if="${eventPage.number +3} <= ${eventPage.totalPages }">7</a>
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number +4}" th:text="${eventPage.number +4}"  th:if="${eventPage.number +4} <= ${eventPage.totalPages }">8</a>
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number +5}" th:text="${eventPage.number +5}" th:if="${eventPage.number +5} <= ${eventPage.totalPages }">9</a>
+                <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number +6}" th:text="${eventPage.number +6}" th:if="${eventPage.number +6} <= ${eventPage.totalPages }">10</a>
+                <a class="next" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number +2}" th:if="${eventPage.hasNext()}">下一页</a>
+                <a class="next" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.totalPages }" th:if="${eventPage.totalPages }>0">尾页</a>
+                <a class="next" href="#" th:href="'/event?city='+${cityId}+'&pn=1'" th:if="${eventPage.totalPages }==0" >尾页</a>
+            </div>
+            
         </div>
         <!--/// article end-->
 
@@ -195,14 +129,17 @@
                     <div class="item" th:each="newestEvent,newestEventStat:${newestEventPage}"
                          th:if="${newestEventStat.index}<5">
                         <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${newestEvent.id}">
-                            <img src="/js/180x225" alt="墨西哥后摇 Childs 中国巡演" class="event-cover rounded"
-                                 th:alt="${newestEvent.name}">
+                            <img src="/img/test/testEventCoverImg.jpg" alt="墨西哥后摇 Childs 中国巡演" class="event-cover rounded"
+                                 th:src="${newestEvent.coverImgAddr}" th:alt="${newestEvent.name}">
                         </a>
                         <div class="info">
                             <a href="/event/15660" title="墨西哥后摇 Childs 中国巡演" class="wrap-title"
                                th:title="${newestEvent.name}" th:text="${newestEvent.name}"
                                th:href="'/event/'+${newestEvent.id}">墨西哥后摇
                                 Childs 中国巡演</a>
+                            <p th:text="${newestEvent.theme}"></p>
+                            <br/>
+                            <p th:text="${newestEvent.city.name}"></p>
                         </div>
                     </div>
 
@@ -212,7 +149,7 @@
 
             <div class="widget widget-break">
                 <div class="widget-ct">
-                    <a href="http://www.luoo.net/contact/" class="ln-widget-block rounded">
+                    <a href="/portal/eventContribute" class="ln-widget-block rounded">
                         活动提交
                     </a>
                 </div>

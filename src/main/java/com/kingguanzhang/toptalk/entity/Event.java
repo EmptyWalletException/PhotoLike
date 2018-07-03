@@ -16,6 +16,7 @@ public class Event {
     private String location;//活动具体场所
     private String theme;//活动主题;
     private String content;
+    private String coverImgAddr;//封面图片地址;
 
     @ManyToOne(optional = false)
     private City city;//废弃级联功能时保留了此属性;
@@ -35,6 +36,13 @@ public class Event {
     private List<Photo> photos;//包括缩略图和内容图;*/
 
 
+    public String getCoverImgAddr() {
+        return coverImgAddr;
+    }
+
+    public void setCoverImgAddr(String coverImgAddr) {
+        this.coverImgAddr = coverImgAddr;
+    }
 
     public long getId() {
         return id;
