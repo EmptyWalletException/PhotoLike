@@ -21,8 +21,7 @@
 	    }
 	</script>
 </head>
-<body><div style="display: none; position: absolute;" class=""><div class="aui_outer"><table class="aui_border"><tbody><tr><td class="aui_nw"></td><td class="aui_n"></td><td class="aui_ne"></td></tr><tr><td class="aui_w"></td><td class="aui_c"><div class="aui_inner"><table class="aui_dialog"><tbody><tr><td colspan="2" class="aui_header"><div class="aui_titleBar"><div class="aui_title" style="cursor: move;"></div><a class="aui_close" href="javascript:/*artDialog*/;">×</a></div></td></tr><tr><td class="aui_icon" style="display: none;"><div class="aui_iconBg" style="background: none;"></div></td><td class="aui_main" style="width: auto; height: auto;"><div class="aui_content" style="padding: 20px 25px;"></div></td></tr><tr><td colspan="2" class="aui_footer"><div class="aui_buttons" style="display: none;"></div></td></tr></tbody></table></div></td><td class="aui_e"></td></tr><tr><td class="aui_sw"></td><td class="aui_s"></td><td class="aui_se" style="cursor: se-resize;"></td></tr></tbody></table></div></div><div style="display: none; position: absolute;" class=""><div class="aui_outer"><table class="aui_border"><tbody><tr><td class="aui_nw"></td><td class="aui_n"></td><td class="aui_ne"></td></tr><tr><td class="aui_w"></td><td class="aui_c"><div class="aui_inner"><table class="aui_dialog"><tbody><tr><td colspan="2" class="aui_header"><div class="aui_titleBar"><div class="aui_title" style="cursor: move;"></div><a class="aui_close" href="javascript:/*artDialog*/;">×</a></div></td></tr><tr><td class="aui_icon" style="display: none;"><div class="aui_iconBg" style="background: none;"></div></td><td class="aui_main" style="width: auto; height: auto;"><div class="aui_content" style="padding: 20px 25px;"></div></td></tr><tr><td colspan="2" class="aui_footer"><div class="aui_buttons" style="display: none;"></div></td></tr></tbody></table></div></td><td class="aui_e"></td></tr><tr><td class="aui_sw"></td><td class="aui_s"></td><td class="aui_se" style="cursor: se-resize;"></td></tr></tbody></table></div></div>
-
+<body>
 <!-- header start -->
 <div class="header" th:replace="~{portal/nav :: topbar}">
 
@@ -39,7 +38,7 @@
 <!-- uc-head -->
 <div class="uc-head clearfix">
 	<div class="avatar-wrapper" id="avatarEditWrapper">
-		<img src="/js/avatar.gif" alt="京馆长" class="avatar">
+		<img src="/js/avatar.gif" alt="京馆长" th:src="${user.imgAddr}" class="avatar" th:alt="${user.nickname}">
 		<a href="javascript:;" rel="nofollow" class="ln-edit-avatar" id="lnEditAvatar">修改头像</a>	</div>
 	<div class="uinfo">
 		<div class="clearfix">
@@ -64,26 +63,30 @@
 	</div>
 
 	<div class="ainfo">
-		<span class="playcnt">已经在落网上累计听过 26 首音乐。</span>
+		<span class="playcnt">我的收藏:</span>
 		<div class="sns-account">
-			
-				<a href="http://www.luoo.net/login/oauth/site/weibo/act/bind" class="sns-item icon-open-weibo-grey" target="_blank" title="绑定微博账号"></a>
-				
-				<a href="http://www.luoo.net/login/oauth/site/douban/act/bind" class="sns-item icon-open-douban-grey" target="_blank" title="绑定豆瓣账号"></a>
-				
-				<a href="http://www.luoo.net/login/oauth/site/qq/act/bind" class="sns-item icon-open-qq-grey" target="_blank" title="绑定QQ账号"></a>
-						</div>
+
+			<a href="http://www.luoo.net/login/oauth/site/weibo/act/bind" class="sns-item icon-open-weibo-grey" target="_blank" title="绑定微博账号"></a>
+
+			<a href="http://www.luoo.net/login/oauth/site/douban/act/bind" class="sns-item icon-open-douban-grey" target="_blank" title="绑定豆瓣账号"></a>
+
+			<a href="http://www.luoo.net/login/oauth/site/qq/act/bind" class="sns-item icon-open-qq-grey" target="_blank" title="绑定QQ账号"></a>
+		</div>
 	</div>
+
+
 </div>
+		<div class="uc-nav rounded clearfix">
+			<a href="/user/favoriteTopic?userId=1" class="nav-item actived " th:href="'/user/favoriteTopic?userId='+${user.id}">专辑</a>
+			<a href="/user/favoriteEssay?userId=1"   class="nav-item  " th:href="'/user/favoriteEssay?userId='+${user.id}">随笔</a>
+			<a href="/user/favoriteStory?userId=1" class="nav-item " th:href="'/user/favoriteStory?userId='+${user.id}">故事</a>
+			<a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
+				查看我的投稿
+			</a>
+
+		</div>
 <!--/// uc-head end-->
 
-<div class="uc-nav rounded clearfix">
-	<a href="/user/favoriteTopic?userId=1" rel="nofollow" class="nav-item actived">专辑</a><a href="/user/favoriteEssay?userId=1" class="nav-item">随笔</a><a href="/user/favoriteStory?userId=1" class="nav-item">故事</a>
-	<a href="http://www.luoo.net/radio/?user=1405418" class="btn-play">
-		我的电台
-	</a>
-	
-</div>
 
 <div id="editAvatarWrapper" style="display: none;">
 	<div class="edit-avatar-wrapper">
@@ -207,7 +210,7 @@
 				<div class="item-wrapper">
 					<div class="item" th:each="topic,topicStat:${topicPage}" th:if="${topicPage!=null && topicStat.size!=0 && topicStat.index<9}" >
 						<a href="topic/1373" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
-							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:alt="${topic.title}" >
+							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:src="${topic.coverImgAddr}" th:alt="${topic.title}" >
 						</a>
 						<a href="/topic/1373" class="name" th:href="'/topic/'+${topic.id}" th:text="${topic.title}">故事的最后</a>
 						<div class="op-bar">

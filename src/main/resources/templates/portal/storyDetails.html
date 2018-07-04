@@ -70,12 +70,12 @@
 
                 <div class="clearfix">
                     <a href="http://www.luoo.net/user?userId=essays/1057783" class="avatar-wrapper">
-                        <img src="/js/128x128" alt="李卤味" class="avatar rounded" th:alt="${story.author.nickname}">
+                        <img src="/js/128x128" alt="李卤味" class="avatar rounded" th:src="${story.author.imgAddr}" th:alt="${story.author.nickname}">
                     </a>
                     <div class="essay-author-info">
                         <div class="cell">
-                            <a href="http://www.luoo.net/user?userId=essays/1057783" class="essay-author-name" th:text="${story.author.nickname}">
-                                李卤味
+                            <a href="/user?userId=1" class="essay-author-name" th:href="'/user?userId='+${story.author.id}" th:text="${story.author.nickname}">
+                                作者昵称
                             </a>
                             <p class="essay-author-sign"></p>
                         </div>
@@ -174,7 +174,7 @@
                 <!--单条父评论及其子评论开始-->
                 <div class="item "  th:if="${commentPage!=null && commentPage.size!=0 && commentStat.index<10 }" th:each="comment,commentStat:${commentPage}">
                     <a href="/user?userId=1285850" class="avatar-wrapper" target="_blank" th:href="'/user?userId='+${comment.author.id}">
-                        <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded" th:alt="${comment.author.nickname}">
+                        <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded" th:src="${comment.author.imgAddr}" th:alt="${comment.author.nickname}">
                     </a>
                     <div class="item-wrapper">
                         <div class="helper">
@@ -209,6 +209,7 @@
                             <span class="vote-count" data-count="1">1赞</span>
                         </div>
 
+                        <!--TODO  用js遍历此div里的commentid的值: -->
                         <!--用js遍历此div里的commentId属性的值-->
                         <div class="subcomments" th:attr="commentId=${comment.id}">
 

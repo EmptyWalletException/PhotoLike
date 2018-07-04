@@ -89,8 +89,8 @@ Where there&#39;s music and there&#39;...">
         <img th:src="${imgAddr}" th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${imgAddrStat.size >0}"/>-->
     </div>
     <div class="clearfix vol-meta">
-        <img src="/js/128x128" alt="落在低处" class="author-avatar rounded" th:alt="${topic.author.nickname}">
-        <a class="vol-author" href="http://www.luoo.net/user?userId=5000" target="_blank" th:text="${topic.author.nickname}" th:href="'/user?userId='+${topic.author.id}">落在低处</a>
+        <img src="/js/128x128" alt="落在低处" class="author-avatar rounded" th:src="${topic.author.imgAddr}"  th:alt="${topic.author.nickname}">
+        <a class="vol-author" href="/user?userId=1" target="_blank" th:text="${topic.author.nickname}" th:href="'/user?userId='+${topic.author.id}">作者昵称</a>
         <span class="separator fleft">・</span>
         <span class="vol-date" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}">2017-03-14</span>
         <a href="javascript:;" class="btn-action-like icon-fav" data-id="977" data-langliked="取消收藏" data-langlike="收藏"
@@ -203,7 +203,7 @@ Where there&#39;s music and there&#39;...">
                 <!--单条父评论及其子评论开始-->
                 <div class="item "  th:if="${commentPage!=null && commentPage.size!=0 && commentStat.index<10 }" th:each="comment,commentStat:${commentPage}">
                     <a href="/user?userId=1285850" class="avatar-wrapper" target="_blank" th:href="'/user?userId='+${comment.author.id}">
-                        <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded" th:alt="${comment.author.nickname}">
+                        <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded" th:src="${comment.author.imgAddr}" th:alt="${comment.author.nickname}">
                     </a>
                     <div class="item-wrapper">
                         <div class="helper">

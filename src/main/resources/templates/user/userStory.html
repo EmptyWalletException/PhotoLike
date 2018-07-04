@@ -7,7 +7,7 @@
 	<meta property="qc:admins" content="4553322067645776654">
 	<meta property="wb:webmaster" content="78f40d1511de8c6b">
 	<meta name="baidu-site-verification" content="xC1m9aYTgX">
-	<title>李卤味-落网作者</title>
+	<title>TA的故事投稿</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="/css/user.css">
@@ -33,7 +33,7 @@
 	<div class="container ct-sm" style="min-height: 460px;">	
 		<!-- author-head -->
 		<div class="author-head clearfix">
-			<img src="/js/128x128" alt="测试用户" class="avatar" th:alt="${user.nickname}">
+			<img src="/js/128x128" alt="测试用户" class="avatar" th:src="${user.imgAddr}" th:alt="${user.nickname}">
 			<div class="uinfo">
 				<h1 class="uname" th:text="${user.nickname}">测试用户</h1>
 				<p class="sign"></p>
@@ -46,13 +46,16 @@
 		</div>
 		<!--/// author-head end-->
 
-		<div class="uc-nav rounded clearfix">
-			<a href="/user?userId=1" rel="nofollow" class="nav-item ">专辑</a>
-			<a href="/user/essay?userId=1" rel="nofollow" class="nav-item">随笔</a>
-			<a href="/user/story?userId=1" rel="nofollow" class="nav-item actived">故事</a>
+		<div class="ainfo">
+			<span class="playcnt">TA的投稿:</span>
+
 		</div>
 
-				
+		<div class="uc-nav rounded clearfix">
+			<a href="/user?userId=1" rel="nofollow" class="nav-item " th:href="'/user?userId='+${user.id}">专辑</a>
+			<a href="/user/essay?userId=1" rel="nofollow" class="nav-item " th:href="'/user/essay?userId='+${user.id}">随笔</a>
+			<a href="/user/story?userId=1" rel="nofollow" class="nav-item actived" th:href="'/user/story?userId='+${user.id}">故事</a>
+		</div>
 
 		<!-- uc-ct -->
 		<div class="author-ct">
@@ -64,24 +67,31 @@
 					<p >该用户没有发表故事</p>
 					<br/>
 				</div>
+				<div class="fav-essays">
+
 					<div class="item" th:each="story,storyStat:${storyPage}" th:if="${storyPage!=null && storyStat.size!=0 && storyStat.index<10 }">
 						<div class="clearfix">
-							<a href="/story/910" class="cover-wrapper" th:href="'/story/'+${story.id}">
-								<img src="/js/FsRGavY9jaYHL5MRzDmCFTNkDraj.jpg" alt="加拿大小众灵魂之声" class="cover rounded" th:alt="${story.title}">
+							<a href="/story/921" class="cover-wrapper" th:href="'/story/'+${story.id}">
+								<img src="/js/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp" alt="Seas of Years : 带你三十秒潜入海底，穿越大洋" class="cover" th:src="${story.coverImgAddr}" th:alt="${story.title}">
 							</a>
 							<div class="item-ct">
-								<a href="/story/910" class="title" th:text="${story.title}"  th:href="'/story/'+${story.id}">加拿大小众灵魂之声</a>
-								<p class="subscribe" th:text="${story.subscribe}">令人惊艳的独立音乐人不断涌现，当民谣遇上魁北克法式小调，就是加拿大独有的小众灵魂之声。</p>
+								<a href="/story/921" class="title" th:text="${story.title}" th:href="'/story/'+${story.id}">Seas of Years : 带你三十秒潜入海底，穿越大洋</a>
+								<p class="subscribe" th:text="${story.subscribe}">极光下，星辰里，置身于摇曳着的帆船，聆听来自深海的声音。</p>
 							</div>
 						</div>
 						<div class="clearfix">
-							<span class="time" th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}">2017-10-25</span>
-							<a href="javascript:;" class="share btn-action-share" data-app="vol" data-id="910" data-text="这篇文章值得一读【加拿大小众灵魂之声 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201710/FsRGavY9jaYHL5MRzDmCFTNkDraj.jpg">
-								<i class="icon icon-share"></i>
-								&nbsp;<span>分享</span>
-							</a>					
+							<span class="time">2018-06-21</span>
+							<a href="javascript:;" rel="nofollow" class="unfav btn-action-like btn-unfav" data-id="921" data-type="essay" data-cback="vol_unlike_cback" data-confirm="确定取消收藏该文章吗？">
+								<i class="icon icon-trash"></i> 删除
+							</a>
+							<a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="921" data-text="这篇文章值得一读【Seas of Years : 带你三十秒潜入海底，穿越大洋 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201711/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp">
+								<i class="icon icon-share"></i> 分享
+							</a>
 						</div>
 					</div>
+
+
+				</div>
 
 
 

@@ -39,7 +39,7 @@
 <!-- uc-head -->
 <div class="uc-head clearfix">
 	<div class="avatar-wrapper" id="avatarEditWrapper">
-		<img src="/js/avatar.gif" alt="京馆长" class="avatar">
+		<img src="/js/avatar.gif" alt="京馆长" th:src="${user.imgAddr}" class="avatar" th:alt="${user.nickname}">
 		<a href="javascript:;" rel="nofollow" class="ln-edit-avatar" id="lnEditAvatar">修改头像</a>	</div>
 	<div class="uinfo">
 		<div class="clearfix">
@@ -63,27 +63,34 @@
 		</div>
 	</div>
 
+
 	<div class="ainfo">
-		<span class="playcnt">已经在落网上累计听过 26 首音乐。</span>
+		<span class="playcnt">我的收藏:</span>
 		<div class="sns-account">
-			
-				<a href="http://www.luoo.net/login/oauth/site/weibo/act/bind" class="sns-item icon-open-weibo-grey" target="_blank" title="绑定微博账号"></a>
-				
-				<a href="http://www.luoo.net/login/oauth/site/douban/act/bind" class="sns-item icon-open-douban-grey" target="_blank" title="绑定豆瓣账号"></a>
-				
-				<a href="http://www.luoo.net/login/oauth/site/qq/act/bind" class="sns-item icon-open-qq-grey" target="_blank" title="绑定QQ账号"></a>
-						</div>
+
+			<a href="http://www.luoo.net/login/oauth/site/weibo/act/bind" class="sns-item icon-open-weibo-grey" target="_blank" title="绑定微博账号"></a>
+
+			<a href="http://www.luoo.net/login/oauth/site/douban/act/bind" class="sns-item icon-open-douban-grey" target="_blank" title="绑定豆瓣账号"></a>
+
+			<a href="http://www.luoo.net/login/oauth/site/qq/act/bind" class="sns-item icon-open-qq-grey" target="_blank" title="绑定QQ账号"></a>
+		</div>
 	</div>
+
+
+
 </div>
 <!--/// uc-head end-->
 
-<div class="uc-nav rounded clearfix">
-	<a href="/user/favoriteTopic?userId=1" class="nav-item ">专辑</a><a href="/user/favoriteEssay?userId=1" rel="nofollow"  class="nav-item actived">随笔</a><a href="/user/favoriteStory?userId=1" class="nav-item">故事</a>
-	<a href="http://www.luoo.net/radio/?user=1405418" class="btn-play">
-		我的电台
-	</a>
-	
-</div>
+		<div class="uc-nav rounded clearfix">
+			<a href="/user/favoriteTopic?userId=1" class="nav-item " th:href="'/user/favoriteTopic?userId='+${user.id}">专辑</a>
+			<a href="/user/favoriteEssay?userId=1"  class="nav-item  actived" th:href="'/user/favoriteEssay?userId='+${user.id}">随笔</a>
+			<a href="/user/favoriteStory?userId=1" class="nav-item " th:href="'/user/favoriteStory?userId='+${user.id}">故事</a>
+			<a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
+				查看我的投稿
+			</a>
+
+		</div>
+
 
 <div id="editAvatarWrapper" style="display: none;">
 	<div class="edit-avatar-wrapper">
@@ -207,7 +214,7 @@
 				<div class="item-wrapper">
 					<div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayPage!=null && essayStat.size!=0 && essayStat.index<9 }"  >
 						<a href="/essay?essayId=1" class="cover-wrapper" th:href="'/essay?essayId='+${essay.id}">
-							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:alt="${essay.title}" >
+							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:src="${essay.imgAddr}" th:alt="${essay.title}" >
 						</a>
 						<a href="/essay?essayId=1" class="name" th:href="'/essay?essayId='+${essay.id}" th:text="${essay.title}">故事的最后</a>
 						<div class="op-bar">
