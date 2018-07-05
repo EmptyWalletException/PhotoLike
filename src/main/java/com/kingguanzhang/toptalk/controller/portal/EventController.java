@@ -144,7 +144,7 @@ public class EventController {
     @RequestMapping(value = "/event/contribute",method = RequestMethod.POST)
     @ResponseBody
     private Msg eventContribute(HttpServletRequest request){
-        //从前端传来的请求中获取键为shopStr的值;
+        //从前端传来的请求中获取键为userStr的值;
         String eventStr = RequestUtil.parserString(request, "eventStr");
         System.out.print("eventStr的值是:" + eventStr);
         ObjectMapper objectMapper = new ObjectMapper();

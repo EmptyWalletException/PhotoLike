@@ -1,14 +1,25 @@
 package com.kingguanzhang.toptalk.controller.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
+import com.kingguanzhang.toptalk.utils.ImgUtil;
+import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Controller
 public class UserController {
@@ -24,32 +35,99 @@ public class UserController {
     @Autowired
     private TopicServiceImpl topicService;
 
+    // TODO 需要完成编辑用户信息的功能:
+    /**
+     * 跳转到注册用户页面
+     * @return
+     */
+    @RequestMapping(value = "/register",method = RequestMethod.GET)
+    private String toRegisterPage(Model model){
+        /**
+         * 取出城市让用户修改居住城市;
+         */
+        Pageable pageable = new PageRequest(0,100,new Sort(Sort.Direction.ASC,"rank"));
+        Page<City> cityPage = cityService.findAll(pageable);
+        model.addAttribute("cityPage",cityPage);
+        return "portal/register";
+    }
+
+    /**
+     * 用户注册
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg saveUser(HttpServletRequest request){
+        //从前端传来的请求中获取键为userStr的值;
+        String userStr = RequestUtil.parserString(request, "userStr");
+        System.out.print("userStr的值:" + userStr);
+        ObjectMapper objectMapper = new ObjectMapper();
+        User user = null;
+        try {
+            //将字符串转成实体类
+            user = objectMapper.readValue(userStr, User.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Msg.fail().setMsg("读取注册信息失败!");
+        }
+        City city = new City();
+        if (null != request.getParameter("cityId")){
+            String cityId = request.getParameter("cityId");
+            city.setId(Long.parseLong(cityId));
+        }else {
+            city.setId(1);//如果城市参数传递失败则默认选择一个城市,之后管理员审核时可以修改;
+        }
+        //注册店铺,尽可能的减少从前端获取的值;
+        if (null != user ) {
+           user.setJoinTime(new Date(System.currentTimeMillis()));
+           user.setSignature("这个人很懒,没有设置签名...");
+           user.setCity(city);
+           user.setImgAddr("/upload/user.jpg");//先设置用户的默认头像,以后等用户修改;
+            try{
+                userService.save(user);
+            }catch (Exception e){
+                return Msg.fail().setMsg("注册失败,保存用户信息时出现错误!");
+            }
+            //返回注册店铺的最终结果;
+            return Msg.success().setMsg("注册成功!");
+        } else {
+            return Msg.fail().setMsg("注册失败!");
+        }
+    }
+
     /**
      * 查看编辑用户信息的页面;
      * @param model
      * @return
      */
     @RequestMapping("/user/editInfo")
-    public String toUserEditPage(Model model){
+    public String toUserEditPage(Model model, HttpServletRequest request){
         /**
          * 取出城市让用户修改居住城市;
          */
-        Pageable pageable = new PageRequest(0,100,new Sort(Sort.Direction.ASC,"id"));
+        Pageable pageable = new PageRequest(0,100,new Sort(Sort.Direction.ASC,"rank"));
         Page<City> cityPage = cityService.findAll(pageable);
         model.addAttribute("cityPage",cityPage);
 
         /**
-         * 取出用户信息;这里先写死user,以后改成用security的session里取用户账号;
+         * 判断session中是否有user,没有则返回到错误页面或重新登录界面;
          */
-        User user = new User();
-        user.setAccount("testuser");
-        //注意这里,user.id是long类型,默认值是0而不是null,erexample里传过去不是null时就会开启匹配,所以需要设置忽略掉id属性;
+        if (null != request.getSession().getAttribute("user")){
+            User user = (User) request.getSession().getAttribute("user");
+            model.addAttribute("user",user);
+            return "user/editInfo";
+        }
+        return "error";
+
+        //已废弃,现在可直接获取user实体类,因为在index.html页面加载时会从后台取用户信息;
+        /*// 注意这里,user.id是long类型,默认值是0而不是null,erexample里传过去不是null时就会开启匹配,所以需要设置忽略掉id属性;
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("account",ExampleMatcher.GenericPropertyMatchers.caseSensitive()).withIgnorePaths("id").withIgnoreCase(false);
         Example<User> example = Example.of(user,exampleMatcher);
         user = userService.findOne(example);
         model.addAttribute("user",user);
+        */
 
-        return "user/editInfo";
     }
 
     /**

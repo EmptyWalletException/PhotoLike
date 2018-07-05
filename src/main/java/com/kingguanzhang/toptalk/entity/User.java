@@ -10,14 +10,15 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id ;
-    private String account;//邮箱格式;
+    private String account;//账号,邮箱格式;
     private String password;
     private String nickname;
     private String imgAddr;
     private String signature;//签名
     private Date joinTime;
     private Integer gender;
-    private String location;//居住地
+    @ManyToOne(optional = false)
+    private City city;//用户居住的城市
 
     /**
      * 关于一对多与多对一;
@@ -35,6 +36,8 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Comment> createdComment;//创作的评论
 */
+
+
 
     /**
      * 多对多采用第三张表来关联,这里就采用自动生成第三张表的方式来配置
@@ -62,6 +65,14 @@ public class User {
     )
     private List<Story> story;//一对多关系*/
 
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 
     public long getId() {
         return id;
@@ -127,13 +138,6 @@ public class User {
         this.gender = gender;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     /*public List<Essay> getEssay() {
         return essay;

@@ -101,7 +101,6 @@ public class CrudTest {
             user.setGender(1);
             user.setImgAddr("upload/user.jpg");
             user.setJoinTime(date);
-            user.setLocation("艾泽拉斯");
             user.setNickname("测试用户"+i);
             user.setPassword("password"+i);
             user.setSignature("测试签名"+i);

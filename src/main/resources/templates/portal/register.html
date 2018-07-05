@@ -8,7 +8,7 @@
     <meta property="qc:admins" content="4553322067645776654">
     <meta property="wb:webmaster" content="78f40d1511de8c6b">
     <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>账号设置</title>
+    <title>注册</title>
     <meta name="description" content="落网是一个推荐国内外独立音乐的网站，我们致力于推荐这个时代里最朴素、最有质感的声音，让更多的独立文化作品得到更好的传播。 ">
     <meta name="keywords" content="落网,独立音乐,独立音乐人,音乐电台,音乐期刊,摇滚音乐,小众音乐,乐评网站,音乐演出,演出门票">
     <link rel="stylesheet" href="/css/user.css">
@@ -36,111 +36,60 @@
 <div class="container ct-sm util-luoo-tabs" style="min-height: 460px;">
     <!-- uc-head -->
     <div class="uc-head clearfix">
-        <h1 class="uc-profile-title">账号设置</h1>
+        <h1 class="uc-profile-title">注册账号</h1>
     </div>
     <!--/// uc-head end-->
-
-    <div class="uc-nav rounded clearfix">
-        <a href="/user/editInfo" rel="nofollow" id="tab-basic"
-           class="nav-item tab-item actived">基础设置</a>
-        <a href="/user/editPwd" rel="nofollow" id="tab-pwd" class="nav-item tab-item">修改密码</a>
-        <a href="#" rel="nofollow" id="tab-sns" class="nav-item tab-item">社区绑定</a>
-    </div>
 
     <!-- uc-ct -->
     <div class="uc-ct">
         <!-- setting-base -->
-        <div class="setting-base tab-content-item" style="display: block;">
+        <div  style="display: block;">
 
-            <div class="setting-row helper"> 资料</div>
-            <form method="post" class="form-ajax" callback="profile_common_cback">
+            <div   >
+
+                <div class="setting-row">
+                    账号:
+                     <input type="text" id="account" placeholder="请输入用于登录的账号" />
+                </div>
                 <div class="setting-row">
                     昵称:
-                <input type="text" th:value="${user.nickname}" />
+                    <input type="text" id="nickname" placeholder="请输入用于社交的昵称" />
+                </div>
+                <div class="setting-row">
+                    密码:
+                    <input type="password" id="password" placeholder="请输入登录密码" />
+                </div>
+                <div class="setting-row">
+                    确认密码:
+                    <input type="password" placeholder="请再次输入密码进行确认" />
                 </div>
 
                 <div class="setting-row">
-                    <span class="label">性别</span>
+                    <span class="label" id="gender">性别</span>
                     <label>
-                        <input type="radio" name="sex" value="1" class="input-listener" th:checked="${user.gender ==1}"> 男
+                        <input type="radio" name="sex" value="1" class="input-listener" > 男
                     </label>
                     <label>
-                        <input type="radio" name="sex" value="2" class="input-listener" th:checked="${user.gender !=1}"> 女
+                        <input type="radio" name="sex" value="2" class="input-listener" > 女
                     </label>
                 </div>
-
                 <div class="setting-row">
-                    <span class="label">常居</span>
-                    <span id="areaSelector">
-							<select class="city input-listener" name="city" data-val="">
-                                <option  th:each="city:${cityPage}" th:text="${city.name}" th:value="${city.id}" th:selected="${cityPage != null}?${user.city.id == city.id}">
+                    <span class="label">常居城市</span>
+                    <span >
+							<select   id="city"   >
+                                <option  th:each="city:${cityPage}" th:text="${city.name}" th:value="${city.id}">
                                 </option>
                             </select>
 					</span>
                 </div>
 
                 <div class="setting-row setting-bottom">
-                    <input type="submit" value="保存" class="btn rounded btn-positive btn-not-ready" id="btnBasicSubmit">
-                    <input type="button" value="取消" class="btn rounded btn-negative btn-reload">
+                    <button type="button" class="btn rounded btn-positive " id="submit_register">提交</button>
+                    <button type="reset"  class="btn rounded btn-negative ">重置</button>
                 </div>
-            </form>
+            </div>
         </div>
         <!-- ///setting-base end-->
-
-        <!-- setting-pwd -->
-        <div class="setting-pwd tab-content-item" style="display: none;">
-            <form action="/user/password" method="post" class="form-ajax" callback="pwd_cback"
-                  prepare="pwd_valid">
-                <div class="setting-row">
-                    <span class="label">当前密码</span>
-                    <input type="password" name="password" class="rounded" id="txtPassword" autocomplete="off">
-                    <span class="valid-msg"></span>
-                </div>
-                <div class="setting-row">
-                    <span class="label">新的密码</span>
-                    <input type="password" name="newpassword" class="rounded" id="txtNewpassword" autocomplete="off">
-                    <span class="valid-msg"></span>
-                </div>
-                <div class="setting-row">
-                    <span class="label">确认密码</span>
-                    <input type="password" name="cmfpassword" class="rounded" id="txtCmfpassword" autocomplete="off">
-                    <span class="valid-msg"></span>
-                </div>
-                <div class="setting-row setting-bottom">
-                    <input type="submit" value="保存" class="btn btn-positive rounded">
-                    <input type="button" value="取消" class="btn btn-negative rounded btn-reload">
-                </div>
-            </form>
-        </div>
-        <!-- ///setting-pwd end-->
-
-        <!-- setting-sns -->
-        <div class="setting-sns tab-content-item" style="display: none;">
-            <div class="setting-row">
-                绑定社区账号，能够将你的评论同步到以下平台。
-            </div>
-
-            <div class="setting-sns-row">
-                <i class="icon-uc-qq"></i>
-                <a href="/login/oauth/site/qq/act/bind" class="ln-bind">绑定QQ账号</a>
-            </div>
-
-            <div class="setting-sns-row">
-                <i class="icon-share-weibo"></i>
-                <a href="/login/oauth/site/weibo/act/bind" class="ln-bind" rel="nofollow">绑定微博账号</a>
-            </div>
-
-            <div class="setting-sns-row">
-                <i class="icon-share-douban"></i>
-                <a href="/login/oauth/site/douban/act/bind" class="ln-bind" rel="nofollow">绑定豆瓣账号</a>
-            </div>
-
-            <div class="setting-sns-row">
-                <i class="icon-tweibo"></i>
-                <a href="/login/oauth/site/tweibo/act/bind" class="ln-bind" rel="nofollow">绑定腾讯微博</a>
-            </div>
-        </div>
-        <!-- ///setting-sns end-->
 
     </div>
     <!--/// uc-ct end -->
@@ -149,15 +98,9 @@
 <script src="/js/glDatePicker.js"></script>
 <script src="/js/jquery.cxselect.min.js"></script>
 <script src="/js/profile.js"></script>
+
 <script>
-    $(function () {
 
-
-        var act = "0";
-        if (act == 'email') {
-            $('#lnEditEmail').click();
-        }
-    })
 </script>
 <!--底部区域开始-->
 <div class="footer" th:replace="~{portal/footer :: footer}">
@@ -224,6 +167,7 @@
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+<script src="/js/register.js"></script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
