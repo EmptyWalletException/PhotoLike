@@ -35,6 +35,8 @@ public class UserController {
     @Autowired
     private TopicServiceImpl topicService;
 
+
+
     // TODO 需要完成编辑用户信息的功能:
     /**
      * 跳转到注册用户页面
@@ -83,7 +85,7 @@ public class UserController {
            user.setJoinTime(new Date(System.currentTimeMillis()));
            user.setSignature("这个人很懒,没有设置签名...");
            user.setCity(city);
-           user.setImgAddr("/upload/user.jpg");//先设置用户的默认头像,以后等用户修改;
+           user.setImgAddr("/img/test/userUserHead.jpg");//先设置用户的默认头像,以后等用户修改;
             try{
                 userService.save(user);
             }catch (Exception e){

@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @Controller
 public class EssayController {
@@ -76,6 +75,8 @@ public class EssayController {
     @RequestMapping(value = "/essay/contribute",method = RequestMethod.POST)
     @ResponseBody
     private Msg essayContribute(HttpServletRequest request){
+
+
         //从前端传来的请求中获取键为shopStr的值;
         String essayStr = RequestUtil.parserString(request, "essayStr");
         ObjectMapper objectMapper = new ObjectMapper();

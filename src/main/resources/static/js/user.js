@@ -79,7 +79,8 @@ function init_uploader() {
         reset_avatar()
     }), $("#btnSubmitAvatar").click(function () {
         $("#frmAvatar").submit()
-    }), $("#lnEditMood").click(function () {
+    }),
+        $("#lnEditMood").click(function () {
         $("#textMood").hide(), $("#formMood").show()
     }), $("#txtMoodCt").dblclick(function () {
         $(this).data("editable") && ($("#textMood").hide(), $("#formMood").show())
@@ -127,9 +128,9 @@ $(document).ready(function () {
         $(this).find(".btn-detail, .btn-unfav, .btn-share, .btn-fav").css("visibility", "visible")
     }, function () {
         return $(this).siblings(".track-detail-wrapper").is($(":visible")) || "play" == $(this).parents(".track-item").data("status") ? !1 : ($(this).find(".btn-detail, .btn-unfav, .btn-share, .btn-fav").css("visibility", "hidden"), $(".btn-unfaved").css("visibility", "visible"), void $(".btn-faved").css("visibility", "visible"))
-    }), $("#lnEditAvatar").click(function () {
+    }), /*$("#lnEditAvatar").click(function () {
         init_avatarUploader()
-    }), $(".medal").click(function () {
+    }),*/ $(".medal").click(function () {
         var a = $(this).data();
         $.luoo.msg("落网徽章", '<div class="medal-outer"><img src="' + a.src + '" width="100" class="medal-img"> <p class="medal-desc">' + a.desc + "</p></div>", !1, "#000", !1)
     }), $("#avatarEditWrapper").hover(function () {
