@@ -1,4 +1,4 @@
-
+/*页面加载后遍历出评论和子评论生成页面元素*/
 $(function () {
 
     /*遍历取出所有父评论的id,发送给后端,获得返回值取出子评论,在对应的父评论下生成子评论*/
@@ -115,4 +115,30 @@ $(function () {
                 }
         }
     });
-})
+    /*点击评论框的"发布"按钮提交评论*/
+    $("#commentAdd").click(function () {
+        var topicId = $("#topicId").text();
+        var comment = $("#commentEditor").val();
+        if ("" == comment.trim()){
+            alert("请输入有效的评论!")
+        }else if (1000 <= comment.length){
+            alert(comment.length+"评论字数不得大于500个字!")
+        }else {
+            $.ajax({
+                url:"/topic/comment/add",
+                type:"POST",
+                data:{"comment":comment,"topicId":topicId},
+                success:function (result) {
+                    alert(result.msg);
+                    if (200 == result.code){
+                        location.reload(true);//重新请求当前页面;
+                    }
+                }
+            });
+        }
+    });
+});
+
+
+
+

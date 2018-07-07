@@ -86,10 +86,8 @@ function init_uploader() {
         $(this).data("editable") && ($("#textMood").hide(), $("#formMood").show())
     }), $("#lnCancleMood").click(function () {
         $("#formMood").hide(), $("#textMood").show()
-    }), $("#lnSaveMood").click(function () {
-        var a = $("#txtContent").val();
-        return a.length > 140 && $.luoo.msg("个性签名请控制在140字以内"), a == $("#txtContent").data("value") ? ($("#formMood").hide(), $("#textMood").show(), !1) : void $(this).parents("form").submit()
-    }), $("#txtContent").keyup(function (a) {
+    }),
+        $("#txtContent").keyup(function (a) {
         27 == a.keyCode ? ($("#formMood").hide(), $("#textMood").show()) : 13 == a.keyCode && $("#lnSaveMood").click()
     })
 }

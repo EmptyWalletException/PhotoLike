@@ -100,7 +100,6 @@ public class TopicServiceImpl {
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
-        Long id=null;
         try {
             topicRepository.save(object);
         }catch (Exception e){

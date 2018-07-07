@@ -2,7 +2,12 @@ package com.kingguanzhang.toptalk.controller.portal;
 
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.Comment;
+import com.kingguanzhang.toptalk.entity.CommentRelateEST;
+import com.kingguanzhang.toptalk.entity.Topic;
+import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.service.CRESTServiceImpl;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
+import com.kingguanzhang.toptalk.service.TopicServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -11,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +28,69 @@ public class CommentController {
 
     @Autowired
     private CommentServiceImpl commentService;
+
+    @Autowired
+    private CRESTServiceImpl crestService;
+
+    @Autowired
+    private TopicServiceImpl topicService;
+
+    /**
+     * 评论专辑;
+     * @param request
+     * @param commentStr
+     * @return
+     */
+    @RequestMapping(value = "/topic/comment/add",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg topicCommentAdd(HttpServletRequest request, @RequestParam("comment")String commentStr,@RequestParam("topicId")String topicId){
+        /**
+         * 判断session中是否有user,没有则返回到错误页面或重新登录界面;
+         */
+        if (null == request.getSession().getAttribute("user")){
+             return Msg.fail().setMsg("登录已超时,请重新登录后再评论!");
+        }
+        /**
+         * 初始化Comment信息;
+         */
+        User user = (User) request.getSession().getAttribute("user");
+        Comment comment1 = new Comment();
+        comment1.setAuthor(user);
+        comment1.setContent(commentStr);
+        comment1.setCreatTime(new Date(System.currentTimeMillis()));
+        //保存Comment并返回id;
+        long commentId;
+        try{
+            commentId = commentService.saveAndFlush(comment1);
+        }catch (Exception e){
+            return Msg.fail().setMsg("保存评论失败");
+        }
+
+        /**
+         * 设置专辑与评论关联;
+         */
+        CommentRelateEST commentRelateEST = new CommentRelateEST();
+        commentRelateEST.setTopicId(Long.parseLong(topicId));
+        commentRelateEST.setCommentId(commentId);
+        //保存关联信息;
+        try{
+            crestService.save(commentRelateEST);
+        }catch (Exception e){
+            return Msg.fail().setMsg("评论关联文章失败");
+        }
+
+        /**
+         * 将专辑里的评论数+1;
+         */
+        Topic topic = topicService.findById(Long.parseLong(topicId));
+        long commentNumber = topic.getCommentNumber();
+        topic.setCommentNumber(commentNumber+1);
+        topicService.save(topic);
+
+        return Msg.success().setMsg("评论成功!");
+
+    }
+
 
     /**
      * ajax获取父评论下的子评论

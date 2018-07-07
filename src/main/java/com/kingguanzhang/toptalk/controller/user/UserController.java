@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
+import com.kingguanzhang.toptalk.utils.Base64ToMultipartUtil;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 @Controller
@@ -37,7 +41,108 @@ public class UserController {
 
 
 
-    // TODO 需要完成编辑用户信息的功能:
+    // TODO 需要完成修改密码的功能:
+
+    /**
+     * 修改用户信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/user/edit",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg editInfo(HttpServletRequest request){
+        //从session中取出user;
+        if (null == request.getSession().getAttribute("user")){
+            //判断session失效后返回登录界面
+            return Msg.fail().setMsg("操作失败,请重新登录后再试!");
+        }
+        User user = (User) request.getSession().getAttribute("user");
+
+        /*设置昵称*/
+        if (null != request.getParameter("nickname")){
+            String nickname = request.getParameter("nickname");
+            user.setNickname(nickname);
+        }
+
+        /*设置城市*/
+        City city = new City();
+        if (null != request.getParameter("cityId")){
+            String cityId = request.getParameter("cityId");
+            city.setId(Long.parseLong(cityId));
+            user.setCity(city);
+        }
+
+        /*设置性别*/
+        if (null != request.getParameter("gender")){
+            String gender = request.getParameter("gender");
+            user.setGender(Integer.valueOf(gender));
+        }
+
+        //修改用户信息,尽可能的减少从前端获取的值;
+        if (null != user ) {
+              try{
+                userService.save(user);
+            }catch (Exception e){
+                return Msg.fail().setMsg("修改失败,保存用户信息时出现错误!");
+            }
+            //返回注册店铺的最终结果;
+            return Msg.success().setMsg("修改成功!");
+        } else {
+            return Msg.fail().setMsg("修改失败!");
+        }
+    }
+
+    /**
+     * 修改签名;
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/user/signature/add",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg userSignatureAdd(HttpServletRequest request){
+        if (null == request.getSession().getAttribute("user")){
+            //判断session失效后返回登录界面
+            return Msg.fail().setMsg("操作失败,请重新登录后再试!");
+        }
+        User user = (User) request.getSession().getAttribute("user");
+        String signature = request.getParameter("signature");
+        user.setSignature(signature);
+        try{
+            userService.save(user);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Msg.fail().setMsg("修改失败!");
+        }
+       return Msg.success().setMsg("修改签名成功!");
+    }
+
+    /**
+     * 修改用户头像,base64格式的字符串转成MultipartFile;
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/user/headImgUpload",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg testBase64HeadImgUpload(HttpServletRequest request){
+        if (null == request.getSession().getAttribute("user")){
+            //设置错误代码为101,前端判断是此代码时跳转到登录界面;
+            return Msg.fail().setMsg("登录已超时,请重新登录后再尝试!").setCode(101);
+        }
+       User user = (User) request.getSession().getAttribute("user");
+        String img = request.getParameter("img");
+        //调用自定义的工具将base64字符串转成multipartFile,这个multipartFile里的除了响应头和byte数组外的字符(例如文件名,原始文件名)都是随机生成的;
+        MultipartFile multipartFile = Base64ToMultipartUtil.base64ToMultipart(img);
+        String imgAddr2 = ImgUtil.generateThumbnail(multipartFile, "/user/"+user.getId()+"/",200, 200);
+        user.setImgAddr(imgAddr2);
+        try{
+            userService.save(user);
+        }catch (Exception e){
+            return Msg.fail().setMsg("更新头像信息失败");
+        }
+        return Msg.success().setMsg("修改成功");
+
+    }
+
     /**
      * 跳转到注册用户页面
      * @return
@@ -103,7 +208,7 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping("/user/editInfo")
+    @RequestMapping(value = "/user/editInfo",method = RequestMethod.GET)
     public String toUserEditPage(Model model, HttpServletRequest request){
         /**
          * 取出城市让用户修改居住城市;

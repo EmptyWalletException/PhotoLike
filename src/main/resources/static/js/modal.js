@@ -62,9 +62,9 @@
     $('#btnCrop').on('click', function(){
         img = cropper.getDataURL();
         $('.cropped').html('');
-        $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
-        $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
-        $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+        $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:64px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
+        $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:128px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+        $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:180px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
     })
 
     //点击模态框加载后先自动触发一次裁切事件;
@@ -82,15 +82,12 @@
     $('#btnZoomOut').on('click', function(){
         cropper.zoomOut();
     })
-    $("#submit").click(function () {
-        /*if (undefined == img){
-            alert("请先裁切图像!")
-
-        } */
+    $("#btnSubmit").click(function () {
+       var fd = new FormData();
         img = cropper.getDataURL();
         fd.append('img',img);
         $.ajax({
-            url:"/test/headImgUpload",
+            url:"/user/headImgUpload",
             type:"POST",
             data:fd,
             async: false,
@@ -98,14 +95,13 @@
             processData:false,
             cache:false,
             success:function(result){
-                /* 这里要检查一下后端是否返回了错误报告信息 */
-                if(200 == result.code){
-                    alert("投稿成功,请等待审核!");
-                }else{
-                    alert("投稿失败了!");
-                    /* 判断从后台返回的错误字段是哪个,如果有,则显示错误信息 */
-
-                }
+                alert(result.msg);
+                //判断当错误原因是登录超时则重新登录;
+               if(101 == result.code){
+                    window.location.href="/login";
+                }else if (200 == result.code){
+                   window.location.href="/user/editInfo";
+               }
             }
         });
     });
@@ -113,4 +109,57 @@
     /*加载和裁剪图片的js    结束*/
 
 })();
+
+/*修改个性签名*/
+$("#lnSaveMood").click(function () {
+    var a = $("#txtContent").val();
+    if( a.length > 100 ){
+        alert("个性签名请控制在100字以内");
+    }
+    if (a == $("#txtContent").data("value")){
+        $("#formMood").hide();
+        $("#textMood").show();
+    }else{
+        $.ajax({
+            url:"/user/signature/add",
+            type:"POST",
+            data:{"signature":a},
+            success:function (result) {
+                if (200 == result.code){
+                    $("#txtMoodCt").text(a);
+                    $("#formMood").hide();
+                    $("#textMood").show();
+                } else {
+                    alert(result.msg);
+                }
+            }
+        });
+    }
+
+});
+
+/*修改基本信息*/
+$("#btnEditSubmit").click(function () {
+    // TODO :修改昵称输入框需要前端校验和ajax重复性校验;
+    var nickname = $("#nickname").val();
+    var gender = $("input:checked").val();
+    var cityId= $("#city option:selected").attr("value");
+
+    $.ajax({
+        url:"/user/edit",
+        type:"POST",
+        data:{"nickname":nickname,"gender":gender,"cityId":cityId},
+        success:function (result) {
+            alert(result.msg);
+            if (200 == result.code){
+                window.location.href="/user/editInfo";
+            } else {
+
+            }
+
+
+        }
+    });
+
+});
 

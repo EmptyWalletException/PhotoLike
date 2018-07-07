@@ -44,6 +44,8 @@ public class TopicController {
     private CommentServiceImpl commentService;
 
 
+
+
     /**
      * topic详情
      * @param model
@@ -205,8 +207,8 @@ public class TopicController {
             /**
              * 开始储存topic实体信息;
              */
-            topic.setCommentNumber(134);
-            topic.setCollectNumber(342);
+            topic.setCommentNumber(0);
+            topic.setCollectNumber(0);
             topic.setCreatTime(new Date(System.currentTimeMillis()));
             topic.setCoverImgAddr(imgAddr);
             topic.setContentImgsAddr(contentImgsAddr);

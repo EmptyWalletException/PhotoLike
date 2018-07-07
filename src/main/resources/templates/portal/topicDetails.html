@@ -51,7 +51,7 @@ Where there&#39;s music and there&#39;...">
         <a href="/topic?category=1?pn=1" target="_blank" class="vol-tag-item" th:href="'/topic?category='+${topic.category.id}" th:text="'#'+${topic.category.name}" >#流行</a>
      </div>
     <h1 class="vol-name">
-        <span class="vol-number rounded" th:text="${topic.id}">222</span>
+        <span class="vol-number rounded" th:text="${topic.id}" id="topicId">222</span>
         <span class="vol-title" th:text="${topic.title}">专辑标题</span>
     </h1>
     <div class="vol-cover-wrapper" id="volCoverWrapper">
@@ -135,10 +135,11 @@ Where there&#39;s music and there&#39;...">
 
         <div class="comment-editor">
             <a href="javascript:;" class="avatar-wrapper" id="commentAvatarHolder" rel="nofollow">
-                <img src="/img/avatar.gif" alt="" class="avatar rounded">
+                <img src="/img/avatar.gif" alt="" class="avatar rounded" th:if="${null == session.user}">
+                <img src="/img/avatar.gif" alt="" class="avatar rounded" th:if="${null != session.user}" th:src="${session.user.imgAddr}" th:alt="${session.user.nickname}">
             </a>
             <div class="editor-wrapper">
-                <form action="http://www.luoo.net/comment/add" id="commentForm">
+                <div  >
                     <div class="editor rounded">
                         <textarea name="content" spellcheck="false" id="commentEditor" autocomplete="off"></textarea>
                     </div>
@@ -162,15 +163,15 @@ Where there&#39;s music and there&#39;...">
                                 <input type="hidden" name="sync[tweibo]" value="0" class="input-comment-sync">
                             </a>
                         </div>
-                        <button class="btn btn-positive btn-not-ready rounded" id="commentSubmit"
-                                data-tipid="commentSubmitDialog" data-remote="http://www.luoo.net/login/dialog"
+                        <button class="btn btn-positive  rounded" id="commentAdd"
+
                                 data-width="235">发布
                         </button>
                     </div>
 
                     <input type="hidden" name="app_id" value="1">
                     <input type="hidden" name="res_id" value="977">
-                </form>
+                </div>
             </div>
             <!-- editor-wrapper end-->
         </div>
@@ -207,7 +208,7 @@ Where there&#39;s music and there&#39;...">
                     </a>
                     <div class="item-wrapper">
                         <div class="helper">
-                            <a href="/user?userId=1285850" class="username" target="_blank" th:href="'/user?userId='+${comment.author.id}" th:text="${comment.author.nickname}">秋刀鱼-</a>[[${comment.author.signature}]]
+                            <a href="/user?userId=1285850" class="username" target="_blank"  th:href="'/user?userId='+${comment.author.id}" th:text="${comment.author.nickname}">用户昵称</a><span style="color: #8b8b8b">&nbsp;&nbsp;[[${comment.author.signature}]]</span>
                             <div class="more">
                                         <span class="icon-more">
                                             ▼
@@ -222,12 +223,11 @@ Where there&#39;s music and there&#39;...">
                             </div>
                         </div>
                         <div class="comment-ct">
-                            <p class="the-comment" data-vote="1" data-ct="1510312452" th:text="${comment.content}">评论正文区域</p>
+                            <p class="the-comment" style="text-indent: 30px" th:text="${comment.content}">评论正文区域</p>
                         </div>
                         <!--TODO 需要在js中完成子评论的翻页功能: -->
-                        <div class="helper clearfix">
-                            2017-11-10
-                            <a class="ln-comment-from" href="#" target="_blank"> 来自PC端网页</a>
+                        <div class="helper clearfix" >
+                            [[${#dates.format(comment.creatTime,'yyyy-MM-dd')}]]
                             <a data-res="597380" data-app="5" data-tipid="commentVoteDialog597380" data-width="235"
                                class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
                                     class="icon-vote"></i> <span>赞</span></a>
@@ -324,100 +324,10 @@ Where there&#39;s music and there&#39;...">
 </div>
 
 
-<!--感谢金额弹窗-->
-<script type="text/html" id="script_thanks">
-    <div id="popup_thanks_pay" class="popup-warpper">
-        <div class="envelop-layer"></div>
-        <div style="width: 300px;margin-left:-150px; " class="aui_state_focus">
-            <div class="aui_outer">
-                <table class="aui_border">
-                    <tbody>
-                    <tr>
-                        <td class="aui_nw"></td>
-                        <td class="aui_n"></td>
-                        <td class="aui_ne"></td>
-                    </tr>
-                    <tr>
-                        <td class="aui_w"></td>
-                        <td class="aui_c">
-                            <div class="aui_inner">
-                                <table class="aui_dialog">
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="2" class="aui_header">
-                                            <div class="aui_titleBar">
-                                                <div class="aui_title" style="cursor: move;">支持落网期刊</div>
-                                                <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="aui_icon" style="display: none;">
-                                            <div class="aui_iconBg" style="background: none;"></div>
-                                        </td>
-                                        <td class="aui_main" style="width: 410px; height: auto;">
-                                            <div class="aui_content">
-                                                <div class="lyric-pay-wrapper">
-                                                    <form action="/vol/emolument" target="_blank" method="post"
-                                                          id="form_thanks" class="form form-prices">
-                                                        <input type="hidden" name="res_id" value="977"/>
-                                                        <div class="form-group clearfix">
-                                                            <input type="radio" name="money" checked
-                                                                   class="control-radio" value="1" id="price_radio_1"/>
-                                                            <label class="group-text" for="price_radio_1">￥ 1.00</label>
-                                                        </div>
-                                                        <div class="form-group clearfix">
-                                                            <input type="radio" name="money" class="control-radio"
-                                                                   value="5" id="price_radio_2"/>
-                                                            <label class="group-text" for="price_radio_2">￥ 5.00</label>
-                                                        </div>
-                                                        <div class="form-group clearfix">
-                                                            <input type="radio" name="money" class="control-radio"
-                                                                   value="10" id="price_radio_3"/>
-                                                            <label class="group-text" for="price_radio_3">￥
-                                                                10.00</label>
-                                                        </div>
-                                                        <div class="form-group clearfix">
-                                                            <input type="radio" name="money" class="control-radio"/>
-                                                            <span class="input-warpper clearfix">
-                                                                <span class="unit">￥</span>
-                                                                <input type="text" class="setMoney" id="setMoney"
-                                                                       placeholder="任意金额"/>
-                                                            </span>
-                                                        </div>
-                                                        <button class="btn btn-submit" id="thanks_submit" type="submit">
-                                                            表示感谢
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="aui_footer">
-                                            <div class="aui_buttons" style="display: none;"></div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </td>
-                        <td class="aui_e"></td>
-                    </tr>
-                    <tr>
-                        <td class="aui_sw"></td>
-                        <td class="aui_s"></td>
-                        <td class="aui_se" style="cursor: se-resize;"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
-</script>
 <!--参数值-->
 <div style="display: none" id="resId" value="977"></div>
-<!--感谢列表-->
+<!--下载按钮-->
 <script type="text/html" id="script_thanks_list">
     <div id="popup_thanks_list" class="popup-warpper">
         <div class="envelop-layer"></div>
@@ -513,119 +423,20 @@ Where there&#39;s music and there&#39;...">
 <script src="/js/underscore-min.js"></script>
 <script src="/js/backbone-min.js"></script>
 <script src="/js/vol.js"></script>
-<script src="/js/comment.js"></script>
+<!--<script src="/js/comment.js"></script>-->
 <script src="/js/jquery.artDialog.js"></script>
-<div class="footer">
-    <div class="foot-ct clearfix">
-        <div class="about-wrapper">
-            <h4 class="foot-item-head">关于</h4>
-            <p><a class="ln-about" href="http://www.luoo.net/about/">关于落网</a></p>
-            <p><a class="ln-about" href="http://www.luoo.net/m/page/jobs">加入我们</a></p>
-            <p><a class="ln-about" href="http://www.luoo.net/m/page/contact">联系合作</a></p>
-            <p><a class="ln-about" href="javascript:;" id="feedback">反馈建议</a></p>
-            <p><a class="ln-about" href="http://www.luoo.net/links/">友情链接</a></p>
-        </div>
-        <div class="app-wrapper">
-            <h4 class="foot-item-head">APP</h4>
-            <p>
-                <a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-ios"></span>&nbsp;&nbsp;for
-                    iPhone</a>
-            </p>
-            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-android"></span>&nbsp;&nbsp;for
-                Android</a></p>
-            <p><a class="ln-app" href="http://www.luoo.net/app/"><span class="icon-wp"></span>&nbsp;&nbsp;for Windows
-                Phone 8</a></p>
-        </div>
-        <div class="sns-wrapper">
-            <h4 class="foot-item-head">关注落网</h4>
-            <div class="sns-items">
-                <a class="icon-sns-qq" id="luooQqAccount">
-					<span class="qq-group">
-						落网QQ官方群
-						·324063420
-						<br>
-						·55728744
-					</span>
-                </a>
-                <a href="/img/wechat-qr.gif" target="_blank" class="icon-sns-wechat" id="luooWechatAccount">
-                    <img src="/img/wechat-qr.gif" alt="wechat" class="wechat-qr">
-                </a>
-                <a href="http://weibo.com/luoofm" target="_blank" class="icon-sns-weibo"></a>
-                <a href="http://www.douban.com/group/luoo/" target="_blank" class="icon-sns-douban"></a>
-                <!-- <a href="https://twitter.com/Luoofm" target="_blank" class="icon-sns-twitter"></a>
-                <a href="https://www.facebook.com/luoofm" target="_blank" class="icon-sns-fb"></a>
-                <a href="http://instagram.com/luoofm" target="_blank" class="icon-sns-ins"></a> -->
-            </div>
-            <p class="icp">© 2018 落网</p>
-            <p class="slogan">
-                <span class="icon-slogan"></span>
-            </p>
-        </div>
-    </div>
-</div>
-<div id="backTop" style="display: block; left: 1451.5px; bottom: 10px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;">
-    <div class="common-dialog-wrapper">
-        <form id="frmFeedback" action="http://www.luoo.net/feedback/" callback="feedback_cback" class="form-ajax">
-            <p class="fb-group">
-                <textarea name="content" class="rounded"></textarea>
-            </p>
-            <p class="fb-group helper" id="feedbackMsg">※ 请具体描述你的问题或建议</p>
-            <!-- <p class="fb-group file-group">
-                <a href="javascript:;" rel="nofollow" class="btn btn-positive btn-screenshot">问题截图</a>
-                <input type="file" name="screen" class="btn-file">
-                <span class="helper">※ 请具体描述你的问题或建议</span>
-            </p> -->
-            <p class="fb-group">
-                <span class="label">联系方式</span>
-                <input type="text" name="contact">
-            </p>
-            <p class="fb-group">
-                <span class="label">验证码</span>
-                <input type="text" name="code" class="code" maxlength="4">
-                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
-                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/vol/index/977"
-                         class="captcha">
-                </a>
+<!--底部区域开始-->
+<div class="footer" th:replace="~{portal/footer :: footer}">
 
-                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnFeedbackSubmit">提交</a>
-                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnFeedbackCancle">取消</a>
-                <input type="hidden" name="ref" id="txtFeedbackRef" value="http://www.luoo.net/vol/index/977">
-            </p>
-        </form>
-        <div id="feedbackResult" class="ajax-result">
-            提交成功，非常感谢你的反馈，必要时我们将联系你。<br><br><span class="helper">窗口将在3秒后关闭。</span>
-        </div>
-    </div>
+</div>
+<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+
 </div>
 
-<div id="mailWrapper" style="display:none;">
-    <div class="common-dialog-wrapper">
-        <form id="frmMail" action="http://www.luoo.net/mail/send" callback="send_mail_cback" class="form-ajax">
-            <p class="fb-group helper">给"<span id="mailUserName"></span>"发私信</p>
+<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
 
-            <p class="fb-group">
-                <textarea name="content" class="rounded"></textarea>
-            </p>
-            <p class="fb-group helper" id="sendMailMsg"></p>
-            <p class="fb-group">
-                <span class="label">验证码</span>
-                <input type="text" name="code" class="code" maxlength="4">
-                <a href="javascript:;" rel="nofollow" class="captcha-wrapper luoo-captcha-wrapper">
-                    <img data-src="http://www.luoo.net/data/captcha" src="http://www.luoo.net/vol/index/977"
-                         class="captcha">
-                </a>
-
-                <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnSendMail">发送</a>
-                <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnCancleMail">取消</a>
-                <input type="hidden" name="uid" id="mailUserId">
-            </p>
-        </form>
-        <div id="sendMailResult" class="ajax-result">
-            发送成功。<br><br><span class="helper">窗口将在3秒后关闭。</span>
-        </div>
-    </div>
 </div>
+<!--底部结束-->
 
 <img src="/img/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
