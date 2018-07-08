@@ -1,13 +1,8 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
 import com.kingguanzhang.toptalk.dto.Msg;
-import com.kingguanzhang.toptalk.entity.Comment;
-import com.kingguanzhang.toptalk.entity.CommentRelateEST;
-import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.entity.User;
-import com.kingguanzhang.toptalk.service.CRESTServiceImpl;
-import com.kingguanzhang.toptalk.service.CommentServiceImpl;
-import com.kingguanzhang.toptalk.service.TopicServiceImpl;
+import com.kingguanzhang.toptalk.entity.*;
+import com.kingguanzhang.toptalk.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -34,21 +29,86 @@ public class CommentController {
 
     @Autowired
     private TopicServiceImpl topicService;
+    @Autowired
+    private EssayServiceImpl essayService;
+    @Autowired
+    private StoryServiceImpl storyService;
 
     /**
-     * 评论专辑;
+     * ajax回复父评论;
      * @param request
-     * @param commentStr
      * @return
      */
-    @RequestMapping(value = "/topic/comment/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/comment/json/subcomment/add",method = RequestMethod.POST)
     @ResponseBody
-    private Msg topicCommentAdd(HttpServletRequest request, @RequestParam("comment")String commentStr,@RequestParam("topicId")String topicId){
+    private Msg subcommentAdd(HttpServletRequest request, @RequestParam("subcomment")String subcomment,@RequestParam("supcommentId")String supcommentId,@RequestParam("plateAndId")String plateAndId){
         /**
          * 判断session中是否有user,没有则返回到错误页面或重新登录界面;
          */
         if (null == request.getSession().getAttribute("user")){
-             return Msg.fail().setMsg("登录已超时,请重新登录后再评论!");
+            return Msg.fail().setCode(101).setMsg("用户未登录或登录已超时,请重新登录后再评论!");
+        }
+        /**
+         * 初始化Comment信息;
+         */
+        User user = (User) request.getSession().getAttribute("user");
+        Comment comment1 = new Comment();
+        comment1.setAuthor(user);
+        comment1.setContent(subcomment);
+        comment1.setCreatTime(new Date(System.currentTimeMillis()));
+        comment1.setSupcommentId(Long.parseLong(supcommentId));
+        //保存Comment
+        try{
+           commentService.save(comment1);
+        }catch (Exception e){
+            return Msg.fail().setMsg("保存评论失败");
+        }
+
+        /**
+         * 判断操作的页面板块是专辑还是故事,将其评论数+1,前端传过来的模板是"板块名.id",例如"topic.1";
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        String id = plateAndId.substring(plateAndId.indexOf(".")+1);
+        switch (plateName){
+            case "topic":
+                Topic topic = topicService.findById(Long.parseLong(id));
+                long topicCommentNumber = topic.getCommentNumber();
+                topic.setCommentNumber(topicCommentNumber+1);
+                try {
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新评论总数时出现异常!");
+                }
+                break;
+            case "story":
+                Story story = storyService.findById(Long.parseLong(id));
+                long storyCommentNumber = story.getCommentNumber();
+                story.setCommentNumber(storyCommentNumber+1);
+                try{
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新评论总数时出现异常!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("评论成功!");
+
+    }
+
+    /**
+     * ajax发布评论;
+     * @param request
+     * @param commentStr
+     * @return
+     */
+    @RequestMapping(value = "/comment/json/add",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg commentAdd(HttpServletRequest request, @RequestParam("comment")String commentStr,@RequestParam("plateAndId")String plateAndId){
+        /**
+         * 判断session中是否有user,没有则返回到错误页面或重新登录界面;
+         */
+        if (null == request.getSession().getAttribute("user")){
+             return Msg.fail().setCode(101).setMsg("用户未登录或登录已超时,请重新登录后再评论!");
         }
         /**
          * 初始化Comment信息;
@@ -67,25 +127,40 @@ public class CommentController {
         }
 
         /**
-         * 设置专辑与评论关联;
+         * 判断操作的页面板块是专辑还是故事,设置关联并将其评论数+1,前端传过来的模板是"板块名.id",例如"topic.1";
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        String id = plateAndId.substring(plateAndId.indexOf(".")+1);
+        /**
+         * 初始化保存关联信息的实体类;
          */
         CommentRelateEST commentRelateEST = new CommentRelateEST();
-        commentRelateEST.setTopicId(Long.parseLong(topicId));
         commentRelateEST.setCommentId(commentId);
-        //保存关联信息;
-        try{
-            crestService.save(commentRelateEST);
-        }catch (Exception e){
-            return Msg.fail().setMsg("评论关联文章失败");
+        switch (plateName){
+            case "topic":
+                commentRelateEST.setTopicId(Long.parseLong(id));//设置关联
+                Topic topic = topicService.findById(Long.parseLong(id));
+                long topicCommentNumber = topic.getCommentNumber();
+                topic.setCommentNumber(topicCommentNumber+1);//评论总数+1
+                try {
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新评论总数时出现异常!");
+                }
+                break;
+            case "story":
+                commentRelateEST.setStoryId(Long.parseLong(id));//设置关联
+                Story story = storyService.findById(Long.parseLong(id));
+                long storyCommentNumber = story.getCommentNumber();
+                story.setCommentNumber(storyCommentNumber+1);//评论总数+1
+                try{
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新评论总数时出现异常!");
+                }
+                break;
         }
-
-        /**
-         * 将专辑里的评论数+1;
-         */
-        Topic topic = topicService.findById(Long.parseLong(topicId));
-        long commentNumber = topic.getCommentNumber();
-        topic.setCommentNumber(commentNumber+1);
-        topicService.save(topic);
+        crestService.save(commentRelateEST);//保存关联关系实体类;
 
         return Msg.success().setMsg("评论成功!");
 

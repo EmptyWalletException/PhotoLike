@@ -20,6 +20,7 @@ $(function () {
         success:function (result) {
             //注意后端返回的是一个map,map键为父评论id,值为子评论page,
            var subcommentPageMap = result.extend.subcommentPageMap;
+                //遍历并生成每一个父评论下的所有子评论;
                 for (var supcommentId in subcommentPageMap) {
                     //alert(supcommentId);  //输出为1,因为数据库中只有id为1的父评论有子评论
                    // console.log(subcommentPageMap[1]); //测试成功,输出了父评论的10条子评论;
@@ -30,28 +31,12 @@ $(function () {
                     var subcommentDiv = $(ele);
                     subcommentDiv.empty();
                     /*生成总子评论区域头,注意在遍历完后补上尾*/
+                   /* subcommentDiv.append(
+                        "             <div class='clearfix items' id='subcommentItems'> "+
+                        "</div>"
+                    );*/
                     subcommentDiv.append("<div class='sub-comment clearfix '> " +
-                            "<span class='arrows'></span>"+
-                        "       <form action='#' class='editor-wrapper hide form-comment-at'>" +
-                        "                                <div class='editor'>" +
-                        "                                    <textarea name='content' class='editor-comment-at' spellcheck='false'" +
-                        "                                              autocomplete='off'></textarea>" +
-                        "                                </div>" +
-                        "" +
-                        "                                <div class='toolbar clearfix'>" +
-                        "                                    <div class='btn-group'>" +
-                        "                                        <a href='javascript:void(0);' class='btn-link btn-action-cancel'>取消</a>" +
-                        "                                        <button class='btn btn-positive btn-not-ready rounded btn-at-comment-submit'" +
-                        "                                                data-tipid='commentSubmitDialog'" +
-                        "                                                data-remote='http://www.luoo.net/login/dialog' data-width='235'>评论" +
-                        "                                        </button>" +
-                        "                                    </div>" +
-                        "                                </div>" +
-                        "" +
-                        "                                <input type='hidden' name='app_id' value='1'>" +
-                        "                                <input type='hidden' name='res_id' value='1374'>" +
-                        "                                <input type='hidden' name='comment_at' value='675103'>" +
-                        "     </form>"+
+
                             "             <div class='clearfix items' id='subcommentItems'> "+
                             "</div>"+
                             "</div>"
@@ -61,7 +46,7 @@ $(function () {
                         $("#subcommentItems").append(
                             "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
                             "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
-                            "                                        <img src='/img/128x128(17)' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
+                            "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
                             "                                    </a>" +
                             "                                    <div class='item-wrapper'>" +
                             "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
@@ -85,7 +70,7 @@ $(function () {
                             "                                               data-res='611072' data-app='5' data-tipid='commentReportDialog611072'" +
                             "                                               data-width='235' rel='nofollow'><span class='icon-report'></span><span" +
                             "                                                    class='report-status'> 举报</span></a>" +
-                            "                                            <span class='vote-count' data-count='1'>1赞</span>" +
+                            "                                            <span class='vote-count' >0赞</span>" +
                             "                                        </div>" +
                             "                                    </div>" +
                             "                                    <form action='#'" +
@@ -117,17 +102,17 @@ $(function () {
     });
     /*点击评论框的"发布"按钮提交评论*/
     $("#commentAdd").click(function () {
-        var topicId = $("#topicId").text();
         var comment = $("#commentEditor").val();
+        var plateAndId = $(this).parent().next("input").val();
         if ("" == comment.trim()){
             alert("请输入有效的评论!")
         }else if (1000 <= comment.length){
             alert(comment.length+"评论字数不得大于500个字!")
         }else {
             $.ajax({
-                url:"/topic/comment/add",
+                url:"/comment/json/add",
                 type:"POST",
-                data:{"comment":comment,"topicId":topicId},
+                data:{"comment":comment,"plateAndId":plateAndId},
                 success:function (result) {
                     alert(result.msg);
                     if (200 == result.code){
@@ -137,6 +122,47 @@ $(function () {
             });
         }
     });
+
+    /*点击父评论的回复按钮显示出回复框,再次点击隐藏*/
+    $(".btn-action-reply").click(function () {
+        var subcommentEditDiv = $(this).parent().next("div");
+        if ("display:none;" == subcommentEditDiv.attr("style")){
+            subcommentEditDiv.attr("style","display:block;");
+        } else {
+            subcommentEditDiv.attr("style","display:none;");
+        }
+    });
+
+    /*点击父评论的回复框的"取消按钮"隐藏此评论框*/
+    $(".btn-action-cancel").click(function () {
+        $(this).parents("div[class='sub-comment clearfix ']").attr("style","display:none;");
+    });
+
+    /*点击父评论的回复框的"评论"按钮提交子评论*/
+    $(".btn-at-comment-submit").click(function () {
+        var subcomment = $(this).parents("div[class='toolbar clearfix']").prev("div").children("textarea").val();
+        var supcommentId = $(this).parent().parent().next("input").val();
+        var plateAndId = $(this).parent().parent().next("input").next("input").val();
+        if ("" == subcomment.trim()){
+            alert("请输入有效的评论!")
+        }else if (1000 <= comment.length){
+            alert(comment.length+"评论字数不得大于500个字!")
+        }else {
+            $.ajax({
+                url: "/comment/json/subcomment/add",
+                type: "POST",
+                data: {"subcomment": subcomment, "supcommentId": supcommentId, "plateAndId": plateAndId},
+                success: function (result) {
+                    alert(result.msg);
+                    if (200 == result.code) {
+                        location.reload(true);//重新请求当前页面;
+                    }
+                }
+            });
+        }
+    });
+
+
 });
 
 

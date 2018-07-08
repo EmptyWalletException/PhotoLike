@@ -13,3 +13,7 @@ spring:
     #临时保存上传图片的系统目录
 custom:
   tmpLocation: D:/temp
+server:
+  servlet:
+    session:
+      timeout: 6h  #设置session有效期为6个小时

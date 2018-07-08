@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/essay/**").permitAll()
                     .antMatchers("/story/**").permitAll()
                     .antMatchers("/test/**").permitAll()
+                    .antMatchers("/**/json/**").permitAll()
 
                     .antMatchers("/admin/**").hasAnyRole("ADMIN")//官方文档中特别说明没有使用"ROLE_"前缀
                     .antMatchers("/**").hasAnyRole("USER","ADMIN")

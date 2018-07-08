@@ -71,7 +71,7 @@ public class StoryController {
 
 
         /**
-         * 获取topic关联的父Comment,sql语句中已经排除了评论表中supcomment_id 不等于0的情况(即排除掉此评论为子评论时的情况);
+         * 获取story关联的父Comment,sql语句中已经排除了评论表中supcomment_id 不等于0的情况(即排除掉此评论为子评论时的情况);
          */
         Pageable pageable5 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
         Page<Comment> commentPage = commentService.findByStoryId(Long.parseLong(storyId), pageable5);
@@ -147,8 +147,8 @@ public class StoryController {
             //设置中间文件夹,方便整理图片
             String centreAddr = "/story/"+author.getId()+"/";
             String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,1920, 1080);
-            story.setCommentNumber(134);
-            story.setCollectNumber(342);
+            story.setCommentNumber(0);
+            story.setCollectNumber(0);
             story.setCreatTime(new Date(System.currentTimeMillis()));
             story.setCoverImgAddr(imgAddr);
 
