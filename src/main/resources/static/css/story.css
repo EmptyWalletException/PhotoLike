@@ -3516,12 +3516,12 @@ table.aui_border, table.aui_dialog {
 
 .sub-comment {
     margin: 15px 0;
-    padding: 0 10px 15px;
+    padding: 0 10px 0px;
     border: 1px solid #f4f4f4;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    background: #f4f4f4
+    background: #ececec
 }
 
 .sub-comment .arrows {

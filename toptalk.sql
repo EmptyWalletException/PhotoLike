@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2018-07-05 20:02:42
+Date: 2018-07-09 21:56:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -190,7 +190,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`id`),
   KEY `FKjwn7a4qe3io39cr7n1ek8uxqw` (`supcomment_id`),
   KEY `FKh1gtv412u19wcbx22177xbkjp` (`author_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=106 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of comment
@@ -224,6 +224,82 @@ INSERT INTO `comment` VALUES ('26', '测试评论正文', '2018-06-23 20:04:55',
 INSERT INTO `comment` VALUES ('27', '测试评论正文', '2018-06-23 20:04:55', '1', '27');
 INSERT INTO `comment` VALUES ('28', '测试评论正文', '2018-06-23 20:04:55', '1', '28');
 INSERT INTO `comment` VALUES ('29', '测试评论正文', '2018-06-23 20:04:55', '1', '29');
+INSERT INTO `comment` VALUES ('30', '测试评论专辑', '2018-07-07 20:31:53', '0', '1');
+INSERT INTO `comment` VALUES ('31', '测试评论专辑2', '2018-07-07 20:32:50', '0', '1');
+INSERT INTO `comment` VALUES ('32', '测试评论计数增加', '2018-07-07 21:07:20', '0', '1');
+INSERT INTO `comment` VALUES ('33', 'sssss', '2018-07-08 17:41:50', '30', '1');
+INSERT INTO `comment` VALUES ('34', '测试子评论2', '2018-07-08 17:45:11', '30', '1');
+INSERT INTO `comment` VALUES ('35', '测试子评论3', '2018-07-08 17:51:55', '30', '1');
+INSERT INTO `comment` VALUES ('36', '测试评论', '2018-07-08 18:11:45', '0', '1');
+INSERT INTO `comment` VALUES ('37', '测试评论', '2018-07-08 18:18:00', '0', '1');
+INSERT INTO `comment` VALUES ('38', '测试评论故事', '2018-07-08 18:21:11', '0', '1');
+INSERT INTO `comment` VALUES ('39', '测试子评论', '2018-07-08 18:22:18', '38', '1');
+INSERT INTO `comment` VALUES ('40', '测试子评论发布4', '2018-07-08 19:42:41', '32', '1');
+INSERT INTO `comment` VALUES ('41', '测试子评论', '2018-07-08 20:19:53', '32', '1');
+INSERT INTO `comment` VALUES ('42', '测试发布子评论', '2018-07-09 18:14:23', '30', '1');
+INSERT INTO `comment` VALUES ('43', '测试发布子评论', '2018-07-09 18:14:28', '30', '1');
+INSERT INTO `comment` VALUES ('44', '测试发布子评论', '2018-07-09 18:14:32', '30', '1');
+INSERT INTO `comment` VALUES ('45', '测试发布子评论7', '2018-07-09 18:14:47', '30', '1');
+INSERT INTO `comment` VALUES ('46', '测试发布子评论8', '2018-07-09 18:14:53', '30', '1');
+INSERT INTO `comment` VALUES ('47', '测试发布子评论9', '2018-07-09 18:15:00', '30', '1');
+INSERT INTO `comment` VALUES ('48', '测试发布子评论10', '2018-07-09 18:15:08', '30', '1');
+INSERT INTO `comment` VALUES ('49', '测试发布子评论11', '2018-07-09 18:15:45', '30', '1');
+INSERT INTO `comment` VALUES ('50', '测试发布子评论12', '2018-07-09 18:16:51', '30', '1');
+INSERT INTO `comment` VALUES ('51', '测试发布子评论13', '2018-07-09 18:21:52', '30', '1');
+INSERT INTO `comment` VALUES ('52', '测试发布子评论14', '2018-07-09 21:16:12', '30', '1');
+INSERT INTO `comment` VALUES ('53', '测试发布子评论15', '2018-07-09 21:16:19', '30', '1');
+INSERT INTO `comment` VALUES ('54', '测试发布子评论16', '2018-07-09 21:16:25', '30', '1');
+INSERT INTO `comment` VALUES ('55', '测试发布子评论17', '2018-07-09 21:16:32', '30', '1');
+INSERT INTO `comment` VALUES ('56', '测试发布子评论18', '2018-07-09 21:16:38', '30', '1');
+INSERT INTO `comment` VALUES ('57', '测试发布子评论19', '2018-07-09 21:16:44', '30', '1');
+INSERT INTO `comment` VALUES ('58', '测试发布子评论20', '2018-07-09 21:16:51', '30', '1');
+INSERT INTO `comment` VALUES ('59', '测试发布子评论21', '2018-07-09 21:16:56', '30', '1');
+INSERT INTO `comment` VALUES ('60', '测试子评论翻页', '2018-07-09 21:34:15', '32', '1');
+INSERT INTO `comment` VALUES ('61', '测试子评论翻页', '2018-07-09 21:34:20', '32', '1');
+INSERT INTO `comment` VALUES ('62', '测试子评论翻页', '2018-07-09 21:34:25', '32', '1');
+INSERT INTO `comment` VALUES ('63', '测试子评论翻页', '2018-07-09 21:34:29', '32', '1');
+INSERT INTO `comment` VALUES ('64', '测试子评论翻页', '2018-07-09 21:34:33', '32', '1');
+INSERT INTO `comment` VALUES ('65', '测试子评论翻页', '2018-07-09 21:34:37', '32', '1');
+INSERT INTO `comment` VALUES ('66', '测试子评论翻页', '2018-07-09 21:34:41', '32', '1');
+INSERT INTO `comment` VALUES ('67', '测试子评论翻页', '2018-07-09 21:34:45', '32', '1');
+INSERT INTO `comment` VALUES ('68', '测试子评论翻页', '2018-07-09 21:34:50', '32', '1');
+INSERT INTO `comment` VALUES ('69', '测试子评论翻页', '2018-07-09 21:34:55', '32', '1');
+INSERT INTO `comment` VALUES ('70', '测试子评论翻页', '2018-07-09 21:34:59', '32', '1');
+INSERT INTO `comment` VALUES ('71', '测试子评论翻页', '2018-07-09 21:35:03', '32', '1');
+INSERT INTO `comment` VALUES ('72', '测试子评论翻页', '2018-07-09 21:35:06', '32', '1');
+INSERT INTO `comment` VALUES ('73', '测试子评论翻页', '2018-07-09 21:35:10', '32', '1');
+INSERT INTO `comment` VALUES ('74', '测试子评论翻页', '2018-07-09 21:35:13', '32', '1');
+INSERT INTO `comment` VALUES ('75', '测试子评论翻页', '2018-07-09 21:35:17', '32', '1');
+INSERT INTO `comment` VALUES ('76', '测试子评论翻页', '2018-07-09 21:35:20', '32', '1');
+INSERT INTO `comment` VALUES ('77', '测试子评论翻页', '2018-07-09 21:35:23', '32', '1');
+INSERT INTO `comment` VALUES ('78', '测试子评论翻页', '2018-07-09 21:35:27', '32', '1');
+INSERT INTO `comment` VALUES ('79', '测试子评论翻页', '2018-07-09 21:35:30', '32', '1');
+INSERT INTO `comment` VALUES ('80', '测试子评论翻页', '2018-07-09 21:35:34', '32', '1');
+INSERT INTO `comment` VALUES ('81', '测试子评论翻页', '2018-07-09 21:35:37', '32', '1');
+INSERT INTO `comment` VALUES ('82', '测试子评论翻页', '2018-07-09 21:35:40', '32', '1');
+INSERT INTO `comment` VALUES ('83', '测试子评论', '2018-07-09 21:36:06', '31', '1');
+INSERT INTO `comment` VALUES ('84', '测试子评论', '2018-07-09 21:44:39', '38', '1');
+INSERT INTO `comment` VALUES ('85', '测试子评论', '2018-07-09 21:44:47', '38', '1');
+INSERT INTO `comment` VALUES ('86', '测试子评论', '2018-07-09 21:44:50', '38', '1');
+INSERT INTO `comment` VALUES ('87', '测试子评论翻页', '2018-07-09 21:44:58', '38', '1');
+INSERT INTO `comment` VALUES ('88', '测试子评论翻页', '2018-07-09 21:45:02', '38', '1');
+INSERT INTO `comment` VALUES ('89', '测试子评论翻页', '2018-07-09 21:45:05', '38', '1');
+INSERT INTO `comment` VALUES ('90', '测试子评论翻页', '2018-07-09 21:45:08', '38', '1');
+INSERT INTO `comment` VALUES ('91', '测试子评论翻页', '2018-07-09 21:45:11', '38', '1');
+INSERT INTO `comment` VALUES ('92', '测试子评论翻页', '2018-07-09 21:45:14', '38', '1');
+INSERT INTO `comment` VALUES ('93', '测试子评论翻页', '2018-07-09 21:45:18', '38', '1');
+INSERT INTO `comment` VALUES ('94', '测试子评论翻页', '2018-07-09 21:45:21', '38', '1');
+INSERT INTO `comment` VALUES ('95', '测试子评论翻页', '2018-07-09 21:45:24', '38', '1');
+INSERT INTO `comment` VALUES ('96', '测试子评论翻页', '2018-07-09 21:45:27', '38', '1');
+INSERT INTO `comment` VALUES ('97', '测试子评论翻页', '2018-07-09 21:45:31', '38', '1');
+INSERT INTO `comment` VALUES ('98', '测试子评论翻页', '2018-07-09 21:45:34', '38', '1');
+INSERT INTO `comment` VALUES ('99', '测试子评论翻页', '2018-07-09 21:45:45', '38', '1');
+INSERT INTO `comment` VALUES ('100', '测试子评论翻页', '2018-07-09 21:45:49', '38', '1');
+INSERT INTO `comment` VALUES ('101', '测试子评论翻页', '2018-07-09 21:45:59', '38', '1');
+INSERT INTO `comment` VALUES ('102', '测试子评论翻页', '2018-07-09 21:46:03', '38', '1');
+INSERT INTO `comment` VALUES ('103', '测试子评论翻页', '2018-07-09 21:46:06', '38', '1');
+INSERT INTO `comment` VALUES ('104', '测试父评论', '2018-07-09 21:46:20', '0', '1');
+INSERT INTO `comment` VALUES ('105', '测试父评论3', '2018-07-09 21:46:31', '0', '1');
 
 -- ----------------------------
 -- Table structure for `comment_est`
@@ -236,7 +312,7 @@ CREATE TABLE `comment_est` (
   `story_id` bigint(20) DEFAULT NULL,
   `topic_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of comment_est
@@ -284,6 +360,12 @@ INSERT INTO `comment_est` VALUES ('40', '12', null, null, '1');
 INSERT INTO `comment_est` VALUES ('41', '13', null, null, '1');
 INSERT INTO `comment_est` VALUES ('42', '14', null, null, '1');
 INSERT INTO `comment_est` VALUES ('43', '15', null, null, '1');
+INSERT INTO `comment_est` VALUES ('44', '30', '0', '0', '84');
+INSERT INTO `comment_est` VALUES ('45', '31', '0', '0', '84');
+INSERT INTO `comment_est` VALUES ('46', '32', '0', '0', '84');
+INSERT INTO `comment_est` VALUES ('47', '38', '0', '36', '0');
+INSERT INTO `comment_est` VALUES ('48', '104', '0', '36', '0');
+INSERT INTO `comment_est` VALUES ('49', '105', '0', '36', '0');
 
 -- ----------------------------
 -- Table structure for `essay`
@@ -459,9 +541,9 @@ CREATE TABLE `story` (
 -- ----------------------------
 -- Records of story
 -- ----------------------------
-INSERT INTO `story` VALUES ('34', '342', '134', '2018-07-01 16:44:23', '测试故事投稿1', '1', '<h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\">测试故事投稿1</h1><p><img src=\"/upload/story/1/7107320180701164416.jpg\" title=\"/upload/story/1/7107320180701164416.jpg\"/></p><p><img src=\"/upload/story/1/1697220180701164416.jpg\" title=\"/upload/story/1/1697220180701164416.jpg\"/></p><p><img src=\"/upload/story/1/8201420180701164416.jpg\" title=\"/upload/story/1/8201420180701164416.jpg\"/></p><p><img src=\"/upload/story/1/4734220180701164417.jpg\" title=\"/upload/story/1/4734220180701164417.jpg\"/></p><h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\"><br/></h1>', '测试故事投稿1', '/upload/story/1/8988620180701164422.jpg');
-INSERT INTO `story` VALUES ('35', '342', '134', '2018-07-01 16:45:48', '测试故事投稿富文本编辑器', '1', '<h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\">测试故事投稿2</h1><p><span style=\"text-decoration: underline;\"><em>对方的身份为的方式福娃服务恶法地方我额服务<img src=\"http://img.baidu.com/hi/jx2/j_0013.gif\"/><img src=\"/upload/story/1/5218820180701164535.jpg\" title=\"/upload/story/1/5218820180701164535.jpg\" alt=\"/upload/story/1/5218820180701164535.jpg\"/><img src=\"/upload/story/1/2427720180701164545.jpg\" title=\"/upload/story/1/2427720180701164545.jpg\" alt=\"/upload/story/1/2427720180701164545.jpg\"/></em></span></p><h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\"><br/></h1>', '测试故事投稿2', '/upload/story/1/5948620180701164547.jpg');
-INSERT INTO `story` VALUES ('36', '342', '134', '2018-07-01 17:33:50', '测试故事投稿1080p图片', '1', '<h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\">图片源文件为1080p,只在显示时缩放成合适大小</h1><p>直接右击另存为可查看效果;</p><p><img src=\"/upload/story/1/6573120180701173341.jpg\" title=\"/upload/story/1/6573120180701173341.jpg\"/></p><p><img src=\"/upload/story/1/3980920180701173341.jpg\" title=\"/upload/story/1/3980920180701173341.jpg\"/></p><p><img src=\"/upload/story/1/7199320180701173341.jpg\" title=\"/upload/story/1/7199320180701173341.jpg\"/></p><p><img src=\"/upload/story/1/6532020180701173341.jpg\" title=\"/upload/story/1/6532020180701173341.jpg\"/></p><p><img src=\"/upload/story/1/4025420180701173341.jpg\" title=\"/upload/story/1/4025420180701173341.jpg\"/></p><p><br/></p>', '图片源文件为1080p,只在显示时缩放成合适大小;', '/upload/story/1/7297620180701173350.jpg');
+INSERT INTO `story` VALUES ('34', '342', '2', '2018-07-01 16:44:23', '测试故事投稿1', '1', '<h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\">测试故事投稿1</h1><p><img src=\"/upload/story/1/7107320180701164416.jpg\" title=\"/upload/story/1/7107320180701164416.jpg\"/></p><p><img src=\"/upload/story/1/1697220180701164416.jpg\" title=\"/upload/story/1/1697220180701164416.jpg\"/></p><p><img src=\"/upload/story/1/8201420180701164416.jpg\" title=\"/upload/story/1/8201420180701164416.jpg\"/></p><p><img src=\"/upload/story/1/4734220180701164417.jpg\" title=\"/upload/story/1/4734220180701164417.jpg\"/></p><h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\"><br/></h1>', '测试故事投稿1', '/upload/story/1/8988620180701164422.jpg');
+INSERT INTO `story` VALUES ('35', '342', '2', '2018-07-01 16:45:48', '测试故事投稿富文本编辑器', '1', '<h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\">测试故事投稿2</h1><p><span style=\"text-decoration: underline;\"><em>对方的身份为的方式福娃服务恶法地方我额服务<img src=\"http://img.baidu.com/hi/jx2/j_0013.gif\"/><img src=\"/upload/story/1/5218820180701164535.jpg\" title=\"/upload/story/1/5218820180701164535.jpg\" alt=\"/upload/story/1/5218820180701164535.jpg\"/><img src=\"/upload/story/1/2427720180701164545.jpg\" title=\"/upload/story/1/2427720180701164545.jpg\" alt=\"/upload/story/1/2427720180701164545.jpg\"/></em></span></p><h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\"><br/></h1>', '测试故事投稿2', '/upload/story/1/5948620180701164547.jpg');
+INSERT INTO `story` VALUES ('36', '342', '24', '2018-07-01 17:33:50', '测试故事投稿1080p图片', '1', '<h1 style=\"font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;\">图片源文件为1080p,只在显示时缩放成合适大小</h1><p>直接右击另存为可查看效果;</p><p><img src=\"/upload/story/1/6573120180701173341.jpg\" title=\"/upload/story/1/6573120180701173341.jpg\"/></p><p><img src=\"/upload/story/1/3980920180701173341.jpg\" title=\"/upload/story/1/3980920180701173341.jpg\"/></p><p><img src=\"/upload/story/1/7199320180701173341.jpg\" title=\"/upload/story/1/7199320180701173341.jpg\"/></p><p><img src=\"/upload/story/1/6532020180701173341.jpg\" title=\"/upload/story/1/6532020180701173341.jpg\"/></p><p><img src=\"/upload/story/1/4025420180701173341.jpg\" title=\"/upload/story/1/4025420180701173341.jpg\"/></p><p><br/></p>', '图片源文件为1080p,只在显示时缩放成合适大小;', '/upload/story/1/7297620180701173350.jpg');
 
 -- ----------------------------
 -- Table structure for `topic`
@@ -492,8 +574,8 @@ INSERT INTO `topic` VALUES ('78', '342', '134', '\n            测试zip打包�
 INSERT INTO `topic` VALUES ('80', '342', '134', '\n            测试上传和打包下载专辑图片2', '2018-07-01 16:37:59', '测试上传和打包下载专辑图片2', '1', '/upload/topic/1/4327420180701163758.jpg', '/upload/topic/1/6691920180701163758.jpg,/upload/topic/1/3593520180701163759.jpg,/upload/topic/1/7316920180701163759.jpg,/upload/topic/1/1486820180701163759.jpg,/upload/topic/1/5192520180701163759.jpg', '29', '/upload/topic/1/.zip');
 INSERT INTO `topic` VALUES ('81', '342', '134', '\n            测试上传和打包下载专辑图片2', '2018-07-01 16:38:37', '测试上传和打包下载专辑图片3', '1', '/upload/topic/1/7407920180701163836.jpg', '/upload/topic/1/3496020180701163837.jpg,/upload/topic/1/3068420180701163837.jpg,/upload/topic/1/8620820180701163837.jpg,/upload/topic/1/1330820180701163837.jpg', '29', '/upload/topic/1/.zip');
 INSERT INTO `topic` VALUES ('82', '342', '134', '\n         测试专辑绑定分类正文', '2018-07-01 16:39:30', '测试专辑绑定分类', '1', '/upload/topic/1/1174720180701163929.jpg', '/upload/topic/1/9612520180701163929.jpg,/upload/topic/1/9056220180701163929.jpg,/upload/topic/1/9517420180701163929.jpg', '1', '/upload/topic/1/.zip');
-INSERT INTO `topic` VALUES ('83', '342', '134', '\n    投稿绑定分类测试', '2018-07-01 16:40:52', '投稿绑定分类测试', '1', '/upload/topic/1/6208620180701164051.jpg', '/upload/topic/1/3867220180701164052.jpg,/upload/topic/1/8292420180701164052.jpg,/upload/topic/1/9486420180701164052.jpg,/upload/topic/1/3953920180701164052.jpg', '28', '/upload/topic/1/.zip');
-INSERT INTO `topic` VALUES ('84', '342', '134', '\n    投稿绑定分类测试', '2018-07-01 16:41:16', '投稿绑定分类测试', '1', '/upload/topic/1/8981820180701164115.jpg', '/upload/topic/1/2442320180701164115.jpg,/upload/topic/1/3360020180701164115.jpg,/upload/topic/1/8443920180701164116.jpg,/upload/topic/1/7935320180701164116.jpg', '28', '/upload/topic/1/.zip');
+INSERT INTO `topic` VALUES ('83', '342', '2', '\n    投稿绑定分类测试', '2018-07-01 16:40:52', '投稿绑定分类测试', '1', '/upload/topic/1/6208620180701164051.jpg', '/upload/topic/1/3867220180701164052.jpg,/upload/topic/1/8292420180701164052.jpg,/upload/topic/1/9486420180701164052.jpg,/upload/topic/1/3953920180701164052.jpg', '28', '/upload/topic/1/.zip');
+INSERT INTO `topic` VALUES ('84', '342', '50', '\n    投稿绑定分类测试', '2018-07-01 16:41:16', '投稿绑定分类测试', '1', '/upload/topic/1/8981820180701164115.jpg', '/upload/topic/1/2442320180701164115.jpg,/upload/topic/1/3360020180701164115.jpg,/upload/topic/1/8443920180701164116.jpg,/upload/topic/1/7935320180701164116.jpg', '28', '/upload/topic/1/.zip');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -508,7 +590,7 @@ CREATE TABLE `user` (
   `nickname` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `signature` varchar(255) DEFAULT NULL,
-  `city_id` bigint(20) NOT NULL DEFAULT '1',
+  `city_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK29eqyw0gxw5r4f1ommy11nd9i` (`city_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
@@ -516,37 +598,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'testuser', '1', '/upload/user.jpg', '2018-06-23 20:04:54', '测试用户1', 'password', '测试签名1', '2');
+INSERT INTO `user` VALUES ('1', 'testuser', '1', '/upload/user/1/7254520180707191444.png', '2018-06-23 20:04:54', '测试修改昵称12', 'password', '测试修改签名', '2');
 INSERT INTO `user` VALUES ('2', 'testuser2', '1', '/upload/user.jpg', '2018-06-23 20:04:54', '测试用户2', 'password2', '测试签名2', '1');
 INSERT INTO `user` VALUES ('3', 'testuser3', '1', '/upload/user.jpg', '2018-06-23 20:04:54', '测试用户3', 'password3', '测试签名3', '1');
-INSERT INTO `user` VALUES ('4', 'testuser4', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户4', 'password4', '测试签名4', '1');
-INSERT INTO `user` VALUES ('5', 'testuser5', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户5', 'password5', '测试签名5', '1');
-INSERT INTO `user` VALUES ('6', 'testuser6', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户6', 'password6', '测试签名6', '1');
-INSERT INTO `user` VALUES ('7', 'testuser7', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户7', 'password7', '测试签名7', '1');
-INSERT INTO `user` VALUES ('8', 'testuser8', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户8', 'password8', '测试签名8', '1');
-INSERT INTO `user` VALUES ('9', 'testuser9', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户9', 'password9', '测试签名9', '1');
-INSERT INTO `user` VALUES ('10', 'testuser10', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户10', 'password10', '测试签名10', '1');
-INSERT INTO `user` VALUES ('11', 'testuser11', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户11', 'password11', '测试签名11', '1');
-INSERT INTO `user` VALUES ('12', 'testuser12', '1', 'upload/user.jpg', '2018-06-23 20:04:54', '测试用户12', 'password12', '测试签名12', '1');
-INSERT INTO `user` VALUES ('13', 'testuser13', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户13', 'password13', '测试签名13', '1');
-INSERT INTO `user` VALUES ('14', 'testuser14', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户14', 'password14', '测试签名14', '1');
-INSERT INTO `user` VALUES ('15', 'testuser15', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户15', 'password15', '测试签名15', '1');
-INSERT INTO `user` VALUES ('16', 'testuser16', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户16', 'password16', '测试签名16', '1');
-INSERT INTO `user` VALUES ('17', 'testuser17', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户17', 'password17', '测试签名17', '1');
-INSERT INTO `user` VALUES ('18', 'testuser18', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户18', 'password18', '测试签名18', '1');
-INSERT INTO `user` VALUES ('19', 'testuser19', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户19', 'password19', '测试签名19', '1');
-INSERT INTO `user` VALUES ('20', 'testuser20', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户20', 'password20', '测试签名20', '1');
-INSERT INTO `user` VALUES ('21', 'testuser21', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户21', 'password21', '测试签名21', '1');
-INSERT INTO `user` VALUES ('22', 'testuser22', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户22', 'password22', '测试签名22', '1');
-INSERT INTO `user` VALUES ('23', 'testuser23', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户23', 'password23', '测试签名23', '1');
-INSERT INTO `user` VALUES ('24', 'testuser24', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户24', 'password24', '测试签名24', '1');
-INSERT INTO `user` VALUES ('25', 'testuser25', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户25', 'password25', '测试签名25', '1');
-INSERT INTO `user` VALUES ('26', 'testuser26', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户26', 'password26', '测试签名26', '1');
-INSERT INTO `user` VALUES ('27', 'testuser27', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户27', 'password27', '测试签名27', '1');
-INSERT INTO `user` VALUES ('28', 'testuser28', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户28', 'password28', '测试签名28', '1');
-INSERT INTO `user` VALUES ('29', 'testuser29', '1', 'upload/user.jpg', '2018-06-23 20:04:55', '测试用户29', 'password29', '测试签名29', '1');
-INSERT INTO `user` VALUES ('30', 'testUser', '1', null, null, '测试忽略大小写', null, null, '1');
-INSERT INTO `user` VALUES ('31', 'Testuser', null, null, null, null, null, null, '1');
 INSERT INTO `user` VALUES ('32', 'testuser123', '2', '/upload/user.jpg', '2018-07-05 19:40:25', '测试注册功能', 'password', '这个人很懒,没有设置签名...', '3');
 INSERT INTO `user` VALUES ('33', 'testuser1234', '1', '/upload/user.jpg', '2018-07-05 19:43:59', '测试注册功能', 'password', '这个人很懒,没有设置签名...', '4');
 INSERT INTO `user` VALUES ('34', 'testuser1111', '1', '/upload/user.jpg', '2018-07-05 19:55:18', '测试注册功能', 'password', '这个人很懒,没有设置签名...', '2');

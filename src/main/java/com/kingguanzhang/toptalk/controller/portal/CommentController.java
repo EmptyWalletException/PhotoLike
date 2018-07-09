@@ -3,6 +3,7 @@ package com.kingguanzhang.toptalk.controller.portal;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -203,7 +206,7 @@ public class CommentController {
             //创建example对象,传入查询对象和匹配器
             example= Example.of(comment,exampleMatcher);
 
-            pageable= new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
+            pageable= new PageRequest(0,999999,new Sort(Sort.Direction.DESC,"id"));
             subCommentPage = commentService.findAllByExample(example, pageable);
 
             /**

@@ -175,8 +175,8 @@ public class TopicController {
         Map<String, MultipartFile> fileMap = ((MultipartRequest) request).getFileMap();
         //单独拿出封面图片
         MultipartFile coverImg = fileMap.get("img");
-        //再移除封面图片,剩下内容图片;
-        fileMap.remove("img");
+        //再移除封面图片,剩下内容图片;//更新需求:将封面图一同打包进内容,页面上移除掉封面图展示;
+        /*fileMap.remove("img");*/
 
 
         // TODO 这里先默认author id为1,后面改成从session中根据登录名获取user id;:

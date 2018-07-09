@@ -1,6 +1,6 @@
+var subcommentPageMap;//用于储存页面加载后发送ajax返回此页所有父评论的子评论集合;
 /*页面加载后遍历出评论和子评论生成页面元素*/
 $(function () {
-
     /*遍历取出所有父评论的id,发送给后端,获得返回值取出子评论,在对应的父评论下生成子评论*/
     var supcommentIds ="";
     $.each($(".subcomments"),function () {
@@ -12,94 +12,24 @@ $(function () {
 
     //处理一下最后多出的一个逗号;
     supcommentIds = supcommentIds.substring(0,supcommentIds.length-1);
-    
+
     $.ajax({
         url:"/comment/json/subcomments",
         type:"post",
         data:{"supcommentIds":supcommentIds},
         success:function (result) {
             //注意后端返回的是一个map,map键为父评论id,值为子评论page,
-           var subcommentPageMap = result.extend.subcommentPageMap;
-                //遍历并生成每一个父评论下的所有子评论;
-                for (var supcommentId in subcommentPageMap) {
-                    //alert(supcommentId);  //输出为1,因为数据库中只有id为1的父评论有子评论
-                   // console.log(subcommentPageMap[1]); //测试成功,输出了父评论的10条子评论;
+             subcommentPageMap = result.extend.subcommentPageMap;
+            //遍历并生成每一个父评论下的所有子评论;
+            for (var supcommentId in subcommentPageMap) {
 
-                    /*开始遍历生成子评论区域*/
-                    var subcomments = subcommentPageMap[supcommentId].content;
-                    var ele = ".subcomments[commentId='"+supcommentId+"']";
-                    var subcommentDiv = $(ele);
-                    subcommentDiv.empty();
-                    /*生成总子评论区域头,注意在遍历完后补上尾*/
-                   /* subcommentDiv.append(
-                        "             <div class='clearfix items' id='subcommentItems'> "+
-                        "</div>"
-                    );*/
-                    subcommentDiv.append("<div class='sub-comment clearfix '> " +
-
-                            "             <div class='clearfix items' id='subcommentItems'> "+
-                            "</div>"+
-                            "</div>"
-                        );
-
-                    $.each(subcomments,function (index,subcomment) {
-                        $("#subcommentItems").append(
-                            "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
-                            "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
-                            "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
-                            "                                    </a>" +
-                            "                                    <div class='item-wrapper'>" +
-                            "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
-                            "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
-                            "                                        <div class='comment-ct'>" +
-                            "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +
-                            "                                                " +subcomment.content+ "</p>" +
-                            "                                        </div>" +
-                            "                                        <div class='helper clearfix'>" +
-                            "                                            2017-12-11" +
-                            "                                            <a data-res='611072' data-app='5' data-tipid='commentVoteDialog611072'" +
-                            "                                               data-width='235' class='btn-vote btn-action-vote hide'" +
-                            "                                               href='javascript:void(0);' rel='nofollow'><i class='icon-vote'></i>" +
-                            "                                                <span>赞</span></a>" +
-                            "                                            <a href='javascript:void(0);' class='btn-reply btn-action-reply hide'" +
-                            "                                               data-res='" +subcomment.author.id+ "' data-user='" +subcomment.author.nickname+ "' >" +
-                            "                                                <span class='icon-reply'></span>" +
-                            "                                                回复" +
-                            "                                            </a>" +
-                            "                                            <a href='javascript:void(0);' class='comment-more-item btn-report hide'" +
-                            "                                               data-res='611072' data-app='5' data-tipid='commentReportDialog611072'" +
-                            "                                               data-width='235' rel='nofollow'><span class='icon-report'></span><span" +
-                            "                                                    class='report-status'> 举报</span></a>" +
-                            "                                            <span class='vote-count' >0赞</span>" +
-                            "                                        </div>" +
-                            "                                    </div>" +
-                            "                                    <form action='#'" +
-                            "                                          class='editor-wrapper form-comment-at hide'>" +
-                            "                                        <div class='editor'>" +
-                            "                                            <textarea name='content' class='editor-comment-at' spellcheck='false'" +
-                            "                                                      autocomplete='off'></textarea>" +
-                            "                                        </div>" +
-                            "                                        <div class='toolbar clearfix'>" +
-                            "                                            <div class='btn-group'>" +
-                            "                                                <a href='javascript:void(0);'" +
-                            "                                                   class='btn-link btn-action-cancel-at'>取消</a>" +
-                            "                                                <button class='btn btn-positive btn-not-ready rounded btn-at-comment-submit'" +
-                            "                                                        data-tipid='commentSubmitDialog'" +
-                            "                                                        data-remote='http://www.luoo.net/login/dialog' data-width='235'>" +
-                            "                                                    评论" +
-                            "                                                </button>" +
-                            "                                            </div>" +
-                            "                                        </div>" +
-                            "                                        <input type='hidden' name='app_id' value='1'>" +
-                            "                                        <input type='hidden' name='res_id' value='977'>" +
-                            "                                        <input type='hidden' name='comment_at' value='611072'>" +
-                            "                                    </form>" +
-                        "                               </div>");
-                    });
-
-                }
+                loadSubcomment(supcommentId,1);
+            }
         }
     });
+
+
+
     /*点击评论框的"发布"按钮提交评论*/
     $("#commentAdd").click(function () {
         var comment = $("#commentEditor").val();
@@ -163,6 +93,136 @@ $(function () {
     });
 
 
+});
+
+/*根据传入的父评论id和子评论页数pageNum遍历并加载子评论*/
+function loadSubcomment(supcommentId,pageNum){
+    var pageNum = pageNum;
+    /*开始遍历生成子评论区域*/
+    var subcomments = subcommentPageMap[supcommentId].content;
+    var ele = ".subcomments[commentId='"+supcommentId+"']";
+    var subcommentDiv = $(ele);
+    var subcommentIndex;//用于判断当前子评论数量,判断是否生成"折叠子批评"按钮;
+
+    /*第一次生成时创建头区域*/
+    if (1 == pageNum) {
+        subcommentDiv.empty();
+        /*生成当前父评论的总子评论区域头*/
+        subcommentDiv.append(
+            "<div class='sub-comment clearfix '> " +
+            "      <div class='clearfix items subcomment' > "+
+            "      </div>"+
+            "</div>"
+        );
+    }
+
+    $.each(subcomments,function (index,subcomment) {
+        if((pageNum-1)*10 <= index && (pageNum)*10 > index){//遍历符合页码范围要求的子评论
+            subcommentIndex = index;//将当前的下标保存,用于判断当下标大于10时显示"折叠子评论"按钮;
+            subcommentDiv.children("div").children(".subcomment").append(
+                "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
+                "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
+                "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
+                "                                    </a>" +
+                "                                    <div class='item-wrapper'>" +
+                "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
+                "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
+                "                                        <div class='comment-ct'>" +
+                "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +
+                "                                                " +subcomment.content+ "</p>" +
+                "                                        </div>" +
+                "                                        <div class='helper clearfix'>" +
+                "                                            2017-12-11" +
+                "                                            <a data-res='611072' data-app='5' data-tipid='commentVoteDialog611072'" +
+                "                                               data-width='235' class='btn-vote btn-action-vote hide'" +
+                "                                               href='javascript:void(0);' rel='nofollow'><i class='icon-vote'></i>" +
+                "                                                <span>赞</span></a>" +
+                "                                            <a href='javascript:void(0);' class='btn-reply btn-action-reply hide'" +
+                "                                               data-res='" +subcomment.author.id+ "' data-user='" +subcomment.author.nickname+ "' >" +
+                "                                                <span class='icon-reply'></span>" +
+                "                                                回复" +
+                "                                            </a>" +
+                "                                            <a href='javascript:void(0);' class='comment-more-item btn-report hide'" +
+                "                                               data-res='611072' data-app='5' data-tipid='commentReportDialog611072'" +
+                "                                               data-width='235' rel='nofollow'><span class='icon-report'></span><span" +
+                "                                                    class='report-status'> 举报</span></a>" +
+                "                                            <span class='vote-count' >0赞</span>" +
+                "                                        </div>" +
+                "                                    </div>" +
+                "                                    <form action='#'" +
+                "                                          class='editor-wrapper form-comment-at hide'>" +
+                "                                        <div class='editor'>" +
+                "                                            <textarea name='content' class='editor-comment-at' spellcheck='false'" +
+                "                                                      autocomplete='off'></textarea>" +
+                "                                        </div>" +
+                "                                        <div class='toolbar clearfix'>" +
+                "                                            <div class='btn-group'>" +
+                "                                                <a href='javascript:void(0);'" +
+                "                                                   class='btn-link btn-action-cancel-at'>取消</a>" +
+                "                                                <button class='btn btn-positive btn-not-ready rounded btn-at-comment-submit'" +
+                "                                                        data-tipid='commentSubmitDialog'" +
+                "                                                        data-remote='http://www.luoo.net/login/dialog' data-width='235'>" +
+                "                                                    评论" +
+                "                                                </button>" +
+                "                                            </div>" +
+                "                                        </div>" +
+                "                                        <input type='hidden' name='app_id' value='1'>" +
+                "                                        <input type='hidden' name='res_id' value='977'>" +
+                "                                        <input type='hidden' name='comment_at' value='611072'>" +
+                "                                    </form>" +
+                "                               </div>"
+            );
+        }
+
+    });
+
+    /*第一次生成时同时生成翻页操作区域*/
+    if(1 == pageNum){
+        /*生成子评论翻页区域*/
+        subcommentDiv.children("div").append(
+            " <div class='paginator'  style='float: right;margin-top: 10px;padding: 0 15px;'>" +
+            " </div>"
+        );
+
+    }
+
+    /*生成加载更多子评论按钮*/
+    var moreA = subcommentDiv.children("div").children(".paginator").children(".more")
+    if (subcomments.length > 10 && moreA.length <= 0){//当子评论数量大于10个则生成"加载更多"按钮;
+        subcommentDiv.children("div").children(".paginator").append(
+            "                <a class='page more' href='javascript:void(0);' style='height: 20px;line-height: 20px;float: right;' pageNum='2'>▼更多子评论</a>"
+        );
+    }
+
+    /*判断是否还有更多评论,决定是否要隐藏此按钮*/
+    if (subcomments.length <= pageNum*10 && moreA.length > 0){
+        subcommentDiv.children("div").children(".paginator").children(".more").text("▼已加载全部").removeAttr("class").removeAttr("href").attr("style","height: 20px;line-height: 20px;float: right;color:#7d7d7d");
+    }
+
+
+    /*生成折叠子评论按钮*/
+    var foldA =subcommentDiv.children("div").children(".paginator").children(".flodSubcomments");
+    if(subcommentIndex >= 10 && foldA.length <= 0){//当下标大于10时则生成"折叠子评论按钮";
+        subcommentDiv.children("div").children(".paginator").append(
+            "<a class='page flodSubcomments' href='javascript:void(0);' style='height: 20px;line-height: 20px;' >▲折叠子评论</a>"
+        );
+
+    }
+
+}
+
+/*点击"折叠子评论按钮"的事件,等同于刷新掉超出10个子评论的部分*/
+$(document).on('click','.flodSubcomments',function () {
+    var supcommentId =  $(this).parents(".subcomments").attr("commentid");
+    loadSubcomment(supcommentId,1);
+});
+
+/*点击"加载更多子评论"的事件*/
+$(document).on('click','.more',function () {
+    var supcommentId =  $(this).parents(".subcomments").attr("commentid");
+    var pageNum = $(this).attr("pageNum");//利用按钮里的属性来记录需要加载的子评论页码;
+    loadSubcomment(supcommentId,pageNum);
+    $(this).attr("pageNum",parseInt(pageNum)+1);
 });
 
 
