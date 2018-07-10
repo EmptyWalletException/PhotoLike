@@ -17,7 +17,6 @@ Where there&#39;s music and there&#39;...">
     <link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
     <link rel="stylesheet" href="/ft-carousel/css/ft-carousel.css" />
     <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
     <script src="/js/jquery-1.11.0.min.js"></script>
     <script src="/js/myComment.js"></script>
 
@@ -80,7 +79,7 @@ Where there&#39;s music and there&#39;...">
         <div class="thanks-block">
             <p class="thanks-tips">点击按钮下载本专辑所有图片</p>
             <div class="tanks-logo rounded"  data-tipid="thanksDialog" data-width="235" >
-                <a th:href="${topic.zipAddr}" download="专辑图片集.zip" >下载</a>
+                <a th:href="${topic.zipAddr}" download="专辑名.zip" th:attr="download=${topic.title}+'.zip'">下载</a>
             </div>
 
 
@@ -93,13 +92,9 @@ Where there&#39;s music and there&#39;...">
         <a class="vol-author" href="/user?userId=1" target="_blank" th:text="${topic.author.nickname}" th:href="'/user?userId='+${topic.author.id}">作者昵称</a>
         <span class="separator fleft">・</span>
         <span class="vol-date" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}">2017-03-14</span>
-        <a href="javascript:;" class="btn-action-like icon-fav" data-id="977" data-langliked="取消收藏" data-langlike="收藏"
-           data-type="vol" data-tipid="volFavorDialog" title="收藏"></a> <a href="javascript:;"
-                                                                          class="icon-share btn-action-share"
-                                                                          data-app="vol" data-id="977"
-                                                                          data-text="分享一期来自落网的音乐【vol.900 在这场叫做今天的戏剧中 】（分享自@落网）"
-                                                                          data-img="http://img-cdn2.luoo.net/pics/vol/58c6da94e163a.jpg!/fwfh/640x452"
-                                                                          rel="nofollow">
+        <a href="javascript:;" class="btn-like icon-fav" plate="topic.111"  title="收藏" th:attr="plate='topic.'+${topic.id}"></a>
+        <a href="javascript:;"   class="icon-share btn-action-share" data-app="vol" data-id="977"
+        data-text="分享一期来自图漾的壁纸专辑"  data-img="http://img-cdn2.luoo.net/pics/vol/58c6da94e163a.jpg!/fwfh/640x452"  rel="nofollow">
     </a>
 
     </div>
@@ -277,7 +272,6 @@ Where there&#39;s music and there&#39;...">
                         </div>
 
 
-                        <!--TODO 需要在js中完成子评论的翻页功能: -->
                         <!--用js遍历此div里的commentId属性的值-->
                         <div class="subcomments" th:attr="commentId=${comment.id}">
 
@@ -316,10 +310,8 @@ Where there&#39;s music and there&#39;...">
 
 
 
-<!--参数值-->
-<div style="display: none" id="resId" value="977"></div>
 <!--下载按钮-->
-<script type="text/html" id="script_thanks_list">
+<!--<script type="text/html" id="script_thanks_list">
     <div id="popup_thanks_list" class="popup-warpper">
         <div class="envelop-layer"></div>
         <div style=" width: 674px;;margin-left:-337px;" class="aui_state_focus">
@@ -380,7 +372,7 @@ Where there&#39;s music and there&#39;...">
             </div>
         </div>
     </div>
-</script>
+</script>-->
 
 <script>
     var staticImg = "http://s.luoo.net/img/loading_W.gif?4bf3b5f";
@@ -413,6 +405,7 @@ Where there&#39;s music and there&#39;...">
 <script src="/js/jquery.sticky-kit.min.js"></script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/backbone-min.js"></script>
+<script src="/js/favorite.js"></script>
 <script src="/js/vol.js"></script>
 <!--<script src="/js/comment.js"></script>-->
 <script src="/js/jquery.artDialog.js"></script>
@@ -509,15 +502,7 @@ Where there&#39;s music and there&#39;...">
     })
 </script>
 <![endif]-->
-<script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?89dd1f990c05c43f2e5083436e9ae887";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
+
 <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-5478298-1']);

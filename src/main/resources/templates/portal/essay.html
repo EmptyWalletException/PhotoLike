@@ -58,10 +58,8 @@
                    data-id="229" data-text="推荐Life Was All Silence的歌曲I Couldn&#39;t Regret（分享自@落网）"
                    data-img="http://img-cdn2.luoo.net/pics/albums/7971/cover.jpg!/fwfh/580x580">
                 </a>
-                <a href="javascript:;" rel="nofollow" id="btnLike15491" class="btn-action-like icon-fav" data-id="15491"
-                   data-type="single" data-from_id="229" data-from_type="musician" data-cback="musician_like_callback"
-                   data-langliked="取消收藏" data-langlike="收藏">
-                </a>
+                <a href="javascript:;" class="btn-like icon-fav" plate="essay.111"  title="收藏" th:attr="plate='essay.'+${upEssay.id}"></a>
+
                 <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="15491"></a>
             </div>
         </div>
@@ -104,10 +102,7 @@
                                data-app="musician" data-id="578" data-text="推荐徐真真的歌曲开心就足够（分享自@落网）"
                                data-img="http://img-cdn2.luoo.net/pics/albums/14823/pics/albums/201711/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg!/fwfh/580x580">
                             </a>
-                            <a href="javascript:;" rel="nofollow" id="btnLike22422" class="btn-action-like icon-fav"
-                               data-id="22422" data-type="single" data-from_id="578" data-from_type="musician"
-                               data-cback="musician_like_callback" data-langliked="取消收藏" data-langlike="收藏">
-                            </a>
+                            <a href="javascript:;" class="btn-like icon-fav" plate="essay.111"  title="收藏" th:attr="plate='essay.'+${essay.id}"></a>
                             <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22422"></a>
                         </div>
 
@@ -236,6 +231,7 @@
     }
 </script>
 <script src="/js/musician.js"></script>
+<script src="/js/favorite.js"></script>
 <!--底部区域开始-->
 <div class="footer" th:replace="~{portal/footer :: footer}">
 

@@ -179,13 +179,29 @@ public class TopicController {
         /*fileMap.remove("img");*/
 
 
+        /**
+         * 保存topic信息并获取返回的id值;
+         */
         // TODO 这里先默认author id为1,后面改成从session中根据登录名获取user id;:
         User author = new User();
         author.setId(1);
         topic.setAuthor(author);
+        topic.setCommentNumber(0);
+        topic.setCollectNumber(0);
+        topic.setCreatTime(new Date(System.currentTimeMillis()));
+        String categoryId = request.getParameter("categoryId");//取出前端传入的categoryId,级联保存;
+        Category category = new Category();
+        category.setId(Long.parseLong(categoryId));
+        topic.setCategory(category);
+        Long topidId = 0L;
+        try{
+            topidId = topicService.saveAndFlush(topic);//先保存一次返回id用于文件夹隔离;
+        }catch (Exception e){
+            return Msg.fail().setMsg("投稿失败,保存稿件信息时出现异常");
+        }
         if (null != topic && null != coverImg) {
             //设置中间文件夹,方便整理图片
-            String centreAddr = "/topic/"+author.getId()+"/";
+            String centreAddr = "/topic/"+author.getId()+"/"+topidId+"/";
             //保存封面图片并返回地址;
             String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,1920, 1080);
 
@@ -195,8 +211,12 @@ public class TopicController {
             String contentImgsAddr = "";
             //新建一个String数组储存图片实际地址用于下面的zip打包传值;注意length一定要和fileMap实际要保存的图片数量保持一致,否则downloadZip类遍历时会抛空指针异常;
             String[] sourcePathArry = new String[fileMap.size()];
-             for (int i = 0 ; i<fileMap.size() ; i ++ ){
-                contentImg = fileMap.get(i+"");
+             for (int i = fileMap.size()-1 ; i>=0 ; i -- ){//这里注意有一张封面图的键是"img",不能用i取;倒序是为了保证封面图在第一;
+                 if (fileMap.size()-1 == i){
+                     contentImg = fileMap.get("img");
+                 }else {
+                     contentImg = fileMap.get(i+"");
+                 }
                  String tempImgAddr = ImgUtil.generateThumbnail(contentImg, centreAddr, 1920, 1080)+",";
                     //新增zip压缩打包功能,所以将原本的字符直接 += 废弃掉;
                     sourcePathArry[i] = PathUtil.getImgBasePath() + tempImgAddr;
@@ -205,17 +225,12 @@ public class TopicController {
             //将最后一个","逗号去掉;
             contentImgsAddr = contentImgsAddr.substring(0, contentImgsAddr.length() - 1);
             /**
-             * 开始储存topic实体信息;
+             * 开始储存topic实体的图片信息;
              */
-            topic.setCommentNumber(0);
-            topic.setCollectNumber(0);
-            topic.setCreatTime(new Date(System.currentTimeMillis()));
             topic.setCoverImgAddr(imgAddr);
             topic.setContentImgsAddr(contentImgsAddr);
-            String categoryId = request.getParameter("categoryId");//取出前端传入的categoryId,级联保存;
-            Category category = new Category();
-            category.setId(Long.parseLong(categoryId));
-            topic.setCategory(category);
+
+
 
             /**
              * 新增zip打包功能,将用户上传的图片打包成zip,在页面提供zip下载地址;

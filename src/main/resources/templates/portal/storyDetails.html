@@ -34,7 +34,7 @@
 </div>
 <!--/// header end -->
 <!-- container start -->
-<div class="container ct-sm" style="min-height: 499px;">
+<div class="container ct-sm" style="min-height: 499px;width: 960px">
     <nav class="article-nav">
         <a href="/story" class="nav-back">
             <i class="icon-back"></i>
@@ -52,8 +52,7 @@
             正文区域
         </div>
         <div class="essay-share">
-            <a href="javascript:;" class="btn-action-like" data-id="925" data-type="essay"
-               data-cback="essay_like_callback" data-langliked="取消收藏" data-langlike="收藏" data-adjustx="-36">
+            <a href="javascript:;" class="btn-like"  title="收藏" th:attr="plate='story.'+${story.id}">
                 <span class="icon-essay-fav"></span>
             </a>
             <a href="javascript:;" class="btn-share btn-action-share" data-app="essay" data-id="925&#39;"
@@ -241,7 +240,6 @@
 
                         </div>
 
-                        <!--TODO  用js遍历此div里的commentid的值: -->
                         <!--用js遍历此div里的commentId属性的值-->
                         <div class="subcomments" th:attr="commentId=${comment.id}">
 
@@ -323,6 +321,7 @@
 </script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/backbone-min.js"></script>
+<script src="/js/favorite.js"></script>
 <!--底部区域开始-->
 <div class="footer" th:replace="~{portal/footer :: footer}">
 

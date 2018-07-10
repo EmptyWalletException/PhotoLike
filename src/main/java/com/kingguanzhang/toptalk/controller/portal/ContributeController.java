@@ -24,30 +24,30 @@ public class ContributeController {
     @Autowired
     private CityServiceImpl cityService;
 
-    @RequestMapping("/portal/topicContribute")
+    @RequestMapping("/contribute/topicContribute")
     public String toTopicContributePage(Model model){
         Pageable pageable = new PageRequest(0,100,new Sort(Sort.Direction.DESC,"id"));
         Page<Category> categoryPage = categoryService.findAll(pageable);
         model.addAttribute("categoryPage",categoryPage);
-        return "/portal/topicContribute";
+        return "/contribute/topicContribute";
     }
 
-    @RequestMapping("/portal/eventContribute")
+    @RequestMapping("/contribute/eventContribute")
     public String toEventContributePage(Model model){
         Pageable pageable = new PageRequest(0,200,new Sort(Sort.Direction.ASC,"rank"));
         Page<City> cityPage = cityService.findAll(pageable);
         model.addAttribute("cityPage",cityPage);
-        return "/portal/eventContribute";
+        return "/contribute/eventContribute";
     }
 
-    @RequestMapping("/portal/storyContribute")
+    @RequestMapping("/contribute/storyContribute")
     public String toStoryContributePage(){
-        return "/portal/storyContribute";
+        return "/contribute/storyContribute";
     }
 
-    @RequestMapping("/portal/essayContribute")
+    @RequestMapping("/contribute/essayContribute")
     public String toEssayContributePage(){
-        return "/portal/essayContribute";
+        return "/contribute/essayContribute";
     }
 
     @RequestMapping("/ue")
