@@ -92,7 +92,10 @@ Where there&#39;s music and there&#39;...">
         <a class="vol-author" href="/user?userId=1" target="_blank" th:text="${topic.author.nickname}" th:href="'/user?userId='+${topic.author.id}">作者昵称</a>
         <span class="separator fleft">・</span>
         <span class="vol-date" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}">2017-03-14</span>
-        <a href="javascript:;" class="btn-like icon-fav" plate="topic.111"  title="收藏" th:attr="plate='topic.'+${topic.id}"></a>
+        <!--判断是否已经收藏,显示不同的按钮-->
+        <a href="javascript:;" class="btn-like icon-fav" plate="topic.111"  title="收藏" th:attr="plate='topic.'+${topic.id}" th:if="${false == favStatus}"></a>
+        <a href="javascript:;" class="btn-unlike icon-faved" plate="topic.111"  title="取消收藏" th:attr="plate='topic.'+${topic.id}" th:if="${true == favStatus}"></a>
+
         <a href="javascript:;"   class="icon-share btn-action-share" data-app="vol" data-id="977"
         data-text="分享一期来自图漾的壁纸专辑"  data-img="http://img-cdn2.luoo.net/pics/vol/58c6da94e163a.jpg!/fwfh/640x452"  rel="nofollow">
     </a>

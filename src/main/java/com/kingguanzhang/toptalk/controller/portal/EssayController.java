@@ -4,14 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.Essay;
 import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.entity.UserFavorite;
 import com.kingguanzhang.toptalk.service.EssayServiceImpl;
+import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class EssayController {
 
     @Autowired
     private EssayServiceImpl essayService;
+    @Autowired
+    private UserFavoriteServiceImpl userFavoriteService;
 
     /**
      * 获取所有的随笔,分页并排序,判断如果用户点击了某个随笔,将其置顶;
@@ -51,6 +54,29 @@ public class EssayController {
         Pageable pageable = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
         Page<Essay> essayPage = essayService.findAll(pageable);
         model.addAttribute("essayPage",essayPage);
+
+        /**
+         * 判断当前取出的随笔是否被用户收藏,返回一个记录当前页被收藏的随笔Id的list;
+         */
+        String favEssayIds = "";
+        if (null != request.getSession().getAttribute("user")){
+            User user = (User) request.getSession().getAttribute("user");
+            UserFavorite userFavorite = new UserFavorite();
+            userFavorite.setUserId(user.getId());
+            for(Essay temp:essayPage.getContent()){
+                userFavorite.setEssayId(temp.getId());
+                ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("topicId").withIgnorePaths("storyId");
+                Example<UserFavorite> example = Example.of(userFavorite,exampleMatcher);
+                Pageable pageable1 = new PageRequest(0,2);
+                if (userFavoriteService.findAllByExample(example,pageable1).hasContent()){
+                    favEssayIds = favEssayIds+temp.getId() + ",";
+                }
+            }
+        }
+        if ("" != favEssayIds){
+            favEssayIds = favEssayIds.substring(0,favEssayIds.lastIndexOf(","));
+        }
+        model.addAttribute("favEssayIds",favEssayIds);
 
         /**
          * 判断如果用户点击了某个随笔,将其置顶;否则默认将收藏数最高的随笔置顶

@@ -77,7 +77,7 @@
 				<div class="item-wrapper">
 					<div class="item" th:each="topic,topicStat:${topicPage}" th:if="${topicPage!=null && topicStat.size!=0 && topicStat.index<9}" >
 						<a href="topic/1373" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
-							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:src="${topic.coverImgAddr}" th:alt="${topic.title}" >
+							<img src="/js/640x452" alt="故事的最后" class="cover rounded" style="height: 104px" th:src="${topic.coverImgAddr}" th:alt="${topic.title}" >
 						</a>
 						<a href="/topic/1373" class="name" th:href="'/topic/'+${topic.id}" th:text="${topic.title}">故事的最后</a>
 						<div class="op-bar">

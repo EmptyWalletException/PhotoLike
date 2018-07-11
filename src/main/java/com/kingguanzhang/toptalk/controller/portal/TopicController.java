@@ -2,22 +2,17 @@ package com.kingguanzhang.toptalk.controller.portal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
-import com.kingguanzhang.toptalk.entity.Category;
-import com.kingguanzhang.toptalk.entity.Comment;
-import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.CategoryServiceImpl;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.TopicServiceImpl;
+import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
 import com.kingguanzhang.toptalk.utils.DownloadZip;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.PathUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +36,8 @@ public class TopicController {
     private TopicServiceImpl topicService;
     @Autowired
     private CommentServiceImpl commentService;
-
+    @Autowired
+    private UserFavoriteServiceImpl userFavoriteService;
 
 
 
@@ -53,7 +48,27 @@ public class TopicController {
      * @return
      */
     @RequestMapping("/topic/{topicId}")
-    public String toTopicPage(Model model, @PathVariable("topicId")String id,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+    public String toTopicPage(HttpServletRequest request,Model model, @PathVariable("topicId")String id,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+
+        /**
+         * 判断收藏状态,返回一个名为favStatus 的布尔值给页面;
+         */
+        Boolean favStrtus = false;
+        if (null != request.getSession().getAttribute("user")){
+            User user = (User) request.getSession().getAttribute("user");
+            UserFavorite userFavorite = new UserFavorite();
+            userFavorite.setUserId(user.getId());
+            userFavorite.setTopicId(Long.parseLong(id));
+            ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("essayId").withIgnorePaths("storyId");//所有Long 类型的属性默认值都是0不是null,所以要忽略;
+            Example<UserFavorite> example = Example.of(userFavorite,exampleMatcher);
+            Pageable pageable = new PageRequest(0,2);
+            if (userFavoriteService.findAllByExample(example, pageable).hasContent()){//不使用findOne,因为当数据库有重复时findOne会抛异常;
+                favStrtus = true;
+            }
+        }
+        model.addAttribute("favStatus",favStrtus);
+
+
 
         /**
          * 获取指定id的topic;这里需要处理一下内容图片的地址字符串;

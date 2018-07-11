@@ -5,16 +5,15 @@ import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.Comment;
 import com.kingguanzhang.toptalk.entity.Story;
 import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.entity.UserFavorite;
 import com.kingguanzhang.toptalk.repositories.CategoryRepository;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;
+import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +30,8 @@ public class StoryController {
     private StoryServiceImpl storyService;
     @Autowired
     private CommentServiceImpl commentService;
+    @Autowired
+    private UserFavoriteServiceImpl userFavoriteService;
 
     /**
      * 获取所有故事,分页并排序;
@@ -65,7 +66,26 @@ public class StoryController {
      * @return
      */
     @RequestMapping("/story/{storyId}")
-    public String toStoryDetailsPage(Model model, @PathVariable("storyId")String storyId,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+    public String toStoryDetailsPage(HttpServletRequest request,Model model, @PathVariable("storyId")String storyId,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+
+        /**
+         * 判断收藏状态,返回一个名为favStatus 的布尔值给页面;
+         */
+        Boolean favStrtus = false;
+        if (null != request.getSession().getAttribute("user")){
+            User user = (User) request.getSession().getAttribute("user");
+            UserFavorite userFavorite = new UserFavorite();
+            userFavorite.setUserId(user.getId());
+            userFavorite.setStoryId(Long.parseLong(storyId));
+            ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("essayId").withIgnorePaths("topicId");//所有Long 类型的属性默认值都是0不是null,所以要忽略;
+            Example<UserFavorite> example = Example.of(userFavorite,exampleMatcher);
+            Pageable pageable = new PageRequest(0,2);
+            if (userFavoriteService.findAllByExample(example, pageable).hasContent()){//不使用findOne,因为当数据库有重复时findOne会抛异常;
+                favStrtus = true;
+            }
+        }
+        model.addAttribute("favStatus",favStrtus);
+
         Story story = storyService.findById(Long.parseLong(storyId));
         model.addAttribute("story",story);
 

@@ -118,7 +118,11 @@ public class UserFavoriteServiceImpl {
      */
     public UserFavorite findOne(Example<UserFavorite> example){
         Optional<UserFavorite> temp = userFavoriteRepository.findOne(example);
-        return temp.get();
+        if (temp.isPresent()){
+            return temp.get();
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -205,6 +209,56 @@ public class UserFavoriteServiceImpl {
         }
         try{
             userFavoriteRepository.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+
+
+    /**
+     * 删除收藏的topic;
+     *
+     */
+    public void deleteFavoriteTopic(Long userId,Long topicId){
+        if (null == userId || null == topicId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            userFavoriteRepository.deleteFavoriteTopic(userId,topicId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+    /**
+     * 删除收藏的essay;
+     *
+     */
+    public void deleteFavoriteEssay(Long userId,Long essayId){
+        if (null == userId || null == essayId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            userFavoriteRepository.deleteFavoriteEssay(userId,essayId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+    /**
+     * 删除收藏的story;
+     *
+     */
+    public void deleteFavoriteStory(Long userId,Long storyId){
+        if (null == userId || null == storyId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            userFavoriteRepository.deleteFavoriteStory(userId,storyId);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");

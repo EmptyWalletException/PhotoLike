@@ -51,9 +51,13 @@
         <div class="essay-content"  th:utext="${story.content}">
             正文区域
         </div>
+        <!--收藏与分享区域-->
         <div class="essay-share">
-            <a href="javascript:;" class="btn-like"  title="收藏" th:attr="plate='story.'+${story.id}">
+            <a href="javascript:;" class="btn-like-story"  title="收藏" th:attr="plate='story.'+${story.id}" th:if="${true != favStatus}">
                 <span class="icon-essay-fav"></span>
+            </a>
+            <a href="javascript:;" class="btn-like-story"  title="取消收藏" th:attr="plate='story.'+${story.id}" th:if="${true == favStatus}">
+                <span class="icon-essay-faved"></span>
             </a>
             <a href="javascript:;" class="btn-share btn-action-share" data-app="essay" data-id="925&#39;"
                data-text="这篇文章值得一读【人类首张在太空录制的专辑】（分享自@落网）"

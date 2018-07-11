@@ -38,10 +38,15 @@ public class UserController {
     private EssayServiceImpl essayService;
     @Autowired
     private TopicServiceImpl topicService;
+    @Autowired
+    private UserFavoriteServiceImpl userFavoriteService;
 
 
 
     // TODO 需要完成修改密码的功能:
+
+
+
 
     /**
      * 修改用户信息

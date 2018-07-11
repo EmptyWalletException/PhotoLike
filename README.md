@@ -17,6 +17,19 @@ TopTalk网站,照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 注意事项,项目中url地址中带/upload的是映射本地文件夹D:\projectdev\images\upload,所有图片会存在此文件夹内子文件夹中,可以先测试投稿页面再查看项目运行效果,否则部分页面板式会混乱或报错;
 
 *********************** 开 发 记 录 ***************************
+2018/7/11:
+
+1:完成了topic essay 和story 三个板块收藏和取消收藏功能,同时各板块页面上的收藏按钮会根据用户是否收藏了此条目而显示"收藏"或"取消收藏"的对应样式;
+    
+2:修改了收藏夹页面的板式,使其图片宽和高的比例符合16:9,并自动缩放成固定的px大小;
+
+            此次开发解决的问题:
+                自定义删除sql语句时,需要注意注解一定要写全,三个注解都不能缺失,而查询语句只需要写@Query注解:
+                @Modifying
+                @Transactional
+                @Query(nativeQuery = true, value = "delete from user_favorite where  user_id= :userId and story_id=:storyId"
+                    )
+                void deleteFavoriteStory(@Param("userId")Long userId,@Param("storyId")Long storyId );
 
 2018/7/10:
 
