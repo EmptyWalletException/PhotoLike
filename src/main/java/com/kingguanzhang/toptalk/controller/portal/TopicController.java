@@ -3,10 +3,7 @@ package com.kingguanzhang.toptalk.controller.portal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
-import com.kingguanzhang.toptalk.service.CategoryServiceImpl;
-import com.kingguanzhang.toptalk.service.CommentServiceImpl;
-import com.kingguanzhang.toptalk.service.TopicServiceImpl;
-import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
+import com.kingguanzhang.toptalk.service.*;
 import com.kingguanzhang.toptalk.utils.DownloadZip;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.PathUtil;
@@ -38,6 +35,8 @@ public class TopicController {
     private CommentServiceImpl commentService;
     @Autowired
     private UserFavoriteServiceImpl userFavoriteService;
+    @Autowired
+    private PraiseServiceImpl praiseService;
 
 
 
@@ -52,6 +51,7 @@ public class TopicController {
 
         /**
          * 判断收藏状态,返回一个名为favStatus 的布尔值给页面;
+         
          */
         Boolean favStrtus = false;
         if (null != request.getSession().getAttribute("user")){
@@ -62,6 +62,7 @@ public class TopicController {
             ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("essayId").withIgnorePaths("storyId");//所有Long 类型的属性默认值都是0不是null,所以要忽略;
             Example<UserFavorite> example = Example.of(userFavorite,exampleMatcher);
             Pageable pageable = new PageRequest(0,2);
+            //查询是否收藏了;
             if (userFavoriteService.findAllByExample(example, pageable).hasContent()){//不使用findOne,因为当数据库有重复时findOne会抛异常;
                 favStrtus = true;
             }
@@ -104,6 +105,29 @@ public class TopicController {
         Pageable pageable5 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
         Page<Comment> commentPage = commentService.findByTopicId(Long.parseLong(id), pageable5);
         model.addAttribute("commentPage",commentPage);
+
+        /**
+         * 判断当前取出的评论是否被用户点赞,返回一个记录当前页被收藏的评论Id的拼接字符串
+         */
+        String praiseCommentIds = "";
+        if (null != request.getSession().getAttribute("user")){
+            User user = (User) request.getSession().getAttribute("user");
+            Praise praise = new Praise();
+            praise.setUserId(user.getId());
+            for(Comment temp:commentPage.getContent()){
+                praise.setCommentId(temp.getId());
+                ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("topicId").withIgnorePaths("storyId").withIgnorePaths("essayId").withIgnorePaths("eventId");
+                Example<Praise> example = Example.of(praise,exampleMatcher);
+                Pageable pageable1 = new PageRequest(0,2);
+                if (praiseService.findAllByExample(example,pageable1).hasContent()){
+                    praiseCommentIds = praiseCommentIds+temp.getId() + ",";
+                }
+            }
+        }
+        if ("" != praiseCommentIds){
+            praiseCommentIds = praiseCommentIds.substring(0,praiseCommentIds.lastIndexOf(","));
+        }
+        model.addAttribute("praiseCommentIds",praiseCommentIds);
 
         return "portal/topicDetails";
     }

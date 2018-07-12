@@ -1,4 +1,5 @@
 var subcommentPageMap;//用于储存页面加载后发送ajax返回此页所有父评论的子评论集合;
+var praiseCommentIds;//用于储存后台返回的记录所有被赞过的子评论的id的拼接字符串;
 /*页面加载后遍历出评论和子评论生成页面元素*/
 $(function () {
     /*遍历取出所有父评论的id,发送给后端,获得返回值取出子评论,在对应的父评论下生成子评论*/
@@ -20,11 +21,12 @@ $(function () {
         success:function (result) {
             //注意后端返回的是一个map,map键为父评论id,值为子评论page,
              subcommentPageMap = result.extend.subcommentPageMap;
+            praiseCommentIds = result.extend.praiseCommentIds;
             //遍历并生成每一个父评论下的所有子评论;
             for (var supcommentId in subcommentPageMap) {
-
                 loadSubcomment(supcommentId,1);
             }
+            initPraiseStatus(praiseCommentIds);
         }
     });
 
@@ -119,6 +121,7 @@ function loadSubcomment(supcommentId,pageNum){
     $.each(subcomments,function (index,subcomment) {
         if((pageNum-1)*10 <= index && (pageNum)*10 > index){//遍历符合页码范围要求的子评论
             subcommentIndex = index;//将当前的下标保存,用于判断当下标大于10时显示"折叠子评论"按钮;
+            var commentDate = new Date(subcomment.creatTime);
             subcommentDiv.children("div").children(".subcomment").append(
                 "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
                 "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
@@ -129,24 +132,14 @@ function loadSubcomment(supcommentId,pageNum){
                 "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
                 "                                        <div class='comment-ct'>" +
                 "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +
-                "                                                " +subcomment.content+ "</p>" +
+                "                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +subcomment.content+ "</p>" +
                 "                                        </div>" +
-                "                                        <div class='helper clearfix'>" +
-                "                                            2017-12-11" +
-                "                                            <a data-res='611072' data-app='5' data-tipid='commentVoteDialog611072'" +
-                "                                               data-width='235' class='btn-vote btn-action-vote hide'" +
-                "                                               href='javascript:void(0);' rel='nofollow'><i class='icon-vote'></i>" +
+                "                                        <div class='helper clearfix'>" +commentDate.toLocaleDateString()+
+                "                                            <a commentId='"+subcomment.id+"'"+
+                "                                               data-width='235' class='btn-vote btn-action-praise '" +
+                "                                               href='javascript:void(0);' rel='nofollow'>  &nbsp;<i class='icon-vote'></i>" +
                 "                                                <span>赞</span></a>" +
-                "                                            <a href='javascript:void(0);' class='btn-reply btn-action-reply hide'" +
-                "                                               data-res='" +subcomment.author.id+ "' data-user='" +subcomment.author.nickname+ "' >" +
-                "                                                <span class='icon-reply'></span>" +
-                "                                                回复" +
-                "                                            </a>" +
-                "                                            <a href='javascript:void(0);' class='comment-more-item btn-report hide'" +
-                "                                               data-res='611072' data-app='5' data-tipid='commentReportDialog611072'" +
-                "                                               data-width='235' rel='nofollow'><span class='icon-report'></span><span" +
-                "                                                    class='report-status'> 举报</span></a>" +
-                "                                            <span class='vote-count' >0赞</span>" +
+                "                                            <span class='vote-count' >"+subcomment.praiseNumber+"赞</span>" +
                 "                                        </div>" +
                 "                                    </div>" +
                 "                                    <form action='#'" +
@@ -173,6 +166,8 @@ function loadSubcomment(supcommentId,pageNum){
                 "                               </div>"
             );
         }
+
+
 
     });
 
@@ -211,10 +206,24 @@ function loadSubcomment(supcommentId,pageNum){
 
 }
 
+function initPraiseStatus(praiseCommentIds){
+    <!--判断子评论是否被点赞并显示不同状态的代码-->
+    if ("" != praiseCommentIds.trim()){
+        /*alert(favEssayIds);*/
+        var ids =praiseCommentIds.split(',');
+        for(var index in ids){
+            var ele =".btn-vote[commentId='"+ids[index]+"']";
+            $(ele).attr("class","btn-vote btn-action-praised");
+            $(ele).children("i").attr("class","icon-vote-actived");
+        }
+    }
+}
+
 /*点击"折叠子评论按钮"的事件,等同于刷新掉超出10个子评论的部分*/
 $(document).on('click','.flodSubcomments',function () {
     var supcommentId =  $(this).parents(".subcomments").attr("commentid");
     loadSubcomment(supcommentId,1);
+    initPraiseStatus(praiseCommentIds);
 });
 
 /*点击"加载更多子评论"的事件*/
@@ -222,7 +231,51 @@ $(document).on('click','.more',function () {
     var supcommentId =  $(this).parents(".subcomments").attr("commentid");
     var pageNum = $(this).attr("pageNum");//利用按钮里的属性来记录需要加载的子评论页码;
     loadSubcomment(supcommentId,pageNum);
+    initPraiseStatus(praiseCommentIds);
     $(this).attr("pageNum",parseInt(pageNum)+1);
+});
+
+
+/*点赞*/
+$(document).on('click','.btn-action-praise',function () {
+    var commentId = $(this).attr("commentId");
+    var btn = $(this);
+    /*alert(commentId);*/
+    $.ajax({
+        url:"/comment/json/praise",
+        type:"POST",
+        data:{"commentId":commentId},
+        success:function (result) {
+            if (101 == result.code){
+                alert(result.msg)
+                window.location.href="/login";
+            } else {
+                btn.attr("class","btn-vote btn-action-praised");
+                btn.children("i").attr("class","icon-vote-actived");
+            }
+        }
+    })
+});
+
+/*取消点赞*/
+$(document).on('click','.btn-action-praised',function () {
+    var commentId = $(this).attr("commentId");
+    var btn = $(this);
+    /*alert(commentId);*/
+    $.ajax({
+        url:"/comment/json/cancelPraise",
+        type:"POST",
+        data:{"commentId":commentId},
+        success:function (result) {
+            if (101 == result.code){
+                alert(result.msg)
+                window.location.href="/login";
+            } else {
+                btn.attr("class","btn-vote btn-action-praise");
+                btn.children("i").attr("class","icon-vote");
+            }
+        }
+    })
 });
 
 

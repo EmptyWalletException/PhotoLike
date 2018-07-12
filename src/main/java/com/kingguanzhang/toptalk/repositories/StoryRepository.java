@@ -17,9 +17,19 @@ public interface StoryRepository extends JpaRepository<Story,Long> {
      * @param pageable
      * @return
      */
-    @Query(nativeQuery = true, value = "select * from story where id in (select story_id from user_favorite where user_id = :userId order by id desc )",
-            countQuery = "select count(*) from story where id in (select story_id from user_favorite where user_id = :userId)")
+    @Query(nativeQuery = true, value = "select * from story where id in (select distinct story_id from user_favorite where user_id = :userId order by id desc )",
+            countQuery = "select count(*) from story where id in (select distinct story_id from user_favorite where user_id = :userId)")
     Page<Story> findFavoriteStory(@Param("userId")Long userId, Pageable pageable);
+
+    /**
+     * 自定义查询语句,查询出用户点赞的story并且分页排序;
+     * @param userId
+     * @param pageable
+     * @return
+     */
+    @Query(nativeQuery = true, value = "select * from story where id in (select distinct story_id from praise where user_id = :userId order by id desc )",
+            countQuery = "select count(*) from story where id in (select distinct story_id from praise where user_id = :userId)")
+    Page<Story> findPraiseStory(@Param("userId")Long userId, Pageable pageable);
 
 
 }

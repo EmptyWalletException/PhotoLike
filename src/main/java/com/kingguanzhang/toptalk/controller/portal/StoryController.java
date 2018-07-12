@@ -2,12 +2,10 @@ package com.kingguanzhang.toptalk.controller.portal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
-import com.kingguanzhang.toptalk.entity.Comment;
-import com.kingguanzhang.toptalk.entity.Story;
-import com.kingguanzhang.toptalk.entity.User;
-import com.kingguanzhang.toptalk.entity.UserFavorite;
+import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.repositories.CategoryRepository;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
+import com.kingguanzhang.toptalk.service.PraiseServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;
 import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
@@ -32,7 +30,8 @@ public class StoryController {
     private CommentServiceImpl commentService;
     @Autowired
     private UserFavoriteServiceImpl userFavoriteService;
-
+    @Autowired
+    private PraiseServiceImpl praiseService;
     /**
      * 获取所有故事,分页并排序;
      * @param model
@@ -97,6 +96,28 @@ public class StoryController {
         Page<Comment> commentPage = commentService.findByStoryId(Long.parseLong(storyId), pageable5);
         model.addAttribute("commentPage",commentPage);
 
+        /**
+         * 判断当前取出的评论是否被用户点赞,返回一个记录当前页被收藏的评论Id的拼接字符串
+         */
+        String praiseCommentIds = "";
+        if (null != request.getSession().getAttribute("user")){
+            User user = (User) request.getSession().getAttribute("user");
+            Praise praise = new Praise();
+            praise.setUserId(user.getId());
+            for(Comment temp:commentPage.getContent()){
+                praise.setCommentId(temp.getId());
+                ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("topicId").withIgnorePaths("storyId").withIgnorePaths("essayId").withIgnorePaths("eventId");
+                Example<Praise> example = Example.of(praise,exampleMatcher);
+                Pageable pageable1 = new PageRequest(0,2);
+                if (praiseService.findAllByExample(example,pageable1).hasContent()){
+                    praiseCommentIds = praiseCommentIds+temp.getId() + ",";
+                }
+            }
+        }
+        if ("" != praiseCommentIds){
+            praiseCommentIds = praiseCommentIds.substring(0,praiseCommentIds.lastIndexOf(","));
+        }
+        model.addAttribute("praiseCommentIds",praiseCommentIds);
         return "/portal/storyDetails";
 
     }

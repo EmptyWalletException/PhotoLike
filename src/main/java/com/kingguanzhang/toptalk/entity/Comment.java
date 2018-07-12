@@ -1,10 +1,7 @@
 package com.kingguanzhang.toptalk.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "comment")
@@ -16,6 +13,7 @@ public class Comment {
     private String content;
     private Date creatTime;
     private long supcommentId;//上级评论的ID;
+    private long praiseNumber;//点赞数
 
 
     @ManyToOne(optional = false)
@@ -27,6 +25,14 @@ public class Comment {
     //@JsonBackReference //防止转json的时候出现无线循环包含的情况,只标注在关系中较多的一方的引用对方的set方法上;这注释掉是因为发现评论的json中author没有生成;
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public long getPraiseNumber() {
+        return praiseNumber;
+    }
+
+    public void setPraiseNumber(long praiseNumber) {
+        this.praiseNumber = praiseNumber;
     }
 
     /**

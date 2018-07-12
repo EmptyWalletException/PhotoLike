@@ -56,7 +56,7 @@ public class EssayController {
         model.addAttribute("essayPage",essayPage);
 
         /**
-         * 判断当前取出的随笔是否被用户收藏,返回一个记录当前页被收藏的随笔Id的list;
+         * 判断当前取出的随笔是否被用户收藏,返回一个记录当前页被收藏的随笔Id的拼接字符串
          */
         String favEssayIds = "";
         if (null != request.getSession().getAttribute("user")){

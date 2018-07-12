@@ -31,5 +31,15 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
             countQuery = "select count(*) from topic where id in (select topic_id from user_favorite where user_id = :userId)")
     Page<Topic> findFavoriteTopic(@Param("userId")Long userId, Pageable pageable);
 
+    /**
+     * 自定义查询语句,查询出用户点赞的topic并且分页排序;
+     * @param userId
+     * @param pageable
+     * @return
+     */
+    @Query(nativeQuery = true, value = "select * from topic where id in (select distinct topic_id from praise where user_id = :userId order by id desc )",
+            countQuery = "select count(*) from topic where id in (select distinct topic_id from praise where user_id = :userId)")
+    Page<Topic> findPraiseTopic(@Param("userId")Long userId, Pageable pageable);
+
 
 }

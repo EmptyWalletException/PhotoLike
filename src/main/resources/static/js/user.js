@@ -14,32 +14,6 @@ function init_avatarUploader() {
     f.id = "avatar-upload", f.name = "avatar_upload", f.align = "middle", swfobject.embedSWF(CONST.host + "/static/img/avatar.swf", "avatar-upload", "400", "500", b, c, d, e, f), swfobject.createCSS("#avatar-upload", "display:block;text-align:left;")
 }
 
-function unlike_cback(a, b) {
-    b.data("disabled", !1);
-    var c = b.parents(".track-item");
-    if (-1 === a.status) {
-        b.data({remote: url("login/dialog"), width: 235});
-        var d = b.tip();
-        d.set("events.hide", function (a, b) {
-            b.destroy(), $.luoo.destroy_tip(b.id)
-        }), $.luoo.tips.push(d)
-    } else if (1 === a.status) c.find(".btn-action-like").addClass("btn-faved").attr("title", b.data("langliked")); else if (2 === a.status) {
-        var e = c.index();
-        "play" == c.data("status") && luooPlayer.next(), luooPlayer.remove(e) && c.fadeOut(500, function () {
-            $(this).remove()
-        })
-    } else a.msg && $.luoo.tip(a.msg)
-}
-
-function vol_unlike_cback(a, b) {
-    if (b.data("disabled", !1), -1 === a.status) {
-        b.data({remote: url("login/dialog"), width: 235});
-        var c = b.tip();
-        c.set("events.hide", function (a, b) {
-            b.destroy(), $.luoo.destroy_tip(b.id)
-        }), $.luoo.tips.push(c)
-    } else 2 === a.status ? document.location.reload() : a.msg && $.luoo.tip(a.msg)
-}
 
 function init_uploader() {
     $("#btnAvatarUploader").fineUploader({
@@ -122,7 +96,7 @@ function add_mood_cback(a, b) {
 
 var luooPlayer, log_int, picEditor;
 $(document).ready(function () {
-    init_player({autoplay: !1}), $(".track-wrapper").hover(function () {
+     $(".track-wrapper").hover(function () {
         $(this).find(".btn-detail, .btn-unfav, .btn-share, .btn-fav").css("visibility", "visible")
     }, function () {
         return $(this).siblings(".track-detail-wrapper").is($(":visible")) || "play" == $(this).parents(".track-item").data("status") ? !1 : ($(this).find(".btn-detail, .btn-unfav, .btn-share, .btn-fav").css("visibility", "hidden"), $(".btn-unfaved").css("visibility", "visible"), void $(".btn-faved").css("visibility", "visible"))

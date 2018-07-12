@@ -18,11 +18,7 @@
     <script src="/js/jquery-1.11.0.min.js"></script>
 
     <script src="/js/luoo.js"></script>
-    <script>
-        if ($.luoo.browser()['ie'] && $.luoo.browser()['version'] < 8) {
-            window.location.href = 'http://www.luoo.net/browser_not_supported/';
-        }
-    </script>
+
 </head>
 <body>
 
@@ -90,8 +86,7 @@
                 </div>
                 <div class="clearfix">
                     <span class="time">2018-06-21</span>
-                    <a href="javascript:;" rel="nofollow" class="unfav btn-action-like btn-unfav" data-id="921"
-                       data-type="essay" data-cback="vol_unlike_cback" data-confirm="确定取消收藏该文章吗？">
+                    <a href="javascript:;" rel="nofollow" class="btn-unlike unfav" plate="story.111"  title="取消收藏" th:attr="plate='story.'+${story.id}">
                         <i class="icon icon-trash"></i> 删除
                     </a>
                     <a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="921"
@@ -160,7 +155,7 @@
 </div>
 <!--底部结束-->
 
-<img src="/js/loading_W.gif" style="display:none;">
+<!--<img src="/js/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
     <div id="qrcodeContent" class="qrcode-content" title="http://www.luoo.net/">
         <canvas width="240" height="240" style="display: none;"></canvas>
@@ -206,12 +201,34 @@
         cfg: {"auto_play": false, "aes": "b6ce159334e155d8"}
     });
     $('#txtFeedbackRef').val(document.location.href);
-</script>
+</script>-->
 
 <script src="/js/jquery.artDialog(1).js"></script>
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+<script>
+    /*点击后取消收藏;用于topic和essay*/
+    $(document).on('click','.btn-unlike',function () {
+        var plate = $(this).attr("plate");
+        var topic = $(this).parent().parent();
+        if (confirm("确认取消收藏此故事吗?")){
+            $.ajax({
+                url:"/json/user/unlike",
+                type:"POST",
+                data:{"plate":plate},
+                success:function (result) {
+                    if (101 == result.code){
+                        alert("请先登录再操作!");
+                        window.location.href="/login";
+                    }else {
+                        topic.remove();
+                    }
+                }
+            });
+        }
+    });
+</script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
@@ -227,30 +244,7 @@
     })
 </script>
 <![endif]-->
-<script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?89dd1f990c05c43f2e5083436e9ae887";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-5478298-1']);
-    _gaq.push(['_setDomainName', 'luoo.net']);
-    _gaq.push(['_trackPageview']);
 
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-</script>
 
 </body>
 </html>

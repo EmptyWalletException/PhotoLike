@@ -1,13 +1,7 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.Essay;
-import com.kingguanzhang.toptalk.entity.Story;
-import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.entity.UserFavorite;
-import com.kingguanzhang.toptalk.repositories.EssayRepository;
-import com.kingguanzhang.toptalk.repositories.StoryRepository;
-import com.kingguanzhang.toptalk.repositories.TopicRepository;
-import com.kingguanzhang.toptalk.repositories.UserFavoriteRepository;
+import com.kingguanzhang.toptalk.entity.*;
+import com.kingguanzhang.toptalk.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -18,26 +12,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserFavoriteServiceImpl {
+public class PraiseServiceImpl {
     
     @Autowired
-    private UserFavoriteRepository userFavoriteRepository;
-
+    private PraiseRepository praiseRepository;
     @Autowired
     private StoryRepository storyRepository;
     @Autowired
     private TopicRepository topicRepository;
     @Autowired
     private EssayRepository essayRepository;
+    @Autowired
+    private EventRepository eventRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * 分页查询所有;
      * @return
      */
-    public Page<UserFavorite> findAll(Pageable pageable){
-        Page<UserFavorite> page;
+    public Page<Praise> findAll(Pageable pageable){
+        Page<Praise> page;
         try {
-            page = userFavoriteRepository.findAll(pageable);
+            page = praiseRepository.findAll(pageable);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("查询数据库字段时出现异常");
@@ -47,15 +44,15 @@ public class UserFavoriteServiceImpl {
     }
 
     /**
-     * 查询用户收藏的story,分页并排序;
+     * 查询用户点赞过的story,分页并排序;
      * @param userId
      * @param pageable
      * @return
      */
-    public Page<Story> findFavoriteStory(Long userId,Pageable pageable){
+    public Page<Story> findPraiseStory(Long userId, Pageable pageable){
         Page<Story> story;
         try {
-            story = storyRepository.findFavoriteStory(userId, pageable);
+            story = storyRepository.findPraiseStory(userId, pageable);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("查询数据库字段时出现异常");
@@ -65,15 +62,15 @@ public class UserFavoriteServiceImpl {
     }
 
     /**
-     * 查询用户收藏的topic,分页并排序;
+     * 查询用户点赞的topic,分页并排序;
      * @param userId
      * @param pageable
      * @return
      */
-    public Page<Topic> findFavoriteTopic(Long userId,Pageable pageable){
+    public Page<Topic> findPraiseTopic(Long userId, Pageable pageable){
         Page<Topic> topic;
         try {
-            topic = topicRepository.findFavoriteTopic(userId, pageable);
+            topic = topicRepository.findPraiseTopic(userId, pageable);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("查询数据库字段时出现异常");
@@ -84,15 +81,15 @@ public class UserFavoriteServiceImpl {
 
 
     /**
-     * 查询用户收藏的essay,分页并排序;
+     * 查询用户点赞的essay,分页并排序;
      * @param userId
      * @param pageable
      * @return
      */
-    public Page<Essay> findFavoriteEssay(Long userId, Pageable pageable){
+    public Page<Essay> findPraiseEssay(Long userId, Pageable pageable){
         Page<Essay> topic;
         try {
-            topic = essayRepository.findFavoriteEssay(userId, pageable);
+            topic = essayRepository.findPraiseEssay(userId, pageable);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("查询数据库字段时出现异常");
@@ -106,10 +103,10 @@ public class UserFavoriteServiceImpl {
      * @param id
      * @return
      */
-    public UserFavorite findById(Long id){
-        Optional<UserFavorite> temp = userFavoriteRepository.findById(id);
+    public Praise findById(Long id){
+        Optional<Praise> temp = praiseRepository.findById(id);
         if (temp.isPresent()){
-            return temp.get();
+            return temp.get();  
         }
         return null;
     }
@@ -119,8 +116,8 @@ public class UserFavoriteServiceImpl {
      * @param example
      * @return
      */
-    public UserFavorite findOne(Example<UserFavorite> example){
-        Optional<UserFavorite> temp = userFavoriteRepository.findOne(example);
+    public Praise findOne(Example<Praise> example){
+        Optional<Praise> temp = praiseRepository.findOne(example);
         if (temp.isPresent()){
             return temp.get();
         }else {
@@ -134,8 +131,8 @@ public class UserFavoriteServiceImpl {
      * @param pageable
      * @return
      */
-    public Page<UserFavorite> findAllByExample(Example<UserFavorite> example, Pageable pageable){
-        Page<UserFavorite> page = userFavoriteRepository.findAll(example, pageable);
+    public Page<Praise> findAllByExample(Example<Praise> example, Pageable pageable){
+        Page<Praise> page = praiseRepository.findAll(example, pageable);
         return page;
     }
 
@@ -144,8 +141,8 @@ public class UserFavoriteServiceImpl {
      * @param list
      * @return
      */
-    public List<UserFavorite> findAllById(List<Long> list){
-        List<UserFavorite> allById = userFavoriteRepository.findAllById(list);
+    public List<Praise> findAllById(List<Long> list){
+        List<Praise> allById = praiseRepository.findAllById(list);
         return allById;
     }
 
@@ -153,12 +150,12 @@ public class UserFavoriteServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    public void save(UserFavorite object){
+    public void save(Praise object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         try {
-            userFavoriteRepository.save(object);
+            praiseRepository.save(object);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("更新数据库字段时出现异常");
@@ -169,13 +166,13 @@ public class UserFavoriteServiceImpl {
      * 持久化并返回id;注意此方法不要用在批量持久化中,会出现id重复的异常;
      * @param object
      */
-    public long saveAndFlush(UserFavorite object){
+    public long saveAndFlush(Praise object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
         Long id=null;
         try {
-            UserFavorite temp = userFavoriteRepository.saveAndFlush(object);
+            Praise temp = praiseRepository.saveAndFlush(object);
             id = temp.getId();
         }catch (Exception e){
             e.printStackTrace();
@@ -188,12 +185,12 @@ public class UserFavoriteServiceImpl {
      * 持久化所有;
      * @param list
      */
-    public void saveAll(List<UserFavorite> list){
+    public void saveAll(List<Praise> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         try {
-            userFavoriteRepository.saveAll(list);
+            praiseRepository.saveAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("持久化数据库字段时出现异常");
@@ -209,7 +206,7 @@ public class UserFavoriteServiceImpl {
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            userFavoriteRepository.deleteById(id);
+            praiseRepository.deleteById(id);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -219,15 +216,15 @@ public class UserFavoriteServiceImpl {
 
 
     /**
-     * 删除收藏的topic;
+     * 删除点赞的topic;
      *
      */
-    public void deleteFavoriteTopic(Long userId,Long topicId){
+    public void deletePraiseTopic(Long userId,Long topicId){
         if (null == userId || null == topicId){
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            userFavoriteRepository.deleteFavoriteTopic(userId,topicId);
+            praiseRepository.deletePraiseTopic(userId,topicId);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -235,15 +232,15 @@ public class UserFavoriteServiceImpl {
     }
 
     /**
-     * 删除收藏的essay;
+     * 删除点赞的essay;
      *
      */
-    public void deleteFavoriteEssay(Long userId,Long essayId){
+    public void deletePraiseEssay(Long userId,Long essayId){
         if (null == userId || null == essayId){
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            userFavoriteRepository.deleteFavoriteEssay(userId,essayId);
+            praiseRepository.deletePraiseEssay(userId,essayId);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -251,15 +248,31 @@ public class UserFavoriteServiceImpl {
     }
 
     /**
-     * 删除收藏的story;
+     * 删除点赞的story;
      *
      */
-    public void deleteFavoriteStory(Long userId,Long storyId){
+    public void deletePraiseStory(Long userId,Long storyId){
         if (null == userId || null == storyId){
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            userFavoriteRepository.deleteFavoriteStory(userId,storyId);
+            praiseRepository.deletePraiseStory(userId,storyId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+    /**
+     * 删除点赞的story;
+     *
+     */
+    public void deletePraiseComment(Long userId,Long commentId){
+        if (null == userId || null == commentId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            praiseRepository.deletePraiseComment(userId,commentId);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -270,12 +283,12 @@ public class UserFavoriteServiceImpl {
      * 删除所有;
      * @param list
      */
-    public void deleteAll(List<UserFavorite> list){
+    public void deleteAll(List<Praise> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
         try{
-            userFavoriteRepository.deleteAll(list);
+            praiseRepository.deleteAll(list);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");
@@ -287,7 +300,7 @@ public class UserFavoriteServiceImpl {
      * @return
      */
     public Long count(){
-        long count = userFavoriteRepository.count();
+        long count = praiseRepository.count();
         return count;
     }
 
@@ -296,8 +309,8 @@ public class UserFavoriteServiceImpl {
      * @param example
      * @return
      */
-    public Long countByExample(Example<UserFavorite> example){
-        long count = userFavoriteRepository.count(example);
+    public Long countByExample(Example<Praise> example){
+        long count = praiseRepository.count(example);
         return count;
     }
 }

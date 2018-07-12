@@ -21,4 +21,14 @@ public interface EssayRepository extends JpaRepository<Essay,Long> {
     @Query(nativeQuery = true, value = "select * from essay where id in (select essay_id from user_favorite where user_id = :userId order by id desc)",
             countQuery = "select count(*) from essay where id in (select essay_id from user_favorite where user_id = :userId)")
     Page<Essay> findFavoriteEssay(@Param("userId")Long userId, Pageable pageable);
+
+    /**
+     * 自定义查询语句,查询出用户点赞的essay并且分页排序;
+     * @param userId
+     * @param pageable
+     * @return
+     */
+    @Query(nativeQuery = true, value = "select * from essay where id in (select distinct essay_id from praise where user_id = :userId order by id desc)",
+            countQuery = "select count(*) from essay where id in (select distinct essay_id from praise where user_id = :userId)")
+    Page<Essay> findPraiseEssay(@Param("userId")Long userId, Pageable pageable);
 }

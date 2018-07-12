@@ -1,3 +1,11 @@
+
+
+function check_login(a) {
+    $.luoo.get(url("login/user"), "", function (b) {
+        b.status ? ($("#loggedOutWrapper").hide(), $("#loggedInWrapper").html(b.msg).show(), $("#commentAvatarHolder").attr("href", $.luoo.root + "/user/" + b.data.uid), $("#commentAvatarHolder img").attr("src", b.data.user_avatar), $("#commentForm").data("login", 1), $("#lnActiveTip").tip("", !1)) : "undefined" != typeof a ? ($("#loggedOutWrapper").hide(), $("#loggedInWrapper").html(b.msg).show(), $("#commentForm").data("login", 0)) : ($("#loggedOutWrapper").show(), $("#loggedInWrapper").html("").hide(), $("#commentAvatarHolder").attr("href", "javascript:;"), $("#commentAvatarHolder img").attr("src", $.luoo.url_static + "/img/avatar.gif"), $("#commentForm").data("login", 0))
+    })
+}
+
 function common_ajax_callback(a) {
     if (a.msg) {
         var b = '<p style="margin-bottom: 10px;">' + a.msg + "</p>";
@@ -48,11 +56,7 @@ function login_cback(a, b) {
     }, 1e3)) : (b.find(".btn-login-submit").hide(), b.find(".btn-login-msg").text(a.msg).show())
 }
 
-function check_login(a) {
-    $.luoo.get(url("login/user"), "", function (b) {
-        b.status ? ($("#loggedOutWrapper").hide(), $("#loggedInWrapper").html(b.msg).show(), $("#commentAvatarHolder").attr("href", $.luoo.root + "/user/" + b.data.uid), $("#commentAvatarHolder img").attr("src", b.data.user_avatar), $("#commentForm").data("login", 1), $("#lnActiveTip").tip("", !1)) : "undefined" != typeof a ? ($("#loggedOutWrapper").hide(), $("#loggedInWrapper").html(b.msg).show(), $("#commentForm").data("login", 0)) : ($("#loggedOutWrapper").show(), $("#loggedInWrapper").html("").hide(), $("#commentAvatarHolder").attr("href", "javascript:;"), $("#commentAvatarHolder img").attr("src", $.luoo.url_static + "/img/avatar.gif"), $("#commentForm").data("login", 0))
-    })
-}
+
 
 function head_register_cback(a, b) {
     b.data("disabled", 0), a.status ? (b.find(".btn-register-submit").hide(), b.find(".btn-register-msg").text(a.msg).show(), setTimeout(function () {
@@ -1574,7 +1578,7 @@ function html_encode(a) {
                     c && (c = c.split(" ")[1].split(","), b = parseInt(c[0], 10) + "." + parseInt(c[1], 10))
                 }
             } catch (d) {
-            } else navigator.plugins && navigator.mimeTypes.length > 0 && (a = navigator.plugins["Shockwave Flash"], a && (b = navigator.plugins["Shockwave Flash"].description.replace(/.*\s(\d+\.\d+).*/, "$1")));
+            } else navigator.plugins && navigator.mimeTypes.length > 0 && (a = navigator.plugins["Shockwave Flash"], a && (b = navigator.plugins["Shockwave Flash"].description.replace(/.*\s(\d+\.\d+).*!/, "$1")));
             return 1 * b
         },
         _checkForFlash: function (a) {
@@ -2194,14 +2198,8 @@ function html_encode(a) {
         $("#frmMail").submit()
     }), $("body").on("click", "#btnCancleMail", function () {
         $.luoo.close_msg()
-    }), $.luoo.qrcode = new QRCode("qrcodeContent", {
-        text: "http://www.luoo.net/",
-        width: 240,
-        height: 240,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-    }), $("body").on("click", ".btn-show-qr", function (a) {
+    }),  $("body").on("click", ".btn-show-qr", function (a) {
         a.preventDefault(), $.luoo.qrcode.clear(), $.luoo.qrcode.makeCode($(this).data("href")), $.luoo.msg("分享到朋友圈", $("#qrcodeWrapper").html(), void 0, "#000", void 0, 250), $.luoo.destroy_tip()
     })
 });
+

@@ -36,6 +36,103 @@ public class CommentController {
     private EssayServiceImpl essayService;
     @Autowired
     private StoryServiceImpl storyService;
+    @Autowired
+    private PraiseServiceImpl praiseService;
+
+    /**
+     * ajax点赞操作;
+     * @param request
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/comment/json/praise",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg praiseComment(HttpServletRequest request,@RequestParam("commentId")String commentId){
+        /**
+         * 判断session中是否有user,没有则返回到错误页面或重新登录界面;
+         */
+        if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("用户未登录或登录已超时,请重新登录后再评论!");
+        }
+
+        /**
+         * 判断是否是重复点赞;
+         */
+        User user = (User) request.getSession().getAttribute("user");
+        Praise praise = new Praise();
+        praise.setCommentId(Long.parseLong(commentId));
+        praise.setUserId(user.getId());
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("topicId").withIgnorePaths("id").withIgnorePaths("essayId").withIgnorePaths("storyId").withIgnorePaths("eventId");
+        Example<Praise> example = Example.of(praise,exampleMatcher);
+        Pageable pageable = new PageRequest(0,2);//只需要查出一个就能判断是重复的;
+        Page<Praise> allByExample = praiseService.findAllByExample(example, pageable);
+        if (allByExample.hasContent()){
+            return Msg.success().setMsg("您已经赞过了");
+        }
+        /**
+         * 如果没有重复点赞,则保存此次操作;
+         */
+        try{
+            praiseService.save(praise);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Msg.fail().setMsg("操作失败,请尝试刷新后重试");
+        }
+
+        /**
+         * 查询Comment信息并将点赞数+1;
+         */
+        try {
+            Comment comment = commentService.findById(Long.parseLong(commentId));
+            long praiseNumber = comment.getPraiseNumber();
+            comment.setPraiseNumber(praiseNumber + 1);
+            commentService.save(comment);
+        }catch (Exception e){
+            return Msg.fail().setMsg("更新点赞总数时发生异常");
+        }
+        return Msg.success().setMsg("点赞成功");
+    }
+
+    /**
+     * ajax取消点赞操作;
+     * @param request
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/comment/json/cancelPraise",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg cancelPraiseComment(HttpServletRequest request,@RequestParam("commentId")String commentId){
+        /**
+         * 判断session中是否有user,没有则返回到错误页面或重新登录界面;
+         */
+        if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("用户未登录或登录已超时,请重新登录后再评论!");
+        }
+
+        /**
+         * 删除数据库中的点赞记录;
+         */
+        User user = (User) request.getSession().getAttribute("user");
+        try {
+            praiseService.deletePraiseComment(user.getId(),Long.parseLong(commentId));
+        }catch (Exception e){
+            return Msg.fail().setMsg("操作失败,刷新后再重试");
+        }
+
+        /**
+         * 查询Comment信息并将点赞数-1;
+         */
+        try {
+            Comment comment = commentService.findById(Long.parseLong(commentId));
+            long praiseNumber = comment.getPraiseNumber();
+            comment.setPraiseNumber(praiseNumber -1);
+            commentService.save(comment);
+        }catch (Exception e){
+            return Msg.fail().setMsg("更新点赞总数时发生异常");
+        }
+        return Msg.success().setMsg("取消点赞成功");
+    }
+
 
     /**
      * ajax回复父评论;
@@ -178,7 +275,8 @@ public class CommentController {
      */
     @RequestMapping(value = "/comment/json/subcomments",method = RequestMethod.POST)
     @ResponseBody
-    public Msg getSubComment(@RequestParam("supcommentIds")String supcommentIds, @RequestParam(value = "pn",defaultValue = "1")Integer pn){
+    public Msg getSubComment(HttpServletRequest request,@RequestParam("supcommentIds")String supcommentIds, @RequestParam(value = "pn",defaultValue = "1")Integer pn){
+
         /**
          * 处理字符串参数
          */
@@ -194,6 +292,19 @@ public class CommentController {
         Example<Comment> example;
         Pageable pageable;
         Page<Comment> subCommentPage;
+
+        /**
+         * 初始化查询点赞的模板,返回一个记录当前页被收藏的评论Id的拼接字符串
+         */
+        String praiseCommentIds = "";
+        User user ;
+        Praise praise = new Praise();
+        if (null != request.getSession().getAttribute("user")){
+            user = (User) request.getSession().getAttribute("user");
+            praise.setUserId(user.getId());
+        }
+
+
         //开始遍历,每遍历出一个id就查一次数据库
         for (String supcommentId:split){
             long id = Long.parseLong(supcommentId);
@@ -202,7 +313,7 @@ public class CommentController {
              */
             comment.setSupcommentId(id);
             //创建匹配器,设置匹配规则
-            exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");//注意需要忽略id,因为id是long类型,默认值不是null而是0;
+            exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("praiseNumber");//注意需要忽略id,因为id是long类型,默认值不是null而是0;忽略掉点赞状态;
             //创建example对象,传入查询对象和匹配器
             example= Example.of(comment,exampleMatcher);
 
@@ -214,12 +325,32 @@ public class CommentController {
              */
             if (null != subCommentPage && subCommentPage.hasContent()){
                 subcommentPageMap.put(id,subCommentPage);
+                /**
+                 * 如果查出,则继续查子评论是否被当前用户点赞;
+                 */
+                for (Comment subcomment:subCommentPage){
+                    praise.setCommentId(subcomment.getId());
+                    ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("topicId").withIgnorePaths("storyId").withIgnorePaths("essayId").withIgnorePaths("eventId");
+                    Example<Praise> example2 = Example.of(praise,exampleMatcher2);
+                    Pageable pageable1 = new PageRequest(0,2);
+                    if (praiseService.findAllByExample(example2,pageable1).hasContent()){
+                        praiseCommentIds = praiseCommentIds+subcomment.getId()+ ",";
+                    }
+                }
+
             }
+
+
+
         }
         if (null == subcommentPageMap){
             return Msg.fail().setMsg("没有查询到任何子评论");
         }
-        return Msg.success().add("subcommentPageMap",subcommentPageMap);
+        if ("" != praiseCommentIds){
+            praiseCommentIds = praiseCommentIds.substring(0,praiseCommentIds.lastIndexOf(","));
+        }
+
+        return Msg.success().add("subcommentPageMap",subcommentPageMap).add("praiseCommentIds",praiseCommentIds);
 
     }
 }

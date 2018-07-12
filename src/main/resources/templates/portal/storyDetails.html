@@ -19,11 +19,7 @@
     <script src="/js/jquery-1.11.0.min.js"></script>
     <script src="/js/myComment.js"></script>
     <script src="/js/luoo.js"></script>
-    <script>
-        if ($.luoo.browser()['ie'] && $.luoo.browser()['version'] < 8) {
-            window.location.href = 'http://www.luoo.net/browser_not_supported/';
-        }
-    </script>
+
 </head>
 <body>
 
@@ -201,15 +197,16 @@
                         <!--父评论的操作按钮-->
                         <div class="helper clearfix" >
                             [[${#dates.format(comment.creatTime,'yyyy-MM-dd')}]]
-                            <a data-res="597380" data-app="5" data-tipid="commentVoteDialog597380" data-width="235"
-                               class="btn-vote btn-action-vote" href="javascript:void(0);" rel="nofollow"><i
-                                    class="icon-vote"></i> <span>赞</span></a>
+                            <!--点赞区域,根据不同的状态显示不同的按钮-->
+                            <a commentId="2"  th:attr="commentId=${comment.id}" data-width="235"
+                               class="btn-vote btn-action-praise" href="javascript:void(0);" rel="nofollow"><i
+                                    class="icon-vote" ></i> <span>赞</span></a>
                             <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res=""
                                data-user="秋刀鱼-" th:attr="data-user=${comment.author.nickname}">
                                 <span class="icon-reply"></span>
                                 回复
                             </a>
-                            <span class="vote-count" >0赞</span>
+                            <span class="vote-count" >[[${comment.praiseNumber}]]赞</span>
                         </div>
 
                         <!--子评论撰写框-->
@@ -277,10 +274,13 @@
 
             </div>
     </div>
+    <!--用于储存后台传送过来的记录被点赞的评论的id拼接字符串-->
+    <input type="hidden" th:value="${praiseCommentIds}" id="praiseCommentIds">
+
     <!--/// comment-wrapper end -->
 </div>
 <!--/// container end -->
-<script>
+<!--<script>
     try {
         var pl = "U2FsdGVkX18gQ/AqEv9x5Gx12ei2embVjY4/fPZTTEEqa2jufkw3jFYiu2dsHfrYm7Re+R3r8ELDTpN36s/9FfKFZJxlNlpVShmOyQLATn9yviwKZ7g5yEv7VRKFAtIwp9imjspQcD54i+f01ttS0QpVde8TqRSsJHeYwyLZx09SVZszIpwePatYWwcnCYPdnsyidpBITtbIdI/jf7CMda1/DPX/HCCjpFt4GMnbN+NyYRKg75pqLJPc3FFwDb5+4gyXMaqMnqXJEvFJR4+IUCBsdz8+lSC4SUaqgCoEJd48pqO+r1HksVzR5C0UjJLnmPm88NxA5aZuwumu+0FMJri4/0M+E6XKfjmTm1bcTE/LY4a5m7wYtekLiCkgwlqymEjPyZncrbV+RYU87sU5WAL2DxoknAvjckJ8wG3Ec7AGj8xdsSod7JQKi5sQVrA/E3kF/r2uW+eoF4LqHJkYUD9QnJ22Kt2UUQuBhMqdUfcs2NYgxONz3OnGc6RdDAvU7UEzXdhlhHAks33kkhJVQbTNnIz0xtK1/G9WiHCCEde7jJ/nFgNI6mM2TFU1pEttV3BRM6cJb/kxisvMpx3wofx3VvCCUBAHJfjMFsVYTkHaF65yErTCVZLlkdMpxWq1Aws3XdHQZ2Md2UHydHmqu0mm2NoDWiwtrl30TxcNSxSbqJYC61lWglmtdKkkYp9NsoqtV+HR1LhzEZrxd2hDz4hE9d4fm6tZl5z3CviHer69ZLbHU7X6MCfwmyY5vTziGvAhV3GbVkpPXRf5vHAPJIrkRKmOPO83leJ6GU0Ehv2wvaLaimXz6WjiA0mcJym2UoxkPwLj55dItP0amddZvTMljavxD6oLiHZs66kmJTW1Edu3lQaEAWnEVigzDJYtIDHgDMbvcNW2WV+7Pao25zhcOK8WR7/wN/6SK/SaRtIOGBT3KB+uj/rB+2hb6F0wj4n9fpdXtJPWeGE4eO2P2ucW979hnO090NPpn/RdeHCGEp5DQCJCa74N0umi7N3T6iAmkUhe77b6Y5BqhMZkt0wxbuiyUqHgfbEPWq6II7+8V5/rzxHcxo5bKYSDpSy+KXt8o7AAQvMqLwvfZAw0ZAJDXh09prunoSGcuD+ynlXoOPZq3wGjIb5eC8AAyfcmlYobyG6nz9+LqvyyHPXVh+rWk9jt/t6d6yLsjCZPi9wWL5h3htXx/9kudrjOyCdZXmoTXjmutqqJgg1irlN3hWsr8tidzzNKw1Fq/u+bbfAatWoSCPui4mV8CkzqeiiUvX1VFh8IoK4yNMaY3eNDqa2kSjEVs+wROY5/RT3YtXYSuP9Cu+bRp1Lwj3Dvs8UDuYXLv3XMmSbx5Yn8UuKNmxA7rdfxb85A567rMJRHURxf0FmVmMfWTowi7NtXHAJUeonCXBs8cEhhUfmDjJoTFV70MaRfuABGs8XmyRrkI3qEb8bMg4I+OslFCtdFaD/yuwGk0ABK1/c1wngzeI0+js9pDAc58rEyfIZCTtwfDzrw+GtwbkD5vv78in6ze6/JCt+SduSviFsGHlcpnkjYKbX3FRSrUBNO6jxuClctJSSyQc64VoI7kZxHpkxdH1LR1LH/ddTkb/l0uBFplg+0Gh3Itves8ZyoyCtcKkyy4o3s8TrtPGTGOzhiUBBOy5Q6LJPsnPYn2E91yFzP8GRFCjH0WcwFMtNsGf/jEom9XA13oLjf0zzCMJYpjE8UyiAiY+syyd1Gq5VhzCzIhXeyADkEA9Nyk9LpGV5OpWNGMsw=";
         var luooPlayer;
@@ -322,7 +322,7 @@
             $.luoo.tip(json.msg);
         }
     }
-</script>
+</script>-->
 <script src="/js/underscore-min.js"></script>
 <script src="/js/backbone-min.js"></script>
 <script src="/js/favorite.js"></script>
@@ -339,7 +339,7 @@
 
 </div>
 <!--底部结束-->
-<img src="/img/loading_W.gif" style="display:none;">
+<!--<img src="/img/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
     <div id="qrcodeContent" class="qrcode-content" title="http://www.luoo.net/">
         <canvas width="240" height="240" style="display: none;"></canvas>
@@ -386,12 +386,28 @@
         cfg: {"auto_play": true, "aes": "b6ce159334e155d8"}
     });
     $('#txtFeedbackRef').val(document.location.href);
-</script>
+</script>-->
 
 <script src="/js/jquery.artDialog.js"></script>
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+
+<!--判断父评论是否被点赞并显示不同状态的代码-->
+<script>
+    $(function () {
+        var praiseCommentIds= $("#praiseCommentIds").val();
+        if ("" != praiseCommentIds.trim()){
+            /*alert(favEssayIds);*/
+            var ids =praiseCommentIds.split(',');
+            for(var index in ids){
+                var ele =".btn-vote[commentId='"+ids[index]+"']";
+                $(ele).attr("class","btn-vote btn-action-praised");
+                $(ele).children("i").attr("class","icon-vote-actived");
+            }
+        }
+    });
+</script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
@@ -407,30 +423,6 @@
     })
 </script>
 <![endif]-->
-<script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?89dd1f990c05c43f2e5083436e9ae887";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-5478298-1']);
-    _gaq.push(['_setDomainName', 'luoo.net']);
-    _gaq.push(['_trackPageview']);
-
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-</script>
 
 </body>
 </html>
