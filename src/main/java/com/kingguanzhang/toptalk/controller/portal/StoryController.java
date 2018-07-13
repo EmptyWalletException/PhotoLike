@@ -44,14 +44,22 @@ public class StoryController {
          * 获取所有故事,分页并排序;
          */
         Pageable pageable = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
-        Page<Story> storyPage = storyService.findAll(pageable);
+        Story allStory = new Story();
+        allStory.setStatus(1);//查出通过审核的状态为展示的故事;
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id","collectNumber","commentNumber");//long类型的需要忽略;
+        Example<Story> example = Example.of(allStory,exampleMatcher);
+        Page<Story> storyPage = storyService.findAllByExample(example,pageable);
         model.addAttribute("storyPage",storyPage);
 
         /**
          * 获取5个最热故事,即收藏数最多的故事;
          */
         Pageable pageable2 = new PageRequest(0,5,new Sort(Sort.Direction.DESC,"collectNumber"));
-        Page<Story> hotStoryPage = storyService.findAll(pageable2);
+        Story hotStory = new Story();
+        hotStory.setStatus(1);//查出通过审核的状态为展示的故事;
+        ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id","collectNumber","commentNumber");//long类型的需要忽略;
+        Example<Story> example2 = Example.of(hotStory,exampleMatcher2);
+        Page<Story> hotStoryPage = storyService.findAllByExample(example2,pageable2);
         model.addAttribute("hotStoryPage",hotStoryPage);
 
         return "/portal/story";
@@ -70,6 +78,7 @@ public class StoryController {
         /**
          * 判断收藏状态,返回一个名为favStatus 的布尔值给页面;
          */
+
         Boolean favStrtus = false;
         if (null != request.getSession().getAttribute("user")){
             User user = (User) request.getSession().getAttribute("user");
@@ -86,7 +95,23 @@ public class StoryController {
         model.addAttribute("favStatus",favStrtus);
 
         Story story = storyService.findById(Long.parseLong(storyId));
-        model.addAttribute("story",story);
+        if (null == story){
+            return "error";// TODO 需要完成错误页面 提示此稿件未找到:
+        }else {
+            /**
+             * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
+             */
+            if(1 == story.getStatus() || null != request.getSession().getAttribute(("admin"))){
+                model.addAttribute("story",story);
+            }else if (null != request.getSession().getAttribute("user")){
+                User user = (User) request.getSession().getAttribute("user");
+                if (user.getId() == story.getAuthor().getId()){
+                    model.addAttribute("story",story);
+                }
+            }else {
+                return "error"; // TODO 需要完成错误页面 提示没有权限访问此稿件:
+            }
+        }
 
 
         /**

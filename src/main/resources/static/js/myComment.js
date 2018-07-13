@@ -208,7 +208,7 @@ function loadSubcomment(supcommentId,pageNum){
 
 function initPraiseStatus(praiseCommentIds){
     <!--判断子评论是否被点赞并显示不同状态的代码-->
-    if ("" != praiseCommentIds.trim()){
+    if (undefined != praiseCommentIds && "" != praiseCommentIds.trim()){
         /*alert(favEssayIds);*/
         var ids =praiseCommentIds.split(',');
         for(var index in ids){

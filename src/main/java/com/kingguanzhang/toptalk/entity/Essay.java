@@ -11,6 +11,7 @@ public class Essay {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private  String title;
+    private Integer status;//稿件状态 1为展示,0为隐藏;默认为0;
     private String content;
     private Date creatTime;
     private String imgAddr;
@@ -39,6 +40,13 @@ public class Essay {
     List<User> users;//多对多;收藏了此随笔的用户;*/
 
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public long getId() {
         return id;

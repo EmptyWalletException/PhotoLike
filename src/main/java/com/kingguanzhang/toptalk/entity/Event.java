@@ -13,6 +13,7 @@ public class Event {
     private String name ;
     private Date time;
     private String money;
+    private Integer status;//稿件状态 1为展示,0为隐藏;默认为0;
     private String location;//活动具体场所
     private String theme;//活动主题;
     private String content;
@@ -35,6 +36,13 @@ public class Event {
     *//*@JoinColumn(name = "event_id")*//*
     private List<Photo> photos;//包括缩略图和内容图;*/
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getCoverImgAddr() {
         return coverImgAddr;

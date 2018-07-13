@@ -22,6 +22,17 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
     Page<Topic> findByCategoryId(@Param("categoryId")Long categoryId,Pageable pageable);
 
     /**
+     * 自定义查询语句,通过categoryId和状态Status查询出所有topic并且分页排序;
+     * @param categoryId
+     * @param pageable
+     * @return
+     */
+    @Query(nativeQuery = true, value = "select * from topic where  category_id= :categoryId and status = :status",//ORDER BY ?#{#pageable}
+            countQuery = "select count(*) from topic  where  category_id= :categoryId and status = :status")
+    Page<Topic> findAllByCategoryIdAndStatus(@Param("categoryId")Long categoryId,@Param("status")Integer status,Pageable pageable);
+
+
+    /**
      * 自定义查询语句,查询出用户收藏的topic并且分页排序;
      * @param userId
      * @param pageable

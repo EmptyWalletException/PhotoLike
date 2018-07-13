@@ -74,7 +74,7 @@
 						</div>
 						<div class="clearfix">
 							<span class="time">2018-06-21</span>
-							<a href="javascript:;" rel="nofollow" class="unfav btn-action-like btn-unfav" data-id="921" data-type="essay" data-cback="vol_unlike_cback" data-confirm="确定取消收藏该文章吗？">
+							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}">
 								<i class="icon icon-trash"></i> 删除
 							</a>
 							<a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="921" data-text="这篇文章值得一读【Seas of Years : 带你三十秒潜入海底，穿越大洋 】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/essays/201711/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp">
@@ -139,6 +139,7 @@
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+<script src="/js/contribution.js"></script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>

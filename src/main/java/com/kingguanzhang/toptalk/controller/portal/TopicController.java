@@ -75,22 +75,43 @@ public class TopicController {
          * 获取指定id的topic;这里需要处理一下内容图片的地址字符串;
          */
         Topic topic = topicService.findById(Long.parseLong(id));
+        if (null == topic){
+            return "error";// TODO 需要完成错误页面 提示此稿件未找到:
+        }
+
         if (null != topic.getContentImgsAddr()){
             String contentImgsAddr = topic.getContentImgsAddr();
             String[] imgAddrArry = contentImgsAddr.split(",");
-            List<String> imgAddrLisg = new ArrayList<>();
+            List<String> imgAddrList = new ArrayList<>();
             for (String imgAddr:imgAddrArry){
-                imgAddrLisg.add(imgAddr);
+                imgAddrList.add(imgAddr);
             }
-            topic.setImgAddrList(imgAddrLisg);
+            topic.setImgAddrList(imgAddrList);
         }
-        model.addAttribute("topic",topic);
+        /**
+         * 限制浏览者只能浏览状态为1的topic,除非浏览者是作者或管理员
+         */
+        if(1 == topic.getStatus() || null != request.getSession().getAttribute(("admin"))){
+            model.addAttribute("topic",topic);
+        }else if (null != request.getSession().getAttribute("user")){
+            User user = (User) request.getSession().getAttribute("user");
+            if (user.getId() == topic.getAuthor().getId()){
+                model.addAttribute("topic",topic);
+            }
+        }else {
+            return "error"; // TODO 需要完成错误页面 提示没有权限访问此稿件:
+        }
+
 
         /**
          * 获取热专栏,只显示5个;
          */
         Pageable pageable3 = new PageRequest(0,5,  new Sort(Sort.Direction.DESC,"collectNumber"));
-        Page<Topic> hotTopicPage = topicService.findAll(pageable3);
+        Topic hotTopic = new Topic();
+        hotTopic.setStatus(1);//查出通过审核的状态为展示的专辑;
+        ExampleMatcher exampleMatcher3 = ExampleMatcher.matching().withIgnorePaths("id","collectNumber","commentNumber");//long类型的需要忽略;
+        Example<Topic> example3 = Example.of(hotTopic,exampleMatcher3);
+        Page<Topic> hotTopicPage = topicService.findAllByExample(example3,pageable3);
         model.addAttribute("hotTopicPage",hotTopicPage);
 
         /** 新方案中规范每个topic只对应一个分类,所以可以通过级联查询出分类;
@@ -157,7 +178,11 @@ public class TopicController {
          * 获取热门专栏
          */
         Pageable pageable3 = new PageRequest(0,5,  new Sort(Sort.Direction.DESC,"collectNumber"));
-        Page<Topic> hotTopicPage = topicService.findAll(pageable3);
+        Topic hotTopic = new Topic();
+        hotTopic.setStatus(1);//查出通过审核的状态为展示的专辑;
+        ExampleMatcher exampleMatcher3 = ExampleMatcher.matching().withIgnorePaths("id","collectNumber","commentNumber");//long类型的需要忽略;
+        Example<Topic> example3 = Example.of(hotTopic,exampleMatcher3);
+        Page<Topic> hotTopicPage = topicService.findAllByExample(example3,pageable3);
         model.addAttribute("hotTopicPage",hotTopicPage);
 
         /**
@@ -175,14 +200,18 @@ public class TopicController {
              * 通过用户点击的分类获取topic
              */
             Pageable pageable1 = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
-            Page<Topic> topicPage = topicService.findAllByCategoryId( categoryId, pageable1);
+            Page<Topic> topicPage = topicService.findAllByCategoryIdAndStatus( categoryId,1, pageable1);//1 代表展示中的专辑;
             model.addAttribute("topicPage",topicPage);
         }else {
             /**
              * 获取所有的topic,用于在默认的没有选择分类的情况下;
              */
             Pageable pageable2 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
-            Page<Topic> topicPage = topicService.findAll(pageable2);
+            Topic allTopic = new Topic();
+            allTopic.setStatus(1);//查出通过审核的状态为展示的专辑;
+            ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id","collectNumber","commentNumber");//long类型的需要忽略;
+            Example<Topic> example2 = Example.of(allTopic,exampleMatcher2);
+            Page<Topic> topicPage = topicService.findAllByExample(example2,pageable2);
             model.addAttribute("topicPage",topicPage);
         }
 

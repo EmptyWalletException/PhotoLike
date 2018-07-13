@@ -14,6 +14,7 @@ public class Story {
     private String title;
     private String coverImgAddr;
     private Date creatTime;
+    private Integer status;//稿件状态 1为展示,0为隐藏;默认为0;
     private String subscribe;
     private String content;
     private long collectNumber;
@@ -26,6 +27,13 @@ public class Story {
     private User author;//废弃多对多及一对多级联功能后保留了此属性;
 
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     /**
      * 关于一对多与多对一;

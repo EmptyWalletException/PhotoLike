@@ -42,7 +42,11 @@ public class EssayServiceImpl {
      */
     public Essay findById(Long id){
         Optional<Essay> temp = essayRepository.findById(id);
-        return temp.get();
+        if (temp.isPresent()){
+            return temp.get();
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -52,7 +56,11 @@ public class EssayServiceImpl {
      */
     public Essay findOne(Example<Essay> example){
         Optional<Essay> temp = essayRepository.findOne(example);
-        return temp.get();
+        if (temp.isPresent()){
+            return temp.get();
+        }else {
+            return null;
+        }
     }
 
     /**

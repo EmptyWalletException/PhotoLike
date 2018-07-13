@@ -72,7 +72,7 @@
 						<div class="op-bar">
 							<span class="time">2018-06-21</span>
 
-							<a href="javascript:;" rel="nofollow" class="btn-action-like unfav" data-id="1373" data-type="vol" data-cback="vol_unlike_cback" data-confirm="确定取消收藏该期刊吗？">
+							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}">
 								<i class="icon icon-trash"></i>
 								删除
 							</a>
@@ -137,6 +137,7 @@
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+<script src="/js/contribution.js"></script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>

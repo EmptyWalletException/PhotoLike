@@ -27,6 +27,17 @@ public class TopicServiceImpl {
     }
 
     /**
+     * 自定义的查询方法,通过分类id和展示状态status分页查询所有topic;
+     * @param categoryId
+     * @param pageable
+     * @return
+     */
+    public Page<Topic> findAllByCategoryIdAndStatus(Long categoryId,Integer status,Pageable pageable){
+        Page<Topic> topicPage = topicRepository.findAllByCategoryIdAndStatus(categoryId,status, pageable);
+        return topicPage;
+    }
+
+    /**
      * 分页查询所有;
      * @return
      */
@@ -48,17 +59,12 @@ public class TopicServiceImpl {
      * @return
      */
     public Topic findById(long id){
-        Optional<Topic> temp = null ;
-        try{
-            temp = topicRepository.findById(id);
+        Optional<Topic> temp = topicRepository.findById(id);
+        if (temp.isPresent()){
             return temp.get();
-        }catch (Exception e){ //如果没有找到此id相关的记录,则返回最新的那条记录;
-            Pageable pageable = new PageRequest(0,10,new Sort(Sort.Direction.DESC,"id"));
-            Page<Topic> topicPage = findAll(pageable);
-            Topic topic = topicPage.getContent().get(0);
-            return topic;
+        }else {
+            return null;
         }
-
     }
 
     /**
@@ -68,7 +74,11 @@ public class TopicServiceImpl {
      */
     public Topic findOne(Example<Topic> example){
         Optional<Topic> temp = topicRepository.findOne(example);
-        return temp.get();
+        if (temp.isPresent()){
+            return temp.get();
+        }else {
+            return null;
+        }
     }
 
     /**

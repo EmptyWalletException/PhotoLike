@@ -10,10 +10,7 @@ import com.kingguanzhang.toptalk.service.EventServiceImpl;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +47,11 @@ public class EventController {
          * 最新活动,按id倒序,取出5个;
          */
         Pageable pageable2 = new PageRequest(0,5,new Sort(Sort.Direction.DESC,"id"));
-        Page<Event> newestEventPage = eventService.findAll(pageable2);
+        Event newestEvent = new Event();
+        newestEvent.setStatus(1);//查出通过审核的状态为展示的活动;
+        ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id");//long类型的需要忽略;
+        Example<Event> eventExample = Example.of(newestEvent,exampleMatcher2);
+        Page<Event> newestEventPage = eventService.findAllByExample(eventExample,pageable2);
         model.addAttribute("newestEventPage",newestEventPage);
 
         /**
@@ -68,6 +69,7 @@ public class EventController {
              * 通过用户点击的分类获取city
              */
             Pageable pageable3= new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
+            
             Page<Event> eventPage = eventService.findAllByCityId( cityId, pageable3);
             model.addAttribute("eventPage",eventPage);
         }else {
@@ -75,11 +77,14 @@ public class EventController {
              * 获取所有的city,用于在默认的没有选择分类的情况下;
              */
             Pageable pageable4 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
-            Page<Event> eventPage = eventService.findAll(pageable4);
+            Event allEvent = new Event();
+            allEvent.setStatus(1);//查出通过审核的状态为展示的活动;
+            ExampleMatcher exampleMatcher3 = ExampleMatcher.matching().withIgnorePaths("id");//long类型的需要忽略;
+            Example<Event> alleventExample = Example.of(allEvent,exampleMatcher3);
+            Page<Event> eventPage = eventService.findAllByExample(alleventExample,pageable4);
             model.addAttribute("eventPage",eventPage);
         }
         return "/portal/event";
-
 
     }
 
@@ -87,18 +92,29 @@ public class EventController {
      * 获取单个活动详情;
      */
     @RequestMapping("/event/{eventId}")
-    public String toEventDetailsPage(Model model, @PathVariable("eventId")Long eventId){
+    public String toEventDetailsPage(HttpServletRequest request,Model model, @PathVariable("eventId")Long eventId){
         /**
          * 根据用户点击的eventId取出event;
          */
         Event event = eventService.findById(eventId);
-        model.addAttribute("event",event);
+        /**
+         * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
+         */
+        if(1 == event.getStatus() || null != request.getSession().getAttribute(("admin"))){
+            model.addAttribute("event",event);
+        }else{
+            return "error"; // TODO 需要完成错误页面 提示没有权限访问此稿件:
+        }
 
         /**
          * 最新活动,按id倒序,取出5个;
          */
-        Pageable pageable2 = new PageRequest(1,10,new Sort(Sort.Direction.DESC,"id"));
-        Page<Event> newestEventPage = eventService.findAll(pageable2);
+        Pageable pageable2 = new PageRequest(0,5,new Sort(Sort.Direction.DESC,"id"));
+        Event newestEvent = new Event();
+        newestEvent.setStatus(1);//查出通过审核的状态为展示的活动;
+        ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id");//long类型的需要忽略;
+        Example<Event> eventExample = Example.of(newestEvent,exampleMatcher2);
+        Page<Event> newestEventPage = eventService.findAllByExample(eventExample,pageable2);
         model.addAttribute("newestEventPage",newestEventPage);
 
         return "/portal/eventDetails";

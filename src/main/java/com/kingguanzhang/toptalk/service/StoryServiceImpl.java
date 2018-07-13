@@ -42,7 +42,11 @@ public class StoryServiceImpl {
      */
     public Story findById(Long id){
         Optional<Story> temp = storyRepository.findById(id);
-        return temp.get();
+        if (temp.isPresent()) {
+            return temp.get();
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -52,7 +56,11 @@ public class StoryServiceImpl {
      */
     public Story findOne(Example<Story> example){
         Optional<Story> temp = storyRepository.findOne(example);
-        return temp.get();
+        if (temp.isPresent()) {
+            return temp.get();
+        }else {
+            return null;
+        }
     }
 
     /**

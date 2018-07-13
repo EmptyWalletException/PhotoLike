@@ -44,16 +44,24 @@ public class EssayController {
         /**
          * 根据收藏数倒序获取最热的随笔,分页并排序;
          */
-        Pageable pageable2 = new PageRequest(0,5,new Sort(Sort.Direction.DESC,"collectNumber"));
-        Page<Essay> hotEssayPage = essayService.findAll(pageable2);
+        Pageable pageable = new PageRequest(0,5,new Sort(Sort.Direction.DESC,"collectNumber"));
+        Essay hotEssay = new Essay();
+        hotEssay.setStatus(1);//查出通过审核的状态为展示的随笔;
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id","collectNumber");//long类型的需要忽略;
+        Example<Essay> example = Example.of(hotEssay,exampleMatcher);
+        Page<Essay> hotEssayPage =essayService.findAllByExample(example,pageable);
         model.addAttribute("hotEssayPage",hotEssayPage);
 
         /**
          * 获取所有的随笔,分页并排序;
          */
-        Pageable pageable = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
-        Page<Essay> essayPage = essayService.findAll(pageable);
-        model.addAttribute("essayPage",essayPage);
+        Pageable pageable2 = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
+        Essay allEssay = new Essay();
+        allEssay.setStatus(1);//查出通过审核的状态为展示的随笔;
+        ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id","collectNumber");//long类型的需要忽略;
+        Example<Essay> example2 = Example.of(allEssay,exampleMatcher2);
+        Page<Essay> allEssayPage =essayService.findAllByExample(example2,pageable2);
+        model.addAttribute("essayPage",allEssayPage);
 
         /**
          * 判断当前取出的随笔是否被用户收藏,返回一个记录当前页被收藏的随笔Id的拼接字符串
@@ -63,12 +71,12 @@ public class EssayController {
             User user = (User) request.getSession().getAttribute("user");
             UserFavorite userFavorite = new UserFavorite();
             userFavorite.setUserId(user.getId());
-            for(Essay temp:essayPage.getContent()){
+            for(Essay temp:allEssayPage.getContent()){
                 userFavorite.setEssayId(temp.getId());
-                ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("topicId").withIgnorePaths("storyId");
-                Example<UserFavorite> example = Example.of(userFavorite,exampleMatcher);
+                ExampleMatcher exampleMatcher3 = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("topicId").withIgnorePaths("storyId");
+                Example<UserFavorite> example3 = Example.of(userFavorite,exampleMatcher3);
                 Pageable pageable1 = new PageRequest(0,2);
-                if (userFavoriteService.findAllByExample(example,pageable1).hasContent()){
+                if (userFavoriteService.findAllByExample(example3,pageable1).hasContent()){
                     favEssayIds = favEssayIds+temp.getId() + ",";
                 }
             }
@@ -84,7 +92,26 @@ public class EssayController {
         if (null != request.getParameter("essayId")) {
             long essayId = Long.parseLong(request.getParameter("essayId"));
             Essay upEssay = essayService.findById(essayId);
-            model.addAttribute("upEssay",upEssay);
+            //判断当此id取不出记录时返回默认的置顶的随笔;
+            if (null == upEssay){
+                model.addAttribute("upEssay",hotEssayPage.getContent().get(0));
+            }else {
+                /**
+                 * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
+                 */
+                if (1 == upEssay.getStatus() || null != request.getSession().getAttribute(("admin"))) {
+                    model.addAttribute("upEssay", upEssay);
+                } else if (null != request.getSession().getAttribute("user")) {
+                    User user = (User) request.getSession().getAttribute("user");
+                    if (user.getId() == upEssay.getAuthor().getId()) {
+                        model.addAttribute("upEssay", upEssay);
+                    }
+                } else {
+                    //如果用户恶意传入的稿件id不符合浏览权限则从最热随笔中取出第一个置顶;
+                    model.addAttribute("upEssay", hotEssayPage.getContent().get(0));
+
+                }
+            }
         }else {
             //默认从最热随笔中取出第一个置顶;
             model.addAttribute("upEssay",hotEssayPage.getContent().get(0));

@@ -15,6 +15,7 @@ public class Topic {
     private String title;
     private String content;
     private Date creatTime;
+    private Integer status;//稿件状态 1为展示,0为隐藏;默认为0;
     private long collectNumber;
     private long commentNumber;
     private String coverImgAddr;
@@ -39,6 +40,14 @@ public class Topic {
 
    /* @ManyToOne(optional = false)
     private User author;*/
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getZipAddr() {
         return zipAddr;
