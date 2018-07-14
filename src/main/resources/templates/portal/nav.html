@@ -75,7 +75,7 @@
                 <!--sec:authentication="name"   th:if="${null != session.user}"-->
                 <div id="accountMoreWrapper" style="display: none;">
                     <div class="account-links rounded" id="accountLinks">
-                        <a class="account-link link-uc" href="/user/1405418" th:href="'/user?userId='+${session.user.id}" rel="nofollow">
+                        <a class="account-link link-uc" href="/user/1405418" th:href="'/user/topic?userId='+${session.user.id}" rel="nofollow">
                             <span class="icon-account"></span>我的主页
                         </a>
                         <a class="account-link link-setting" href="/user/editInfo"  rel="nofollow">

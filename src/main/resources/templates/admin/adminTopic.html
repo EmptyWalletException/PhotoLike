@@ -7,20 +7,14 @@
 	<meta property="qc:admins" content="4553322067645776654">
 	<meta property="wb:webmaster" content="78f40d1511de8c6b">
 	<meta name="baidu-site-verification" content="xC1m9aYTgX">
-	<title>管理专辑</title>
+	<title>TA的专辑投稿</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="/css/user.css">
 	<link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
 	<script type="text/javascript" async="" src="/js/ga.js"></script><script src="/js/hm.js"></script><script src="/js/jquery-1.11.0.min.js"></script>
-	
-		<script src="/js/luoo.js"></script>
-			<script>
-	    if( $.luoo.browser()['ie'] && $.luoo.browser()['version'] < 8 )
-	    {
-	    	window.location.href = 'http://www.luoo.net/browser_not_supported/';
-	    }
-	</script>
+	<script src="/js/luoo.js"></script>
+
 </head>
 <body>
 <!-- header start -->
@@ -32,7 +26,7 @@
 	<div class="container ct-sm" style="min-height: 460px;">	
 		<!-- author-head -->
 		<div class="author-head clearfix">
-			<img src="/js/128x128" alt="测试用户" class="avatar" th:alt="${user.nickname}">
+			<img src="/js/128x128" alt="测试用户" class="avatar" th:src="${user.imgAddr}" th:alt="${user.nickname}">
 			<div class="uinfo">
 				<h1 class="uname" th:text="${user.nickname}">测试用户</h1>
 				<p class="sign"></p>
@@ -43,44 +37,79 @@
 				</p>
 			</div>
 		</div>
-		<!--/// author-head end-->
 
-		<div class="uc-nav rounded clearfix">
-			<a href="/admin/topic?pn=1" rel="nofollow" class="nav-item actived">专辑</a>
-			<a href="/admin/essay?pn=1" rel="nofollow" class="nav-item">随笔</a>
-			<a href="/admin/story?pn=1" rel="nofollow" class="nav-item ">故事</a>
+		<div class="ainfo">
+			<span class="playcnt">TA的投稿:</span>
+
 		</div>
 
-				
+		<div class="uc-nav rounded clearfix" style="margin-bottom: 0px;">
+			<a href="/user/topic?userId=1" rel="nofollow" class="nav-item actived" th:href="'/user/topic?userId='+${user.id}">专辑</a>
+			<a href="/user/essay?userId=1" rel="nofollow" class="nav-item " th:href="'/user/essay?userId='+${user.id}">随笔</a>
+			<a href="/user/story?userId=1" rel="nofollow" class="nav-item " th:href="'/user/story?userId='+${user.id}">故事</a>
+
+
+		</div>
+
+
+
 
 		<!-- uc-ct -->
 		<div class="author-ct">
-
+			<div  class="uc-nav rounded  " style="float: right" >
+				<a class="page " href="/user/topic?userId=1&contributionStatus=1" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=1'+'&pn=1'" name="contributionStatus" value="1" th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=2" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=2'+'&pn=1'" name="contributionStatus" value="2" th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=0" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=0'+'&pn=1'" name="contributionStatus" value="0" th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=3" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=3'+'&pn=1'" name="contributionStatus" value="3" th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=4" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=4'+'&pn=1'" name="contributionStatus" value="4" th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
+			</div>
 			<!-- fav-vols -->
 			<div class="fav-vols">
 				<div th:if="${topicPage==null || topicPage.content.size()==0}" >
 					<br/>
-					<p >该用户没有发表专辑</p>
+					<br/>
+					<br/>
+					<p >此筛选条件下没有数据</p>
 					<br/>
 				</div>
-				<div class="item-wrapper">
-					<div class="item" th:each="topic,topicStat:${topicPage}" th:if="${topicPage!=null && topicStat.size!=0 && topicStat.index<9}" >
+
+				<div class="item-wrapper"  >
+					<div class="item" th:each="topic,topicStat:${topicPage}" th:if="${topicPage!=null && topicStat.size!=0 && topicStat.index<9}">
 						<a href="topic/1373" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
-							<img src="/js/640x452" alt="故事的最后" class="cover rounded" th:alt="${topic.title}" >
+							<img src="/js/640x452" alt="故事的最后" class="cover rounded" style="height: 104px" th:src="${topic.coverImgAddr}" th:alt="${topic.title}" >
 						</a>
 						<a href="/topic/1373" class="name" th:href="'/topic/'+${topic.id}" th:text="${topic.title}">故事的最后</a>
 						<div class="op-bar">
-							<span class="time">2018-06-21</span>
-
-							<a href="javascript:;" rel="nofollow" class="btn-action-like unfav" data-id="1373" data-type="vol" data-cback="vol_unlike_cback" data-confirm="确定取消收藏该期刊吗？">
+							<span class="time" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}"></span>
+							<!--当状态为4时(已经处于回收站中)不显示此按钮-->
+							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:unless="${contributionStatus == 4}">
 								<i class="icon icon-trash"></i>
 								删除
 							</a>
+							<a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 1}">
+								<i class="icon icon-report"></i>
+								隐藏
+							</a>
+							<a href="javascript:;" rel="nofollow" class="btn-show-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 2}">
+								<i class="icon icon-reply"></i>
+								展示
+							</a>
+							<!--当处于投稿被退回状态时显示此按钮,点击显示管理员留言-->
+							<a href="javascript:;" rel="nofollow" class="btn-info-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 3}">
+								<i class="icon icon-info"></i>
+								<input type="hidden" th:attr="info=${topic.info}">
+								信息
+							</a>
+							<!--回收站的稿件显示此按钮,点击后提示此稿件id并提示联系客服根据此稿件id恢复此稿件; 或者直接获取id跳转到申请恢复稿件的页面-->
+							<a href="javascript:;" rel="nofollow" class="btn-report-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 4}">
+								<i class="icon icon-report"></i>
+								申请恢复
+							</a>
 
-							<a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
+							<!--<a href="javascript:;" rel="nofollow" class="share btn-action-" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
 								<i class="icon icon-share"></i>
 								分享
-							</a>
+							</a>-->
 						</div>
 						<!--每生成三个就输出一个换行来保持漂亮的板式  -->
 						<br th:if="${topicStat.index+1}%3==0"/>
@@ -89,21 +118,21 @@
 			</div>
 			<!-- /// fav-vols -->
 			<div class="paginator">
-				<a class="previous" href="/user/topic?pn=1" th:href="'/user/topic?pn=1'" >首页</a>
-				<a class="previous"  th:href="'/user/topic?pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-				<a class="page actived" href="#" rel="nofollow" th:href="'/user/topic?pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
-				<a class="page" href="#" th:href="'/user/topic?pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
-				<a class="next" href="#" th:href="'/user/topic?pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-				<a class="next" href="#" th:href="'/user/topic?pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
-				<a class="next" href="#" th:href="'/user/topic?pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
+				<a class="previous" href="/user/topic?userId=1&pn=1" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
+				<a class="previous"  th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
+				<a class="page actived" href="#" rel="nofollow" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
+				<a class="next" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
+				<a class="next" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
+				<a class="next" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
 			</div>		
 		</div>
 		<!--/// uc-ct end -->
@@ -123,7 +152,7 @@
 <div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
 
 </div>
-<!--底部结束-->
+<!--底部结束--><!--
 <img src="/img/loading_W.gif" style="display:none;">
 <div id="qrcodeWrapper" style="display: none;">
 	<div id="qrcodeContent" class="qrcode-content" title="http://www.luoo.net/"><canvas width="240" height="240" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
@@ -131,12 +160,13 @@
 <script>
 	$.luoo.init({root: 'http://www.luoo.net', url_static: 'http://s.luoo.net', res: {"app":{"vol":1,"essay":2,"single":3,"users":4,"comment":5,"lyric":6,"note":7,"ios":8,"android":9,"wp":10,"event":11,"livehouse":12,"app_ad":13,"musician":14,"forum":15,"forum_post":16,"indie":17,"indie_album":"18","indie_song":19,"message":20,"video":21,"vol_topic":22,"vol_package":23,"tag":24,"coupon":25,"album":26,"page":27,"essay_topic":28},"uid":"1405418","sessid":"i843kl6u09nof4p8vifad1e4i7"}, cfg: {"auto_play":true,"aes":"b6ce159334e155d8"}});
 	$('#txtFeedbackRef').val(document.location.href);
-</script>
+</script>-->
 
 <script src="/js/jquery.artDialog.js"></script>
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+<script src="/js/contribution.js"></script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
@@ -151,26 +181,6 @@ $(function(){
 })
 </script>
 <![endif]-->
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?89dd1f990c05c43f2e5083436e9ae887";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-5478298-1']);
-  _gaq.push(['_setDomainName', 'luoo.net']);
-  _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
 
 </body></html>

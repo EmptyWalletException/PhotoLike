@@ -1,3 +1,17 @@
+
+.icon-report {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+    background-image: url(../img/icon-player.png);
+    background-position: top left;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 14px;
+    background-position: -50px -40px
+}
+
+
 .login {
     color: #7d7d7d;
     display: none;
@@ -2223,6 +2237,17 @@ table.aui_border, table.aui_dialog {
     width: 16px
 }
 
+.icon-reply {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+    background-image: url(../img/icon-player.png);
+    background-position: top left;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 14px;
+    background-position: -50px -60px
+}
 .icon-trash {
     display: inline-block;
     line-height: 1;

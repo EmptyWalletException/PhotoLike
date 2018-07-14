@@ -55,9 +55,9 @@
         <a href="/user/favoriteTopic?userId=1" class="nav-item " th:href="'/user/favoriteTopic?userId='+${user.id}">专辑</a>
         <a href="/user/favoriteEssay?userId=1"  class="nav-item " th:href="'/user/favoriteEssay?userId='+${user.id}">随笔</a>
         <a href="/user/favoriteStory?userId=1" class="nav-item actived" th:href="'/user/favoriteStory?userId='+${user.id}">故事</a>
-        <a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
+        <!--<a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
             查看我的投稿
-        </a>
+        </a>-->
 
     </div>
 
@@ -85,8 +85,8 @@
                     </div>
                 </div>
                 <div class="clearfix">
-                    <span class="time">2018-06-21</span>
-                    <a href="javascript:;" rel="nofollow" class="btn-unlike unfav" plate="story.111"  title="取消收藏" th:attr="plate='story.'+${story.id}">
+                    <span class="time" th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}"></span>
+                    <a  href="javascript:;" rel="nofollow" class="btn-unlike unfav" plate="story.111"  title="取消收藏" th:attr="plate='story.'+${story.id}">
                         <i class="icon icon-trash"></i> 删除
                     </a>
                     <a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="921"

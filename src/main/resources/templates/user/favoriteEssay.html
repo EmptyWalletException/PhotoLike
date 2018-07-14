@@ -58,9 +58,9 @@
            th:href="'/user/favoriteEssay?userId='+${user.id}">随笔</a>
         <a href="/user/favoriteStory?userId=1" class="nav-item "
            th:href="'/user/favoriteStory?userId='+${user.id}">故事</a>
-        <a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
+        <!--<a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
             查看我的投稿
-        </a>
+        </a>-->
 
     </div>
 
@@ -83,7 +83,7 @@
                     <a href="/essay?essayId=1" class="name" th:href="'/essay?essayId='+${essay.id}"
                        th:text="${essay.title}">故事的最后</a>
                     <div class="op-bar">
-                        <span class="time">2018-06-21</span>
+                        <span class="time" th:text="${#dates.format(essay.creatTime,'yyyy-MM-dd')}"></span>
 
                         <a href="javascript:;" rel="nofollow" class="btn-unlike unfav" plate="essay.111"  title="取消收藏" th:attr="plate='essay.'+${essay.id}">
                             <i class="icon icon-trash"></i>

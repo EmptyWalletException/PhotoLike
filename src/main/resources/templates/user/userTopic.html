@@ -43,44 +43,73 @@
 
 		</div>
 
-		<div class="uc-nav rounded clearfix">
-			<a href="/user?userId=1" rel="nofollow" class="nav-item actived" th:href="'/user?userId='+${user.id}">专辑</a>
+		<div class="uc-nav rounded clearfix" style="margin-bottom: 0px;">
+			<a href="/user/topic?userId=1" rel="nofollow" class="nav-item actived" th:href="'/user/topic?userId='+${user.id}">专辑</a>
 			<a href="/user/essay?userId=1" rel="nofollow" class="nav-item " th:href="'/user/essay?userId='+${user.id}">随笔</a>
 			<a href="/user/story?userId=1" rel="nofollow" class="nav-item " th:href="'/user/story?userId='+${user.id}">故事</a>
+
+
 		</div>
 
 
 
-				
 
 		<!-- uc-ct -->
 		<div class="author-ct">
-
+			<div  class="uc-nav rounded  " style="float: right" >
+				<a class="page " href="/user/topic?userId=1&contributionStatus=1" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=1'+'&pn=1'" name="contributionStatus" value="1" th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=2" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=2'+'&pn=1'" name="contributionStatus" value="2" th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=0" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=0'+'&pn=1'" name="contributionStatus" value="0" th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=3" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=3'+'&pn=1'" name="contributionStatus" value="3" th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
+				<a class="page " href="/user/topic?userId=1&contributionStatus=4" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus=4'+'&pn=1'" name="contributionStatus" value="4" th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
+			</div>
 			<!-- fav-vols -->
 			<div class="fav-vols">
 				<div th:if="${topicPage==null || topicPage.content.size()==0}" >
 					<br/>
-					<p >该用户没有发表专辑</p>
+					<br/>
+					<br/>
+					<p >此筛选条件下没有数据</p>
 					<br/>
 				</div>
-				<div class="item-wrapper">
-					<div class="item" th:each="topic,topicStat:${topicPage}" th:if="${topicPage!=null && topicStat.size!=0 && topicStat.index<9}" >
+
+				<div class="item-wrapper"  >
+					<div class="item" th:each="topic,topicStat:${topicPage}" th:if="${topicPage!=null && topicStat.size!=0 && topicStat.index<9}">
 						<a href="topic/1373" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
 							<img src="/js/640x452" alt="故事的最后" class="cover rounded" style="height: 104px" th:src="${topic.coverImgAddr}" th:alt="${topic.title}" >
 						</a>
 						<a href="/topic/1373" class="name" th:href="'/topic/'+${topic.id}" th:text="${topic.title}">故事的最后</a>
 						<div class="op-bar">
-							<span class="time">2018-06-21</span>
-
-							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}">
+							<span class="time" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}"></span>
+							<!--当状态为4时(已经处于回收站中)不显示此按钮-->
+							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:unless="${contributionStatus == 4}">
 								<i class="icon icon-trash"></i>
 								删除
 							</a>
+							<a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 1}">
+								<i class="icon icon-report"></i>
+								隐藏
+							</a>
+							<a href="javascript:;" rel="nofollow" class="btn-show-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 2}">
+								<i class="icon icon-reply"></i>
+								展示
+							</a>
+							<!--当处于投稿被退回状态时显示此按钮,点击显示管理员留言-->
+							<a href="javascript:;" rel="nofollow" class="btn-info-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 3}">
+								<i class="icon icon-info"></i>
+								<input type="hidden" th:attr="info=${topic.info}">
+								信息
+							</a>
+							<!--回收站的稿件显示此按钮,点击后提示此稿件id并提示联系客服根据此稿件id恢复此稿件; 或者直接获取id跳转到申请恢复稿件的页面-->
+							<a href="javascript:;" rel="nofollow" class="btn-report-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 4}">
+								<i class="icon icon-report"></i>
+								申请恢复
+							</a>
 
-							<a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
+							<!--<a href="javascript:;" rel="nofollow" class="share btn-action-" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
 								<i class="icon icon-share"></i>
 								分享
-							</a>
+							</a>-->
 						</div>
 						<!--每生成三个就输出一个换行来保持漂亮的板式  -->
 						<br th:if="${topicStat.index+1}%3==0"/>
@@ -89,21 +118,21 @@
 			</div>
 			<!-- /// fav-vols -->
 			<div class="paginator">
-				<a class="previous" href="/user?userId=1&pn=1" th:href="'/user?userId='+${user.id}+'&pn=1'" >首页</a>
-				<a class="previous"  th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-				<a class="page actived" href="#" rel="nofollow" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
-				<a class="page" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
-				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
-				<a class="next" href="#" th:href="'/user?userId='+${user.id}+'&pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
+				<a class="previous" href="/user/topic?userId=1&pn=1" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
+				<a class="previous"  th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
+				<a class="page actived" href="#" rel="nofollow" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
+				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
+				<a class="next" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
+				<a class="next" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
+				<a class="next" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
 			</div>		
 		</div>
 		<!--/// uc-ct end -->

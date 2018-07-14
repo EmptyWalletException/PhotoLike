@@ -250,7 +250,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/user/story")
-    public String toUserStoryPage(Model model, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam("userId")long userId){
+    public String toUserStoryPage(Model model,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam("userId")long userId){
+
+
 
 
         /**
@@ -260,7 +262,15 @@ public class UserController {
         Story story = new Story();
         User user = new User();
         user.setId(userId);
-        story.setAuthor(user);;
+        story.setAuthor(user);
+
+        /**
+         * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
+         * 同时将用户点击状态返回给页面,方便页面高亮对应的筛选链接和生成对应的筛选链接;
+         */
+        model.addAttribute("contributionStatus",contributionStatus);
+        story.setStatus(contributionStatus);
+
         //注意这里,story里面有几个属性是long类型,默认值是0而不是null,erexample里传过去不是null时就会开启匹配,所以需要设置忽略掉id属性;
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("collectNumber").withIgnorePaths("commentNumber");
         Example<Story> example = Example.of(story,exampleMatcher);
@@ -278,6 +288,7 @@ public class UserController {
             author = userService.findById(userId);
         }
         model.addAttribute("user",author);
+
         return "user/userStory";
     }
 
@@ -289,7 +300,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/user/essay")
-    public String toUserEssayPage(Model model, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam("userId")long userId){
+    public String toUserEssayPage(Model model,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam("userId")long userId){
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下,还有页面是9宫格板式,只查出9个即可
          */
@@ -298,6 +309,14 @@ public class UserController {
         User user = new User();
         user.setId(userId);
         essay.setAuthor(user);;
+
+        /**
+         * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
+         * 同时将用户点击状态返回给页面,方便页面高亮对应的筛选链接和生成对应的筛选链接;
+         */
+        model.addAttribute("contributionStatus",contributionStatus);
+        essay.setStatus(contributionStatus);
+
         //注意这里,story里面有几个属性是long类型,默认值是0而不是null,erexample里传过去不是null时就会开启匹配,所以需要设置忽略掉id属性;
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("collectNumber");
         Example<Essay> example = Example.of(essay,exampleMatcher);
@@ -326,8 +345,8 @@ public class UserController {
      * @param userId
      * @return
      */
-    @RequestMapping("/user")
-    public String toUserTopicPage(Model model, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam("userId")long userId){
+    @RequestMapping("/user/topic")
+    public String toUserTopicPage(Model model,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam("userId")long userId){
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下
          */
@@ -335,7 +354,15 @@ public class UserController {
         Topic topic = new Topic();
         User user = new User();
         user.setId(userId);
-        topic.setAuthor(user);;
+        topic.setAuthor(user);
+
+        /**
+         * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
+         * 同时将用户点击状态返回给页面,方便页面高亮对应的筛选链接和生成对应的筛选链接;
+         */
+        model.addAttribute("contributionStatus",contributionStatus);
+        topic.setStatus(contributionStatus);
+
         //注意这里,story里面有几个属性是long类型,默认值是0而不是null,erexample里传过去不是null时就会开启匹配,所以需要设置忽略掉id属性;
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("collectNumber").withIgnorePaths("commentNumber");
         Example<Topic> example = Example.of(topic,exampleMatcher);

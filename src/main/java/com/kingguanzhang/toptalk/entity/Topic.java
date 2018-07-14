@@ -15,7 +15,8 @@ public class Topic {
     private String title;
     private String content;
     private Date creatTime;
-    private Integer status;//稿件状态 1为展示,0为隐藏;默认为0;
+    private Integer status;//稿件状态,为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
+    private String info;//管理员审核时的留言,用于提示用户此稿件退稿的原因;
     private long collectNumber;
     private long commentNumber;
     private String coverImgAddr;
@@ -40,6 +41,14 @@ public class Topic {
 
    /* @ManyToOne(optional = false)
     private User author;*/
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public Integer getStatus() {
         return status;
