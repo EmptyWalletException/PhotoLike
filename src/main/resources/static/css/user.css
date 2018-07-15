@@ -6,7 +6,7 @@
     background-image: url(../img/icon-player.png);
     background-position: top left;
     background-repeat: no-repeat;
-    height: 16px;
+    height: 14px;
     width: 14px;
     background-position: -50px -40px
 }
@@ -2076,7 +2076,7 @@ table.aui_border, table.aui_dialog {
     background-image: url(../img/icon-player.png);
     background-position: top left;
     background-repeat: no-repeat;
-    height: 12px;
+    height: 14px;
     width: 12px;
     background-position: 0 -20px
 }
@@ -2255,7 +2255,7 @@ table.aui_border, table.aui_dialog {
     background-image: url(../img/icon-player.png);
     background-position: top left;
     background-repeat: no-repeat;
-    height: 12px;
+    height: 16px;
     width: 12px;
     background-position: -50px -100px
 }

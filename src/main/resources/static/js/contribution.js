@@ -6,7 +6,7 @@ $(".btn-delete-contribution").click(function () {
     var btn = $(this);
     var plate = $(this).attr("plate");
     /*alert(plate);*/
-    if (confirm("确认删除此稿件?")){
+    if (confirm("确认将此稿件放入回收站?")){
         $.ajax({
             url:"/user/contribute/deprecated",//将稿件状态设置成4的方法
             type:"POST",

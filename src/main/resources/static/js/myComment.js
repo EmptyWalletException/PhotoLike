@@ -127,6 +127,9 @@ function loadSubcomment(supcommentId,pageNum){
                 "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
                 "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
                 "                                    </a>" +
+                "                                    <div class='' style='float: right'>" +
+                "                                    <a href='javascript:void(0);' class='btn-reply' rel='nofollow' commentId='"+subcomment.id+"' ><i class='icon icon-trash'></i> 删除</a>\n" +
+                "                                   </div>"+
                 "                                    <div class='item-wrapper'>" +
                 "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
                 "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
@@ -218,6 +221,13 @@ function initPraiseStatus(praiseCommentIds){
         }
     }
 }
+
+/*点击评论排序区域选择 最新评论 或 最热评论*/
+$(document).on('click','#commentSort',function () {
+    $("#commentSortMenu").show();
+
+});
+
 
 /*点击"折叠子评论按钮"的事件,等同于刷新掉超出10个子评论的部分*/
 $(document).on('click','.flodSubcomments',function () {

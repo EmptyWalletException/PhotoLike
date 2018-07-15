@@ -47,7 +47,7 @@ public class TopicController {
      * @return
      */
     @RequestMapping("/topic/{topicId}")
-    public String toTopicPage(HttpServletRequest request,Model model, @PathVariable("topicId")String id,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+    public String toTopicPage(HttpServletRequest request,Model model,  @RequestParam(value = "commentSort",defaultValue = "new")String commentSort,@PathVariable("topicId")String id,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
 
         /**
          * 判断收藏状态,返回一个名为favStatus 的布尔值给页面;
@@ -122,9 +122,17 @@ public class TopicController {
 
         /**
          * 获取topic关联的父Comment,sql语句中已经排除了评论表中supcomment_id 不等于0的情况(即排除掉此评论为子评论时的情况);
+         * 请求参数中的commentSort对应的值代表评论排序规则,new代表按最新排序,hot代表按最热排序(点赞数);
          */
-        Pageable pageable5 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable5 ;
+        if ("new" == commentSort) {
+             pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "creat_time"));
+        }else {
+             pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "praise_number"));
+        }
         Page<Comment> commentPage = commentService.findByTopicId(Long.parseLong(id), pageable5);
+        //同时将排序状态返回,方便页面渲染翻页链接:
+        model.addAttribute("commentSort",commentSort);
         model.addAttribute("commentPage",commentPage);
 
         /**
@@ -199,14 +207,14 @@ public class TopicController {
             /**
              * 通过用户点击的分类获取topic
              */
-            Pageable pageable1 = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
+            Pageable pageable1 = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"creat_time"));
             Page<Topic> topicPage = topicService.findAllByCategoryIdAndStatus( categoryId,1, pageable1);//1 代表展示中的专辑;
             model.addAttribute("topicPage",topicPage);
         }else {
             /**
              * 获取所有的topic,用于在默认的没有选择分类的情况下;
              */
-            Pageable pageable2 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
+            Pageable pageable2 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"creatTime"));
             Topic allTopic = new Topic();
             allTopic.setStatus(1);//查出通过审核的状态为展示的专辑;
             ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id","collectNumber","commentNumber");//long类型的需要忽略;

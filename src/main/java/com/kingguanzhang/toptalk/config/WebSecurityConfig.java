@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/essay/**").permitAll()
                     .antMatchers("/story/**").permitAll()
                     .antMatchers("/test/**").permitAll()
+                    .antMatchers("/event/**").permitAll()
                     .antMatchers("/**/json/**").permitAll()
 
                     .antMatchers("/**/contribute").hasAnyRole("USER","ADMIN")

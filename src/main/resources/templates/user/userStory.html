@@ -85,7 +85,7 @@
 							<span class="time" th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}"></span>
 							<!--当状态为4时(已经处于回收站中)不显示此按钮-->
 							<a style="margin-left: 12px;" href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:unless="${contributionStatus == 4}">
-								<i class="icon icon-trash"></i> 删除
+								<i class="icon icon-trash"></i> 废弃
 							</a>
 							<a style="margin-left: 12px;" href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${contributionStatus == 1}">
 								<i class="icon icon-report"></i> 隐藏

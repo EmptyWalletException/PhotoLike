@@ -317,7 +317,7 @@ public class CommentController {
             //创建example对象,传入查询对象和匹配器
             example= Example.of(comment,exampleMatcher);
 
-            pageable= new PageRequest(0,999999,new Sort(Sort.Direction.DESC,"id"));
+            pageable= new PageRequest(0,999999,new Sort(Sort.Direction.DESC,"creatTime"));
             subCommentPage = commentService.findAllByExample(example, pageable);
 
             /**

@@ -55,7 +55,7 @@ public class EssayController {
         /**
          * 获取所有的随笔,分页并排序;
          */
-        Pageable pageable2 = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable2 = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"creatTime"));
         Essay allEssay = new Essay();
         allEssay.setStatus(1);//查出通过审核的状态为展示的随笔;
         ExampleMatcher exampleMatcher2 = ExampleMatcher.matching().withIgnorePaths("id","collectNumber");//long类型的需要忽略;

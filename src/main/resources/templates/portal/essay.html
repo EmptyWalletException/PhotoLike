@@ -12,6 +12,7 @@
     <meta name="description" content="落网是一个推荐国内外独立音乐的网站，我们致力于推荐这个时代里最朴素、最有质感的声音，让更多的独立文化作品得到更好的传播。 ">
     <meta name="keywords" content="落网,独立音乐,独立音乐人,音乐电台,音乐期刊,摇滚音乐,小众音乐,乐评网站,音乐演出,演出门票">
     <link rel="stylesheet" href="/css/essay.css">
+    <link rel="stylesheet" type="text/css" href="/css/modal.css">
     <link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
     <script type="text/javascript" async="" src="/js/ga.js"></script>
     <script src="/js/hm.js"></script>
@@ -60,7 +61,61 @@
                 <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="15491"></a>
             </div>
         </div>
+
+        <!--管理员操作区域-->
+        <div class="op-bar" style="float: right">
+            <!--TODO 根据用户权限显示此区域: -->
+            <span class="vol-date" th:text="'稿件信息及管理员操作: 作者id='+${upEssay.author.id}+',稿件id='+${upEssay.id}+',稿件状态='"></span>
+            <span class="vol-date" th:if="${upEssay.status == 0}" >审核中</span>
+            <span class="vol-date" th:if="${upEssay.status == 1}" >展示中</span>
+            <span class="vol-date" th:if="${upEssay.status == 2}" >隐藏中</span>
+            <span class="vol-date" th:if="${upEssay.status == 3}" >已退回</span>
+            <span class="vol-date" th:if="${upEssay.status == 4}" >已废弃</span>
+            <span class="vol-date" >&nbsp;|&nbsp;</span>
+
+            <!--当状态为4时(已经处于回收站中)不显示此按钮-->
+            <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:unless="${upEssay.status == 4}">
+                <i class="icon icon-trash"></i>
+                废弃
+            </a>
+            <a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 1}">
+                <i class="icon icon-report"></i>
+                隐藏
+            </a>
+            <a href="javascript:;" rel="nofollow" class="btn-show-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 2}">
+                <i class="icon icon-reply"></i>
+                展示
+            </a>
+            <!--当处于投稿被退回状态时显示此按钮,点击显示管理员留言-->
+            <a href="javascript:;" rel="nofollow" class="btn-info-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 3}">
+                <i class="icon icon-info"></i>
+                <input type="hidden" th:attr="info=${upEssay.info}">
+                信息
+            </a>
+            <!--回收站的稿件显示此按钮,点击后恢复此稿件; -->
+            <a href="javascript:;" rel="nofollow" class="btn-recover-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 4}">
+                <i class="icon icon-reply"></i>
+                恢复
+            </a>
+            <!--彻底删除稿件-->
+            <a href="javascript:;" rel="nofollow" class="btn-realDelete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 4}">
+                <i class="icon icon-report"></i>
+                抹除
+            </a>
+            <a href="javascript:;" rel="nofollow" class="btn-sendBack-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 0}">
+                <i class="icon icon-reply"></i>
+                退稿
+            </a>
+
+            <!--<a href="javascript:;" rel="nofollow" class="share btn-action-" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
+                <i class="icon icon-share"></i>
+                分享
+            </a>-->
+        </div>
+
+        
     </div>
+    
 
     <!--随笔主体区域-->
     <div class="clearfix">
@@ -104,8 +159,94 @@
                         </div>
 
                     </div>
+
+                    <div class="op-bar" style="float: right">
+                        <!--TODO 根据用户权限显示此区域: -->
+                        <span class="vol-date" th:text="'稿件信息及管理员操作: 作者id='+${essay.author.id}+',稿件id='+${essay.id}+',稿件状态='"></span>
+                        <span class="vol-date" th:if="${essay.status == 0}" >审核中</span>
+                        <span class="vol-date" th:if="${essay.status == 1}" >展示中</span>
+                        <span class="vol-date" th:if="${essay.status == 2}" >隐藏中</span>
+                        <span class="vol-date" th:if="${essay.status == 3}" >已退回</span>
+                        <span class="vol-date" th:if="${essay.status == 4}" >已废弃</span>
+                        <span class="vol-date" >&nbsp;|&nbsp;</span>
+
+                        <!--当状态为4时(已经处于回收站中)不显示此按钮-->
+                        <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:unless="${essay.status == 4}">
+                            <i class="icon icon-trash"></i>
+                            废弃
+                        </a>
+                        <a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 1}">
+                            <i class="icon icon-report"></i>
+                            隐藏
+                        </a>
+                        <a href="javascript:;" rel="nofollow" class="btn-show-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 2}">
+                            <i class="icon icon-reply"></i>
+                            展示
+                        </a>
+                        <!--当处于投稿被退回状态时显示此按钮,点击显示管理员留言-->
+                        <a href="javascript:;" rel="nofollow" class="btn-info-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 3}">
+                            <i class="icon icon-info"></i>
+                            <input type="hidden" th:attr="info=${essay.info}">
+                            信息
+                        </a>
+                        <!--回收站的稿件显示此按钮,点击后恢复此稿件; -->
+                        <a href="javascript:;" rel="nofollow" class="btn-recover-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 4}">
+                            <i class="icon icon-reply"></i>
+                            恢复
+                        </a>
+                        <!--彻底删除稿件-->
+                        <a href="javascript:;" rel="nofollow" class="btn-realDelete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 4}">
+                            <i class="icon icon-report"></i>
+                            抹除
+                        </a>
+                        <a href="javascript:;" rel="nofollow" class="btn-sendBack-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 0}">
+                            <i class="icon icon-reply"></i>
+                            退稿
+                        </a>
+
+                        <!--<a href="javascript:;" rel="nofollow" class="share btn-action-" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
+                            <i class="icon icon-share"></i>
+                            分享
+                        </a>-->
+                    </div>
                 </div>
 
+            </div>
+
+            <!-- 用于输入退稿理由的模态框 -->
+            <div id="myModal" class="modal" >
+                <div class="modal-content" style="width: 500px">
+                    <div class="modal-header" >
+                        <h1>填写退稿理由</h1>
+                        <span id="closeBtn" class="close">×</span>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="hovertreecontainer">
+                            <div style="width: 495px;">
+                                <br/>
+                                <textarea id="sendBackTextarea" name="content"  style="width: 495px;height: 100px;" ></textarea>
+                                <div style="width: 495px;">
+                                    <p>快捷填充:</p>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容低俗; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容错误较多; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容格式错乱; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合板块特色; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合分类; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 包含敏感内容; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容与其它稿件重复; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 消耗过多储存空间; </button>
+                                    <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 稿件附件缺失; </button>
+                                </div>
+                                <button class="btn btn-positive  rounded" id="cancel" >取消</button>
+                                <button class="btn btn-positive  rounded" id="sendBack" style="float: right" >确认退稿</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <h3>尾部</h3>
+                    </div>-->
+                </div>
             </div>
 
 
@@ -249,6 +390,7 @@
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
+<script src="/js/adminContribution-detailPages.js"></script>
 
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>

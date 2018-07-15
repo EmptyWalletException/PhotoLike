@@ -2552,7 +2552,7 @@ table.aui_border, table.aui_dialog {
     position: relative
 }
 
-.comment-list .more .icon-more {
+.comment-list .more .icon-more  {
     float: right;
     cursor: pointer;
     color: #c1c1c1
@@ -2763,7 +2763,7 @@ table.aui_border, table.aui_dialog {
     background-image: url(../img/icon-player.png);
     background-position: top left;
     background-repeat: no-repeat;
-    height: 12px;
+    height: 15px;
     width: 12px;
     background-position: 0 -20px
 }
@@ -2931,7 +2931,7 @@ table.aui_border, table.aui_dialog {
     background-image: url(../img/icon-player.png);
     background-position: top left;
     background-repeat: no-repeat;
-    height: 12px;
+    height: 16px;
     width: 12px;
     background-position: -50px -100px
 }
@@ -3892,7 +3892,7 @@ table.aui_border, table.aui_dialog {
 
 .thanks-block {
     position: relative;
-    margin: 0 0 80px
+    margin: 0 0 0px
 }
 
 .thanks-block .tanks-logo {

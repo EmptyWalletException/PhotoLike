@@ -43,7 +43,7 @@ public class StoryController {
         /**
          * 获取所有故事,分页并排序;
          */
-        Pageable pageable = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"creatTime"));
         Story allStory = new Story();
         allStory.setStatus(1);//查出通过审核的状态为展示的故事;
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id","collectNumber","commentNumber");//long类型的需要忽略;
@@ -73,7 +73,7 @@ public class StoryController {
      * @return
      */
     @RequestMapping("/story/{storyId}")
-    public String toStoryDetailsPage(HttpServletRequest request,Model model, @PathVariable("storyId")String storyId,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+    public String toStoryDetailsPage(HttpServletRequest request,Model model, @RequestParam(value = "commentSort",defaultValue = "new")String commentSort,@PathVariable("storyId")String storyId,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
 
         /**
          * 判断收藏状态,返回一个名为favStatus 的布尔值给页面;
@@ -116,9 +116,16 @@ public class StoryController {
 
         /**
          * 获取story关联的父Comment,sql语句中已经排除了评论表中supcomment_id 不等于0的情况(即排除掉此评论为子评论时的情况);
+         * 请求参数中的commentSort对应的值代表评论排序规则,new代表按最新排序,hot代表按最热排序(点赞数);
          */
-        Pageable pageable5 = new PageRequest(pn-1,10,  new Sort(Sort.Direction.DESC,"id"));
-        Page<Comment> commentPage = commentService.findByStoryId(Long.parseLong(storyId), pageable5);
+        Pageable pageable5 ;
+        if ("new" == commentSort) {
+            pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "creat_time"));
+        }else {
+            pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "praise_number"));
+        } Page<Comment> commentPage = commentService.findByStoryId(Long.parseLong(storyId), pageable5);
+        //同时将排序状态返回,方便页面渲染翻页链接:
+        model.addAttribute("commentSort",commentSort);
         model.addAttribute("commentPage",commentPage);
 
         /**

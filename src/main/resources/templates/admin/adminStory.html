@@ -7,10 +7,11 @@
 	<meta property="qc:admins" content="4553322067645776654">
 	<meta property="wb:webmaster" content="78f40d1511de8c6b">
 	<meta name="baidu-site-verification" content="xC1m9aYTgX">
-	<title>TA的故事投稿</title>
+	<title>管理故事投稿</title>
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link rel="stylesheet" href="/css/user.css">
+	<link rel="stylesheet" type="text/css" href="/css/modal.css">
 	<link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
 	<script type="text/javascript" async="" src="/js/ga.js"></script><script src="/js/hm.js"></script><script src="/js/jquery-1.11.0.min.js"></script>
 	<script src="/js/luoo.js"></script>
@@ -26,35 +27,23 @@
 	<div class="container ct-sm" style="min-height: 460px;">	
 		<!-- author-head -->
 		<div class="author-head clearfix">
-			<img src="/js/128x128" alt="测试用户" class="avatar" th:src="${user.imgAddr}" th:alt="${user.nickname}">
-			<div class="uinfo">
-				<h1 class="uname" th:text="${user.nickname}">测试用户</h1>
-				<p class="sign"></p>
-			</div>
-			<div class="fright">
-				<p class="join">活跃作家</p>
-				<p class="sns-accounts">
-									</p>
-			</div>
+
 		</div>
 		<!--/// author-head end-->
 
-		<div class="ainfo">
-			<span class="playcnt">TA的投稿:</span>
 
-		</div>
 
 		<div class="uc-nav rounded clearfix" style="margin-bottom: 0px;">
-			<a href="/user/topic?userId=1" rel="nofollow" class="nav-item " th:href="'/user/topic?userId='+${user.id}">专辑</a>
-			<a href="/user/essay?userId=1" rel="nofollow" class="nav-item " th:href="'/user/essay?userId='+${user.id}">随笔</a>
-			<a href="/user/story?userId=1" rel="nofollow" class="nav-item actived" th:href="'/user/story?userId='+${user.id}">故事</a>
+			<a href="/admin/topic?userId=1" rel="nofollow" class="nav-item " th:href="'/admin/topic?userId='+${author.id}">专辑</a>
+			<a href="/admin/essay?userId=1" rel="nofollow" class="nav-item " th:href="'/admin/essay?userId='+${author.id}">随笔</a>
+			<a href="/admin/story?userId=1" rel="nofollow" class="nav-item actived" th:href="'/admin/story?userId='+${author.id}">故事</a>
 		</div>
 		<div  class="uc-nav rounded  " style="float: right" >
-			<a class="page " href="/user/story?userId=1&contributionStatus=1" th:href="'/user/story?userId='+${user.id}+'&contributionStatus=1'+'&pn=1'" name="contributionStatus" value="1" th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
-			<a class="page " href="/user/story?userId=1&contributionStatus=2" th:href="'/user/story?userId='+${user.id}+'&contributionStatus=2'+'&pn=1'" name="contributionStatus" value="2" th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
-			<a class="page " href="/user/story?userId=1&contributionStatus=0" th:href="'/user/story?userId='+${user.id}+'&contributionStatus=0'+'&pn=1'" name="contributionStatus" value="0" th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
-			<a class="page " href="/user/story?userId=1&contributionStatus=3" th:href="'/user/story?userId='+${user.id}+'&contributionStatus=3'+'&pn=1'" name="contributionStatus" value="3" th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
-			<a class="page " href="/user/story?userId=1&contributionStatus=4" th:href="'/user/story?userId='+${user.id}+'&contributionStatus=4'+'&pn=1'" name="contributionStatus" value="4" th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
+			<a class="page " href="/admin/story?userId=1&contributionStatus=1" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus=1'+'&pn=1'" name="contributionStatus" value="1" th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
+			<a class="page " href="/admin/story?userId=1&contributionStatus=2" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus=2'+'&pn=1'" name="contributionStatus" value="2" th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
+			<a class="page " href="/admin/story?userId=1&contributionStatus=0" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus=0'+'&pn=1'" name="contributionStatus" value="0" th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
+			<a class="page " href="/admin/story?userId=1&contributionStatus=3" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus=3'+'&pn=1'" name="contributionStatus" value="3" th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
+			<a class="page " href="/admin/story?userId=1&contributionStatus=4" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus=4'+'&pn=1'" name="contributionStatus" value="4" th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
 		</div>
 
 		<!-- uc-ct -->
@@ -73,11 +62,11 @@
 
 					<div class="item" th:each="story,storyStat:${storyPage}" th:if="${storyPage!=null && storyStat.size!=0 && storyStat.index<10 }">
 						<div class="clearfix">
-							<a href="/story/921" class="cover-wrapper" th:href="'/story/'+${story.id}">
+							<a href="/story/921" class="cover-wrapper" th:href="'/story/'+${story.id}" target="_blank">
 								<img src="/js/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp" alt="Seas of Years : 带你三十秒潜入海底，穿越大洋" class="cover" style="width: 126.3px" th:src="${story.coverImgAddr}" th:alt="${story.title}">
 							</a>
 							<div class="item-ct">
-								<a href="/story/921" class="title" th:text="${story.title}" th:href="'/story/'+${story.id}">Seas of Years : 带你三十秒潜入海底，穿越大洋</a>
+								<a href="/story/921" class="title" th:text="${story.title}" th:href="'/story/'+${story.id}" target="_blank">Seas of Years : 带你三十秒潜入海底，穿越大洋</a>
 								<p class="subscribe" th:text="${story.subscribe}">极光下，星辰里，置身于摇曳着的帆船，聆听来自深海的声音。</p>
 							</div>
 						</div>
@@ -85,7 +74,7 @@
 							<span class="time" th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}"></span>
 							<!--当状态为4时(已经处于回收站中)不显示此按钮-->
 							<a style="margin-left: 12px;" href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:unless="${contributionStatus == 4}">
-								<i class="icon icon-trash"></i> 删除
+								<i class="icon icon-trash"></i> 废弃
 							</a>
 							<a style="margin-left: 12px;" href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${contributionStatus == 1}">
 								<i class="icon icon-report"></i> 隐藏
@@ -97,9 +86,19 @@
 							<a style="margin-left: 12px;" href="javascript:;" rel="nofollow" class="btn-info-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${contributionStatus == 3}">
 								<i class="icon icon-info"></i><input type="hidden" th:attr="info=${story.info}"> 信息
 							</a>
-							<!--回收站的稿件显示此按钮,点击后提示此稿件id并提示联系客服根据此稿件id恢复此稿件; 或者直接获取id跳转到申请恢复稿件的页面-->
-							<a style="margin-left: 12px;" href="javascript:;" rel="nofollow" class="btn-report-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${contributionStatus == 4}">
-								<i class="icon icon-report"></i> 申请恢复
+							<!--点击后物理上彻底删除此记录,慎用; -->
+							<a href="javascript:;" rel="nofollow" class="btn-realDelete-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${contributionStatus == 4}">
+								<i class="icon icon-report"></i>
+								抹除
+							</a>
+							<!--回收站的稿件显示此按钮,点击后恢复此稿件; -->
+							<a href="javascript:;" rel="nofollow" class="btn-recover-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${contributionStatus == 4}">
+								<i class="icon icon-reply"></i>
+								恢复
+							</a>
+							<a href="javascript:;" rel="nofollow" class="btn-sendBack-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${contributionStatus == 0}">
+								<i class="icon icon-reply"></i>
+								退稿
 							</a>
 						</div>
 					</div>
@@ -110,26 +109,62 @@
 
 				<br>
 				<div class="paginator">
-					<a class="previous" href="/user/story?userId=1&pn=1" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
-					<a class="previous"  th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number}" th:if="${storyPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number -3}" th:text="${storyPage.number -3}" th:if="${storyPage.number } >3 ">1</a>
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number -2}" th:text="${storyPage.number -2}" th:if="${storyPage.number } >2 ">2</a>
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number -1}" th:text="${storyPage.number -1}" th:if="${storyPage.number } >1 ">3</a>
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number }" th:text="${storyPage.number}" th:if="${storyPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-					<a class="page actived" href="#" rel="nofollow" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number+1}" th:text="${storyPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +2}" th:text="${storyPage.number +2}" th:if="${storyPage.number +2} <= ${storyPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +3}" th:text="${storyPage.number +3}"  th:if="${storyPage.number +3} <= ${storyPage.totalPages }">7</a>
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +4}" th:text="${storyPage.number +4}"  th:if="${storyPage.number +4} <= ${storyPage.totalPages }">8</a>
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +5}" th:text="${storyPage.number +5}" th:if="${storyPage.number +5} <= ${storyPage.totalPages }">9</a>
-					<a class="page" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +6}" th:text="${storyPage.number +6}" th:if="${storyPage.number +6} <= ${storyPage.totalPages }">10</a>
-					<a class="next" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +2}" th:if="${storyPage.hasNext()}">下一页</a>
-					<a class="next" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.totalPages }" th:if="${storyPage.totalPages }>0">尾页</a>
-					<a class="next" href="#" th:href="'/user/story?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" th:if="${storyPage.totalPages }==0" >尾页</a>
+					<a class="previous" href="/admin/story?userId=1&pn=1" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
+					<a class="previous"  th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number}" th:if="${storyPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number -3}" th:text="${storyPage.number -3}" th:if="${storyPage.number } >3 ">1</a>
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number -2}" th:text="${storyPage.number -2}" th:if="${storyPage.number } >2 ">2</a>
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number -1}" th:text="${storyPage.number -1}" th:if="${storyPage.number } >1 ">3</a>
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number }" th:text="${storyPage.number}" th:if="${storyPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
+					<a class="page actived" href="#" rel="nofollow" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number+1}" th:text="${storyPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +2}" th:text="${storyPage.number +2}" th:if="${storyPage.number +2} <= ${storyPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +3}" th:text="${storyPage.number +3}"  th:if="${storyPage.number +3} <= ${storyPage.totalPages }">7</a>
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +4}" th:text="${storyPage.number +4}"  th:if="${storyPage.number +4} <= ${storyPage.totalPages }">8</a>
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +5}" th:text="${storyPage.number +5}" th:if="${storyPage.number +5} <= ${storyPage.totalPages }">9</a>
+					<a class="page" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +6}" th:text="${storyPage.number +6}" th:if="${storyPage.number +6} <= ${storyPage.totalPages }">10</a>
+					<a class="next" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.number +2}" th:if="${storyPage.hasNext()}">下一页</a>
+					<a class="next" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${storyPage.totalPages }" th:if="${storyPage.totalPages }>0">尾页</a>
+					<a class="next" href="#" th:href="'/admin/story?userId='+${author.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" th:if="${storyPage.totalPages }==0" >尾页</a>
 				</div>
 
 			<!-- ///fav-essays -->			
 		</div>
 		<!--/// uc-ct end -->
+
+			<!-- 用于输入退稿理由的模态框 -->
+			<div id="myModal" class="modal">
+				<div class="modal-content" style="width: 500px">
+					<div class="modal-header" >
+						<h1>填写退稿理由</h1>
+						<span id="closeBtn" class="close">×</span>
+
+					</div>
+					<div class="modal-body">
+						<div class="hovertreecontainer">
+							<div style="width: 495px;">
+								<br/>
+								<textarea id="sendBackTextarea" name="content"  style="width: 495px;height: 100px;" ></textarea>
+								<div style="width: 495px;">
+									<p>快捷填充:</p>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容低俗; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容错误较多; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容格式错乱; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合板块特色; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合分类; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 包含敏感内容; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容与其它稿件重复; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 消耗过多储存空间; </button>
+									<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 稿件附件缺失; </button>
+								</div>
+								<button class="btn btn-positive  rounded" id="cancel" >取消</button>
+								<button class="btn btn-positive  rounded" id="sendBack" style="float: right" >确认退稿</button>
+							</div>
+						</div>
+					</div>
+					<!--<div class="modal-footer">
+                        <h3>尾部</h3>
+                    </div>-->
+				</div>
+			</div>
 	</div>
 	</div>
 
@@ -160,7 +195,7 @@
 <script src="/js/jquery.qtip.min.js"></script>
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/qrcode.min.js"></script>
-<script src="/js/contribution.js"></script>
+<script src="/js/adminContribution.js"></script>
 <!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>

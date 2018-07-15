@@ -252,13 +252,10 @@ public class UserController {
     @RequestMapping("/user/story")
     public String toUserStoryPage(Model model,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam("userId")long userId){
 
-
-
-
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下
          */
-        Pageable pageable = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable = new PageRequest(pn-1,10,new Sort(Sort.Direction.DESC,"creatTime"));
         Story story = new Story();
         User user = new User();
         user.setId(userId);
@@ -304,7 +301,7 @@ public class UserController {
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下,还有页面是9宫格板式,只查出9个即可
          */
-        Pageable pageable = new PageRequest(pn-1,9,new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable = new PageRequest(pn-1,9,new Sort(Sort.Direction.DESC,"creatTime"));
         Essay essay = new Essay();
         User user = new User();
         user.setId(userId);
@@ -339,7 +336,7 @@ public class UserController {
     }
 
     /**
-     * 查看用户撰写的topic页面;原先链接为"/user/topic",现在改为"/user"
+     * 查看用户撰写的topic页面;原先链接为"/user",现在改为"/user/topic"
      * @param model
      * @param pn
      * @param userId
@@ -350,7 +347,7 @@ public class UserController {
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下
          */
-        Pageable pageable = new PageRequest(pn-1,9,new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable = new PageRequest(pn-1,9,new Sort(Sort.Direction.DESC,"creatTime"));
         Topic topic = new Topic();
         User user = new User();
         user.setId(userId);
