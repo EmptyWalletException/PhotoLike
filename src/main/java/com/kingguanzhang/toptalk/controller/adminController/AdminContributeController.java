@@ -5,10 +5,7 @@ import com.kingguanzhang.toptalk.entity.Essay;
 import com.kingguanzhang.toptalk.entity.Story;
 import com.kingguanzhang.toptalk.entity.Topic;
 import com.kingguanzhang.toptalk.entity.User;
-import com.kingguanzhang.toptalk.service.EssayServiceImpl;
-import com.kingguanzhang.toptalk.service.StoryServiceImpl;
-import com.kingguanzhang.toptalk.service.TopicServiceImpl;
-import com.kingguanzhang.toptalk.service.UserServiceImpl;
+import com.kingguanzhang.toptalk.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -30,6 +27,435 @@ public class AdminContributeController {
     private EssayServiceImpl essayService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private CommentServiceImpl commentService;
+    @Autowired
+    private PraiseServiceImpl praiseService;
+    @Autowired
+    private CRESTServiceImpl crestService;
+
+    /**
+     * 将稿件从回收站恢复为待审核状态;
+     * @param request
+     * @param plateAndId
+     * @return
+     */
+    @RequestMapping(value = "/admin/contribute/recover",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg recoverContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
+        // TODO 需要修改成从security判断是否有admin角色信息:
+       /* if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("操作失败,请重新登录后再尝试");
+        }
+        User user = (User) request.getSession().getAttribute("user");*/
+        /**
+         * 判断操作的是专辑还是故事还是随笔;
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+
+        switch (plateName){
+            case "topic":
+                Topic topic = topicService.findById(id);
+                //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
+                if ( 4 != topic.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try {
+                    topic.setStatus(0);
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "story":
+                Story story = storyService.findById(id);
+                if ( 4 != story.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    story.setStatus(0);
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "essay":
+                Essay essay = essayService.findById(id);
+                if ( 4 != essay.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    essay.setStatus(0);
+                    essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("操作成功!");
+    }
+
+    /**
+     * 将待审核的稿件设置为审核通过状态(展示此稿件);
+     * @param request
+     * @param plateAndId
+     * @return
+     */
+    @RequestMapping(value = "/admin/contribute/pass",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg passContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
+        // TODO 需要修改成从security判断是否有admin角色信息:
+       /* if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("操作失败,请重新登录后再尝试");
+        }
+        User user = (User) request.getSession().getAttribute("user");*/
+        /**
+         * 判断操作的是专辑还是故事还是随笔;
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+
+        switch (plateName){
+            case "topic":
+                Topic topic = topicService.findById(id);
+                //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
+                if ( 0 != topic.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try {
+                    topic.setStatus(1);
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "story":
+                Story story = storyService.findById(id);
+                if ( 0 != story.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    story.setStatus(1);
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "essay":
+                Essay essay = essayService.findById(id);
+                if ( 0 != essay.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    essay.setStatus(1);
+                    essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("操作成功!");
+    }
+
+    /**
+     * 退稿,需要记录退稿理由,;
+     * @param request
+     * @param plateAndId
+     * @return
+     */
+    @RequestMapping(value = "/admin/contribute/sendBack",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg sendBackContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId,@RequestParam("sendBackInfo")String sendBackInfo) {
+        // TODO 需要修改成从security判断是否有admin角色信息:
+       /* if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("操作失败,请重新登录后再尝试");
+        }
+        User user = (User) request.getSession().getAttribute("user");*/
+        /**
+         * 判断操作的是专辑还是故事还是随笔;
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+
+        switch (plateName){
+            case "topic":
+                Topic topic = topicService.findById(id);
+                //判断稿件此时的状态是否合理;
+                if ( 0 != topic.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try {
+                    topic.setStatus(3);
+                    topic.setInfo(sendBackInfo);
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "story":
+                Story story = storyService.findById(id);
+                //判断当前用户想删除的是否是自己的稿件;
+                if ( 0 != story.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    story.setStatus(3);
+                    story.setInfo(sendBackInfo);
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "essay":
+                Essay essay = essayService.findById(id);
+                if ( 0 != essay.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    essay.setStatus(3);
+                    essay.setInfo(sendBackInfo);
+                    essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("操作成功!");
+    }
+
+
+    /**
+     * 将稿件设置为废弃状态,页面上显示的按钮是" 废弃";
+     * @param request
+     * @param plateAndId
+     * @return
+     */
+    @RequestMapping(value = "/admin/contribute/deprecated",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg deprecatedContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
+        // TODO 需要修改成从security判断是否有admin角色信息:
+       /* if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("操作失败,请重新登录后再尝试");
+        }
+        User user = (User) request.getSession().getAttribute("user");*/
+        /**
+         * 判断操作的是专辑还是故事还是随笔;
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+
+        switch (plateName){
+            case "topic":
+                Topic topic = topicService.findById(id);
+                //判断稿件此时的状态是否合理;
+                if ( 4 == topic.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try {
+                    topic.setStatus(4);
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "story":
+                Story story = storyService.findById(id);
+                if ( 4 == story.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    story.setStatus(4);
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "essay":
+                Essay essay = essayService.findById(id);
+                if ( 4 == essay.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    essay.setStatus(4);
+                    essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("操作成功!");
+    }
+
+    /**
+     * 将稿件设置为展示状态;
+     * @param request
+     * @param plateAndId
+     * @return
+     */
+    @RequestMapping(value = "/admin/contribute/show",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg showContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
+        // TODO 需要修改成从security判断是否有admin角色信息:
+       /* if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("操作失败,请重新登录后再尝试");
+        }
+        User user = (User) request.getSession().getAttribute("user");*/
+        /**
+         * 判断操作的是专辑还是故事还是随笔;
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+
+        switch (plateName){
+            case "topic":
+                Topic topic = topicService.findById(id);
+                //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
+                if ( 2 != topic.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try {
+                    topic.setStatus(1);
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "story":
+                Story story = storyService.findById(id);
+                if ( 2 != story.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    story.setStatus(1);
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "essay":
+                Essay essay = essayService.findById(id);
+                if ( 2 != essay.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    essay.setStatus(1);
+                    essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("操作成功!");
+    }
+
+    /**
+     * 将设置为隐藏状态;
+     * @param request
+     * @param plateAndId
+     * @return
+     */
+    @RequestMapping(value = "/admin/contribute/hide",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg hideContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
+        // TODO 需要修改成从security判断是否有admin角色信息:
+       /* if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("操作失败,请重新登录后再尝试");
+        }
+        User user = (User) request.getSession().getAttribute("user");*/
+        /**
+         * 判断操作的是专辑还是故事还是随笔;
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+
+        switch (plateName){
+            case "topic":
+                Topic topic = topicService.findById(id);
+                //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
+                if ( 1 != topic.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try {
+                    topic.setStatus(2);
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "story":
+                Story story = storyService.findById(id);
+                if ( 1 != story.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    story.setStatus(2);
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "essay":
+                Essay essay = essayService.findById(id);
+                if ( 1 != essay.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    essay.setStatus(2);
+                    essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("操作成功!");
+    }
+
+    /**
+     * 管理员删除任意用户的投稿;url不带/json防止跳过权限验证
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/admin/contribute/delete",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg deleteContribution(HttpServletRequest request, @RequestParam("plate")String plateAndId){
+
+
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+        switch (plateName){
+            case "topic":
+                try {
+                    /**
+                     * 删除稿件,同时删除稿件下所有父评论及点赞记录,子评论暂时没有好的删除逻辑;图片暂时不实现删除方法,因为以后可能要改成将图片引用第三方云平台保存;
+                     */
+                    topicService.delete(id);
+                    commentService.deleteByTopicId(id);
+                    praiseService.deletePraiseTopicByTopicId(id);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("删除稿件失败!");
+                }
+                break;
+            case "story":
+                try{
+                    storyService.delete(id);
+                    commentService.deleteByStoryId(id);
+                    praiseService.deletePraiseStoryByStoryId(id);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("删除稿件失败!");
+                }
+                break;
+            case "essay":
+                try{
+                    essayService.delete(id);
+                    praiseService.deletePraiseEssayByEssayId(id);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("删除稿件失败!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("删除稿件成功!");
+    }
 
 
     /**
@@ -191,41 +617,5 @@ public class AdminContributeController {
         return "admin/adminTopic";
     }
 
-    /**
-     * 管理员删除任意用户的投稿;url不带/json防止跳过权限验证
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/admin/contribute/delete",method = RequestMethod.POST)
-    @ResponseBody
-    private Msg deleteContribution(HttpServletRequest request, @RequestParam("plate")String plateAndId){
 
-
-        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
-        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
-        switch (plateName){
-            case "topic":
-                try {
-                    topicService.delete(id);
-                }catch (Exception e){
-                    return Msg.fail().setMsg("删除稿件失败!");
-                }
-                break;
-            case "story":
-                try{
-                    storyService.delete(id);
-                }catch (Exception e){
-                    return Msg.fail().setMsg("删除稿件失败!");
-                }
-                break;
-            case "essay":
-                try{
-                    essayService.delete(id);
-                }catch (Exception e){
-                    return Msg.fail().setMsg("删除稿件失败!");
-                }
-                break;
-        }
-        return Msg.success().setMsg("删除稿件成功!");
-    }
 }

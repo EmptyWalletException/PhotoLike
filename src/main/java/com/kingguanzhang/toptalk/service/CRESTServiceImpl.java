@@ -159,6 +159,38 @@ public class CRESTServiceImpl {
     }
 
     /**
+     * 删除评论与topic的关系;
+     * @param mommentId
+     * @param topicId
+     * @return
+     */
+    public int deleteCommentRelateTopic(Long mommentId,Long topicId){
+        int rowsNumber =0;
+        try{
+           rowsNumber = crestRepository.deleteCommentRelateTopic(mommentId, topicId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rowsNumber;
+    }
+
+    /**
+     * 删除评论与story的关系;
+     * @param mommentId
+     * @param storyId
+     * @return
+     */
+    public int deleteCommentRelateStory(Long mommentId,Long storyId){
+        int rowsNumber =0;
+        try{
+            rowsNumber = crestRepository.deleteCommentRelateStory(mommentId, storyId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rowsNumber;
+    }
+
+    /**
      * 统计总数;
      * @return
      */

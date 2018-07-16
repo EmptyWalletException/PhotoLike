@@ -153,6 +153,28 @@ $(".btn-show-contribution").click(function () {
     }
 });
 
+/*将稿件设置为审核通过*/
+$(".btn-pass-contribution").click(function () {
+    var btn = $(this);
+    var plate = $(this).attr("plate");
+    /*alert(plate);*/
+    if (confirm("确认审核通过此稿件?")){
+        $.ajax({
+            url:"/admin/contribute/pass",
+            type:"POST",
+            data:{"plate":plate},
+            success:function (result) {
+                alert(result.msg);
+                if (101 == result.code){
+                    window.location.href="/login";
+                }
+                btn.parent().parent().remove();
+            }
+
+        });
+    }
+});
+
 /*显示被退回的稿件的信息*/
 $(".btn-info-contribution").click(function () {
     var info = $(this).children("input").attr("info");

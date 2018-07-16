@@ -196,6 +196,51 @@ public class CommentServiceImpl {
     }
 
     /**
+     * 删除父评论下的子评论;
+     * @param supcommentId
+     * @return
+     */
+    public int deleteSubcomment(Long supcommentId){
+        int rowsNumber = 0;
+        try{
+            rowsNumber = commentRepository.deleteSubcomment(supcommentId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rowsNumber;
+    }
+
+    /**
+     * 根据topicId删除topic下所有评论
+     * @param topicId
+     * @return
+     */
+    public int deleteByTopicId(Long topicId){
+        int rowsNumber = 0;
+        try{
+            rowsNumber = commentRepository.deleteByTopicId(topicId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rowsNumber;
+    }
+
+    /**
+     * 根据storyId删除topic下所有评论
+     * @param storyId
+     * @return
+     */
+    public int deleteByStoryId(Long storyId){
+        int rowsNumber = 0;
+        try{
+            rowsNumber = commentRepository.deleteByStoryId(storyId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rowsNumber;
+    }
+
+    /**
      * 统计总数;
      * @return
      */
@@ -213,4 +258,6 @@ public class CommentServiceImpl {
         long count = commentRepository.count(example);
         return count;
     }
+
+
 }

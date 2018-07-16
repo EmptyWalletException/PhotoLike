@@ -104,10 +104,15 @@
             <span class="vol-date" th:if="${story.status == 4}" >已废弃</span>
             <span class="vol-date" >&nbsp;|&nbsp;</span>
 
-            <!--当状态为4时(已经处于回收站中)不显示此按钮-->
-            <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:unless="${story.status == 4}">
+            <!--当状态为4时(已经处于回收站中)或0时(审核中)不显示此按钮-->
+            <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='story.'+${story.id}" th:unless="${story.status == 4 || story.status == 0}   ">
                 <i class="icon icon-trash"></i>
                 废弃
+            </a>
+            <!--将当前稿件审核通过-->
+            <a href="javascript:;" rel="nofollow" class="btn-pass-contribution unfav" plate="topic.1373" th:attr="plate='story.'+${story.id}" th:if="${story.status == 0}">
+                <i class="icon icon-share"></i>
+                通过
             </a>
             <a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="story.1373" th:attr="plate='story.'+${story.id}" th:if="${story.status == 1}">
                 <i class="icon icon-report"></i>
@@ -272,7 +277,7 @@
 
                             <!--TODO 父评论和子评论的删除按钮根据用户权限显示,并点击后删除此评论: -->
                             <div class="" style="float: right">
-                                <a href="javascript:void(0);" class="btn-reply" rel="nofollow" th:attr="commentId=${comment.id}" ><i class="icon icon-trash"></i> 删除</a>
+                                <a href="javascript:void(0);" class="btn-reply btn-comment-delete" rel="nofollow" th:attr="commentId=${comment.id}" ><i class="icon icon-trash"></i> 删除</a>
                             </div>
                         </div>
                         <div class="comment-ct">

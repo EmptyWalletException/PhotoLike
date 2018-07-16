@@ -127,8 +127,10 @@ function loadSubcomment(supcommentId,pageNum){
                 "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
                 "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
                 "                                    </a>" +
-                "                                    <div class='' style='float: right'>" +
-                "                                    <a href='javascript:void(0);' class='btn-reply' rel='nofollow' commentId='"+subcomment.id+"' ><i class='icon icon-trash'></i> 删除</a>\n" +
+                "                                   <div>"+
+                "                                       <div class='' style='float: right'>" +
+                "                                           <a href='javascript:void(0);' class='btn-reply btn-comment-delete' rel='nofollow' commentId='"+subcomment.id+"' ><i class='icon icon-trash'></i> 删除</a>\n" +
+                "                                       </div>"+
                 "                                   </div>"+
                 "                                    <div class='item-wrapper'>" +
                 "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
@@ -283,6 +285,27 @@ $(document).on('click','.btn-action-praised',function () {
             } else {
                 btn.attr("class","btn-vote btn-action-praise");
                 btn.children("i").attr("class","icon-vote");
+            }
+        }
+    })
+});
+
+/*删除评论*/
+$(document).on('click','.btn-comment-delete',function () {
+    var commentId = $(this).attr("commentId");
+    var plate = $("#plateAndId").val();//页面评论框元素下面有一个隐藏input用于记录当前板块信息及稿件id信息;传给后端用于将当前稿件评论数减一;
+    var btn = $(this);
+    /*alert(commentId);*/
+    $.ajax({
+        url:"/admin/comment/delete",//url中不使用json是为了配合权限验证;
+        type:"POST",
+        data:{"commentId":commentId,"plate":plate},
+        success:function (result) {
+            alert(result.msg);
+            if (101 == result.code){
+                window.location.href="/login";
+            } else if(200 == result.code){
+                btn.parent().parent().parent().remove();
             }
         }
     })

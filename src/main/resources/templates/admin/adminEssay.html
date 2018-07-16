@@ -67,10 +67,15 @@
 						<div class="op-bar">
 							<span class="time" th:text="${#dates.format(essay.creatTime,'yyyy-MM-dd')}"></span>
 
-							<!--当状态为4时(已经处于回收站中)不显示此按钮-->
-							<a href="javascript:;" target="_blank" rel="nofollow" class="btn-delete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:unless="${contributionStatus == 4}">
+							<!--当状态为4时(已经处于回收站中)或0时(审核中)不显示此按钮-->
+							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='essay.'+${essay.id}" th:unless="${contributionStatus == 4 || contributionStatus == 0}   ">
 								<i class="icon icon-trash"></i>
 								废弃
+							</a>
+							<!--将当前稿件审核通过-->
+							<a href="javascript:;" rel="nofollow" class="btn-pass-contribution unfav" plate="topic.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 0}">
+								<i class="icon icon-share"></i>
+								通过
 							</a>
 							<a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 1}">
 								<i class="icon icon-report"></i>

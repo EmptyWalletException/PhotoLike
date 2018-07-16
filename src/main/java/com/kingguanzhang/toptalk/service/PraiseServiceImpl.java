@@ -264,7 +264,7 @@ public class PraiseServiceImpl {
     }
 
     /**
-     * 删除点赞的story;
+     * 删除点赞的comment;
      *
      */
     public void deletePraiseComment(Long userId,Long commentId){
@@ -273,6 +273,70 @@ public class PraiseServiceImpl {
         }
         try{
             praiseRepository.deletePraiseComment(userId,commentId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+    /**
+     * 删除essay下所有点赞记录;
+     *
+     */
+    public void deletePraiseEssayByEssayId(Long essayId){
+        if ( null == essayId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            praiseRepository.deletePraiseEssayByEssayId(essayId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+    /**
+     * 删除story下所有点赞记录;
+     *
+     */
+    public void deletePraiseStoryByStoryId(Long storyId){
+        if ( null == storyId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            praiseRepository.deletePraiseStoryByStory(storyId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+    /**
+     * 删除topic下所有点赞记录;
+     *
+     */
+    public void deletePraiseTopicByTopicId(Long topicId){
+        if ( null == topicId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            praiseRepository.deletePraiseTopicByTopicId(topicId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("删除数据库字段时出现异常");
+        }
+    }
+
+    /**
+     * 删除story下所有点赞记录;
+     *
+     */
+    public void deletePraiseCommentByCommentId(Long commentId){
+        if ( null == commentId){
+            throw new RuntimeException("传入的参数不能为空");
+        }
+        try{
+            praiseRepository.deletePraiseCommentByCommentId(commentId);
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("删除数据库字段时出现异常");

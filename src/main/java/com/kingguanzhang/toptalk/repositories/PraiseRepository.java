@@ -58,4 +58,47 @@ public interface PraiseRepository extends JpaRepository<Praise,Long> {
     )
     void deletePraiseStory(@Param("userId")Long userId,@Param("storyId")Long storyId );
 
+
+    /**
+     * 自定义删除语句,通过commentId删除对应的所有用户的praise;
+     * @param commentId
+     * @return
+     */
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from praise where comment_id=:commentId"
+    )
+    void deletePraiseCommentByCommentId(@Param("commentId")Long commentId );
+
+    /**
+     * 自定义删除语句,通过topicId删除对应的praise;
+     * @param topicId
+     */
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from praise where topic_id=:topicId"
+    )
+    void deletePraiseTopicByTopicId( @Param("topicId")Long topicId );
+
+    /**
+     * 自定义删除语句,通过essayId删除对应的praise;
+     * @param essayId
+     * @return
+     */
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from praise where essay_id=:essayId"
+    )
+    void deletePraiseEssayByEssayId(@Param("essayId")Long essayId );
+
+    /**
+     * 自定义删除语句,通过storyId删除对应的praise;
+     * @param storyId
+     * @return
+     */
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from praise where and story_id=:storyId"
+    )
+    void deletePraiseStoryByStory(@Param("storyId")Long storyId );
 }

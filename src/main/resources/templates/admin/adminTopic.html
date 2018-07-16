@@ -69,10 +69,15 @@
 						<a href="/topic/1373" class="name" th:href="'/topic/'+${topic.id}" th:text="${topic.title}" target="_blank">故事的最后</a>
 						<div class="op-bar">
 							<span class="time" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}"></span>
-							<!--当状态为4时(已经处于回收站中)不显示此按钮-->
-							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:unless="${contributionStatus == 4}">
+							<!--当状态为4时(已经处于回收站中)或0时(审核中)不显示此按钮-->
+							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:unless="${contributionStatus == 4 || contributionStatus == 0}   ">
 								<i class="icon icon-trash"></i>
 								废弃
+							</a>
+							<!--将当前稿件审核通过-->
+							<a href="javascript:;" rel="nofollow" class="btn-pass-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 0}">
+								<i class="icon icon-share"></i>
+								通过
 							</a>
 							<a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${contributionStatus == 1}">
 								<i class="icon icon-report"></i>
@@ -103,6 +108,7 @@
 								<i class="icon icon-reply"></i>
 								退稿
 							</a>
+
 
 							<!--<a href="javascript:;" rel="nofollow" class="share btn-action-" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
 								<i class="icon icon-share"></i>

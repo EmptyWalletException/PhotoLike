@@ -33,11 +33,73 @@ public class CommentController {
     @Autowired
     private TopicServiceImpl topicService;
     @Autowired
-    private EssayServiceImpl essayService;
-    @Autowired
     private StoryServiceImpl storyService;
     @Autowired
     private PraiseServiceImpl praiseService;
+
+
+    /**
+     * 管理员删除评论;
+     * @param request
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/admin/comment/delete",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg deleteComment(HttpServletRequest request,@RequestParam("commentId")String commentId,@RequestParam("plate")String plateAndId){
+        /**
+         * 判断securite中是否有admin角色,没有则返回到错误页面或重新登录界面;
+         */
+        if (null == request.getSession().getAttribute("user")){
+            return Msg.fail().setCode(101).setMsg("管理员未登录或登录已超时,请重新登录后再操作!");
+        }
+
+
+        /**
+         * 如果没有重复点赞,则保存此次操作;
+         */
+        Long supcommentId = Long.parseLong(commentId);
+        int rowsNumber = 0;//记录总共删除了多少子评论
+        try{
+            commentService.delete(supcommentId);//删除当前评论
+            rowsNumber = commentService.deleteSubcomment(supcommentId);//删除它的子评论,如果有的话;
+        }catch (Exception e){
+            e.printStackTrace();
+            return Msg.fail().setMsg("操作失败,请尝试刷新后重试");
+        }
+
+        /**
+         * 判断操作的页面板块是专辑还是故事,将其评论数减少相应数量,前端传过来的模板是"板块名.id",例如"topic.1";
+         */
+        String plateName = plateAndId.substring(0, plateAndId.indexOf("."));
+        Long id = Long.parseLong(plateAndId.substring(plateAndId.indexOf(".")+1));
+        switch (plateName){
+            case "topic":
+                crestService.deleteCommentRelateTopic(supcommentId,id);//这里子评论其实没有删除,但是不影响关联查询,关联查询只会查出父评论,删除父评论的关联关系即可;
+                Topic topic = topicService.findById(id);
+                long topicCommentNumber = topic.getCommentNumber();
+                topic.setCommentNumber(topicCommentNumber-rowsNumber-1);//rowsNumber是子评论数量,再减去删除的父评论数量1;
+                try {
+                    topicService.save(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新评论总数时出现异常!");
+                }
+                break;
+            case "story":
+                crestService.deleteCommentRelateStory(supcommentId,id);
+                Story story = storyService.findById(id);
+                long storyCommentNumber = story.getCommentNumber();
+                story.setCommentNumber(storyCommentNumber-rowsNumber-1);
+                try{
+                    storyService.save(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新评论总数时出现异常!");
+                }
+                break;
+        }
+        return Msg.success().setMsg("删除评论成功!");
+    }
+
 
     /**
      * ajax点赞操作;
