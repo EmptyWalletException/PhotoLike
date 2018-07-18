@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta property="qc:admins" content="4553322067645776654">
+    <meta property="wb:webmaster" content="78f40d1511de8c6b">
+    <meta name="baidu-site-verification" content="xC1m9aYTgX">
+    <title>管理专辑分类及城市分类</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="/css/event.css">
+    <link rel="stylesheet" type="text/css" href="/css/modal.css">
+    <link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
+    <script type="text/javascript" async="" src="/js/ga.js"></script>
+    <script src="/js/hm.js"></script>
+    <script src="/js/jquery-1.11.0.min.js"></script>
+
+    <script src="./js/luoo.js"></script>
+
+</head>
+<body>
+
+    <!-- header start -->
+    <div class="header" th:replace="~{portal/nav :: topbar}">
+    </div>
+    <!-- container start -->
+    <div class="container ct-sm" style="min-height: 499px;">
+
+        <div class="section-location">
+            <div class="section-head">
+                <p>注意事项:</p>
+                <div style="padding-left: 20px;">
+                    <p><small>1:分类名字字数请保持在2至6个字符之内,以确保版面美观;</small></p>
+                    <p><small>2:排序等级数字越大则越靠前,数字大小请控制在分类或城市总计数以内,以方便以后编辑;</small></p>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="section-location">
+            <div class="section-head">
+                <div>
+                    <h3 >管理专辑分类<small>(点击相应城市名即可操作) :</small></h3>
+                </div>
+            </div>
+            <div class="location-wrapper">
+                <a class="location-province topicCategory"  href="javascript:;" th:each="category:${categoryList}" th:attr="categoryId=${category.id},categoryName=${category.name},categoryRank=${category.rank}" th:text="${category.name}">风景</a>
+                <a class="location-province topicCategory" href="javascript:;" categoryId="0" style="color: #dd5862" >+点此新增一个分类</a>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+        <hr/>
+
+        <div class="section-location">
+            <div class="section-head">
+                <div>
+                    <h3 >管理城市<small>(点击相应城市名即可操作) :</small></h3>
+                </div>
+            </div>
+            <div class="location-wrapper">
+                <a class="location-province city" href="javascript:;" th:each="city:${cityList}" th:attr="cityId=${city.id},cityName=${city.name},cityRank=${city.rank}" th:text="${city.name}">台湾</a>
+                <a class="location-province city" href="javascript:;" cityId="0" style="color: #dd5862" >+点此新增一个城市</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 用于编辑topic分类的模态框 -->
+    <div id="topicCategoryModal" class="modal" >
+        <div class="modal-content" style="width: 200px">
+            <div class="modal-header" >
+                <h1>管理专辑分类:</h1>
+                <span id="closeTopicBtn" class="close">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="hovertreecontainer">
+                    <div style="width: 200px;">
+                        <div style="width: 200px;">
+                            <br/>
+                            <p style="padding-left: 20px">
+                                分类名字:<input id="categoryNameInput" type="text" name="content"  style="width: 100px;" />
+                            </p>
+                            <br/>
+                            <p style="padding-left: 20px">
+                                排序等级:<input id="categoryRankInput" type="text" name="content"  style="width: 100px;" />
+                            <p>
+                            <br/>
+                            <p style="padding-left: 20px" id="btnGroup-edit-topicCategory">
+                                <button class="btn btn-positive btn-edit-topicCategory rounded">保存修改</button>&nbsp;
+                                <button class="btn btn-positive btn-delete-topicCategory rounded">删除此分类</button>
+                            </p>
+                            <p style="padding-left: 20px;display: none" id="btnGroup-add-topicCategory">
+                                <button class="btn btn-positive btn-edit-topicCategory rounded" >确认添加</button>&nbsp;
+                            </p>
+                        </div>
+                        <!--<div style="width: 495px;">
+                            <p>其它操作:</p>
+                            <p style="padding-left: 20px">
+                                <button class="btn btn-positive autoStuff rounded" > 删除此分类 </button>
+                            </p>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+           <!-- <div class="modal-footer" style="padding-top: 20px">
+                <p style="padding-left: 200px">
+                    <button class="btn btn-positive  rounded" id="cancel1" >关闭模态框</button>
+                </p>
+            </div>-->
+        </div>
+    </div>
+
+    <!-- 用于编辑城市分类的模态框 -->
+    <div id="cityCategoryModal" class="modal" >
+        <div class="modal-content" style="width: 200px">
+            <div class="modal-header" >
+                <h1>管理城市:</h1>
+                <span id="closeCityBtn" class="close">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="hovertreecontainer">
+                    <div style="width: 200px;">
+                        <div style="width: 200px;">
+                            <br/>
+                            <p style="padding-left: 20px">
+                                城市名字:<input id="cityNameInput" type="text" name="content"  style="width: 100px;" />
+                            </p>
+                            <br/>
+                            <p style="padding-left: 20px">
+                                排序等级:<input id="cityRankInput" type="text" name="content"  style="width: 100px;" />
+                            <p>
+                                <br/>
+                            <p style="padding-left: 20px" id="btnGroup-edit-city">
+                                <button class="btn btn-positive btn-edit-city rounded" >保存修改</button>&nbsp;
+                                <button class="btn btn-positive btn-delete-city rounded">删除此城市</button>
+                            </p>
+                            <p style="padding-left: 20px;display: none" id="btnGroup-add-city" >
+                                <button class="btn btn-positive btn-edit-city rounded">确认添加</button>&nbsp;
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--底部区域开始-->
+    <div class="footer" th:replace="~{portal/footer :: footer}">
+
+    </div>
+    <div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+    <div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+
+    </div>
+
+    <div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
+
+    </div>
+
+
+
+    <script src="/js/jquery.artDialog.js"></script>
+    <script src="/js/jquery.qtip.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <script src="/js/adminCategoryAndCity.js"></script>
+    <!--[if lt IE 9]>
+    <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
+    <script>
+        $(function () {
+            if (window.PIE) {
+                $('.rounded,.page').each(function () {
+                    try {
+                        PIE.attach(this);
+                    } catch (e) {
+                    }
+                });
+            }
+        })
+    </script>
+    <![endif]-->
+
+
+</body>
+</html>

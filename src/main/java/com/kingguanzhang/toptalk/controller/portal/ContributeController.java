@@ -38,7 +38,7 @@ public class ContributeController {
 
 
     /**
-     * 将自己的稿件设置为废弃状态,页面上显示的按钮是" 删除";
+     * 将自己的稿件设置为废弃状态,页面上显示的按钮是" 废弃";
      * @param request
      * @param plateAndId
      * @return
