@@ -1,15 +1,12 @@
 package com.kingguanzhang.toptalk.repositories;
 
 import com.kingguanzhang.toptalk.entity.Category;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.Transient;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
@@ -30,8 +27,8 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
      * @param newCategoryId
      * @return
      */
-    @Transient
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value = "update topic set category_id = :newCategoryId where category_id = :oldCategoryId"//ORDER BY ?#{#pageable}
             )
     int replaceCategoryInTopic(@Param("oldCategoryId")Long oldCategoryId,@Param("newCategoryId")Long newCategoryId);

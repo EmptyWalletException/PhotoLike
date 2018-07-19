@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.Transient;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface CityRepository extends JpaRepository<City,Long> {
@@ -18,8 +17,8 @@ public interface CityRepository extends JpaRepository<City,Long> {
      * @param newCityId
      * @return
      */
-    @Transient
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value = "update event set city_id = :newCityId where city_id = :oldCityId"
     )
     int replaceCityInAllEvent(@Param("oldCityId")Long oldCityId,@Param("newCityId")Long newCityId);
@@ -30,8 +29,8 @@ public interface CityRepository extends JpaRepository<City,Long> {
      * @param newCityId
      * @return
      */
-    @Transient
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value = "update user set  city_id = :newCityId where city_id = :oldCityId"
     )
     int replaceCityInAllUser(@Param("oldCityId")Long oldCityId,@Param("newCityId")Long newCityId);

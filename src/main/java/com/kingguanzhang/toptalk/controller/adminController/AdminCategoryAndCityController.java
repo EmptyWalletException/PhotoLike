@@ -79,7 +79,7 @@ public class AdminCategoryAndCityController {
     private Msg deleteTopicCategory(@RequestParam("topicCategoryId")String topicCategoryId){
         try{
             //将此分类下所有的专辑稿件绑定到备份分类中(id为1的分类),然后删除此分类;
-            categoryService.replaceByDefault(Long.parseLong(topicCategoryId),1L);
+            categoryService.replaceByDefault(Long.parseLong(topicCategoryId),Long.parseLong("1"));
             categoryService.delete(Long.parseLong(topicCategoryId));
         }catch (Exception e){
             e.printStackTrace();
