@@ -2,11 +2,38 @@ package com.kingguanzhang.toptalk.repositories;
 
 import com.kingguanzhang.toptalk.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.Transient;
 
 @Repository
 public interface CityRepository extends JpaRepository<City,Long> {
 
+    /**
+     * 将指定的城市下的所有活动的所属城市与新的城市关联;用于删除城市之前调用此方法;
+     * @param oldCityId
+     * @param newCityId
+     * @return
+     */
+    @Transient
+    @Modifying
+    @Query(nativeQuery = true, value = "update event set city_id = :newCityId where city_id = :oldCityId"
+    )
+    int replaceCityInAllEvent(@Param("oldCityId")Long oldCityId,@Param("newCityId")Long newCityId);
 
+    /**
+     * 将指定的城市下的所有用户的所属城市与新的城市关联,即id为1的城市;用于删除城市之前调用此方法;
+     * @param oldCityId
+     * @param newCityId
+     * @return
+     */
+    @Transient
+    @Modifying
+    @Query(nativeQuery = true, value = "update user set  city_id = :newCityId where city_id = :oldCityId"
+    )
+    int replaceCityInAllUser(@Param("oldCityId")Long oldCityId,@Param("newCityId")Long newCityId);
 
 }

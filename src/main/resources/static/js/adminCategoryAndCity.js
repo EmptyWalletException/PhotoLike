@@ -127,12 +127,12 @@ $(".btn-edit-topicCategory").click(function () {
     $.ajax({
         url:"/admin/topicCategory/edit",
         type:"POST",
-        data:{"topicCategoryName":name,"topicCategory":rank},
+        data:{"topicCategoryId":topicCategoryId,"topicCategoryName":name,"topicCategoryRank":rank},
         success:function (result) {
             alert(result.msg);
+            window.location.reload();
         }
     });
-    alert("编辑分类");
 });
 
 $(".btn-delete-topicCategory").click(function () {
@@ -142,9 +142,9 @@ $(".btn-delete-topicCategory").click(function () {
         data:{"topicCategoryId":topicCategoryId},
         success:function (result) {
             alert(result.msg);
+            window.location.reload();
         }
     });
-    alert("删除分类");
 });
 
 $(".btn-edit-city").click(function () {
@@ -153,12 +153,12 @@ $(".btn-edit-city").click(function () {
     $.ajax({
         url:"/admin/city/edit",
         type:"POST",
-        data:{"cityName":name,"cityRank":rank},
+        data:{"cityId":cityId,"cityName":name,"cityRank":rank},
         success:function (result) {
             alert(result.msg);
+            window.location.reload();
         }
     });
-    alert("编辑城市");
 });
 
 $(".btn-delete-city").click(function () {
@@ -168,9 +168,9 @@ $(".btn-delete-city").click(function () {
         data:{"cityId":cityId},
         success:function (result) {
             alert(result.msg);
+            window.location.reload();
         }
     });
-    alert("删除城市");
 });
 
 /*点击取消关闭模态框并清空输入框*/

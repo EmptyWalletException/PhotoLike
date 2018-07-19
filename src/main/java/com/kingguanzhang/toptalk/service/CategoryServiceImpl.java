@@ -178,6 +178,18 @@ public class CategoryServiceImpl {
     }
 
     /**
+     * 将指定的分类下的所有topic的分类设置成默认分类,即分类id为1的分类;用于删除分类之前调用此方法;
+     * @param oldCategoryId
+     */
+    public void replaceByDefault(Long oldCategoryId,Long newCategoryId){
+        try{
+            categoryRepository.replaceCategoryInTopic(oldCategoryId,newCategoryId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 统计总数;
      * @return
      */

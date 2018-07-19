@@ -161,6 +161,21 @@ public class CityServiceImpl {
     }
 
     /**
+     * 将指定的城市下的所有活动和用户的所属城市设置成默认城市,即id为1的城市;用于删除城市之前调用此方法;
+     * @param oldCityId
+     * @param newCityId
+     */
+    public void replaceCity(Long oldCityId,Long newCityId){
+        try{
+            cityRepository.replaceCityInAllEvent(oldCityId,newCityId);
+            cityRepository.replaceCityInAllUser(oldCityId,newCityId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
      * 统计总数;
      * @return
      */
