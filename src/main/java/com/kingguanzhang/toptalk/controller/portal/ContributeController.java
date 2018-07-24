@@ -374,7 +374,7 @@ public class ContributeController {
      */
     @RequestMapping("/contribute/topicContribute")
     public String toTopicContributePage(Model model){
-        Pageable pageable = new PageRequest(0,100,new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable = new PageRequest(0,100,new Sort(Sort.Direction.DESC,"rank"));
         Page<Category> categoryPage = categoryService.findAll(pageable);
         model.addAttribute("categoryPage",categoryPage);
         return "/contribute/topicContribute";

@@ -1,10 +1,7 @@
 package com.kingguanzhang.toptalk.controller.adminController;
 
 import com.kingguanzhang.toptalk.dto.Msg;
-import com.kingguanzhang.toptalk.entity.Essay;
-import com.kingguanzhang.toptalk.entity.Story;
-import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -33,6 +30,29 @@ public class AdminContributeController {
     private PraiseServiceImpl praiseService;
     @Autowired
     private CRESTServiceImpl crestService;
+    @Autowired
+    private CategoryServiceImpl categoryService;
+
+    /**
+     * 编辑专辑所属分类;
+     * @param topicCategoryId
+     * @param topicId
+     * @return
+     */
+    @RequestMapping("/admin/topic/category/edit")
+    @ResponseBody
+    private Msg editTopicCategory(@RequestParam("topicCategoryId")String topicCategoryId,@RequestParam("topicId")String topicId){
+        Topic topic = topicService.findById(Long.parseLong(topicId));
+        Category category = categoryService.findById(Long.parseLong(topicCategoryId));
+        topic.setCategory(category);
+        try {
+           topicService.save(topic);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Msg.fail().setMsg("更新信息失败");
+        }
+        return Msg.success().setMsg("更新信息成功");
+    }
 
     /**
      * 将稿件从回收站恢复为待审核状态;

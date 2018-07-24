@@ -3,36 +3,64 @@
  */
 
 /*建立模态框对象*/
-var modalBox = {};
+var modalBox = {};//普通操作的模态框
+var topicCategoryModalBox = {};//修改分类操作的模态框
 var plate = "";//用于记录点击退稿按钮时的所属稿件;
+var categoryId = ""; //用于记录修改分类操作所需的分类id数据;
 var sendBackContribution;//用于记录点击退稿按钮的所属稿件元素,方便移除;
 /*模态框相关事件的js代码*/
 (function () {
 
     /*获取模态框*/
     modalBox.modal = document.getElementById("myModal");
+    topicCategoryModalBox.modal = document.getElementById("topicCategoryModal");
 
     /*获得关闭按钮*/
     modalBox.closeBtn = document.getElementById("closeBtn");
+    topicCategoryModalBox.closeBtn = document.getElementById("closeTopicBtn");
+
     /*模态框显示*/
     modalBox.show = function () {
         console.log(this.modal);
         this.modal.style.display = "block";
     }
+    topicCategoryModalBox.show = function () {
+        console.log(this.modal);
+        this.modal.style.display = "block";
+    }
+
     /*模态框关闭*/
     modalBox.close = function () {
         this.modal.style.display = "none";
     }
+    topicCategoryModalBox.close = function () {
+        this.modal.style.display = "none";
+    }
+
     /*当用户点击模态框内容之外的区域，模态框也会关闭*/
     modalBox.outsideClick = function () {
         var modal = this.modal;
+        var modal1 = topicCategoryModalBox.modal;
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+            if (event.target == modal1) {
+                modal1.style.display = "none";
+            }
         }
     }
+
     /*模态框初始化*/
+    topicCategoryModalBox.init = function () {
+        var that1 = this;
+        that1.closeBtn.onclick = function () {
+            that1.close();
+        }
+       /* that1.outsideClick();*///已经交给普通模态框去绑定此点击事件;
+    }
+    topicCategoryModalBox.init();
+
     modalBox.init = function () {
         var that = this;
         this.closeBtn.onclick = function () {
@@ -41,6 +69,7 @@ var sendBackContribution;//用于记录点击退稿按钮的所属稿件元素,�
         this.outsideClick();
     }
     modalBox.init();
+
     /*点击退稿按钮弹出模态框*/
     $(document).on('click','.btn-sendBack-contribution',function () {
         sendBackContribution = $(this).parent().parent();
@@ -48,7 +77,46 @@ var sendBackContribution;//用于记录点击退稿按钮的所属稿件元素,�
         modalBox.show();
     });
 
+    /*点击修改专辑分类弹出对应的模态框*/
+    $(document).on('click','.btn-editCategory-contribution',function () {
+        topicCategoryId = $(this).attr("categoryId");
+        var topicCategoryName = $(this).attr("categoryName");
+        if (0 == topicCategoryId) {
+            $("#btnGroup-edit-topicCategory").hide();
+            $("#btnGroup-add-topicCategory").show();
+        }else {
+            $("#btnGroup-edit-topicCategory").show();
+            $("#btnGroup-add-topicCategory").hide();
+        }
+        $("#categoryNameText").text(" "+topicCategoryName);
+        topicCategoryModalBox.show();
+    });
+
 })();
+
+
+
+/*点击保存修改按钮提交分类的修改*/
+$(".btn-edit-topicCategory").click(function () {
+    var categoryId = $(".categoryOption:checked").val();//如果使用$(".categoryOption[checked=checked]").val()则只能取出页面生成时的选中的哪一项,取不出后来改变之后的选中项;
+    var topicId = $(".btn-editCategory-contribution").attr("topicId");//如果使用$(".categoryOption[checked=checked]").val()则只能取出页面生成时的选中的哪一项,取不出后来改变之后的选中项;
+    alert(categoryId);
+    $.ajax({
+        url:"/admin/topic/category/edit",
+        type:"POST",
+        data:{"topicCategoryId":categoryId,"topicId":topicId},
+        success:function (result) {
+            alert(result.msg);
+            window.location.reload();
+        }
+    });
+});
+
+/*点击取消关闭修改分类的模态框并清空输入框*/
+$(".btn-cancel-topicCategory").click(function () {
+    $("categoryRankInput").empty();
+    topicCategoryModalBox.close();
+});
 
 /*快捷选择退稿理由填充进输入框;*/
 $(".autoStuff").click(function () {

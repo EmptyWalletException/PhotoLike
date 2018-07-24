@@ -3258,7 +3258,7 @@ table.aui_border, table.aui_dialog {
     color: #7d7d7d;
     float: right;
     font-size: 12px;
-    margin-right: 12px
+    margin-right: 6px
 }
 
 .fav-essays .icon-share {
@@ -3268,7 +3268,8 @@ table.aui_border, table.aui_dialog {
 .fav-essays .unfav {
     color: #7d7d7d;
     float: right;
-    font-size: 12px
+    font-size: 12px;
+    margin-left: 6px
 }
 
 .setting-row {

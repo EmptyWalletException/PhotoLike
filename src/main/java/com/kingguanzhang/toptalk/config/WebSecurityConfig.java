@@ -1,5 +1,6 @@
 package com.kingguanzhang.toptalk.config;
 
+import com.kingguanzhang.toptalk.component.LoginSuccessHandler;
 import com.kingguanzhang.toptalk.service.CustomUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +19,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomUserServiceImpl();
     }
 
+    @Bean
+    LoginSuccessHandler loginSuccessHandler(){return new LoginSuccessHandler();}
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .headers().frameOptions().disable()
+                .and()
                 .authorizeRequests()
                    // .antMatchers("**/**.css","**/**.js","**/*.jpg","**.gif","**.png","**.svg").permitAll()
                     .antMatchers("/ajax/**").permitAll()
@@ -54,8 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                    .loginPage("/login").defaultSuccessUrl("/index",true).failureUrl("/login?error=true")
+                .formLogin()/*原来的登录后跳转页面设置.defaultSuccessUrl("/index",true)已废弃,改为登录后调用自定义的loginSuccessHandler;*/
+                    .loginPage("/login").successHandler(loginSuccessHandler()).failureUrl("/login?error=true")
                 .and()
                 .logout()
                     .logoutUrl("/logout")//触发注销操作的URL
@@ -70,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();//这里如果不禁用csrf那么所有的post请求都会失效;
+
 
     }
 

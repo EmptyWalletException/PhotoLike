@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0029)http://www.luoo.net/essay/925 -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -31,7 +32,7 @@
 </div>
 <!--/// header end -->
 <!-- container start -->
-<div class="container ct-sm" style="min-height: 499px;width: 960px">
+<div class="container ct-sm" style="min-height: 499px;width: 620px">
     <nav class="article-nav">
         <a href="/story" class="nav-back">
             <i class="icon-back"></i>
@@ -62,6 +63,8 @@
                 <span class="icon-essay-share"></span>
             </a>
         </div>
+
+
 
         <div class="essay-author-wrapper clearfix">
             <div class="essay-author">
@@ -94,8 +97,7 @@
         </div>
 
         <!--管理员操作区域-->
-        <div class="op-bar" style="float: right">
-            <!--TODO 根据用户权限显示此区域: -->
+        <div class="op-bar" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
             <span class="vol-date" th:text="'稿件信息及管理员操作: 作者id='+${story.author.id}+',稿件id='+${story.id}+',稿件状态='"></span>
             <span class="vol-date" th:if="${story.status == 0}" >审核中</span>
             <span class="vol-date" th:if="${story.status == 1}" >展示中</span>
@@ -105,7 +107,7 @@
             <span class="vol-date" >&nbsp;|&nbsp;</span>
 
             <!--当状态为4时(已经处于回收站中)或0时(审核中)不显示此按钮-->
-            <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='story.'+${story.id}" th:unless="${story.status == 4 || story.status == 0}   ">
+            <a  href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='story.'+${story.id}" th:unless="${story.status == 4 || story.status == 0}   ">
                 <i class="icon icon-trash"></i>
                 废弃
             </a>
@@ -224,11 +226,11 @@
                         </div>
                         <button class="btn btn-positive  rounded" id="commentAdd"
 
-                                data-width="235" th:if="${null != session.user }">发布
+                                data-width="235" sec:authorize="isAuthenticated()">发布
                         </button>
                         <button class="btn btn-positive btn-not-ready rounded" id="commentAdd"
 
-                                data-width="235" disabled th:if="${null == session.user }">请先登录
+                                data-width="235" disabled sec:authorize="isAnonymous()">请先登录
                         </button>
                     </div>
 
@@ -275,8 +277,8 @@
                         <div class="helper">
                             <a href="/user?userId=1285850" class="username" target="_blank" th:href="'/user?userId='+${comment.author.id}" th:text="${comment.author.nickname}">秋刀鱼-</a>&nbsp;&nbsp;[[${comment.author.signature}]]
 
-                            <!--TODO 父评论和子评论的删除按钮根据用户权限显示,并点击后删除此评论: -->
-                            <div class="" style="float: right">
+                            <!--管理员操作父评论的区域-->
+                            <div id="adminSupcomment" class="" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a href="javascript:void(0);" class="btn-reply btn-comment-delete" rel="nofollow" th:attr="commentId=${comment.id}" ><i class="icon icon-trash"></i> 删除</a>
                             </div>
                         </div>
@@ -367,6 +369,37 @@
     <input type="hidden" th:value="${praiseCommentIds}" id="praiseCommentIds">
 
     <!--/// comment-wrapper end -->
+</div>
+
+<!-- 用于修改分类的模态框 此处也放一个是为了避免js报错-->
+<div id="topicCategoryModal" class="modal" >
+    <div class="modal-content" style="width: 250px">
+        <div class="modal-header" >
+            <h1>修改所属分类:</h1>
+            <span id="closeTopicBtn" class="close">×</span>
+        </div>
+        <div class="modal-body">
+            <div class="hovertreecontainer" >
+                <div style="width: 250px;">
+                    <br/>
+                    <p style="padding-left: 20px">
+                        当前所属分类:<span id="categoryNameText"   style="width: 100px;" ></span>
+                    </p>
+                    <br/>
+                    <p style="padding-left: 20px">
+                        设置新的分类:<select  id="categorySelect" >
+                        <option class="categoryOption" th:each="category:${categoryPage}" th:value="${category.id}" th:text="' '+${category.name}+' '"  th:selected="${category.id == topic.category.id}">分类1</option>
+                    </select>
+                    <p>
+                        <br/>
+                    <p style="padding-left: 20px" id="btnGroup-edit-topicCategory">
+                        <button class="btn btn-positive btn-cancel-topicCategory rounded">取消</button>&nbsp;
+                        <button class="btn btn-positive btn-edit-topicCategory rounded">保存修改</button>&nbsp;
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--/// container end -->
 <!--<script>

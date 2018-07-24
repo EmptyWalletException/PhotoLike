@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <!-- saved from url=(0038)http://www.luoo.net/musician/index/229 -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -63,8 +65,7 @@
         </div>
 
         <!--管理员操作区域-->
-        <div class="op-bar" style="float: right">
-            <!--TODO 根据用户权限显示此区域: -->
+        <div class="op-bar" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
             <span class="vol-date" th:text="'稿件信息及管理员操作: 作者id='+${upEssay.author.id}+',稿件id='+${upEssay.id}+',稿件状态='"></span>
             <span class="vol-date" th:if="${upEssay.status == 0}" >审核中</span>
             <span class="vol-date" th:if="${upEssay.status == 1}" >展示中</span>
@@ -160,8 +161,7 @@
 
                     </div>
 
-                    <div class="op-bar" style="float: right">
-                        <!--TODO 根据用户权限显示此区域: -->
+                    <div class="op-bar" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
                         <span class="vol-date" th:text="'稿件信息及管理员操作: 作者id='+${essay.author.id}+',稿件id='+${essay.id}+',稿件状态='"></span>
                         <span class="vol-date" th:if="${essay.status == 0}" >审核中</span>
                         <span class="vol-date" th:if="${essay.status == 1}" >展示中</span>
@@ -316,6 +316,37 @@
     <input type="hidden" th:value="${favEssayIds}" id="favEssayIds">
 </div>
 <!--/// container end -->
+
+<!-- 用于修改分类的模态框 此处也放一个是为了避免js报错-->
+<div id="topicCategoryModal" class="modal" >
+    <div class="modal-content" style="width: 250px">
+        <div class="modal-header" >
+            <h1>修改所属分类:</h1>
+            <span id="closeTopicBtn" class="close">×</span>
+        </div>
+        <div class="modal-body">
+            <div class="hovertreecontainer" >
+                <div style="width: 250px;">
+                    <br/>
+                    <p style="padding-left: 20px">
+                        当前所属分类:<span id="categoryNameText"   style="width: 100px;" ></span>
+                    </p>
+                    <br/>
+                    <p style="padding-left: 20px">
+                        设置新的分类:<select  id="categorySelect" >
+                        <option class="categoryOption" th:each="category:${categoryPage}" th:value="${category.id}" th:text="' '+${category.name}+' '"  th:selected="${category.id == topic.category.id}">分类1</option>
+                    </select>
+                    <p>
+                        <br/>
+                    <p style="padding-left: 20px" id="btnGroup-edit-topicCategory">
+                        <button class="btn btn-positive btn-cancel-topicCategory rounded">取消</button>&nbsp;
+                        <button class="btn btn-positive btn-edit-topicCategory rounded">保存修改</button>&nbsp;
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/js/favorite.js"></script>
 <!--底部区域开始-->

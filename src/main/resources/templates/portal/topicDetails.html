@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0033)http://www.luoo.net/vol/index/977 -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -22,11 +23,7 @@ Where there&#39;s music and there&#39;...">
     <script src="/js/myComment.js"></script>
 
     <script src="/js/luoo.js"></script>
-   <!-- <script>
-        if ($.luoo.browser()['ie'] && $.luoo.browser()['version'] < 8) {
-            window.location.href = 'http://www.luoo.net/browser_not_supported/';
-        }
-    </script>-->
+
 
 
     <style>
@@ -48,8 +45,44 @@ Where there&#39;s music and there&#39;...">
             <i class="icon-back"></i>
             返回专辑首页
         </a>
+        <!--管理员修改分类的操作-->
+        <a  sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:;" rel="nofollow" class="btn-editCategory-contribution unfav vol-tag-item" topicId="1373" th:attr="topicId=${topic.id},categoryId=${topic.category.id},categoryName=${topic.category.name}" >
+            <i class="icon icon-report"></i>
+            修改分类
+        </a>
+        <!--显示分类-->
         <a href="/topic?category=1?pn=1" target="_blank" class="vol-tag-item" th:href="'/topic?category='+${topic.category.id}" th:text="'#'+${topic.category.name}" >#流行</a>
      </div>
+    <!-- 用于修改分类的模态框 -->
+    <div id="topicCategoryModal" class="modal" >
+        <div class="modal-content" style="width: 250px">
+            <div class="modal-header" >
+                <h1>修改所属分类:</h1>
+                <span id="closeTopicBtn" class="close">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="hovertreecontainer" >
+                    <div style="width: 250px;">
+                        <br/>
+                        <p style="padding-left: 20px">
+                            当前所属分类:<span id="categoryNameText"   style="width: 100px;" ></span>
+                        </p>
+                        <br/>
+                        <p style="padding-left: 20px">
+                            设置新的分类:<select  id="categorySelect" >
+                                            <option class="categoryOption" th:each="category:${categoryPage}" th:value="${category.id}" th:text="' '+${category.name}+' '"  th:selected="${category.id == topic.category.id}">分类1</option>
+                                        </select>
+                        <p>
+                            <br/>
+                        <p style="padding-left: 20px" id="btnGroup-edit-topicCategory">
+                            <button class="btn btn-positive btn-cancel-topicCategory rounded">取消</button>&nbsp;
+                            <button class="btn btn-positive btn-edit-topicCategory rounded">保存修改</button>&nbsp;
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <h1 class="vol-name">
         <span class="vol-number rounded" th:text="${topic.id}" >222</span>
         <span class="vol-title" th:text="${topic.title}">专辑标题</span>
@@ -101,8 +134,7 @@ Where there&#39;s music and there&#39;...">
         data-text="分享一期来自图漾的壁纸专辑"  data-img="http://img-cdn2.luoo.net/pics/vol/58c6da94e163a.jpg!/fwfh/640x452"  rel="nofollow">
          </a>
         <!--管理员操作区域-->
-        <div class="op-bar" style="float: right">
-            <!--TODO 根据用户权限显示此区域: -->
+        <div class="op-bar" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
             <span class="vol-date" th:text="'稿件信息及管理员操作: 作者id='+${topic.author.id}+',稿件id='+${topic.id}+',稿件状态='"></span>
             <span class="vol-date" th:if="${topic.status == 0}" >审核中</span>
             <span class="vol-date" th:if="${topic.status == 1}" >展示中</span>
@@ -255,11 +287,11 @@ Where there&#39;s music and there&#39;...">
                         </div>
                         <button class="btn btn-positive  rounded" id="commentAdd"
 
-                                data-width="235" th:if="${null != session.user }">发布
+                                data-width="235" sec:authorize="isAuthenticated()">发布
                         </button>
                         <button class="btn btn-positive btn-not-ready rounded" id="commentAdd"
 
-                                data-width="235" disabled th:if="${null == session.user }">请先登录
+                                data-width="235" disabled sec:authorize="isAnonymous()">请先登录
                         </button>
                     </div>
 
@@ -307,8 +339,7 @@ Where there&#39;s music and there&#39;...">
 
                             <a href="/user?userId=1285850" class="username" target="_blank"  th:href="'/user?userId='+${comment.author.id}" th:text="${comment.author.nickname}">用户昵称</a><span style="color: #8b8b8b">&nbsp;&nbsp;[[${comment.author.signature}]]</span>
 
-                            <!--TODO 父评论和子评论的删除按钮根据用户权限显示,并点击后删除此评论: -->
-                            <div class="" style="float: right">
+                            <div id="adminSupcomment" class="" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
                                  <a href="javascript:void(0);" class="btn-reply btn-comment-delete" rel="nofollow" th:attr="commentId=${comment.id}" ><i class="icon icon-trash"></i> 删除</a>
                             </div>
                         </div>

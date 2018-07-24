@@ -142,10 +142,9 @@ public class EssayController {
             return Msg.fail().setMsg("读取稿件信息失败!");
         }
 
-        // TODO 这里先默认author id为1,后面改成从session中根据登录名获取user id;:
-        User author = new User();
-        author.setId(1);
+        User author = (User) request.getSession().getAttribute("user");
         essay.setAuthor(author);
+        essay.setStatus(0);
 
         //从request中解析出上传的文件图片;
         MultipartFile essayImg = ((MultipartRequest) request).getFile("img");

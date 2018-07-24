@@ -24,9 +24,8 @@
                 <li><a href="/story">故事</a></li>
                 <li><a href="/event">活动</a></li>
                 <li><a href="/user/favoriteTopic?userId=1">收藏</a></li>
-                <li><a href="/admin/topic?userId=0">稿件管理</a></li>
-                <li><a href="/admin/categoryAndCity">分类管理</a></li>
-                <!--<li><a href="http://www.luoo.net/luoospace/">落空间主页</a></li>-->
+                <li><a href="/admin/topic?userId=0" sec:authorize="hasRole('ROLE_ADMIN')">稿件管理</a></li>
+                <li><a href="/admin/categoryAndCity" sec:authorize="hasRole('ROLE_ADMIN')">分类管理</a></li>
             </ul>
 
         </div>
@@ -56,7 +55,7 @@
 
         <!--用户没登录时-->
         <div class="login "
-             style="display: block;" th:if="${null == session.user }" sec:authorize="isAnonymous()" >
+             style="display: block;"  sec:authorize="isAnonymous()" >
             <a  href="/login" id="theme-login" rel="nofollow"  > 注册/登录 </a>
         </div>
 

@@ -73,8 +73,9 @@ public class IndexController {
         model.addAttribute("eventList",eventPage.getContent());
         model.addAttribute("storyList",storyPage.getContent());
         model.addAttribute("topicList",topicPage.getContent());
-        
-        //使用security在session中取出用户信息;
+
+        //下面别注释掉的是原来的当security登录成功后强制跳转到此controller往session写用户信息的方法,现在已经被自定义的LoginSuccessHandle代替;
+        /*//使用security在session中取出用户信息;
         SecurityContextImpl securityContextImpl = (SecurityContextImpl) request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
         if (null != securityContextImpl) {
             String username = securityContextImpl.getAuthentication().getName();
@@ -87,7 +88,7 @@ public class IndexController {
                 //将用户信息写入session
                 request.getSession().setAttribute("user", user1);
             }
-        }
+        }*/
         return "/portal/index";
     }
 

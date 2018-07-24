@@ -122,54 +122,104 @@ function loadSubcomment(supcommentId,pageNum){
         if((pageNum-1)*10 <= index && (pageNum)*10 > index){//遍历符合页码范围要求的子评论
             subcommentIndex = index;//将当前的下标保存,用于判断当下标大于10时显示"折叠子评论"按钮;
             var commentDate = new Date(subcomment.creatTime);
-            subcommentDiv.children("div").children(".subcomment").append(
-                "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
-                "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
-                "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
-                "                                    </a>" +
-                "                                   <div>"+
-                "                                       <div class='' style='float: right'>" +
-                "                                           <a href='javascript:void(0);' class='btn-reply btn-comment-delete' rel='nofollow' commentId='"+subcomment.id+"' ><i class='icon icon-trash'></i> 删除</a>\n" +
-                "                                       </div>"+
-                "                                   </div>"+
-                "                                    <div class='item-wrapper'>" +
-                "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
-                "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
-                "                                        <div class='comment-ct'>" +
-                "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +
-                "                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +subcomment.content+ "</p>" +
-                "                                        </div>" +
-                "                                        <div class='helper clearfix'>" +commentDate.toLocaleDateString()+
-                "                                            <a commentId='"+subcomment.id+"'"+
-                "                                               data-width='235' class='btn-vote btn-action-praise '" +
-                "                                               href='javascript:void(0);' rel='nofollow'>  &nbsp;<i class='icon-vote'></i>" +
-                "                                                <span>赞</span></a>" +
-                "                                            <span class='vote-count' >"+subcomment.praiseNumber+"赞</span>" +
-                "                                        </div>" +
-                "                                    </div>" +
-                "                                    <form action='#'" +
-                "                                          class='editor-wrapper form-comment-at hide'>" +
-                "                                        <div class='editor'>" +
-                "                                            <textarea name='content' class='editor-comment-at' spellcheck='false'" +
-                "                                                      autocomplete='off'></textarea>" +
-                "                                        </div>" +
-                "                                        <div class='toolbar clearfix'>" +
-                "                                            <div class='btn-group'>" +
-                "                                                <a href='javascript:void(0);'" +
-                "                                                   class='btn-link btn-action-cancel-at'>取消</a>" +
-                "                                                <button class='btn btn-positive btn-not-ready rounded btn-at-comment-submit'" +
-                "                                                        data-tipid='commentSubmitDialog'" +
-                "                                                        data-remote='http://www.luoo.net/login/dialog' data-width='235'>" +
-                "                                                    评论" +
-                "                                                </button>" +
-                "                                            </div>" +
-                "                                        </div>" +
-                "                                        <input type='hidden' name='app_id' value='1'>" +
-                "                                        <input type='hidden' name='res_id' value='977'>" +
-                "                                        <input type='hidden' name='comment_at' value='611072'>" +
-                "                                    </form>" +
-                "                               </div>"
-            );
+            var adminSupcomment = $("#adminSupcomment");
+            if (undefined != adminSupcomment && 0<adminSupcomment.length){
+                subcommentDiv.children("div").children(".subcomment").append(
+                    "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
+                    "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
+                    "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
+                    "                                    </a>" +
+                    "                                   <div>"+
+                    "                                       <div class='' style='float: right' >" +
+                    "                                           <a href='javascript:void(0);' class='btn-reply btn-comment-delete' rel='nofollow' commentId='"+subcomment.id+"' ><i class='icon icon-trash'></i> 删除</a>"+
+                    "                                       </div>"+
+                    "                                   </div>"+
+                    "                                    <div class='item-wrapper'>" +
+                    "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
+                    "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
+                    "                                        <div class='comment-ct'>" +
+                    "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +
+                    "                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +subcomment.content+ "</p>" +
+                    "                                        </div>" +
+                    "                                        <div class='helper clearfix'>" +commentDate.toLocaleDateString()+
+                    "                                            <a commentId='"+subcomment.id+"'"+
+                    "                                               data-width='235' class='btn-vote btn-action-praise '" +
+                    "                                               href='javascript:void(0);' rel='nofollow'>  &nbsp;<i class='icon-vote'></i>" +
+                    "                                                <span>赞</span></a>" +
+                    "                                            <span class='vote-count' >"+subcomment.praiseNumber+"赞</span>" +
+                    "                                        </div>" +
+                    "                                    </div>" +
+                    "                                    <form action='#'" +
+                    "                                          class='editor-wrapper form-comment-at hide'>" +
+                    "                                        <div class='editor'>" +
+                    "                                            <textarea name='content' class='editor-comment-at' spellcheck='false'" +
+                    "                                                      autocomplete='off'></textarea>" +
+                    "                                        </div>" +
+                    "                                        <div class='toolbar clearfix'>" +
+                    "                                            <div class='btn-group'>" +
+                    "                                                <a href='javascript:void(0);'" +
+                    "                                                   class='btn-link btn-action-cancel-at'>取消</a>" +
+                    "                                                <button class='btn btn-positive btn-not-ready rounded btn-at-comment-submit'" +
+                    "                                                        data-tipid='commentSubmitDialog'" +
+                    "                                                        data-remote='http://www.luoo.net/login/dialog' data-width='235'>" +
+                    "                                                    评论" +
+                    "                                                </button>" +
+                    "                                            </div>" +
+                    "                                        </div>" +
+                    "                                        <input type='hidden' name='app_id' value='1'>" +
+                    "                                        <input type='hidden' name='res_id' value='977'>" +
+                    "                                        <input type='hidden' name='comment_at' value='611072'>" +
+                    "                                    </form>" +
+                    "                               </div>"
+                );
+            }else {
+                subcommentDiv.children("div").children(".subcomment").append(
+                    "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
+                    "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
+                    "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
+                    "                                    </a>" +
+                    "                                   <div>"+
+                    "                                   </div>"+
+                    "                                    <div class='item-wrapper'>" +
+                    "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
+                    "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
+                    "                                        <div class='comment-ct'>" +
+                    "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +
+                    "                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +subcomment.content+ "</p>" +
+                    "                                        </div>" +
+                    "                                        <div class='helper clearfix'>" +commentDate.toLocaleDateString()+
+                    "                                            <a commentId='"+subcomment.id+"'"+
+                    "                                               data-width='235' class='btn-vote btn-action-praise '" +
+                    "                                               href='javascript:void(0);' rel='nofollow'>  &nbsp;<i class='icon-vote'></i>" +
+                    "                                                <span>赞</span></a>" +
+                    "                                            <span class='vote-count' >"+subcomment.praiseNumber+"赞</span>" +
+                    "                                        </div>" +
+                    "                                    </div>" +
+                    "                                    <form action='#'" +
+                    "                                          class='editor-wrapper form-comment-at hide'>" +
+                    "                                        <div class='editor'>" +
+                    "                                            <textarea name='content' class='editor-comment-at' spellcheck='false'" +
+                    "                                                      autocomplete='off'></textarea>" +
+                    "                                        </div>" +
+                    "                                        <div class='toolbar clearfix'>" +
+                    "                                            <div class='btn-group'>" +
+                    "                                                <a href='javascript:void(0);'" +
+                    "                                                   class='btn-link btn-action-cancel-at'>取消</a>" +
+                    "                                                <button class='btn btn-positive btn-not-ready rounded btn-at-comment-submit'" +
+                    "                                                        data-tipid='commentSubmitDialog'" +
+                    "                                                        data-remote='http://www.luoo.net/login/dialog' data-width='235'>" +
+                    "                                                    评论" +
+                    "                                                </button>" +
+                    "                                            </div>" +
+                    "                                        </div>" +
+                    "                                        <input type='hidden' name='app_id' value='1'>" +
+                    "                                        <input type='hidden' name='res_id' value='977'>" +
+                    "                                        <input type='hidden' name='comment_at' value='611072'>" +
+                    "                                    </form>" +
+                    "                               </div>"
+                );
+            }
+
         }
 
 

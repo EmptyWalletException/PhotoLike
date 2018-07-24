@@ -153,8 +153,6 @@ $("#btnEditSubmit").click(function () {
             alert(result.msg);
             if (200 == result.code){
                 window.location.href="/user/editInfo";
-            } else {
-
             }
 
 

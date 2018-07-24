@@ -120,7 +120,7 @@ var cityId = "";//用于记录要操作的城市的id;
 
 })();
 
-
+/*点击保存修改按钮提交分类的修改*/
 $(".btn-edit-topicCategory").click(function () {
     var name = $("#categoryNameInput").val();
     var rank = $("#categoryRankInput").val();

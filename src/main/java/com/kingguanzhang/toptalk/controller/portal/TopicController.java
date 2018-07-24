@@ -158,6 +158,13 @@ public class TopicController {
         }
         model.addAttribute("praiseCommentIds",praiseCommentIds);
 
+        /**
+         * 获取所有的分类用于在页面生成修改分类的下拉选择框;
+         */
+        Pageable categoryPageable = new PageRequest(0,100,  new Sort(Sort.Direction.DESC,"rank"));
+        Page<Category> categoryPage = categoryService.findAll(categoryPageable);
+        model.addAttribute("categoryPage",categoryPage);
+
         return "portal/topicDetails";
     }
 
@@ -177,7 +184,7 @@ public class TopicController {
         /**
          * 获取所有的分类显示在页面上方的分页导航;
          */
-        Pageable pageable = new PageRequest(0,100,  new Sort(Sort.Direction.DESC,"id"));
+        Pageable pageable = new PageRequest(0,100,  new Sort(Sort.Direction.DESC,"rank"));
         Page<Category> categoryPage = categoryService.findAll(pageable);
         model.addAttribute("categoryPage",categoryPage);
 
@@ -258,12 +265,11 @@ public class TopicController {
         /**
          * 保存topic信息并获取返回的id值;
          */
-        // TODO 这里先默认author id为1,后面改成从session中根据登录名获取user id;:
-        User author = new User();
-        author.setId(1);
+        User author = (User) request.getSession().getAttribute("user");
         topic.setAuthor(author);
         topic.setCommentNumber(0);
         topic.setCollectNumber(0);
+        topic.setStatus(0);
         topic.setCreatTime(new Date(System.currentTimeMillis()));
         String categoryId = request.getParameter("categoryId");//取出前端传入的categoryId,级联保存;
         Category category = new Category();

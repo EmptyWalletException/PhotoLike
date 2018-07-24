@@ -207,10 +207,9 @@ public class StoryController {
             return Msg.fail().setMsg("读取稿件信息失败!");
         }
 
-        // TODO 这里先默认author id为1,后面改成从session中根据登录名获取user id;:
-        User author = new User();
-        author.setId(1);
+        User author = (User) request.getSession().getAttribute("user");
         story.setAuthor(author);
+        story.setStatus(0);
 
         //从request中解析出上传的文件图片;
         MultipartFile coverImg = ((MultipartRequest) request).getFile("img");
