@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0038)http://www.luoo.net/musician/index/229 -->
 <html  xmlns="http://www.w3.org/1999/xhtml"
        xmlns:th="http://www.thymeleaf.org"
        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
@@ -75,7 +74,7 @@
             <span class="vol-date" >&nbsp;|&nbsp;</span>
 
             <!--当状态为4时(已经处于回收站中)不显示此按钮-->
-            <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:unless="${upEssay.status == 4}">
+            <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:unless="${upEssay.status == 4 || upEssay.status == 0}">
                 <i class="icon icon-trash"></i>
                 废弃
             </a>
@@ -102,6 +101,11 @@
             <a href="javascript:;" rel="nofollow" class="btn-realDelete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 4}">
                 <i class="icon icon-report"></i>
                 抹除
+            </a>
+            <!--将当前稿件审核通过-->
+            <a href="javascript:;" rel="nofollow" class="btn-pass-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 0}">
+                <i class="icon icon-share"></i>
+                通过
             </a>
             <a href="javascript:;" rel="nofollow" class="btn-sendBack-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${upEssay.id}" th:if="${upEssay.status == 0}">
                 <i class="icon icon-reply"></i>
@@ -170,8 +174,8 @@
                         <span class="vol-date" th:if="${essay.status == 4}" >已废弃</span>
                         <span class="vol-date" >&nbsp;|&nbsp;</span>
 
-                        <!--当状态为4时(已经处于回收站中)不显示此按钮-->
-                        <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:unless="${essay.status == 4}">
+                        <!--当状态为4时(已经处于回收站中)或为0时(审核中)不显示此按钮-->
+                        <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:unless="${essay.status == 4 || essay.status == 0}">
                             <i class="icon icon-trash"></i>
                             废弃
                         </a>
@@ -198,6 +202,11 @@
                         <a href="javascript:;" rel="nofollow" class="btn-realDelete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 4}">
                             <i class="icon icon-report"></i>
                             抹除
+                        </a>
+                        <!--将当前稿件审核通过-->
+                        <a href="javascript:;" rel="nofollow" class="btn-pass-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 0}">
+                            <i class="icon icon-share"></i>
+                            通过
                         </a>
                         <a href="javascript:;" rel="nofollow" class="btn-sendBack-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${essay.status == 0}">
                             <i class="icon icon-reply"></i>
