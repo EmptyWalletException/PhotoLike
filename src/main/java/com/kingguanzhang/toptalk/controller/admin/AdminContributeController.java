@@ -1,4 +1,4 @@
-package com.kingguanzhang.toptalk.controller.adminController;
+package com.kingguanzhang.toptalk.controller.admin;
 
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;

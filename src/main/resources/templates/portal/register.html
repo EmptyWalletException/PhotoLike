@@ -9,8 +9,8 @@
     <meta property="wb:webmaster" content="78f40d1511de8c6b">
     <meta name="baidu-site-verification" content="xC1m9aYTgX">
     <title>注册</title>
-    <meta name="description" content="落网是一个推荐国内外独立音乐的网站，我们致力于推荐这个时代里最朴素、最有质感的声音，让更多的独立文化作品得到更好的传播。 ">
-    <meta name="keywords" content="落网,独立音乐,独立音乐人,音乐电台,音乐期刊,摇滚音乐,小众音乐,乐评网站,音乐演出,演出门票">
+    <meta name="description" content="#">
+    <meta name="keywords" content="#">
     <link rel="stylesheet" href="/css/user.css">
     <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon">
     <script type="text/javascript" async="" src="/js/ga.js"></script>
@@ -45,25 +45,30 @@
 
                 <div class="setting-row">
                     账号:
-                     <input type="text" id="account" placeholder="请输入用于登录的账号" />
+                     <input type="text" style="border: 1px solid silver;"  id="account" placeholder="请输入用于登录的账号" />
+                    <span class="valid-msg " style="color: #dd5862;"> </span>
                 </div>
+
                 <div class="setting-row">
                     昵称:
-                    <input type="text" id="nickname" placeholder="请输入用于社交的昵称" />
+                    <input type="text" style="border: 1px solid silver;" id="nickname" placeholder="请输入用于社交的昵称" />
+                    <span class="valid-msg " style="color: #dd5862;"> </span>
                 </div>
                 <div class="setting-row">
                     密码:
-                    <input type="password" id="password" placeholder="请输入登录密码" />
+                    <input type="password" style="border: 1px solid silver;" id="password" placeholder="请输入登录密码" />
+                    <span class="valid-msg " style="color: #dd5862;"> </span>
                 </div>
                 <div class="setting-row">
                     确认密码:
-                    <input type="password" placeholder="请再次输入密码进行确认" />
+                    <input type="password" style="border: 1px solid silver;" id="passwordCheck" placeholder="请再次输入密码进行确认" />
+                    <span class="valid-msg " style="color: #dd5862;" > </span>
                 </div>
 
                 <div class="setting-row">
                     <span class="label" id="gender">性别</span>
                     <label>
-                        <input type="radio" name="sex" value="1" class="input-listener" > 男
+                        <input type="radio" name="sex" value="1" class="input-listener" checked> 男
                     </label>
                     <label>
                         <input type="radio" name="sex" value="2" class="input-listener" > 女

@@ -1,4 +1,4 @@
-package com.kingguanzhang.toptalk.controller.testController;
+package com.kingguanzhang.toptalk.controller.test;
 
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.utils.Base64ToMultipartUtil;

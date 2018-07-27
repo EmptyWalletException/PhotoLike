@@ -3300,7 +3300,6 @@ table.aui_border, table.aui_dialog {
 .setting-row .valid-msg {
     margin-left: 15px;
     color: #dd5862;
-    display: none
 }
 
 .valid-error input[type=text], .valid-error input[type=password] {

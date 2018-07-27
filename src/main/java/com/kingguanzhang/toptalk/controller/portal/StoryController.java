@@ -3,7 +3,6 @@ package com.kingguanzhang.toptalk.controller.portal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
-import com.kingguanzhang.toptalk.repositories.CategoryRepository;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.PraiseServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;

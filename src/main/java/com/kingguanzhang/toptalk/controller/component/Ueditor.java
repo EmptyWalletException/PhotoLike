@@ -1,4 +1,4 @@
-package com.kingguanzhang.toptalk.controller.componentController;
+package com.kingguanzhang.toptalk.controller.component;
 
 
 import org.springframework.stereotype.Controller;

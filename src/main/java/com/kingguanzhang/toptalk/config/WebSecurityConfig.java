@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                    // .antMatchers("**/**.css","**/**.js","**/*.jpg","**.gif","**.png","**.svg").permitAll()
-                    .antMatchers("/ajax/**").permitAll()
+
                     .antMatchers("/upload/**").permitAll()
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
@@ -49,13 +49,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/story/**").permitAll()
                     .antMatchers("/test/**").permitAll()
                     .antMatchers("/event/**").permitAll()
+                    .antMatchers("/ajax/**").permitAll()
                     .antMatchers("/**/json/**").permitAll()
+                    .antMatchers("/**/ajax/**").permitAll()
 
                     .antMatchers("/**/contribute").hasAnyRole("USER","ADMIN")
                     .antMatchers("/admin/**").hasAnyRole("ADMIN")//官方文档中特别说明没有使用"ROLE_"前缀
                     .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
                     .antMatchers("/contribute/**").hasAnyRole("USER","ADMIN")
                     .antMatchers("/**").hasAnyRole("USER","ADMIN")
+
 
                 .anyRequest().authenticated()
                 .and()

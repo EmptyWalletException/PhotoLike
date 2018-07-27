@@ -7,6 +7,7 @@ import com.kingguanzhang.toptalk.service.*;
 import com.kingguanzhang.toptalk.utils.Base64ToMultipartUtil;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.*;
@@ -66,6 +67,9 @@ public class UserController {
         /*设置昵称*/
         if (null != request.getParameter("nickname")){
             String nickname = request.getParameter("nickname");
+            if(checkNickname(nickname)){
+                return Msg.fail().setMsg("昵称已经被占用");
+            }
             user.setNickname(nickname);
         }
 
@@ -163,6 +167,86 @@ public class UserController {
         return "portal/register";
     }
 
+
+    /**
+     * ajax检查用户账号是否被占用;
+     * @param account
+     * @return
+     */
+    @RequestMapping(value = "/user/ajax/checkAccount",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg ajaxCheckAccount(@RequestParam("inputValue")String account){
+        if (checkAccount(account)){
+            return Msg.fail().setMsg("账号已被其他人注册!");
+        }else {
+            return Msg.success().setMsg("账号可以使用!");
+        }
+    }
+
+    /**
+     * ajax检查用户昵称是否被占用
+     * @param nickname
+     * @return
+     */
+    @RequestMapping(value = "/user/ajax/checkNickname",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg ajaxCheckNickname(@RequestParam("inputValue")String nickname){
+        if (!checkNickname(nickname)){
+            return Msg.fail().setMsg("昵称已被他人占用!");
+        }else {
+            return Msg.success().setMsg("昵称可以使用!");
+        }
+    }
+
+    /**
+     * 抽取出的检查用户账号是否被占用的方法,在前端输入框变更时调用一次,提交注册后保存到数据表之前再调用一次;
+     * @param account
+     * @return
+     */
+    private boolean checkAccount(String account){
+        if (null == account || account.trim() == ""){
+            return false;
+        }
+        User user = new User();
+        user.setAccount(account);
+
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
+        Example<User> userExample = Example.of(user,exampleMatcher);
+        Pageable pageable = new PageRequest(0,2,new Sort(Sort.Direction.DESC,"id"));
+        Page<User> allByExample = userService.findAllByExample(userExample, pageable);
+        if (allByExample.hasContent()){//如果数据库查出的有值,则说明被占用;
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    /**
+     * 抽取出的检查用户账号是否被占用的方法,在前端输入框变更时调用一次,提交注册后保存到数据表之前再调用一次,修改用户信息时也会调用一次;
+     * @param nickname
+     * @return
+     */
+    private boolean checkNickname(String nickname){
+        if (null == nickname || nickname.trim() == ""){
+            return false;
+        }
+        User user = new User();
+        user.setNickname(nickname);
+
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
+        Example<User> userExample = Example.of(user,exampleMatcher);
+        Pageable pageable = new PageRequest(0,2,new Sort(Sort.Direction.DESC,"id"));
+        Page<User> allByExample = userService.findAllByExample(userExample, pageable);
+        if (allByExample.hasContent()){//如果数据库查出的有值,则说明被占用;
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+
+
+
     /**
      * 用户注册
      * @param request
@@ -179,6 +263,12 @@ public class UserController {
         try {
             //将字符串转成实体类
             user = objectMapper.readValue(userStr, User.class);
+            if (!checkAccount(user.getAccount())){
+                return Msg.fail().setMsg("账号已经被占用!");
+            }
+            if(!checkNickname(user.getNickname())){
+                return Msg.fail().setMsg("昵称已经被占用!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return Msg.fail().setMsg("读取注册信息失败!");
