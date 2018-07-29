@@ -118,47 +118,5 @@ public class EssayController {
         return "/portal/essay";
     }
 
-    /**
-     * 持久化用户投稿
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/essay/contribute",method = RequestMethod.POST)
-    @ResponseBody
-    private Msg essayContribute(HttpServletRequest request){
 
-
-        //从前端传来的请求中获取键为shopStr的值;
-        String essayStr = RequestUtil.parserString(request, "essayStr");
-        ObjectMapper objectMapper = new ObjectMapper();
-        Essay essay = null;
-        try {
-            //将字符串转成实体类
-            essay = objectMapper.readValue(essayStr, Essay.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Msg.fail().setMsg("读取稿件信息失败!");
-        }
-
-        User author = (User) request.getSession().getAttribute("user");
-        essay.setAuthor(author);
-        essay.setStatus(0);
-
-        //从request中解析出上传的文件图片;
-        MultipartFile essayImg = ((MultipartRequest) request).getFile("img");
-
-        //注册店铺,尽可能的减少从前端获取的值;
-        if (null != essay && null != essayImg) {
-            //设置中间文件夹,方便整理图片
-            String centreAddr = "/essay/"+author.getId()+"/";
-            String imgAddr = ImgUtil.generateThumbnail(essayImg, centreAddr,1920, 1080);
-            essay.setImgAddr(imgAddr);
-            System.out.print("essayStr的值是:" + essayStr);
-            essayService.save(essay);
-            //返回注册店铺的最终结果;
-            return Msg.success().setMsg("投稿成功,请等待审核.");
-        } else {
-            return Msg.fail().setMsg("投稿失败,稿件信息不完整!");
-        }
-    }
 }

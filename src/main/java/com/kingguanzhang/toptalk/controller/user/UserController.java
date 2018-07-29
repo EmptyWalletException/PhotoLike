@@ -64,11 +64,11 @@ public class UserController {
         }
         User user = (User) request.getSession().getAttribute("user");
 
-        /*设置昵称*/
-        if (null != request.getParameter("nickname")){
+        /*设置昵称,需要注意判断用户是否真正的修改了昵称*/
+        if (null != request.getParameter("nickname") && user.getNickname()!=request.getParameter("nickname")){
             String nickname = request.getParameter("nickname");
-            if(checkNickname(nickname)){
-                return Msg.fail().setMsg("昵称已经被占用");
+            if(!checkNickname(nickname) || 16<user.getNickname().length()){//检查昵称是否被占用同时限制长度;
+                return Msg.fail().setMsg("昵称已经被占用;");
             }
             user.setNickname(nickname);
         }
@@ -115,6 +115,9 @@ public class UserController {
         }
         User user = (User) request.getSession().getAttribute("user");
         String signature = request.getParameter("signature");
+        if (50<signature.length()){
+            return Msg.fail().setMsg("签名超出字数限制!");
+        }
         user.setSignature(signature);
         try{
             userService.save(user);
@@ -199,7 +202,8 @@ public class UserController {
     }
 
     /**
-     * 抽取出的检查用户账号是否被占用的方法,在前端输入框变更时调用一次,提交注册后保存到数据表之前再调用一次;
+     * 抽取出的检查用户账号是否被占用的方法,false表示因为被占用所以不能使用,true表示可以使用,
+     * 在前端输入框变更时调用一次,提交注册后保存到数据表之前再调用一次;
      * @param account
      * @return
      */
@@ -222,7 +226,8 @@ public class UserController {
     }
 
     /**
-     * 抽取出的检查用户账号是否被占用的方法,在前端输入框变更时调用一次,提交注册后保存到数据表之前再调用一次,修改用户信息时也会调用一次;
+     * 抽取出的检查用户账号是否被占用的方法,false表示因为被占用所以不能使用,true表示可以使用,
+     * 在前端输入框变更时调用一次,提交注册后保存到数据表之前再调用一次,修改用户信息时也会调用一次;
      * @param nickname
      * @return
      */
@@ -266,7 +271,7 @@ public class UserController {
             if (!checkAccount(user.getAccount())){
                 return Msg.fail().setMsg("账号已经被占用!");
             }
-            if(!checkNickname(user.getNickname())){
+            if(!checkNickname(user.getNickname()) || 16<user.getNickname().length()){//检查昵称重复性并同时限制昵称长度;
                 return Msg.fail().setMsg("昵称已经被占用!");
             }
         } catch (Exception e) {

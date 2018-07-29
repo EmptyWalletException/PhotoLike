@@ -486,7 +486,10 @@ public class AdminContributeController {
      * @return
      */
     @RequestMapping("/admin/story")
-    public String toUserStoryPage(Model model, @RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn, @RequestParam(value = "userId",defaultValue = "0")long userId){
+    public String toUserStoryPage(Model model,
+                                  @RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus,
+                                  @RequestParam(value = "pn",defaultValue = "1")Integer pn,
+                                  @RequestParam(value = "userId",defaultValue = "0")long userId){
 
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下
@@ -501,6 +504,7 @@ public class AdminContributeController {
             user.setId(userId);
             story.setAuthor(user);
         }
+        model.addAttribute("userId",userId);
 
         /**
          * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
@@ -515,21 +519,7 @@ public class AdminContributeController {
         Page<Story> storyPage = storyService.findAllByExample(example, pageable);
         model.addAttribute("storyPage",storyPage);
 
-        /**
-         * 返回作者信息以方便页面渲染时生成链接;
-         */
 
-        User author = new User() ;
-        if (0 != userId) {
-            if (0 != storyPage.getContent().size()) { //如果topicPage里有返回值就直接从里面取,
-                author = storyPage.getContent().get(0).getAuthor();
-            } else {                         //否则从数据库中查
-                author = userService.findById(userId);
-            }
-        }else {
-            author.setId(0);
-        }
-        model.addAttribute("author",author);
 
         return "admin/adminStory";
     }
@@ -553,6 +543,7 @@ public class AdminContributeController {
             user.setId(userId);
             essay.setAuthor(user);
         }
+        model.addAttribute("userId",userId);
         /**
          * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
          * 同时将用户点击状态返回给页面,方便页面高亮对应的筛选链接和生成对应的筛选链接;
@@ -566,21 +557,7 @@ public class AdminContributeController {
         Page<Essay> essayPage = essayService.findAllByExample(example, pageable);
         model.addAttribute("essayPage",essayPage);
 
-        /**
-         * 返回用户信息以方便页面渲染时生成链接;
-         */
 
-        User author = new User() ;
-        if (0 != userId) {
-            if (0 != essayPage.getContent().size()) { //如果topicPage里有返回值就直接从里面取,
-                author = essayPage.getContent().get(0).getAuthor();
-            } else {                         //否则从数据库中查
-                author = userService.findById(userId);
-            }
-        }else {
-            author.setId(0);
-        }
-        model.addAttribute("author",author);
 
         return "admin/adminEssay";
     }
@@ -593,17 +570,44 @@ public class AdminContributeController {
      * @return
      */
     @RequestMapping("/admin/topic")
-    public String toUserTopicPage(Model model,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam(value = "userId",defaultValue = "0")long userId){
+    public String toUserTopicPage(Model model,
+                                  @RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus,
+                                  @RequestParam(value = "pn",defaultValue = "1")Integer pn,
+                                  @RequestParam(value = "userId",defaultValue = "0")long userId,
+                                  @RequestParam(value = "categoryId",defaultValue = "0")int categoryId){
         /**
-         * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下
+         * 设置分页和排序条件;注意pn因为pageRequest默认是从0开始的,所有要处理一下
          */
         Pageable pageable = new PageRequest(pn-1,9,new Sort(Sort.Direction.DESC,"creatTime"));
         Topic topic = new Topic();
+
+
+        /**
+         * 判断是否需要设置作者id筛选条件,并将作者id返回给前端再次利用;
+         */
         if (0 != userId) {
             User user = new User();
             user.setId(userId);
             topic.setAuthor(user);
         }
+        model.addAttribute("userId",userId);
+
+        /**
+         * 判断是否需要设置分类id筛选条件,并将分类id返回给前端再次利用;
+         */
+        if(0 != categoryId){
+            Category category = new Category();
+            category.setId(categoryId);
+            topic.setCategory(category);
+        }
+        model.addAttribute("categoryId",categoryId);
+
+        /**
+         * 同时将所有分类返回前端供选择分类筛选条件
+         */
+        Pageable categoryPageable = new PageRequest(0,999,new Sort(Sort.Direction.DESC,"id"));
+        Page<Category> categoryPage = categoryService.findAll(categoryPageable);
+        model.addAttribute("categoryPage",categoryPage);
 
         /**
          * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
@@ -618,21 +622,7 @@ public class AdminContributeController {
         Page<Topic> topicPage = topicService.findAllByExample(example, pageable);
         model.addAttribute("topicPage",topicPage);
 
-        /**
-         * 返回用户信息以方便页面渲染时生成链接;
-         */
 
-        User author = new User() ;
-        if (0 != userId) {
-            if (0 != topicPage.getContent().size()) { //如果topicPage里有返回值就直接从里面取,
-                author = topicPage.getContent().get(0).getAuthor();
-            } else {                         //否则从数据库中查
-                author = userService.findById(userId);
-            }
-        }else {
-            author.setId(0);
-        }
-        model.addAttribute("author",author);
 
         return "admin/adminTopic";
     }

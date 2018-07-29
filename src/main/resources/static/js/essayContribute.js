@@ -83,8 +83,28 @@ $("#submit").click(function () {
 
     /*因为涉及到文件的处理,无法直接用form封装到pojo中,所以先使用js代码来封装数据*/
     var essay={};
-    essay.title = $("#title").val();
-    essay.content= $("#myEditor").val();
+
+    /*限制标题字数*/
+    var title = $("#title").val();
+    if ("" == title.trim()){
+        alert("请输入有效的标题!");
+        return false;
+    }else if (30 <= title.length){
+        alert("标题字数不得大于15个字!");
+        return false;
+    }
+    essay.title = title;
+
+    /*限制内容的字数*/
+    var content = $("#subscribe").val();
+    if ("" == content.trim()){
+        alert("请输入有效的内容!");
+        return false;
+    }else if (200 <= content.length){
+        alert("内容字数不得大于100个字!");
+        return false;
+    }
+    essay.content= content;
     /*用户信息不能从页面往后台传,防止用户修改信息导致绑定了错误的作者*/
 
     var img = $("#file_single_input")[0].files[0];

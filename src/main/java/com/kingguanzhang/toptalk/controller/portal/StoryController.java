@@ -185,49 +185,5 @@ public class StoryController {
         return "error";
     }
 
-    /**
-     * 持久化用户投稿
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/story/contribute",method = RequestMethod.POST)
-    @ResponseBody
-    private Msg storyContribute(HttpServletRequest request){
-        //从前端传来的请求中获取键为shopStr的值;
-        String storyStr = RequestUtil.parserString(request, "storyStr");
-        System.out.print("storyStr的值是:" + storyStr);
-        ObjectMapper objectMapper = new ObjectMapper();
-        Story story = null;
-        try {
-            //将字符串转成实体类
-            story = objectMapper.readValue(storyStr, Story.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Msg.fail().setMsg("读取稿件信息失败!");
-        }
 
-        User author = (User) request.getSession().getAttribute("user");
-        story.setAuthor(author);
-        story.setStatus(0);
-
-        //从request中解析出上传的文件图片;
-        MultipartFile coverImg = ((MultipartRequest) request).getFile("img");
-
-        //注册店铺,尽可能的减少从前端获取的值;
-        if (null != story && null != coverImg) {
-            //设置中间文件夹,方便整理图片
-            String centreAddr = "/story/"+author.getId()+"/";
-            String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,1920, 1080);
-            story.setCommentNumber(0);
-            story.setCollectNumber(0);
-            story.setCreatTime(new Date(System.currentTimeMillis()));
-            story.setCoverImgAddr(imgAddr);
-
-            storyService.save(story);
-            //返回注册店铺的最终结果;
-            return Msg.success().setMsg("投稿成功,请等待审核.");
-        } else {
-            return Msg.fail().setMsg("投稿失败,稿件信息不完整!");
-        }
-    }
 }

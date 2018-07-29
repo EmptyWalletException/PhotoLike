@@ -142,9 +142,29 @@ $("#submit").click(function () {
         return alert('请先选择专辑图片集');
     }
     var topic={};
-    topic.title = $("#title").val();
-    topic.content= $("#myEditor").val();
-    topic.content= $("#myEditor").val();
+
+    /*限制标题字数*/
+    var title = $("#title").val();
+    if ("" == title.trim()){
+        alert("请输入有效的标题!");
+        return false;
+    }else if (30 <= title.length){
+        alert("标题字数不得大于15个字!");
+        return false;
+    }
+    topic.title = title;
+
+    /*限制内容的字数*/
+    var content = $("#subscribe").val();
+    if ("" == content.trim()){
+        alert("请输入有效的内容!");
+        return false;
+    }else if (2000 <= content.length){
+        alert("内容字数不得大于1000个字!");
+        return false;
+    }
+    topic.content= content;
+
     var categoryId= $("#category option:selected").attr("value");
 
     /*用户信息不能从页面往后台传,防止用户修改信息导致绑定了错误的作者*/

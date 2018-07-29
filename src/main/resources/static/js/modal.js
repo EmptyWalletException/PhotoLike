@@ -1,3 +1,5 @@
+var oldNickName = "";//用于在文档加载时储存旧昵称的值,用于判断用户最终是否修改了昵称;
+
 (function() {
     /*建立模态框对象*/
     var modalBox = {};
@@ -82,6 +84,7 @@
     $('#btnZoomOut').on('click', function(){
         cropper.zoomOut();
     })
+    oldNickName = $("#nickname").val();
     $("#btnSubmit").click(function () {
        var fd = new FormData();
         img = cropper.getDataURL();
@@ -114,7 +117,7 @@
 $("#lnSaveMood").click(function () {
     var a = $("#txtContent").val();
     if( a.length > 100 ){
-        alert("个性签名请控制在100字以内");
+        alert("个性签名请控制在100个字符以内");
     }
     if (a == $("#txtContent").data("value")){
         $("#formMood").hide();
@@ -138,10 +141,117 @@ $("#lnSaveMood").click(function () {
 
 });
 
+//抽取出来的用户昵称输入框的校验;
+function checkNicknameInput(nicknameEle) {
+    // 验证用户昵称  /^[a-z0-9_-]{2,10}$)|(^[\u2E80-\u9FFF]{2,10}/
+    var inputNickName = $(nicknameEle).val();
+    var regNickName = /(^[\u2E80-\u9FFFa-z0-9_-]{2,9}$)/;
+
+    if(!regNickName.test(inputNickName)){
+        //alert("昵称格式不正确,请输入2~10位字符,只能出现数字或英文或汉字的组合!");
+        showValidateInfo(nicknameEle,"error","请输入2~9位数字或英文或汉字的组合!");
+    }else{
+        showValidateInfo(nicknameEle,"ok","");
+    }
+
+}
+
+//抽取出来的ajax校验用户昵称;
+function ajaxCheckNicknameInput(nicknameEle,ajaxEle){
+    var inputValue = $(nicknameEle).val();
+    $.ajax({
+        url:"/user/ajax/checkNickname",
+        data:"inputValue="+inputValue,
+        type:"POST",
+        success:function(result){
+            if(200 == result.code){
+                showValidateInfo(nicknameEle,"ok",result.msg);
+                $(ajaxEle).attr("ajaxCheckNickname","success");//在昵称校验标签上储存一个值用于记录是否通过了后台校验;
+            }else{
+                showValidateInfo(nicknameEle,"error",result.msg);
+                $(ajaxEle).attr("ajaxCheckNickname","error");
+            }
+        }
+    });
+}
+
+/* 显示校验信息*/
+function showValidateInfo(ele,status,msg){
+    $(ele).removeAttr("style");
+    $(ele).next("span").removeAttr("style");
+    if("ok" == status){
+        $(ele).attr("style","border: 1px solid silver;");//将输入框样式变成默认的银色;
+        $(ele).next("span").attr("style","color: green;").text(msg);
+    }else{
+        $(ele).attr("style","border: 1px solid #dd5862;");//将输入框样式变成红色;
+        $(ele).next("span").attr("style","color: #dd5862;").text(msg);
+    }
+}
+
+/* 当用户更改昵称输入框时进行校验,这是为了用户体验*/
+$("#nickname").change(function(){
+
+    if ($(this).val()!=oldNickName){ //判断用户修改昵称之后最后是否改回了原来的昵称,如果确定修改成了新的昵称则进行后续判断;
+        //先检查正则,正则通过后再检查ajax,减轻服务器压力;
+        checkNicknameInput("#nickname","#btnEditSubmit");
+        var cls = $("#nickname").next("span").attr("style");//读取此输入框后面的提示信息的值,用于判断是否通过了正则校验;
+        if ("color: green;" == cls){//如果样式是绿色说明通过了校验;
+            ajaxCheckNicknameInput("#nickname","#btnEditSubmit");
+        }
+    }else {//如果用户最终改回了原来的昵称,则清空输入框样式,同时让保存按钮通过检验;
+        $(this).removeAttr("style");
+        $(this).next("span").removeAttr("style").text("");
+        $("#btnEditSubmit").attr("ajaxCheckNickname","success");
+    }
+
+
+});
+
+/* 抽取出来的整体输入框的前端校验 */
+function validateInput(nicknameEle){
+
+    //验证用户昵称输入框;
+    checkNicknameInput(nicknameEle);
+
+    //以上是前端输入框用户体验的校验,下面是真正的功能性校验
+    //上面的校验不能中途return,否则会影响用户体验;
+    //同时,以上校验不能干预提交按钮上的ajax校验标记,防止出现错误;
+
+    var inputNickname = $(nicknameEle).val();//昵称输入框
+    var regNickname = /(^[a-z0-9-]{2,10}$)|(^[\u2E80-\u9FFF]{2,10})/;//昵称正则
+
+
+    if( !regNickname.test(inputNickname) ){
+        return false;
+    }
+
+    return true;
+}
+
 /*修改基本信息*/
 $("#btnEditSubmit").click(function () {
-    // TODO :修改昵称输入框需要前端校验和ajax重复性校验;
+
     var nickname = $("#nickname").val();
+    if (oldNickName!=nickname){ //判断用户修改昵称之后最后是否改回了原来的昵称,如果确定修改成了新的昵称则进行后续判断;
+        /* 检查输入框是否符合正则表达式 */
+        if (!validateInput("#nickname")) {
+            return false;
+        }
+
+        /*再次检查ajax昵称是否可用*/
+        ajaxCheckAccountInput("#account", "#btnEditSubmit");
+        ajaxCheckNicknameInput("#nickname","#btnEditSubmit");
+        /* 检查ajax校验用户名是否可用后的标记 */
+        if( $(this).attr("ajaxCheckNickname") == "error"){
+            return false;
+        }
+    }else {//如果用户最终改回了原来的昵称,则清空输入框样式,同时让保存按钮通过检验;;
+        $("#nickname").removeAttr("style");
+        $("#nickname").next("span").removeAttr("style").text("");
+        $("#btnEditSubmit").attr("ajaxCheckNickname","success");
+    }
+
+
     var gender = $("input:checked").val();
     var cityId= $("#city option:selected").attr("value");
 
@@ -160,4 +270,6 @@ $("#btnEditSubmit").click(function () {
     });
 
 });
+
+
 

@@ -176,8 +176,28 @@ $("#submit").click(function () {
 
     /*因为涉及到文件的处理,无法直接用form封装到pojo中,所以先使用js代码来封装数据*/
     var story={};
-    story.title = $("#title").val();
-    story.subscribe=$("#subscribe").val();
+    /*限制标题字数*/
+    var title = $("#title").val();
+    if ("" == title.trim()){
+        alert("请输入有效的标题!");
+        return false;
+    }else if (30 <= title.length){
+        alert("标题字数不得大于15个字!");
+        return false;
+    }
+    story.title = title;
+
+    /*限制摘要的字数*/
+    var subscribe = $("#subscribe").val();
+    if ("" == subscribe.trim()){
+        alert("请输入有效的摘要!");
+        return false;
+    }else if (200 <= subscribe.length){
+        alert("摘要字数不得大于100个字!");
+        return false;
+    }
+    story.subscribe = subscribe;
+
     story.content= UE.getEditor('editor').getContent();
     /*用户信息不能从页面往后台传,防止用户修改信息导致绑定了错误的作者*/
 
