@@ -1,5 +1,6 @@
 package com.kingguanzhang.toptalk.controller.admin;
 
+import com.kingguanzhang.toptalk.controller.portal.TopicController;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 public class AdminContributeController {
@@ -482,14 +486,14 @@ public class AdminContributeController {
      * 查看用户撰写的story页面;
      * @param model
      * @param pn
-     * @param userId
+     * @param authorId
      * @return
      */
     @RequestMapping("/admin/story")
     public String toUserStoryPage(Model model,
                                   @RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus,
                                   @RequestParam(value = "pn",defaultValue = "1")Integer pn,
-                                  @RequestParam(value = "userId",defaultValue = "0")long userId){
+                                  @RequestParam(value = "authorId",defaultValue = "0")long authorId){
 
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下
@@ -499,12 +503,12 @@ public class AdminContributeController {
         /**
          * 当没有传用户id时则查询所有用户的故事稿件;
          */
-        if (0 != userId){
+        if (0 != authorId){
             User user = new User();
-            user.setId(userId);
+            user.setId(authorId);
             story.setAuthor(user);
         }
-        model.addAttribute("userId",userId);
+        model.addAttribute("authorId",authorId);
 
         /**
          * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
@@ -528,22 +532,22 @@ public class AdminContributeController {
      * 查看用户撰写的essay页面;
      * @param model
      * @param pn
-     * @param userId
+     * @param authorId
      * @return
      */
     @RequestMapping("/admin/essay")
-    public String toUserEssayPage(Model model,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam(value = "userId",defaultValue = "0")long userId){
+    public String toUserEssayPage(Model model,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam(value = "authorId",defaultValue = "0")long authorId){
         /**
          * 取出用户撰写的story,分页并排序;注意pn因为pageRequest默认是从0开始的,所有要处理一下,还有页面是9宫格板式,只查出9个即可
          */
         Pageable pageable = new PageRequest(pn-1,9,new Sort(Sort.Direction.DESC,"creatTime"));
         Essay essay = new Essay();
-        if (0 != userId) {
+        if (0 != authorId) {
             User user = new User();
-            user.setId(userId);
+            user.setId(authorId);
             essay.setAuthor(user);
         }
-        model.addAttribute("userId",userId);
+        model.addAttribute("authorId",authorId);
         /**
          * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
          * 同时将用户点击状态返回给页面,方便页面高亮对应的筛选链接和生成对应的筛选链接;
@@ -566,14 +570,14 @@ public class AdminContributeController {
      * 查看用户撰写的topic页面
      * @param model
      * @param pn
-     * @param userId
+     * @param authorId
      * @return
      */
     @RequestMapping("/admin/topic")
     public String toUserTopicPage(Model model,
                                   @RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus,
                                   @RequestParam(value = "pn",defaultValue = "1")Integer pn,
-                                  @RequestParam(value = "userId",defaultValue = "0")long userId,
+                                  @RequestParam(value = "authorId",defaultValue = "0")long authorId,
                                   @RequestParam(value = "categoryId",defaultValue = "0")int categoryId){
         /**
          * 设置分页和排序条件;注意pn因为pageRequest默认是从0开始的,所有要处理一下
@@ -585,12 +589,12 @@ public class AdminContributeController {
         /**
          * 判断是否需要设置作者id筛选条件,并将作者id返回给前端再次利用;
          */
-        if (0 != userId) {
+        if (0 != authorId) {
             User user = new User();
-            user.setId(userId);
+            user.setId(authorId);
             topic.setAuthor(user);
         }
-        model.addAttribute("userId",userId);
+        model.addAttribute("authorId",authorId);
 
         /**
          * 判断是否需要设置分类id筛选条件,并将分类id返回给前端再次利用;
@@ -622,9 +626,35 @@ public class AdminContributeController {
         Page<Topic> topicPage = topicService.findAllByExample(example, pageable);
         model.addAttribute("topicPage",topicPage);
 
-
-
         return "admin/adminTopic";
+    }
+
+    /**
+     * 通过前端传的板块名称和稿件id跳转到指定的稿件详情页
+     * @param request
+     * @param response
+     * @param plate 板块名称
+     * @param contributeId 稿件的id
+     */
+    @RequestMapping(value = "/admin/contribute/findOneByIdAndPlate" ,method = RequestMethod.POST)
+    private void findOneByIdAndPlate(HttpServletRequest request, HttpServletResponse response, @RequestParam("plate")String plate, @RequestParam("contributeId")String contributeId){
+        String href ="/admin/topic";//给一个初始值,减少报错几率;
+        if (null != contributeId && "" != contributeId.trim()){
+            if ("topic".equals(plate)){
+                href = "/topic/"+contributeId;
+            }else if ("essay".equals(plate)){
+                href = "/essay?essayId=" + contributeId;
+            }else if ("story".equals(plate)){
+                href = "/story/" + contributeId;
+            }
+            try {
+                request.getRequestDispatcher(href).forward(request,response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

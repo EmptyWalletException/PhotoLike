@@ -30,47 +30,52 @@
 			<div style="width: 49%;height: 100%;float: left;border-right: 1px solid silver">
 				按条件筛选随笔:
 				<br/>
-				<span style="margin-left:30px;margin-right: 10px">
-					输入作者Id:
-					<input type="number" style="width: 68px;" name="authorId" th:value="${userId}" >&nbsp;<small style="color: #7d7d7d">0表示选择所有作者</small>
-				</span>
-				<br/>
+				<form action="/admin/essay" method="get">
+					<span style="margin-left:30px;margin-right: 10px">
+						输入作者Id:
+						<input type="number" style="width: 68px;" name="authorId" th:value="${authorId}" >&nbsp;<small style="color: #7d7d7d">0表示选择所有作者</small>
+					</span>
+					<br/>
 
-				<br/>
-				<span style="margin-left:30px;margin-right: 10px;">
-					<button class="btn btn-positive" style="height:20px;padding-top: 2px;padding-bottom: 2px;">提交</button>&nbsp;&nbsp;<button class=" btn btn-positive " style="height:20px;padding-top: 2px;padding-bottom: 2px;" >重置</button>
-				</span>
+					<br/>
+					<span style="margin-left:30px;margin-right: 10px;">
+						<button class="btn btn-positive" style="height:20px;padding-top: 2px;padding-bottom: 2px;">提交</button>
+					</span>
+				</form>
 			</div>
 			<div style="width: 45%;height: 100%;float: left;border-left:1px solid silver;padding-left: 4%;">
 				精确查询随笔:<br/>
-				<span style="margin-left:30px;margin-right: 10px">
-					输入随笔稿件Id:
-					<input type="number" style="width: 68px;" name="authorId" ><br/>
-					<small style="color: #7d7d7d;margin-left:30px;">点击查看按钮将跳往稿件详情页面</small><br/>
-					<span style="margin-left:30px;margin-right: 10px;">
-						<button class="btn btn-positive" style="height:20px;padding-top: 2px;padding-bottom: 2px;">查看</button>&nbsp;
+				<form action="/admin/contribute/findOneByIdAndPlate" method="post">
+					<input type="hidden" name="plate" value="essay"><!--用于在后台区分查询的是哪个版块的稿件-->
+					<span style="margin-left:30px;margin-right: 10px">
+						输入随笔稿件Id:
+						<input type="number" style="width: 68px;" name="contributeId" ><br/>
+						<small style="color: #7d7d7d;margin-left:30px;">点击查看按钮将跳往稿件详情页面</small><br/>
+						<span style="margin-left:30px;margin-right: 10px;">
+							<button class="btn btn-positive" style="height:20px;padding-top: 2px;padding-bottom: 2px;">查看</button>&nbsp;
+						</span>
 					</span>
-				</span>
+				</form>
 			</div>
 		</div>
 		<!--/// author-head end-->
 
 
 		<div class="uc-nav rounded clearfix" style="margin-bottom: 0px;">
-			<a href="/admin/topic?userId=1" rel="nofollow" class="nav-item  " th:href="'/admin/topic?userId='+${userId}">专辑</a>
-			<a href="/admin/essay?userId=1" rel="nofollow" class="nav-item actived" th:href="'/admin/essay?userId='+${userId}">随笔</a>
-			<a href="/admin/story?userId=1" rel="nofollow" class="nav-item " th:href="'/admin/story?userId='+${userId}">故事</a>
+			<a href="/admin/topic?authorId=1" rel="nofollow" class="nav-item  " th:href="'/admin/topic?authorId='+${authorId}">专辑</a>
+			<a href="/admin/essay?authorId=1" rel="nofollow" class="nav-item actived" th:href="'/admin/essay?authorId='+${authorId}">随笔</a>
+			<a href="/admin/story?authorId=1" rel="nofollow" class="nav-item " th:href="'/admin/story?authorId='+${authorId}">故事</a>
 		</div>
 
 
 		<!-- uc-ct -->
 		<div class="author-ct">
 			<div  class="uc-nav rounded  " style="float: right" >
-				<a class="page " href="/admin/essay?userId=1&contributionStatus=1" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus=1'+'&pn=1'" name="contributionStatus" value="1" th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
-				<a class="page " href="/admin/essay?userId=1&contributionStatus=2" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus=2'+'&pn=1'" name="contributionStatus" value="2" th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
-				<a class="page " href="/admin/essay?userId=1&contributionStatus=0" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus=0'+'&pn=1'" name="contributionStatus" value="0" th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
-				<a class="page " href="/admin/essay?userId=1&contributionStatus=3" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus=3'+'&pn=1'" name="contributionStatus" value="3" th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
-				<a class="page " href="/admin/essay?userId=1&contributionStatus=4" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus=4'+'&pn=1'" name="contributionStatus" value="4" th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=1" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=1'+'&pn=1'" name="contributionStatus" value="1" th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=2" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=2'+'&pn=1'" name="contributionStatus" value="2" th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=0" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=0'+'&pn=1'" name="contributionStatus" value="0" th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=3" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=3'+'&pn=1'" name="contributionStatus" value="3" th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=4" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=4'+'&pn=1'" name="contributionStatus" value="4" th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
 			</div>
 			<!-- fav-vols -->
 			<div class="fav-vols">
@@ -138,21 +143,21 @@
 			</div>
 			<!-- /// fav-vols -->
 			<div class="paginator">
-				<a class="previous" href="/admin/essay?userId=1&pn=1" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
-				<a class="previous"  th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number}" th:if="${essayPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -3}" th:text="${essayPage.number -3}" th:if="${essayPage.number } >3 ">1</a>
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -2}" th:text="${essayPage.number -2}" th:if="${essayPage.number } >2 ">2</a>
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -1}" th:text="${essayPage.number -1}" th:if="${essayPage.number } >1 ">3</a>
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number }" th:text="${essayPage.number}" th:if="${essayPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-				<a class="page actived" href="#" rel="nofollow" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number+1}" th:text="${essayPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}" th:text="${essayPage.number +2}" th:if="${essayPage.number +2} <= ${essayPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +3}" th:text="${essayPage.number +3}"  th:if="${essayPage.number +3} <= ${essayPage.totalPages }">7</a>
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +4}" th:text="${essayPage.number +4}"  th:if="${essayPage.number +4} <= ${essayPage.totalPages }">8</a>
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +5}" th:text="${essayPage.number +5}" th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a>
-				<a class="page" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +6}" th:text="${essayPage.number +6}" th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a>
-				<a class="next" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}" th:if="${essayPage.hasNext()}">下一页</a>
-				<a class="next" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.totalPages }" th:if="${essayPage.totalPages }>0">尾页</a>
-				<a class="next" href="#" th:href="'/admin/essay?userId='+${userId}+'&contributionStatus='+${contributionStatus}+'&pn=1'" th:if="${essayPage.totalPages }==0" >尾页</a>
+				<a class="previous" href="/admin/essay?authorId=1&pn=1" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
+				<a class="previous"  th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number}" th:if="${essayPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -3}" th:text="${essayPage.number -3}" th:if="${essayPage.number } >3 ">1</a>
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -2}" th:text="${essayPage.number -2}" th:if="${essayPage.number } >2 ">2</a>
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -1}" th:text="${essayPage.number -1}" th:if="${essayPage.number } >1 ">3</a>
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number }" th:text="${essayPage.number}" th:if="${essayPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
+				<a class="page actived" href="#" rel="nofollow" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number+1}" th:text="${essayPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}" th:text="${essayPage.number +2}" th:if="${essayPage.number +2} <= ${essayPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +3}" th:text="${essayPage.number +3}"  th:if="${essayPage.number +3} <= ${essayPage.totalPages }">7</a>
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +4}" th:text="${essayPage.number +4}"  th:if="${essayPage.number +4} <= ${essayPage.totalPages }">8</a>
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +5}" th:text="${essayPage.number +5}" th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a>
+				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +6}" th:text="${essayPage.number +6}" th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a>
+				<a class="next" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}" th:if="${essayPage.hasNext()}">下一页</a>
+				<a class="next" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.totalPages }" th:if="${essayPage.totalPages }>0">尾页</a>
+				<a class="next" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn=1'" th:if="${essayPage.totalPages }==0" >尾页</a>
 			</div>
 		<!--/// uc-ct end -->
 	</div>
