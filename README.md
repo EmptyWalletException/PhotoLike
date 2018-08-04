@@ -18,6 +18,14 @@ TopTalk网站,照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 
 *********************** 开 发 记 录 ***************************
 
+2018/8/4:
+
+1:整合了elasticsearch,功能尚未完善;
+        
+        关于报错: "NoNodeAvailableException[None of the configured nodes are available" 的问题的情况:
+        在通过Linux下docker运行5.6.10版elasticsearch镜像时,window端能链接9200端口,而springboot链接9300端口后报错找不到节点,抛弃掉docker直接通过终端安装了elasticsearch仍然出现同样情况,所有设置均为默认;
+        换成window的5.6.10版elasticsearch后正常运行,因此排除了pom和Linux端版本不一致的问题,也排除了springboot jar包冲突问题,问题只出在项目启动后找不到9300端口下或此端口下的nodes节点,通过关闭elasticsearch服务后启动项目报同样的错误,所以找不到端口的可能性大于找不到节点的可能性;
+
 2018/8/1:
 
 1:管理员稿件管理页面新增了按作者id和分类条件筛选稿件的功能,以及根据稿件id查看稿件的功能;

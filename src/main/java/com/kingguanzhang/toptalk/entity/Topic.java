@@ -1,11 +1,14 @@
 package com.kingguanzhang.toptalk.entity;
 
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+
 @Table(name = "topic")
 public class Topic {
 
@@ -233,4 +236,23 @@ public class Topic {
         this.photos = photos;
     }*/
 
+    @Override
+    public String toString() {
+        return "Topic{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", creatTime=" + creatTime +
+                ", status=" + status +
+                ", info='" + info + '\'' +
+                ", collectNumber=" + collectNumber +
+                ", commentNumber=" + commentNumber +
+                ", coverImgAddr='" + coverImgAddr + '\'' +
+                ", contentImgsAddr='" + contentImgsAddr + '\'' +
+                ", zipAddr='" + zipAddr + '\'' +
+                ", imgAddrList=" + imgAddrList +
+                ", category=" + category +
+                ", author=" + author +
+                '}';
+    }
 }
