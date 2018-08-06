@@ -12,6 +12,17 @@ import org.springframework.stereotype.Repository;
 public interface StoryRepository extends JpaRepository<Story,Long> {
 
     /**
+     * 自定义查询语句,通过搜索栏关键字查询出所有标题或摘要有关键字的story并且分页排序;
+     * @param keyword
+     * @param status
+     * @param pageable
+     * @return
+     */
+    @Query(nativeQuery = true, value = "select * from story where status = :status and (title like :keyword or subscribe like :keyword)",
+            countQuery = "select count(*) from story where status = :status and (title like :keyword or subscribe like :keyword)")
+    Page<Story> findByKeywordAndStatus(@Param("keyword")String keyword,@Param("status")Integer status,Pageable pageable);
+
+    /**
      * 自定义查询语句,查询出用户收藏的story并且分页排序;
      * @param userId
      * @param pageable

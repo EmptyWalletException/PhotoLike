@@ -406,7 +406,7 @@ Where there&#39;s music and there&#39;...">
             </div>
 
             <!--生成的父评论页面跳转url-->
-            <div class="paginator" >
+            <div class="paginator" th:if="${commentPage.totalPages }>1" >
                 <a class="previous" href="/topic/1?pn=1" th:href="'/topic/'+${topic.id}+'?pn=1'+'&commentSort='+${commentSort}" >首页</a>
                 <a class="previous"  th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number}+'&commentSort='+${commentSort}" th:if="${commentPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
                 <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number -3}+'&commentSort='+${commentSort}" th:text="${commentPage.number -3}" th:if="${commentPage.number } >3 ">1</a>

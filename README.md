@@ -1,6 +1,6 @@
 TopTalk网站,照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 
-使用SpringBoot搭建的项目,使用Mysql数据库,Spring Data JPA,Security,Redis,Thymeleaf等流行的框架和组件;
+使用SpringBoot搭建的项目,使用Mysql数据库,Spring Data JPA,Security;
 
 项目预览效果在根目录"项目页面效果预览"文件夹中;
 
@@ -17,6 +17,17 @@ TopTalk网站,照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 注意事项,项目中url地址中带/upload的是映射本地文件夹D:\projectdev\images\upload,所有图片会存在此文件夹内子文件夹中,可以先测试投稿页面再查看项目运行效果,否则部分页面板式会混乱或报错;
 
 *********************** 开 发 记 录 ***************************
+
+2018/8/6:
+
+1:经过反复重装虚拟机以及更换版本的测试,linux 下的doucker或者直接安装elasticsearch后项目连接9300端口都报找不到nodes节点的错误,使用jest方式可以连接,但为了以后开发和维护方便,所以放弃使用elasticsearch和redis,直接使用sql查询数据库和springboot自带的cache缓存;
+
+2:完成了搜索功能:根据关键字使用sql语句查询数据库:
+        
+        错误的语句,此语句最后的and条件是不会起作用的:select * from topic where title like :keyword or content like :keyword and status = :status
+        正确的语句:select * from topic where status = 1 and (title like :keyword or content like :keyword)  
+
+3:修正了翻页的显示效果,现在当最大页码不足两页时不会显示翻页按钮了
 
 2018/8/4:
 

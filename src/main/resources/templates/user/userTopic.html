@@ -117,7 +117,7 @@
 				</div>
 			</div>
 			<!-- /// fav-vols -->
-			<div class="paginator">
+			<div class="paginator" th:if="${topicPage.totalPages } > 1">
 				<a class="previous" href="/user/topic?userId=1&pn=1" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
 				<a class="previous"  th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
 				<a class="page" href="#" th:href="'/user/topic?userId='+${user.id}+'&contributionStatus='+${contributionStatus}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>

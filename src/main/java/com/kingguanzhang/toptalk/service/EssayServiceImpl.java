@@ -20,6 +20,18 @@ public class EssayServiceImpl {
 
 
     /**
+     * 自定义的查询方法,通过关键字可状态分页查询所有essay;
+     * @param keyword
+     * @param status
+     * @param pageable
+     * @return
+     */
+    public Page<Essay> findByKeywordAndStatus(String keyword,Integer status,Pageable pageable){
+        Page<Essay> essayPage = essayRepository.findByKeywordAndStatus(keyword,status,pageable);
+        return essayPage;
+    }
+
+    /**
      * 分页查询所有;
      * @return
      */

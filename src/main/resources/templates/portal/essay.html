@@ -259,7 +259,7 @@
             </div>
 
 
-            <div class="paginator">
+            <div class="paginator" th:if="${essayPage.totalPages }>1">
                 <a class="previous" href="/essay?pn=1" th:href="'/essay?pn=1'">首页</a>
                 <a class="previous" th:href="'/essay?pn='+${essayPage.number}"
                    th:if="${essayPage.hasPrevious()}">上一页</a>

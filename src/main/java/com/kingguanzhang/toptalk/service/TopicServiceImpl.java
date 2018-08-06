@@ -16,6 +16,19 @@ public class TopicServiceImpl {
     private TopicRepository topicRepository;
 
     /**
+     * 自定义的查询方法,通过关键字可状态分页查询所有topic;
+     * @param keyword
+     * @param status
+     * @param pageable
+     * @return
+     */
+    public Page<Topic> findByKeywordAndStatus(String keyword,Integer status,Pageable pageable){
+        Page<Topic> topicPage = topicRepository.findByKeywordAndStatus(keyword,status,pageable);
+        return topicPage;
+    }
+
+
+    /**
      * 自定义的查询方法,通过分类id分页查询所有topic;
      * @param categoryId
      * @param pageable

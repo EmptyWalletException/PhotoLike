@@ -84,8 +84,8 @@
             </div>
 
             <!--生成的带分类参数的页面跳转url-->
-            <div class="paginator" th:if="null != ${categoryId}">
-                <a class="previous" href="/topic?category=1?pn=1" th:href="'/topic?category='+${categoryId}+'&pn=1'" >首页</a>
+            <div class="paginator" th:if=" ${null !=categoryId && topicPage.totalPages>1} ">
+                <a class="previous" href="'/topic?category='+${categoryId}+'&pn=1'" th:href="'/topic?category='+${categoryId}+'&pn=1'" >首页</a>
                 <a class="previous"  th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
                 <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
                 <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>

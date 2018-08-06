@@ -1,18 +1,13 @@
 package com.kingguanzhang.toptalk.crudTest;
 
-import com.kingguanzhang.toptalk.document.TopicDocument;
-import com.kingguanzhang.toptalk.entity.Category;
-import com.kingguanzhang.toptalk.repositories.TopicElasticSearchRepository;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ElasticSearchTest {
-    @Autowired
+  /*  @Autowired
     TopicElasticSearchRepository topicElasticSearchRepository;
 
 
@@ -30,5 +25,5 @@ public class ElasticSearchTest {
         topic.setCategory(category);
         topic.setCommentNumber(512);
         topicElasticSearchRepository.index(topic);
-    }
-}
+        }*/
+ }

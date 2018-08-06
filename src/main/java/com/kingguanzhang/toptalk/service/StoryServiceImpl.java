@@ -18,6 +18,20 @@ public class StoryServiceImpl {
     private StoryRepository storyRepository;
 
 
+
+    /**
+     * 自定义的查询方法,通过关键字可状态分页查询所有story;
+     * @param keyword
+     * @param status
+     * @param pageable
+     * @return
+     */
+    public Page<Story> findByKeywordAndStatus(String keyword,Integer status,Pageable pageable){
+        Page<Story> storyPage = storyRepository.findByKeywordAndStatus(keyword,status,pageable);
+        return storyPage;
+    }
+    
+    
     /**
      * 分页查询所有;
      * @return

@@ -12,6 +12,18 @@ import org.springframework.stereotype.Repository;
 public interface TopicRepository extends JpaRepository<Topic,Long> {
 
     /**
+     * 自定义查询语句,通过搜索栏关键字查询出所有标题或内容有关键字的topic并且分页排序;
+     * @param keyword
+     * @param status
+     * @param pageable
+     * @return
+     */
+    @Query(nativeQuery = true, value = "select * from topic where status = :status and (title like :keyword or content like :keyword)",
+            countQuery = "select count(*) from topic where status = :status and (title like :keyword or content like :keyword)")
+    Page<Topic> findByKeywordAndStatus(@Param("keyword")String keyword,@Param("status")Integer status,Pageable pageable);
+
+
+    /**
      * 自定义查询语句,通过categoryId查询出所有topic并且分页排序;
      * @param categoryId
      * @param pageable

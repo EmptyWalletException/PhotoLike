@@ -2,12 +2,11 @@ package com.kingguanzhang.toptalk.document;
 
 import com.kingguanzhang.toptalk.entity.Category;
 import com.kingguanzhang.toptalk.entity.User;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
 import java.util.List;
 
-@Document(indexName = "topicdoc",type = "normal")
+//@Document(indexName = "topicdoc",type = "normal")
 public class TopicDocument {
 
     private long id;

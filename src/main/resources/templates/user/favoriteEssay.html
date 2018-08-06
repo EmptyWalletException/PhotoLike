@@ -103,7 +103,7 @@
             </div>
         </div>
         <!-- /// fav-vols -->
-        <div class="paginator">
+        <div class="paginator" th:if="${essayPage.totalPages }>1">
             <a class="previous" href="/user/favoriteEssay?userId=1&pn=1"
                th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn=1'">首页</a>
             <a class="previous" th:href="'/user/favoriteEssay?userId='+${user.id}+'&pn='+${essayPage.number}"

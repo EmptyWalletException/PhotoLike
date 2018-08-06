@@ -1,7 +1,7 @@
 package com.kingguanzhang.toptalk.entity;
 
 
-import org.springframework.data.elasticsearch.annotations.Document;
+
 
 import javax.persistence.*;
 import java.util.Date;

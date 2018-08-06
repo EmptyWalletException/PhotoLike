@@ -85,7 +85,7 @@
             </div>
             <!--/// essay-list end-->
 
-            <div class="paginator">
+            <div class="paginator" th:if="${storyPage.totalPages }>1">
                     <a class="previous" href="/story?pn=1" th:href="'/story?pn=1'" >首页</a>
                     <a class="previous"  th:href="'/story?pn='+${storyPage.number}" th:if="${storyPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
                     <a class="page" href="#" th:href="'/story?pn='+${storyPage.number -3}" th:text="${storyPage.number -3}" th:if="${storyPage.number } >3 ">1</a>

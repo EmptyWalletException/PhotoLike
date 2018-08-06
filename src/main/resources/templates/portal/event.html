@@ -91,7 +91,7 @@
             </div>
 
             <!--生成的带城市参数的页面跳转url-->
-            <div class="paginator" th:if="null != ${cityId}">
+            <div class="paginator" th:if=" ${null !=cityId && eventPage.totalPages>1} ">
                 <a class="previous" href="/event?city=1?pn=1" th:href="'/event?city='+${cityId}+'&pn=1'" >首页</a>
                 <a class="previous"  th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number}" th:if="${eventPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
                 <a class="page" href="#" th:href="'/event?city='+${cityId}+'&pn='+${eventPage.number -3}" th:text="${eventPage.number -3}" th:if="${eventPage.number } >3 ">1</a>

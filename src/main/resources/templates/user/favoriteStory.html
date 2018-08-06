@@ -100,7 +100,7 @@
 
         </div>
         <!-- ///fav-essays -->
-        <div class="paginator">
+        <div class="paginator" th:if="${storyPage.totalPages } > 1">
             <a class="previous" href="/user/favoriteStory?userId=1&pn=1"
                th:href="'/user/favoriteStory?userId='+${user.id}+'&pn=1'">首页</a>
             <a class="previous" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number}"
