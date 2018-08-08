@@ -1,8 +1,12 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.*;
+import com.kingguanzhang.toptalk.entity.Essay;
+import com.kingguanzhang.toptalk.entity.Praise;
+import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.entity.Topic;
 import com.kingguanzhang.toptalk.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -3,6 +3,9 @@ package com.kingguanzhang.toptalk.service;
 import com.kingguanzhang.toptalk.entity.Story;
 import com.kingguanzhang.toptalk.repositories.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@CacheConfig(cacheNames = "story")
 @Service
 public class StoryServiceImpl {
 
@@ -20,7 +24,7 @@ public class StoryServiceImpl {
 
 
     /**
-     * 自定义的查询方法,通过关键字可状态分页查询所有story;
+     * 自定义的查询方法,通过关键字和状态分页查询所有story;
      * @param keyword
      * @param status
      * @param pageable
@@ -36,6 +40,7 @@ public class StoryServiceImpl {
      * 分页查询所有;
      * @return
      */
+    @Cacheable(value = "story",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<Story> findAll(Pageable pageable){
         Page<Story> page;
         try {
@@ -54,6 +59,7 @@ public class StoryServiceImpl {
      * @param id
      * @return
      */
+    @Cacheable(value = "story",key = "getMethodName()+'['+#a0+']'")
     public Story findById(Long id){
         Optional<Story> temp = storyRepository.findById(id);
         if (temp.isPresent()) {
@@ -103,6 +109,7 @@ public class StoryServiceImpl {
      * 持久化单条数据;
      * @param object
      */
+    @CacheEvict(value = "story" )
     public void save(Story object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -120,6 +127,7 @@ public class StoryServiceImpl {
      * 持久化并返回id;
      * @param object
      */
+    @CacheEvict(value = "story" )
     public long saveAndFlush(Story object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -139,6 +147,7 @@ public class StoryServiceImpl {
      * 持久化所有;
      * @param list
      */
+    @CacheEvict(value = "story" )
     public void saveAll(List<Story> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -156,6 +165,7 @@ public class StoryServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
+    @CacheEvict(value = "story" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -172,6 +182,7 @@ public class StoryServiceImpl {
      * 删除所有;
      * @param list
      */
+    @CacheEvict(value = "story" )
     public void deleteAll(List<Story> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");

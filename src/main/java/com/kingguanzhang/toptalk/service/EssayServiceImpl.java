@@ -3,6 +3,9 @@ package com.kingguanzhang.toptalk.service;
 import com.kingguanzhang.toptalk.entity.Essay;
 import com.kingguanzhang.toptalk.repositories.EssayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@CacheConfig(cacheNames = "essay")
 @Service
 public class EssayServiceImpl {
 
@@ -35,6 +39,7 @@ public class EssayServiceImpl {
      * 分页查询所有;
      * @return
      */
+    @Cacheable(value = "essay",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<Essay> findAll(Pageable pageable){
         Page<Essay> page;
         try {
@@ -52,6 +57,7 @@ public class EssayServiceImpl {
      * @param id
      * @return
      */
+    @Cacheable(value = "essay",key = "getMethodName()+'['+#a0+']'")
     public Essay findById(Long id){
         Optional<Essay> temp = essayRepository.findById(id);
         if (temp.isPresent()){
@@ -100,6 +106,7 @@ public class EssayServiceImpl {
      * 持久化单条数据;
      * @param object
      */
+    @CacheEvict(value = "essay" )
     public void save(Essay object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -119,6 +126,7 @@ public class EssayServiceImpl {
      * 持久化并返回id;
      * @param object
      */
+    @CacheEvict(value = "essay" )
     public long saveAndFlush(Essay object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -138,6 +146,7 @@ public class EssayServiceImpl {
      * 持久化所有;
      * @param list
      */
+    @CacheEvict(value = "essay" )
     public void saveAll(List<Essay> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -155,6 +164,7 @@ public class EssayServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
+    @CacheEvict(value = "essay" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -171,6 +181,7 @@ public class EssayServiceImpl {
      * 删除所有;
      * @param list
      */
+    @CacheEvict(value = "essay" )
     public void deleteAll(List<Essay> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");

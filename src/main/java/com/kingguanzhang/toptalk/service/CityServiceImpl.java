@@ -3,6 +3,9 @@ package com.kingguanzhang.toptalk.service;
 import com.kingguanzhang.toptalk.entity.City;
 import com.kingguanzhang.toptalk.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@CacheConfig(cacheNames = "city")
 @Service
 public class CityServiceImpl {
 
@@ -22,6 +26,7 @@ public class CityServiceImpl {
      * 分页查询所有;
      * @return
      */
+    @Cacheable(value = "city",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<City> findAll(Pageable pageable){
         Page<City> page;
         try {
@@ -39,6 +44,7 @@ public class CityServiceImpl {
      * @param id
      * @return
      */
+    @Cacheable(value = "city",key = "getMethodName()+'['+#a0+']'")
     public City findById(Long id){
         Optional<City> temp = cityRepository.findById(id);
         return temp.get();
@@ -79,6 +85,7 @@ public class CityServiceImpl {
      * 持久化单条数据;
      * @param object
      */
+    @CacheEvict(value = "city" )
     public void save(City object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -96,6 +103,7 @@ public class CityServiceImpl {
      * 持久化并返回id;
      * @param object
      */
+    @CacheEvict(value = "city" )
     public long saveAndFlush(City object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -115,6 +123,7 @@ public class CityServiceImpl {
      * 持久化所有;
      * @param list
      */
+    @CacheEvict(value = "city")
     public void saveAll(List<City> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -132,6 +141,7 @@ public class CityServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
+    @CacheEvict(value = "city" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -148,6 +158,7 @@ public class CityServiceImpl {
      * 删除所有;
      * @param list
      */
+    @CacheEvict(value = "city" )
     public void deleteAll(List<City> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -165,6 +176,7 @@ public class CityServiceImpl {
      * @param oldCityId
      * @param newCityId
      */
+    @CacheEvict(value = {"city","event"})
     public void replaceCity(Long oldCityId,Long newCityId){
         try{
             cityRepository.replaceCityInAllEvent(oldCityId,newCityId);
