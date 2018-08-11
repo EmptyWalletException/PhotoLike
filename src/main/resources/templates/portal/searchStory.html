@@ -96,7 +96,7 @@
                             Sugar Man：隐没在城市里的一把声音
                         </a>
                         <div class="meta">
-                            <a class="entry-author" href="/user?userId=3" th:text="${story.author.nickname}" th:href="'/user?userId='+${story.author.id}">LUO</a><span
+                            <a class="entry-author" href="#" th:text="${story.author.nickname}" th:href="'/author/topic?authorId='+${story.author.id}">LUO</a><span
                                 class="separator">・</span><span class="time"
                                                                 th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}">2017-11-28</span>
                         </div>

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@CacheConfig(cacheNames = "category")
+//@CacheConfig(cacheNames = "category")
 @Service
 public class CategoryServiceImpl {
 
@@ -26,7 +26,7 @@ public class CategoryServiceImpl {
      * 分页查询所有;
      * @return
      */
-    @Cacheable(value = "category",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
+    //@Cacheable(value = "category",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<Category> findAll(Pageable pageable){
         Page<Category> page;
         try {
@@ -62,7 +62,7 @@ public class CategoryServiceImpl {
      * @param id
      * @return
      */
-    @Cacheable(value = "category",key = "getMethodName()+'['+#a0+']'")
+   // @Cacheable(value = "category",key = "getMethodName()+'['+#a0+']'")
     public Category findById(Long id){
         Optional<Category> temp = categoryRepository.findById(id);
         return temp.get();
@@ -103,7 +103,7 @@ public class CategoryServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    @CacheEvict(value = "category")
+   // @CacheEvict(value = "category")
     public Category save(Category object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -120,7 +120,7 @@ public class CategoryServiceImpl {
      * 立即持久化并返回id;
      * @param object
      */
-    @CacheEvict(value = "category" )
+    //@CacheEvict(value = "category" )
     public long saveAndFlush(Category object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -140,7 +140,7 @@ public class CategoryServiceImpl {
      * 持久化所有;
      * @param list
      */
-    @CacheEvict(value = "category" )
+   // @CacheEvict(value = "category" )
     public void saveAll(List<Category> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -158,7 +158,7 @@ public class CategoryServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
-    @CacheEvict(value = "category" )
+   // @CacheEvict(value = "category" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -175,7 +175,7 @@ public class CategoryServiceImpl {
      * 删除所有;
      * @param list
      */
-    @CacheEvict(value = "category" )
+    //@CacheEvict(value = "category" )
     public void deleteAll(List<Category> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -192,7 +192,7 @@ public class CategoryServiceImpl {
      * 将指定的分类下的所有topic的分类设置成默认分类,即分类id为1的分类;用于删除分类之前调用此方法;
      * @param oldCategoryId
      */
-    @CacheEvict(value = {"category","topic"})
+   // @CacheEvict(value = {"category","topic"})
     public void replaceByDefault(Long oldCategoryId,Long newCategoryId){
         try{
             categoryRepository.replaceCategoryInTopic(oldCategoryId,newCategoryId);

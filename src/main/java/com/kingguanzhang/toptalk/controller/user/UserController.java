@@ -33,14 +33,7 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private CityServiceImpl cityService;
-    @Autowired
-    private StoryServiceImpl storyService;
-    @Autowired
-    private EssayServiceImpl essayService;
-    @Autowired
-    private TopicServiceImpl topicService;
-    @Autowired
-    private UserFavoriteServiceImpl userFavoriteService;
+
 
 
 
@@ -179,7 +172,7 @@ public class UserController {
     @RequestMapping(value = "/user/ajax/checkAccount",method = RequestMethod.POST)
     @ResponseBody
     private Msg ajaxCheckAccount(@RequestParam("inputValue")String account){
-        if (checkAccount(account)){
+        if (!checkAccount(account)){
             return Msg.fail().setMsg("账号已被其他人注册!");
         }else {
             return Msg.success().setMsg("账号可以使用!");

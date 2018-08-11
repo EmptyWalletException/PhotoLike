@@ -1,24 +1,16 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.Essay;
 import com.kingguanzhang.toptalk.entity.User;
 import com.kingguanzhang.toptalk.entity.UserFavorite;
 import com.kingguanzhang.toptalk.service.EssayServiceImpl;
 import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
-import com.kingguanzhang.toptalk.utils.ImgUtil;
-import com.kingguanzhang.toptalk.utils.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
 

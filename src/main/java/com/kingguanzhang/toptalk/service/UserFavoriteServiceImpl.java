@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@CacheConfig(cacheNames = "userfavorite")
+//@CacheConfig(cacheNames = "userfavorite")
 @Service
 public class UserFavoriteServiceImpl {
     
@@ -38,7 +38,7 @@ public class UserFavoriteServiceImpl {
      * 分页查询所有;
      * @return
      */
-    @Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'\"")
+    //@Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'\"")
     public Page<UserFavorite> findAll(Pageable pageable){
         Page<UserFavorite> page;
         try {
@@ -57,7 +57,7 @@ public class UserFavoriteServiceImpl {
      * @param pageable
      * @return
      */
-    @Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
+    //@Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
     public Page<Story> findFavoriteStory(Long userId,Pageable pageable){
         Page<Story> story;
         try {
@@ -76,7 +76,7 @@ public class UserFavoriteServiceImpl {
      * @param pageable
      * @return
      */
-    @Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
+    //@Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
     public Page<Topic> findFavoriteTopic(Long userId,Pageable pageable){
         Page<Topic> topic;
         try {
@@ -96,7 +96,7 @@ public class UserFavoriteServiceImpl {
      * @param pageable
      * @return
      */
-    @Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
+    //@Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
     public Page<Essay> findFavoriteEssay(Long userId, Pageable pageable){
         Page<Essay> topic;
         try {
@@ -114,7 +114,7 @@ public class UserFavoriteServiceImpl {
      * @param id
      * @return
      */
-    @Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'")
+    //@Cacheable(value = "userfavorite",key = "getMethodName()+'['+#a0+']'")
     public UserFavorite findById(Long id){
         Optional<UserFavorite> temp = userFavoriteRepository.findById(id);
         if (temp.isPresent()){
@@ -162,7 +162,7 @@ public class UserFavoriteServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public void save(UserFavorite object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -179,7 +179,7 @@ public class UserFavoriteServiceImpl {
      * 持久化并返回id;注意此方法不要用在批量持久化中,会出现id重复的异常;
      * @param object
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public long saveAndFlush(UserFavorite object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -199,7 +199,7 @@ public class UserFavoriteServiceImpl {
      * 持久化所有;
      * @param list
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public void saveAll(List<UserFavorite> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -216,7 +216,7 @@ public class UserFavoriteServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -235,7 +235,7 @@ public class UserFavoriteServiceImpl {
      * 删除收藏的topic;
      *
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public void deleteFavoriteTopic(Long userId,Long topicId){
         if (null == userId || null == topicId){
             throw new RuntimeException("传入的参数不能为空");
@@ -252,7 +252,7 @@ public class UserFavoriteServiceImpl {
      * 删除收藏的essay;
      *
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public void deleteFavoriteEssay(Long userId,Long essayId){
         if (null == userId || null == essayId){
             throw new RuntimeException("传入的参数不能为空");
@@ -269,7 +269,7 @@ public class UserFavoriteServiceImpl {
      * 删除收藏的story;
      *
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public void deleteFavoriteStory(Long userId,Long storyId){
         if (null == userId || null == storyId){
             throw new RuntimeException("传入的参数不能为空");
@@ -286,7 +286,7 @@ public class UserFavoriteServiceImpl {
      * 删除所有;
      * @param list
      */
-    @CacheEvict(value = "userfavorite" )
+    //@CacheEvict(value = "userfavorite" )
     public void deleteAll(List<UserFavorite> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");

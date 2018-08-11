@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@CacheConfig(cacheNames = "event")
+//@CacheConfig(cacheNames = "event")
 @Service
 public class EventServiceImpl {
 
@@ -37,7 +37,7 @@ public class EventServiceImpl {
      * 分页查询所有;
      * @return
      */
-    @Cacheable(value = "event",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
+    //@Cacheable(value = "event",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<Event> findAll(Pageable pageable){
         Page<Event> page;
         try {
@@ -55,7 +55,7 @@ public class EventServiceImpl {
      * @param id
      * @return
      */
-    @Cacheable(value = "event",key = "getMethodName()+'['+#a0+']'")
+    //@Cacheable(value = "event",key = "getMethodName()+'['+#a0+']'")
     public Event findById(Long id){
         Optional<Event> temp = eventRepository.findById(id);
         return temp.get();
@@ -96,7 +96,7 @@ public class EventServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    @CacheEvict(value = "event" )
+    //@CacheEvict(value = "event" )
     public void save(Event object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -114,7 +114,7 @@ public class EventServiceImpl {
      * 持久化并返回id;
      * @param object
      */
-    @CacheEvict(value = "event" )
+    //@CacheEvict(value = "event" )
     public long saveAndFlush(Event object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -134,7 +134,7 @@ public class EventServiceImpl {
      * 持久化所有;
      * @param list
      */
-    @CacheEvict(value = "event" )
+    //@CacheEvict(value = "event" )
     public void saveAll(List<Event> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -152,7 +152,7 @@ public class EventServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
-    @CacheEvict(value = "event" )
+    //@CacheEvict(value = "event" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -169,7 +169,7 @@ public class EventServiceImpl {
      * 删除所有;
      * @param list
      */
-    @CacheEvict(value = "event" )
+    //@CacheEvict(value = "event" )
     public void deleteAll(List<Event> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");

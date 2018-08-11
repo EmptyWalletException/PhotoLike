@@ -54,7 +54,7 @@
             <a href="javascript:;" class="btn-like-story"  title="收藏" th:attr="plate='story.'+${story.id}" th:if="${true != favStatus}">
                 <span class="icon-essay-fav"></span>
             </a>
-            <a href="javascript:;" class="btn-like-story"  title="取消收藏" th:attr="plate='story.'+${story.id}" th:if="${true == favStatus}">
+            <a href="javascript:;" class="btn-unlike-story"  title="取消收藏" th:attr="plate='story.'+${story.id}" th:if="${true == favStatus}">
                 <span class="icon-essay-faved"></span>
             </a>
             <a href="javascript:;" class="btn-share btn-action-share" data-app="essay" data-id="925&#39;"
@@ -73,12 +73,12 @@
                 </p>
 
                 <div class="clearfix">
-                    <a href="http://www.luoo.net/user?userId=essays/1057783" class="avatar-wrapper">
+                    <a href="#" class="avatar-wrapper" th:href="'/author/topic?authorId='+${story.author.id}">
                         <img src="/js/128x128" alt="李卤味" class="avatar rounded" th:src="${story.author.imgAddr}" th:alt="${story.author.nickname}">
                     </a>
                     <div class="essay-author-info">
                         <div class="cell">
-                            <a href="/user?userId=1" class="essay-author-name" th:href="'/user?userId='+${story.author.id}" th:text="${story.author.nickname}">
+                            <a href="#" class="essay-author-name"  th:text="${story.author.nickname}" th:href="'/author/topic?authorId='+${story.author.id}">
                                 作者昵称
                             </a>
                             <p class="essay-author-sign"></p>
@@ -208,17 +208,17 @@
                     <div class="toolbar rounded clearfix">
                         <div class="sns-sync">
                             同步到
-                            <a href="http://www.luoo.net/comment/sync/weibo" rel="nofollow"
+                            <a href="#" rel="nofollow"
                                class="sns-item btn-action-comment-sync">
                                 <span class="icon-share-weibo"></span>
                                 <input type="hidden" name="sync[weibo]" value="0" class="input-comment-sync">
                             </a>
-                            <a href="http://www.luoo.net/comment/sync/douban" rel="nofollow"
+                            <a href="#" rel="nofollow"
                                class="sns-item btn-action-comment-sync">
                                 <span class="icon-share-douban"></span>
                                 <input type="hidden" name="sync[douban]" value="0" class="input-comment-sync">
                             </a>
-                            <a href="http://www.luoo.net/comment/sync/tweibo" rel="nofollow"
+                            <a href="#" rel="nofollow"
                                class="sns-item btn-action-comment-sync">
                                 <span class="icon-tweibo"></span>
                                 <input type="hidden" name="sync[tweibo]" value="0" class="input-comment-sync">
@@ -270,12 +270,12 @@
 
                 <!--单条父评论及其子评论开始-->
                 <div class="item "  th:if="${commentPage!=null && commentPage.size!=0 && commentStat.index<10 }" th:each="comment,commentStat:${commentPage}">
-                    <a href="/user?userId=1285850" class="avatar-wrapper" target="_blank" th:href="'/user?userId='+${comment.author.id}">
+                    <a href="#" class="avatar-wrapper" target="_blank" th:href="'/author/topic?authorId='+${comment.author.id}">
                         <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded" th:src="${comment.author.imgAddr}" th:alt="${comment.author.nickname}">
                     </a>
                     <div class="item-wrapper">
                         <div class="helper">
-                            <a href="/user?userId=1285850" class="username" target="_blank" th:href="'/user?userId='+${comment.author.id}" th:text="${comment.author.nickname}">秋刀鱼-</a>&nbsp;&nbsp;[[${comment.author.signature}]]
+                            <a href="#" class="username" target="_blank"  th:text="${comment.author.nickname}" th:href="'/author/topic?authorId='+${comment.author.id}">秋刀鱼-</a>&nbsp;&nbsp;[[${comment.author.signature}]]
 
                             <!--管理员操作父评论的区域-->
                             <div id="adminSupcomment" class="" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">

@@ -48,6 +48,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         }
         //将用户信息写入session
         request.getSession().setAttribute("user", user);
-        request.getRequestDispatcher(redirectUrl).forward(request, response);
+        response.sendRedirect(redirectUrl);
+        //request.getRequestDispatcher(redirectUrl).forward(request, response);这里用转发并不合适;
     }
 }

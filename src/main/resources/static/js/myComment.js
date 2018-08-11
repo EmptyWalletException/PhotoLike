@@ -126,7 +126,7 @@ function loadSubcomment(supcommentId,pageNum){
             if (undefined != adminSupcomment && 0<adminSupcomment.length){
                 subcommentDiv.children("div").children(".subcomment").append(
                     "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
-                    "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
+                    "                                    <a href='/author/topic?authorId="+subcomment.author.id+"' class='avatar-wrapper' target='_blank' >" +
                     "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
                     "                                    </a>" +
                     "                                   <div>"+
@@ -135,7 +135,7 @@ function loadSubcomment(supcommentId,pageNum){
                     "                                       </div>"+
                     "                                   </div>"+
                     "                                    <div class='item-wrapper'>" +
-                    "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
+                    "                                        <a href='/author/topic?authorId="+subcomment.author.id+"' class='username'" +
                     "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
                     "                                        <div class='comment-ct'>" +
                     "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +
@@ -175,13 +175,13 @@ function loadSubcomment(supcommentId,pageNum){
             }else {
                 subcommentDiv.children("div").children(".subcomment").append(
                     "                               <div class='item subcommentItem' subcommentId='" +subcomment.id + "'  >" +
-                    "                                    <a href='/user?userId=" +subcomment.author.id+ "' class='avatar-wrapper' target='_blank' >" +
+                    "                                    <a href='/author/topic?authorId="+subcomment.author.id+"' class='avatar-wrapper' target='_blank' >" +
                     "                                        <img src='"+subcomment.author.imgAddr+"' alt='" +subcomment.author.nickname+ "' class='avatar rounded' >" +
                     "                                    </a>" +
                     "                                   <div>"+
                     "                                   </div>"+
                     "                                    <div class='item-wrapper'>" +
-                    "                                        <a href='/user?userId=" +subcomment.author.id+ "' class='username'" +
+                    "                                        <a href='/author/topic?authorId="+subcomment.author.id+"' class='username'" +
                     "                                           target='_blank'  >" +subcomment.author.nickname+ "</a>" +
                     "                                        <div class='comment-ct'>" +
                     "                                            <p class='the-comment' data-vote='1' data-ct='1512961397' >" +

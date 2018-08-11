@@ -28,9 +28,16 @@
 </div>
 <!--/// header end -->
 <div class="container" style="min-height: 499px;">
-    <h1 class="about-title ">专辑投稿:</h1>
-    <hr/>
+    <h1 class="about-title " style="margin-bottom: 5px;">专辑投稿:</h1>
+    <p style="float: right;">
+        <a href="/contribute/topicContribute" style="color: #dd5862">专辑投稿</a>
+        <a href="/contribute/essayContribute" >随笔投稿</a>
+        <a href="/contribute/storyContribute" >故事投稿</a>
+        <a href="/contribute/eventContribute" >活动申请</a>
+    </p>
     <br/>
+    <hr/>
+
 
     <div class="WriteCover-wrapper" id="editDiv">
         <div id="singlePhotoEcho" >
@@ -57,7 +64,7 @@
         </div>
         <div >
             <label  class="">选择所属分类 : </label>
-                <select  id="category" >
+                <select  id="category" style="width: 150px;height: 30px">
                     <option th:each="category:${categoryPage}" th:value="${category.id}" th:text="' '+${category.name}+' '" >分类1</option>
                 </select>
         </div>
@@ -71,7 +78,7 @@
         </div>
 
         <div>
-            <button id="submit">提交稿件</button>
+            <button id="submit">提交稿件</button><small> 注意事项:上传图片需要等待一段时间,请不要重复点击提交按钮!</small>
         </div>
 
     </div>

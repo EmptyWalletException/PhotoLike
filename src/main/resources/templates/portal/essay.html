@@ -48,15 +48,15 @@
 </span> <span class="quote-after"></span></p>
             <div class="lyric" id="lyric15491"></div>
             <p class="date">
-                <a  style="color: #6c6c6c" th:text="'作者:'+${upEssay.author.nickname}+','+${#dates.format(upEssay.creatTime,'yyyy-MM-dd')}" th:href="'/user?userId='+${upEssay.author.id}">推荐人：
+                <a  style="color: #6c6c6c" th:text="'作者:'+${upEssay.author.nickname}+','+${#dates.format(upEssay.creatTime,'yyyy-MM-dd')}" th:href="'/author/topic?authorId='+${upEssay.author.id}">推荐人：
                     快活林・2015-11-12</a>
             </p>
 
             <!--分享,收藏,详情-->
             <div class="sns">
-                <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share" data-app="musician"
-                   data-id="229" data-text="推荐Life Was All Silence的歌曲I Couldn&#39;t Regret（分享自@落网）"
-                   data-img="http://img-cdn2.luoo.net/pics/albums/7971/cover.jpg!/fwfh/580x580">
+                <a href="javascript:;" rel="nofollow" class="icon-share " data-app="musician"
+                   data-id="229" data-text="#"
+                   data-img="#">
                 </a>
                 <a href="javascript:;" class="btn-like icon-fav favStatus" plate="essay.111"  title="收藏" th:attr="plate='essay.'+${upEssay.id}" ></a>
                 <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="15491"></a>
@@ -151,13 +151,13 @@
                         <div class="lyric" id="lyric22422"></div>
                         <p class="date">
                             <a style="color: #6c6c6c"
-                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/user?userId='+${essay.author.id}">
+                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/author/topic?authorId='+${essay.author.id}">
                                 推荐人： AngelaDaddy・2017-11-29</a>
                         </p>
                         <div class="sns">
-                            <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="578" data-text="推荐徐真真的歌曲开心就足够（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14823/pics/albums/201711/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg!/fwfh/580x580">
+                            <a href="javascript:;" rel="nofollow" class="icon-share "
+                               data-app="musician" data-id="578" data-text="#"
+                               data-img="#">
                             </a>
                             <a href="javascript:;" class="btn-like icon-fav favStatus" plate="essay.111"  title="收藏" th:attr="plate='essay.'+${essay.id}"></a>
                             <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22422"></a>
@@ -311,7 +311,7 @@
                             <a href="#" title="那下午她在新居砸电视"
                                class="title" th:alt="${hotEssay.title}" th:text="${hotEssay.title}"
                                th:href="'/essay?essayId='+${hotEssay.id}">那下午她在新居砸电视</a>
-                            <a class="description" th:text="${hotEssay.author.nickname}" th:href="'/user?userId='+${hotEssay.author.id}">Monster KaR</a>
+                            <a class="description" th:text="${hotEssay.author.nickname}" th:href="'/author/topic?authorId='+${hotEssay.author.id}">Monster KaR</a>
                         </div>
                     </div>
 
@@ -326,7 +326,7 @@
 </div>
 <!--/// container end -->
 
-<!-- 用于修改分类的模态框 此处也放一个是为了避免js报错-->
+<!-- 原本用于修改topic分类的模态框 此处也放一个是为了避免js报错-->
 <div id="topicCategoryModal" class="modal" >
     <div class="modal-content" style="width: 250px">
         <div class="modal-header" >

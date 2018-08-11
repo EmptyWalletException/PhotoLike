@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/story/**").permitAll()
                     .antMatchers("/test/**").permitAll()
                     .antMatchers("/event/**").permitAll()
+                    .antMatchers("/error/**").permitAll()
                     .antMatchers("/ajax/**").permitAll()
                     .antMatchers("/**/json/**").permitAll()
                     .antMatchers("/**/ajax/**").permitAll()

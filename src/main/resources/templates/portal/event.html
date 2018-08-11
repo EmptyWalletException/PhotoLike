@@ -50,12 +50,12 @@
                     <div class="item item-expired clearfix" th:each="event,eventStat:${eventPage}"
                          th:if="${eventStat.index}<10">
                         <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${event.id}">
-                            <img src="/img/test/testEventCoverImg.jpg" alt="墨西哥后摇 Childs 中国巡演" class="cover rounded" th:src="${event.coverImgAddr}" th:alt="${event.name}">
+                            <img src="/img/test/testEventCoverImg.jpg" alt="活动标题" class="cover rounded" th:src="${event.coverImgAddr}" th:alt="${event.name}">
                         </a>
                         <ul class="info">
                             <li>
                                 <a href="/event/15660" class="name" th:href="'/event/'+${event.id}"
-                                   th:text="${event.name}">墨西哥后摇 Childs 中国巡演（已结束）</a>
+                                   th:text="${event.name}">活动标题</a>
                             </li>
                             <li>时间： [[${#dates.format(event.time,'yyyy-MM-dd')}]]</li>
                             <li>主题： [[${event.theme}]]</li>
@@ -72,7 +72,7 @@
             <!--/// event-list-wrapper end-->
 
             <!--生成的不带城市参数的页面跳转url-->
-            <div class="paginator" th:if="null == ${cityId}">
+            <div class="paginator" th:if="${null == cityId && eventPage.totalPages>1}">
                 <a class="previous" href="/event?pn=1" th:href="'/event?pn=1'" >首页</a>
                 <a class="previous"  th:href="'/event?pn='+${eventPage.number}" th:if="${eventPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
                 <a class="page" href="#" th:href="'/event?pn='+${eventPage.number -3}" th:text="${eventPage.number -3}" th:if="${eventPage.number } >3 ">1</a>
@@ -125,14 +125,13 @@
                     <div class="item" th:each="newestEvent,newestEventStat:${newestEventPage}"
                          th:if="${newestEventStat.index}<5">
                         <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${newestEvent.id}">
-                            <img src="/img/test/testEventCoverImg.jpg" alt="墨西哥后摇 Childs 中国巡演" class="event-cover rounded"
+                            <img src="/img/test/testEventCoverImg.jpg" alt="活动标题" class="event-cover rounded"
                                  th:src="${newestEvent.coverImgAddr}" th:alt="${newestEvent.name}">
                         </a>
                         <div class="info">
-                            <a href="/event/15660" title="墨西哥后摇 Childs 中国巡演" class="wrap-title"
+                            <a href="/event/15660" title="活动标题" class="wrap-title"
                                th:title="${newestEvent.name}" th:text="${newestEvent.name}"
-                               th:href="'/event/'+${newestEvent.id}">墨西哥后摇
-                                Childs 中国巡演</a>
+                               th:href="'/event/'+${newestEvent.id}">活动标题</a>
                             <p th:text="${newestEvent.theme}"></p>
                             <br/>
                             <p th:text="${newestEvent.city.name}"></p>
@@ -145,7 +144,7 @@
 
             <div class="widget widget-break">
                 <div class="widget-ct">
-                    <a href="/portal/eventContribute" class="ln-widget-block rounded">
+                    <a href="#" class="ln-widget-block rounded">
                         活动提交
                     </a>
                 </div>

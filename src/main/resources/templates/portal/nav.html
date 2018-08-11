@@ -26,6 +26,7 @@
                 <li sec:authorize="isAuthenticated()"><a href="#" th:href="'/user/favoriteTopic?userId='+${session.user.id}" >收藏</a></li>
                 <li><a href="/admin/topic?userId=0" sec:authorize="hasRole('ROLE_ADMIN')">稿件管理</a></li>
                 <li><a href="/admin/categoryAndCity" sec:authorize="hasRole('ROLE_ADMIN')">分类管理</a></li>
+                <li><a href="/contribute/topicContribute" sec:authorize="hasRole('ROLE_ADMIN')">投稿</a></li>
             </ul>
 
         </div>

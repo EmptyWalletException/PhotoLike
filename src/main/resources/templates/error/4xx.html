@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta property="qc:admins" content="4553322067645776654">
+    <meta property="wb:webmaster" content="78f40d1511de8c6b">
+    <meta name="baidu-site-verification" content="xC1m9aYTgX">
+    <title>出现了一个错误!</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="/css/event.css">
+    <link type="image/x-icon" href="http://www.luoo.net/favicon.ico" rel="shortcut icon">
+    <script type="text/javascript" async="" src="/js/ga.js"></script>
+    <script src="/js/hm.js"></script>
+    <script src="/js/jquery-1.11.0.min.js"></script>
+
+    <script src="./js/luoo.js"></script>
+
+</head>
+<body>
+
+    <!-- header start -->
+    <div class="header" th:replace="~{portal/nav :: topbar}">
+    </div>
+    <!-- container start -->
+    <div class="container ct-sm" style="min-height: 499px;">
+
+        <div class="section-location">
+            <div class="section-head">
+                <div>
+                    <h3 >好像没有找到您想看的内容...</h3>
+                </div>
+            </div>
+            <div class="location-wrapper">
+                <a class="location-province " href="/index" style="color: #dd5862" >返回首页</a>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--底部区域开始-->
+    <div class="footer" th:replace="~{portal/footer :: footer}">
+
+    </div>
+    <div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+    <div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+
+    </div>
+
+    <div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
+
+    </div>
+
+
+
+    <script src="/js/jquery.artDialog.js"></script>
+    <script src="/js/jquery.qtip.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
+    <script>
+        $(function () {
+            if (window.PIE) {
+                $('.rounded,.page').each(function () {
+                    try {
+                        PIE.attach(this);
+                    } catch (e) {
+                    }
+                });
+            }
+        })
+    </script>
+    <![endif]-->
+
+
+</body>
+</html>

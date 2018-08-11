@@ -104,17 +104,17 @@
                         <div class="lyric" id="lyric22422"></div>
                         <p class="date">
                             <a style="color: #6c6c6c"
-                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/user?userId='+${essay.author.id}">
+                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/author/topic?authorId='+${essay.author.id}">
                                 推荐人： AngelaDaddy・2017-11-29</a>
                         </p>
-                        <div class="sns">
-                            <a href="javascript:;" rel="nofollow" class="icon-share btn-action-share"
-                               data-app="musician" data-id="578" data-text="推荐徐真真的歌曲开心就足够（分享自@落网）"
-                               data-img="http://img-cdn2.luoo.net/pics/albums/14823/pics/albums/201711/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg!/fwfh/580x580">
+                        <!--<div class="sns">
+                            <a href="javascript:;" rel="nofollow" class="icon-share #"
+                               data-app="musician" data-id="578" data-text="#"
+                               data-img="#">
                             </a>
                             <a href="javascript:;" class="btn-like icon-fav favStatus" plate="essay.111"  title="收藏" th:attr="plate='essay.'+${essay.id}"></a>
                             <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22422"></a>
-                        </div>
+                        </div>-->
 
                     </div>
 

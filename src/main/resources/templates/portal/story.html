@@ -67,7 +67,7 @@
                             Sugar Man：隐没在城市里的一把声音
                         </a>
                         <div class="meta">
-                            <a class="entry-author" href="/user?userId=3" th:text="${story.author.nickname}" th:href="'/user?userId='+${story.author.id}">LUO</a><span
+                            <a class="entry-author" href="#" th:text="${story.author.nickname}" th:href="'/author/topic?authorId='+${story.author.id}">LUO</a><span
                                 class="separator">・</span><span class="time"
                                                                 th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}">2017-11-28</span>
                         </div>
@@ -119,7 +119,7 @@
                             <a href="/story/221" title="抚触灵魂的温度" class="title" th:title="${hotStory.title}" th:text="${hotStory.title}" th:href="'/story/'+${hotStory.id}">抚触灵魂的温度</a>
                             <br/>
                             <p class="description"><a
-                                    href="/user?userId=11" th:href="'/user?userId='+${hotStory.author.id}" th:text="${hotStory.author.nickname}">作者昵称</a></p>
+                                    href="#" th:text="${hotStory.author.nickname}" th:href="'/author/topic?authorId='+${hotStory.author.id}">作者昵称</a></p>
                         </div>
                     </div>
 

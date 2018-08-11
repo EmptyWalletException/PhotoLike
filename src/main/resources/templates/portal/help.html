@@ -7,7 +7,7 @@
 <body>
 <div id="feedbackWrapper" style="display:none;" th:fragment="sendQuestion">
     <div class="common-dialog-wrapper">
-        <form id="frmFeedback" action="http://www.luoo.net/feedback/" callback="feedback_cback" class="form-ajax">
+        <form id="frmFeedback" action="#" callback="feedback_cback" class="form-ajax">
             <p class="fb-group">
                 <textarea name="content" class="rounded"></textarea>
             </p>
@@ -30,7 +30,7 @@
 
                 <a href="javascript:;" rel="nofollow" class="btn btn-positive" id="btnFeedbackSubmit">提交</a>
                 <a href="javascript:;" rel="nofollow" class="btn btn-negative" id="btnFeedbackCancle">取消</a>
-                <input type="hidden" name="ref" id="txtFeedbackRef" value="http://www.luoo.net/">
+                <input type="hidden" name="ref" id="txtFeedbackRef" value="#">
             </p>
         </form>
         <div id="feedbackResult" class="ajax-result">
@@ -41,7 +41,7 @@
 
 <div id="mailWrapper" style="display:none;" th:fragment="sendLetter">
     <div class="common-dialog-wrapper">
-        <form id="frmMail" action="http://www.luoo.net/mail/send" callback="send_mail_cback" class="form-ajax">
+        <form id="frmMail" action="#" callback="send_mail_cback" class="form-ajax">
             <p class="fb-group helper">给"<span id="mailUserName"></span>"发私信</p>
 
             <p class="fb-group">

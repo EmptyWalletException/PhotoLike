@@ -95,7 +95,8 @@ public class StoryController {
 
         Story story = storyService.findById(Long.parseLong(storyId));
         if (null == story){
-            return "error";// TODO 需要完成错误页面 提示此稿件未找到:
+            model.addAttribute("errorMsg","很抱歉,没有找到此稿件...");
+            return "error/promptMessage";
         }else {
             /**
              * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
@@ -108,7 +109,8 @@ public class StoryController {
                     model.addAttribute("story",story);
                 }
             }else {
-                return "error"; // TODO 需要完成错误页面 提示没有权限访问此稿件:
+                model.addAttribute("errorMsg","很抱歉,您暂时没有权限浏览此稿件...");
+                return "error/promptMessage";
             }
         }
 

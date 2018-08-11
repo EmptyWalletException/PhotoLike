@@ -76,7 +76,8 @@ public class TopicController {
          */
         Topic topic = topicService.findById(Long.parseLong(id));
         if (null == topic){
-            return "error";// TODO 需要完成错误页面 提示此稿件未找到:
+            model.addAttribute("errorMsg","很抱歉,没有找到此稿件...");
+            return "error/promptMessage";
         }
 
         if (null != topic.getContentImgsAddr()){
@@ -99,7 +100,8 @@ public class TopicController {
                 model.addAttribute("topic",topic);
             }
         }else {
-            return "error"; // TODO 需要完成错误页面 提示没有权限访问此稿件:
+            model.addAttribute("errorMsg","很抱歉,您暂时没有权限浏览此稿件...");
+            return "error/promptMessage";
         }
 
 

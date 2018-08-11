@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@CacheConfig(cacheNames = "topic")
+//@CacheConfig(cacheNames = "topic")
 @Service
 public class TopicServiceImpl {
 
@@ -38,7 +38,7 @@ public class TopicServiceImpl {
      * @param pageable
      * @return
      */
-    @Cacheable(value = "topic",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
+    //@Cacheable(value = "topic",key = "getMethodName()+'['+#a0+']'+'['+#a1.pageNumber+']'+'['+#a1.pageSize+']'+'['+#a1.sort+']'")
     public Page<Topic> findAllByCategoryId(Long categoryId,Pageable pageable){
         Page<Topic> topicPage = topicRepository.findByCategoryId(categoryId, pageable);
         return topicPage;
@@ -50,7 +50,7 @@ public class TopicServiceImpl {
      * @param pageable
      * @return
      */
-    @Cacheable(value = "topic",key = "getMethodName()+'['+#a0+']'+'['+#a1+']'+'['+#a2.pageNumber+']'+'['+#a2.pageSize+']'+'['+#a2.sort+']'")
+    //@Cacheable(value = "topic",key = "getMethodName()+'['+#a0+']'+'['+#a1+']'+'['+#a2.pageNumber+']'+'['+#a2.pageSize+']'+'['+#a2.sort+']'")
     public Page<Topic> findAllByCategoryIdAndStatus(Long categoryId,Integer status,Pageable pageable){
         Page<Topic> topicPage = topicRepository.findAllByCategoryIdAndStatus(categoryId,status, pageable);
         return topicPage;
@@ -60,7 +60,7 @@ public class TopicServiceImpl {
      * 分页查询所有;
      * @return
      */
-    @Cacheable(value = "topic",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
+    //@Cacheable(value = "topic",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<Topic> findAll(Pageable pageable){
         Page<Topic> page;
         try {
@@ -78,7 +78,7 @@ public class TopicServiceImpl {
      * @param id
      * @return
      */
-    @Cacheable(value = "topic",key = "getMethodName()+'['+#a0+']'")
+    //@Cacheable(value = "topic",key = "getMethodName()+'['+#a0+']'")
     public Topic findById(long id){
         Optional<Topic> temp = topicRepository.findById(id);
         if (temp.isPresent()){
@@ -127,7 +127,7 @@ public class TopicServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    @CacheEvict(value = "topic" )
+    //@CacheEvict(value = "topic" )
     public void save(Topic object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -144,7 +144,7 @@ public class TopicServiceImpl {
      * 持久化并返回id;
      * @param object
      */
-    @CacheEvict(value = "topic" )
+    //@CacheEvict(value = "topic" )
     public long saveAndFlush(Topic object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -164,7 +164,7 @@ public class TopicServiceImpl {
      * 持久化所有;
      * @param list
      */
-    @CacheEvict(value = "topic" )
+    //@CacheEvict(value = "topic" )
     public void saveAll(List<Topic> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -182,7 +182,7 @@ public class TopicServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
-    @CacheEvict(value = "topic" )
+    //@CacheEvict(value = "topic" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -199,7 +199,7 @@ public class TopicServiceImpl {
      * 删除所有;
      * @param list
      */
-    @CacheEvict(value = "topic" )
+    //@CacheEvict(value = "topic" )
     public void deleteAll(List<Topic> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");

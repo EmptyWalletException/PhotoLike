@@ -103,7 +103,8 @@ public class EventController {
         if(1 == event.getStatus() || null != request.getSession().getAttribute(("admin"))){
             model.addAttribute("event",event);
         }else{
-            return "error"; // TODO 需要完成错误页面 提示没有权限访问此稿件:
+            model.addAttribute("errorMsg","您暂时没有权限访问此稿件!");
+            return "error/promptMessage";
         }
 
         /**

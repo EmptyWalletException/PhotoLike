@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@CacheConfig(cacheNames = "story")
+//@CacheConfig(cacheNames = "story")
 @Service
 public class StoryServiceImpl {
 
@@ -40,7 +40,7 @@ public class StoryServiceImpl {
      * 分页查询所有;
      * @return
      */
-    @Cacheable(value = "story",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
+    //@Cacheable(value = "story",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<Story> findAll(Pageable pageable){
         Page<Story> page;
         try {
@@ -59,7 +59,7 @@ public class StoryServiceImpl {
      * @param id
      * @return
      */
-    @Cacheable(value = "story",key = "getMethodName()+'['+#a0+']'")
+    //@Cacheable(value = "story",key = "getMethodName()+'['+#a0+']'")
     public Story findById(Long id){
         Optional<Story> temp = storyRepository.findById(id);
         if (temp.isPresent()) {
@@ -109,7 +109,7 @@ public class StoryServiceImpl {
      * 持久化单条数据;
      * @param object
      */
-    @CacheEvict(value = "story" )
+    //@CacheEvict(value = "story" )
     public void save(Story object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -127,7 +127,7 @@ public class StoryServiceImpl {
      * 持久化并返回id;
      * @param object
      */
-    @CacheEvict(value = "story" )
+    //@CacheEvict(value = "story" )
     public long saveAndFlush(Story object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -147,7 +147,7 @@ public class StoryServiceImpl {
      * 持久化所有;
      * @param list
      */
-    @CacheEvict(value = "story" )
+    //@CacheEvict(value = "story" )
     public void saveAll(List<Story> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -165,7 +165,7 @@ public class StoryServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
-    @CacheEvict(value = "story" )
+    //@CacheEvict(value = "story" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -182,7 +182,7 @@ public class StoryServiceImpl {
      * 删除所有;
      * @param list
      */
-    @CacheEvict(value = "story" )
+    //@CacheEvict(value = "story" )
     public void deleteAll(List<Story> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");

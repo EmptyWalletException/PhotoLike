@@ -65,7 +65,7 @@
             <!-- vol-list end-->
 
             <!--生成的不带分类参数的页面跳转url-->
-            <div class="paginator" th:if="null == ${categoryId}">
+            <div class="paginator" th:if=" ${null == categoryId && topicPage.totalPages>1}">
                 <a class="previous" href="/topic?pn=1" th:href="'/topic?pn=1'" >首页</a>
                 <a class="previous"  th:href="'/topic?pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
                 <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>

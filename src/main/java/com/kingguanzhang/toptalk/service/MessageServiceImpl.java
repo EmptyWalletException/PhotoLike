@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@CacheConfig(cacheNames = "message")
+//@CacheConfig(cacheNames = "message")
 @Service
 public class MessageServiceImpl {
 
@@ -25,7 +25,7 @@ public class MessageServiceImpl {
      * 分页查询所有;
      * @return
      */
-    @Cacheable(value = "message",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
+    //@Cacheable(value = "message",key = "getMethodName()+'['+#a0.pageNumber+']'+'['+#a0.pageSize+']'+'['+#a0.sort+']'")
     public Page<Message> findAll(Pageable pageable){
         Page<Message> page;
         try {
@@ -43,7 +43,7 @@ public class MessageServiceImpl {
      * @param id
      * @return
      */
-    @Cacheable(value = "message",key = "getMethodName()+'['+#a0+']'")
+    //@Cacheable(value = "message",key = "getMethodName()+'['+#a0+']'")
     public Message findById(Long id){
         Optional<Message> temp = messageRepository.findById(id);
         return temp.get();
@@ -101,7 +101,7 @@ public class MessageServiceImpl {
      * 持久化并返回id;
      * @param object
      */
-    @CacheEvict(value = "message" )
+    //@CacheEvict(value = "message" )
     public long saveAndFlush(Message object){
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
@@ -121,7 +121,7 @@ public class MessageServiceImpl {
      * 持久化所有;
      * @param list
      */
-    @CacheEvict(value = "message" )
+    //@CacheEvict(value = "message" )
     public void saveAll(List<Message> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
@@ -139,7 +139,7 @@ public class MessageServiceImpl {
      * 通过Id删除单条记录;
      * @param id
      */
-    @CacheEvict(value = "message" )
+    //@CacheEvict(value = "message" )
     public void delete(Long id){
         if (null == id){
             throw new RuntimeException("传入的参数不能为空");
@@ -156,7 +156,7 @@ public class MessageServiceImpl {
      * 删除所有;
      * @param list
      */
-    @CacheEvict(value = "message" )
+    //@CacheEvict(value = "message" )
     public void deleteAll(List<Message> list){
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");

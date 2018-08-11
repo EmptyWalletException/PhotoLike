@@ -84,7 +84,7 @@ var oldNickName = "";//用于在文档加载时储存旧昵称的值,用于判�
     $('#btnZoomOut').on('click', function(){
         cropper.zoomOut();
     })
-    oldNickName = $("#nickname").val();
+
     $("#btnSubmit").click(function () {
        var fd = new FormData();
         img = cropper.getDataURL();
@@ -109,6 +109,7 @@ var oldNickName = "";//用于在文档加载时储存旧昵称的值,用于判�
         });
     });
 
+    oldNickName = $("#nickname").val();
     /*加载和裁剪图片的js    结束*/
 
 })();
@@ -230,7 +231,8 @@ function validateInput(nicknameEle){
 
 /*修改基本信息*/
 $("#btnEditSubmit").click(function () {
-
+    var gender = $("input:checked").val();
+    var cityId= $("#city option:selected").attr("value");
     var nickname = $("#nickname").val();
     if (oldNickName!=nickname){ //判断用户修改昵称之后最后是否改回了原来的昵称,如果确定修改成了新的昵称则进行后续判断;
         /* 检查输入框是否符合正则表达式 */
@@ -245,29 +247,39 @@ $("#btnEditSubmit").click(function () {
         if( $(this).attr("ajaxCheckNickname") == "error"){
             return false;
         }
+
+        $.ajax({
+            url:"/user/edit",
+            type:"POST",
+            data:{"nickname":nickname,"gender":gender,"cityId":cityId},
+            success:function (result) {
+                alert(result.msg);
+                if (200 == result.code){
+                    window.location.href="/user/editInfo";
+                }
+
+
+            }
+        });
     }else {//如果用户最终改回了原来的昵称,则清空输入框样式,同时让保存按钮通过检验;;
         $("#nickname").removeAttr("style");
         $("#nickname").next("span").removeAttr("style").text("");
         $("#btnEditSubmit").attr("ajaxCheckNickname","success");
+        $.ajax({
+            url:"/user/edit",
+            type:"POST",
+            data:{"gender":gender,"cityId":cityId},
+            success:function (result) {
+                alert(result.msg);
+                if (200 == result.code){
+                    window.location.href="/user/editInfo";
+                }
+
+
+            }
+        });
     }
 
-
-    var gender = $("input:checked").val();
-    var cityId= $("#city option:selected").attr("value");
-
-    $.ajax({
-        url:"/user/edit",
-        type:"POST",
-        data:{"nickname":nickname,"gender":gender,"cityId":cityId},
-        success:function (result) {
-            alert(result.msg);
-            if (200 == result.code){
-                window.location.href="/user/editInfo";
-            }
-
-
-        }
-    });
 
 });
 

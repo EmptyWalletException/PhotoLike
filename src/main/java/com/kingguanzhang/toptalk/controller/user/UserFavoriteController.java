@@ -53,9 +53,11 @@ public class UserFavoriteController {
                 topic.setCollectNumber(topicCollectNumber-1);
                 try {
                     userFavoriteService.deleteFavoriteTopic(user.getId(),id);
+                    topicService.saveAndFlush(topic);
                 }catch (Exception e){
                     return Msg.fail().setMsg("更新收藏总数时出现异常!");
                 }
+
                 break;
             case "story":
                 Story story = storyService.findById(id);
@@ -63,6 +65,7 @@ public class UserFavoriteController {
                 story.setCollectNumber(storyCollectNumber-1);
                 try{
                     userFavoriteService.deleteFavoriteStory(user.getId(),id);
+                    storyService.saveAndFlush(story);
                 }catch (Exception e){
                     return Msg.fail().setMsg("更新收藏总数时出现异常!");
                 }
@@ -73,6 +76,7 @@ public class UserFavoriteController {
                 essay.setCollectNumber(essayCollectNumber-1);
                 try{
                     userFavoriteService.deleteFavoriteEssay(user.getId(),id);
+                    essayService.saveAndFlush(essay);
                 }catch (Exception e){
                     return Msg.fail().setMsg("更新收藏总数时出现异常!");
                 }
@@ -120,6 +124,11 @@ public class UserFavoriteController {
                 long topicCollectNumber = topic.getCollectNumber();
                 topic.setCollectNumber(topicCollectNumber+1);
                 userFavorite.setTopicId(id);
+                try{
+                    topicService.saveAndFlush(topic);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新收藏总数时出现异常!");
+                }
                 break;
             case "story":
                 /**
@@ -135,6 +144,11 @@ public class UserFavoriteController {
                 long storyCollectNumber = story.getCollectNumber();
                 story.setCollectNumber(storyCollectNumber+1);
                 userFavorite.setStoryId(id);
+                try{
+                    storyService.saveAndFlush(story);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新收藏总数时出现异常!");
+                }
                 break;
             case "essay":
                 /**
@@ -150,6 +164,11 @@ public class UserFavoriteController {
                 long essayCollectNumber = essay.getCollectNumber();
                 essay.setCollectNumber(essayCollectNumber+1);
                 userFavorite.setEssayId(id);
+                try{
+                    essayService.saveAndFlush(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("更新收藏总数时出现异常!");
+                }
                 break;
         }
         try {
@@ -170,7 +189,20 @@ public class UserFavoriteController {
      * @return
      */
     @RequestMapping("/user/favoriteStory")
-    public String toUserFavoriteStoryPage(Model model,@RequestParam("userId")Long userId, @RequestParam(value = "pn",defaultValue = "1")Integer pn){
+    public String toUserFavoriteStoryPage(HttpServletRequest request,Model model,@RequestParam("userId")Long userId, @RequestParam(value = "pn",defaultValue = "1")Integer pn){
+
+        /**
+         * 检查是否是登录用户
+         */
+        if (null == request.getSession().getAttribute("user")){
+            model.addAttribute("errorMsg","请先登录再执行操作!");
+            return "error/promptMessage";
+        }
+        User user1 = (User)request.getSession().getAttribute("user");
+        if (user1.getId() != userId){
+            model.addAttribute("errorMsg","暂时不开放查看其他用户信息!");
+            return "error/promptMessage";
+        }
 
         /**
          * 查询用户信息;

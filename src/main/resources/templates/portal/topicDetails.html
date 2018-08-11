@@ -121,7 +121,7 @@
     </div>
     <div class="clearfix vol-meta">
         <img src="/js/128x128" alt="落在低处" class="author-avatar rounded" th:src="${topic.author.imgAddr}"  th:alt="${topic.author.nickname}">
-        <a class="vol-author" href="/user?userId=1" target="_blank" th:text="${topic.author.nickname}" th:href="'/user?userId='+${topic.author.id}">作者昵称</a>
+        <a class="vol-author" href="#" target="_blank" th:text="${topic.author.nickname}" th:href="'/author/topic?authorId='+${topic.author.id}">作者昵称</a>
         <span class="separator fleft">・</span>
         <span class="vol-date" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}">2017-03-14</span>
         <!--判断是否已经收藏,显示不同的按钮-->
@@ -129,7 +129,7 @@
         <a href="javascript:;" class="btn-unlike icon-faved" plate="topic.111"  title="取消收藏" th:attr="plate='topic.'+${topic.id}" th:if="${true == favStatus}"></a>
 
         <a href="javascript:;"   class="icon-share btn-action-share" data-app="vol" data-id="977"
-        data-text="分享一期来自图漾的壁纸专辑"  data-img="http://img-cdn2.luoo.net/pics/vol/58c6da94e163a.jpg!/fwfh/640x452"  rel="nofollow">
+        data-text="分享一期来自图漾的壁纸专辑"  data-img="#"  rel="nofollow">
          </a>
         <!--管理员操作区域-->
         <div class="op-bar" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
@@ -267,17 +267,17 @@
                     <div class="toolbar rounded clearfix">
                         <div class="sns-sync">
                             同步到
-                            <a href="http://www.luoo.net/comment/sync/weibo" rel="nofollow"
+                            <a href="#" rel="nofollow"
                                class="sns-item btn-action-comment-sync">
                                 <span class="icon-share-weibo"></span>
                                 <input type="hidden" name="sync[weibo]" value="0" class="input-comment-sync">
                             </a>
-                            <a href="http://www.luoo.net/comment/sync/douban" rel="nofollow"
+                            <a href="#" rel="nofollow"
                                class="sns-item btn-action-comment-sync">
                                 <span class="icon-share-douban"></span>
                                 <input type="hidden" name="sync[douban]" value="0" class="input-comment-sync">
                             </a>
-                            <a href="http://www.luoo.net/comment/sync/tweibo" rel="nofollow"
+                            <a href="#" rel="nofollow"
                                class="sns-item btn-action-comment-sync">
                                 <span class="icon-tweibo"></span>
                                 <input type="hidden" name="sync[tweibo]" value="0" class="input-comment-sync">
@@ -329,13 +329,13 @@
 
                 <!--单条父评论及其子评论开始-->
                 <div class="item "  th:if="${commentPage!=null && commentPage.size!=0 && commentStat.index<10 }" th:each="comment,commentStat:${commentPage}">
-                    <a href="/user?userId=1285850" class="avatar-wrapper" target="_blank" th:href="'/user?userId='+${comment.author.id}">
+                    <a href="#" class="avatar-wrapper" target="_blank" th:href="'/author/topic?authorId='+${comment.author.id}">
                         <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded" th:src="${comment.author.imgAddr}" th:alt="${comment.author.nickname}">
                     </a>
                     <div class="item-wrapper">
                         <div class="helper">
 
-                            <a href="/user?userId=1285850" class="username" target="_blank"  th:href="'/user?userId='+${comment.author.id}" th:text="${comment.author.nickname}">用户昵称</a><span style="color: #8b8b8b">&nbsp;&nbsp;[[${comment.author.signature}]]</span>
+                            <a href="#" class="username" target="_blank"  th:text="${comment.author.nickname}" th:href="'/author/topic?authorId='+${comment.author.id}">用户昵称</a><span style="color: #8b8b8b">&nbsp;&nbsp;[[${comment.author.signature}]]</span>
 
                             <div id="adminSupcomment" class="" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
                                  <a href="javascript:void(0);" class="btn-reply btn-comment-delete" rel="nofollow" th:attr="commentId=${comment.id}" ><i class="icon icon-trash"></i> 删除</a>

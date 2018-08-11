@@ -8,8 +8,8 @@
     <meta property="wb:webmaster" content="78f40d1511de8c6b">
     <meta name="baidu-site-verification" content="xC1m9aYTgX">
     <title>TopTalk</title>
-    <meta name="description" content="落网是一个推荐国内外独立音乐的网站，我们致力于推荐这个时代里最朴素、最有质感的声音，让更多的独立文化作品得到更好的传播。 ">
-    <meta name="keywords" content="落网,独立音乐,独立音乐人,音乐电台,音乐期刊,摇滚音乐,小众音乐,乐评网站,音乐演出,演出门票">
+    <meta name="description" content="#">
+    <meta name="keywords" content="#">
     <link rel="stylesheet" href="/css/index.css">
     <link type="image/x-icon" href="" rel="shortcut icon">
     <script type="text/javascript" async="" src="/js/ga.js"></script>
@@ -109,7 +109,7 @@
                                    th:text="${essayList[0].title}">开心就足够</a>
                                 <br/>
                                 <a class="artist" th:text="${essayList[0].author.nickname}"
-                                   th:href="'/user?userId='+${essayList[0].author.id}">徐真真</a>
+                                   th:href="'/author/topic?authorId='+${essayList[0].author.id}">徐真真</a>
                                 <p class="pubdate" th:text="${#dates.format(essayList[0].creatTime,'yyyy-MM-dd')}">
                                     2017-11-29</p>
                             </div>
@@ -146,7 +146,7 @@
                                             th:href="'/story/'+${storyList[0].id}" th:text="${storyList[0].title}">人类首张在太空录制的专辑</a>
                         </p>
                         <p class="author"><a href="/user?userId=1057783" class="author"
-                                             th:href="'/user?userId='+${storyList[0].author.id}"
+                                             th:href="'/author/topic?authorId='+${storyList[0].author.id}"
                                              th:text="${storyList[0].author.nickname}">李卤味</a></p>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
                                             th:href="'/story/'+${storyList[1].id}" th:text="${storyList[1].title}">Sugar
                             Man：隐没在城市里的一把声音</a></p>
                         <p class="author"><a href="/user?userId=1057784" class="author"
-                                             th:href="'/user?userId='+${storyList[1].author.id}"
+                                             th:href="'/author/topic?authorId='+${storyList[1].author.id}"
                                              th:text="${storyList[1].author.nickname}">LUO</a></p>
                     </div>
                 </div>
