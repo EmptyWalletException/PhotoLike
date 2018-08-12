@@ -84,7 +84,7 @@ public class EventController {
             Page<Event> eventPage = eventService.findAllByExample(alleventExample,pageable4);
             model.addAttribute("eventPage",eventPage);
         }
-        return "/portal/event";
+        return "portal/event";
 
     }
 
@@ -118,7 +118,7 @@ public class EventController {
         Page<Event> newestEventPage = eventService.findAllByExample(eventExample,pageable2);
         model.addAttribute("newestEventPage",newestEventPage);
 
-        return "/portal/eventDetails";
+        return "portal/eventDetails";
     }
 
     /**

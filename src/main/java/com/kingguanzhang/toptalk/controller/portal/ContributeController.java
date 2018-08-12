@@ -588,7 +588,7 @@ public class ContributeController {
         Pageable pageable = new PageRequest(0,100,new Sort(Sort.Direction.DESC,"rank"));
         Page<Category> categoryPage = categoryService.findAll(pageable);
         model.addAttribute("categoryPage",categoryPage);
-        return "/contribute/topicContribute";
+        return "contribute/topicContribute";
     }
 
     @RequestMapping("/contribute/eventContribute")
@@ -596,22 +596,22 @@ public class ContributeController {
         Pageable pageable = new PageRequest(0,200,new Sort(Sort.Direction.ASC,"rank"));
         Page<City> cityPage = cityService.findAll(pageable);
         model.addAttribute("cityPage",cityPage);
-        return "/contribute/eventContribute";
+        return "contribute/eventContribute";
     }
 
     @RequestMapping("/contribute/storyContribute")
     public String toStoryContributePage(){
-        return "/contribute/storyContribute";
+        return "contribute/storyContribute";
     }
 
     @RequestMapping("/contribute/essayContribute")
     public String toEssayContributePage(){
-        return "/contribute/essayContribute";
+        return "contribute/essayContribute";
     }
 
     @RequestMapping("/ue")
     public String toUEPage(){
-        return "/portal/ue";
+        return "portal/ue";
     }
 
 

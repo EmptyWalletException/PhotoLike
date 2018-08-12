@@ -31,8 +31,7 @@ public class IndexController {
     @Autowired
     private TopicServiceImpl topicService;
 
-    @Autowired
-    private UserServiceImpl userService;
+
 
 
     @RequestMapping("/index")
@@ -88,7 +87,7 @@ public class IndexController {
                 request.getSession().setAttribute("user", user1);
             }
         }*/
-        return "/portal/index";
+        return "portal/index";
     }
 
 

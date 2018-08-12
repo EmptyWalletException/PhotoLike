@@ -107,7 +107,7 @@ public class EssayController {
             model.addAttribute("upEssay",hotEssayPage.getContent().get(0));
         }
 
-        return "/portal/essay";
+        return "portal/essay";
     }
 
 

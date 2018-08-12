@@ -21,6 +21,6 @@ public class MessageController {
         Pageable pageable = new PageRequest(0,10,new Sort(Sort.Direction.DESC,"id"));
         Page<Message> messagePage = messageService.findAll(pageable);
         model.addAttribute("messagePage",messagePage);
-        return "/user/message";
+        return "user/message";
     }
 }

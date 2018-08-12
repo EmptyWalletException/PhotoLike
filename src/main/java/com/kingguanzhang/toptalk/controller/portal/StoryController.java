@@ -61,7 +61,7 @@ public class StoryController {
         Page<Story> hotStoryPage = storyService.findAllByExample(example2,pageable2);
         model.addAttribute("hotStoryPage",hotStoryPage);
 
-        return "/portal/story";
+        return "portal/story";
     }
 
 
@@ -151,7 +151,7 @@ public class StoryController {
             praiseCommentIds = praiseCommentIds.substring(0,praiseCommentIds.lastIndexOf(","));
         }
         model.addAttribute("praiseCommentIds",praiseCommentIds);
-        return "/portal/storyDetails";
+        return "portal/storyDetails";
 
     }
 

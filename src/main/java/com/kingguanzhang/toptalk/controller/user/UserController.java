@@ -34,13 +34,7 @@ public class UserController {
     @Autowired
     private CityServiceImpl cityService;
 
-
-
-
     // TODO 需要完成修改密码的功能:
-
-
-
 
     /**
      * 修改用户信息
