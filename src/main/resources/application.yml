@@ -12,7 +12,7 @@ spring:
 
     #临时保存上传图片的系统目录
 custom:
-  tmpLocation: D:/temp
+  tmpLocation: /usr/temp
 server:
   servlet:
     session:

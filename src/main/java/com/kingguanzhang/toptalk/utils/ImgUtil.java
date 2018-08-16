@@ -48,7 +48,7 @@ public class ImgUtil {
            // Thumbnails.of(shopImgInputStream).toFile(dest);
         }catch (IOException e) {
             //如果图片文件保存失败则返回一个默认的图片路径;
-            imgAddr = "D:/test.jpg";
+            imgAddr = "/usr/test.jpg";
             e.printStackTrace();
         }
         return "/upload"+centreAddr+relativeName;

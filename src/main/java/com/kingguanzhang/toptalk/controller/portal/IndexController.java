@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 public class IndexController {
@@ -32,7 +34,16 @@ public class IndexController {
     private TopicServiceImpl topicService;
 
 
-
+    /**
+     * 此映射不可缺少;
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping("/")
+    private void toindex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/index");
+    }
 
     @RequestMapping("/index")
     public String index(Model model, HttpServletRequest request) {

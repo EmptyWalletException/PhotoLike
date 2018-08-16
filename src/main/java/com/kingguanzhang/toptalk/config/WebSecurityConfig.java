@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                    // .antMatchers("**/**.css","**/**.js","**/*.jpg","**.gif","**.png","**.svg").permitAll()
 
                     .antMatchers("/upload/**").permitAll()
+                    .antMatchers("/").permitAll()
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/ft-carousel/**").permitAll()
@@ -41,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/register/**").permitAll()
                     .antMatchers("/index").permitAll()
                     .antMatchers("/index/**").permitAll()
+                    .antMatchers("/index.html").permitAll()
                     .antMatchers("/topic/**").permitAll()
                     .antMatchers("/portal/**").permitAll()
                     .antMatchers("/search/**").permitAll()
@@ -48,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/**/captcha").permitAll()
                     .antMatchers("/essay/**").permitAll()
                     .antMatchers("/story/**").permitAll()
+                    .antMatchers("/author/**").permitAll()
                     .antMatchers("/test/**").permitAll()
                     .antMatchers("/event/**").permitAll()
                     .antMatchers("/error/**").permitAll()
@@ -59,8 +62,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/admin/**").hasAnyRole("ADMIN")//官方文档中特别说明没有使用"ROLE_"前缀
                     .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
                     .antMatchers("/contribute/**").hasAnyRole("USER","ADMIN")
-                    .antMatchers("/**").hasAnyRole("USER","ADMIN")
-
 
                 .anyRequest().authenticated()
                 .and()

@@ -29,8 +29,8 @@ public interface EssayRepository extends JpaRepository<Essay,Long> {
      * @param pageable
      * @return
      */
-    @Query(nativeQuery = true, value = "select * from essay where id in (select essay_id from user_favorite where user_id = :userId order by id desc) and status = '1'",
-            countQuery = "select count(*) from essay where id in (select essay_id from user_favorite where user_id = :userId) and status = '1'")
+    @Query(nativeQuery = true, value = "select * from essay where status = 1 and id in (select essay_id from user_favorite where user_id = :userId order by id desc) and status = '1'",
+            countQuery = "select count(*) from essay where status = 1 and id in (select essay_id from user_favorite where user_id = :userId) and status = '1'")
     Page<Essay> findFavoriteEssay(@Param("userId")Long userId, Pageable pageable);
 
     /**

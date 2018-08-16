@@ -155,7 +155,7 @@ $("#submit").click(function () {
     topic.title = title;
 
     /*限制内容的字数*/
-    var content = $("#subscribe").val();
+    var content = $("#myEditor").val();
     if ("" == content.trim()){
         alert("请输入有效的内容!");
         return false;

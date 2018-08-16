@@ -93,6 +93,33 @@
         </div>
     </div>
 
+    <!--当用户登录之后,点击用户名显示选项面板,这是为了解决手动端用户没有鼠标指针导致选项面板无法触发的问题-->
+    <script type="text/javascript">
+        $("body").on("click", "#lnAccountMore", function () {
+            $(this).tip()
+        })
+    </script>
+
+    <!--点击导航条右上角弹出登录框或注册框,登录框和注册框之间可以互相切换-->
+    <!--<script type="text/javascript">
+        $(document).ready(function ($) {
+            $('#theme-login').click(function () {
+                $('#qtip-headLoginDialog').show();
+            })
+            $('#login-close').click(function () {
+                $('#qtip-headLoginDialog').hide();
+            })
+            $('#btn-dialog-register').click(function () {
+                $('#qtip-headLoginDialog').hide();
+                $('#qtip-registerDialog').show();
+            })
+            $('#btn-dialog-login').click(function () {
+                $('#qtip-registerDialog').hide();
+                $('#qtip-headLoginDialog').show();
+            })
+        });
+    </script>-->
+
 
     <!-- logged-in-wrapper -->
     <!--  <div class="logged-in-wrapper" id="loggedInWrapper" style="display: block;">
@@ -238,25 +265,7 @@
         </div>
     </div>-->
 
-    <!--点击导航条右上角弹出登录框或注册框,登录框和注册框之间可以互相切换-->
-    <!--<script type="text/javascript">
-        $(document).ready(function ($) {
-            $('#theme-login').click(function () {
-                $('#qtip-headLoginDialog').show();
-            })
-            $('#login-close').click(function () {
-                $('#qtip-headLoginDialog').hide();
-            })
-            $('#btn-dialog-register').click(function () {
-                $('#qtip-headLoginDialog').hide();
-                $('#qtip-registerDialog').show();
-            })
-            $('#btn-dialog-login').click(function () {
-                $('#qtip-registerDialog').hide();
-                $('#qtip-headLoginDialog').show();
-            })
-        });
-    </script>-->
+
 </div>
 
 

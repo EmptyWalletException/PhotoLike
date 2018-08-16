@@ -50,8 +50,8 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
      * @param pageable
      * @return
      */
-    @Query(nativeQuery = true, value = "select * from topic where id in (select topic_id from user_favorite where user_id = :userId order by id desc )",
-            countQuery = "select count(*) from topic where id in (select topic_id from user_favorite where user_id = :userId)")
+    @Query(nativeQuery = true, value = "select * from topic where status = 1 and id in (select topic_id from user_favorite where user_id = :userId order by id desc )",
+            countQuery = "select count(*) from topic where status = 1 and id in (select topic_id from user_favorite where user_id = :userId)")
     Page<Topic> findFavoriteTopic(@Param("userId")Long userId, Pageable pageable);
 
     /**

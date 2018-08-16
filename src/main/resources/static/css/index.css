@@ -1127,8 +1127,9 @@ input::-moz-selection, textarea::-moz-selection, .btn-positive::-moz-selection {
     border-top: 1px solid #111;
     margin-top: 90px;
     padding: 35px 0;
-    width: 100%
-}
+    min-width: 980px;
+    width: 100%;
+    }
 
 .foot-ct {
     color: #e1e1e1;
