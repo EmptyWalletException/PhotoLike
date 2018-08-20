@@ -155,37 +155,7 @@ public class StoryController {
 
     }
 
-    /**
-     * 保存ue富文本编辑器上传的图片并回显;
-     * @param upfile
-     * @return
-     */
-    @RequestMapping(value = "/storyContribute/imgUpload")
-    @ResponseBody
-    public String imgUpload3(MultipartFile upfile) {
-        if (upfile.isEmpty()) {
-            return "error";
-        }
 
-        // TODO 此处user id 需要改成从session中获取security 保存的用户信息来从数据库中查出id:
-        User author = new User();
-        author.setId(1);
-        //设置中间文件夹,方便整理图片
-        String centreAddr = "/story/"+author.getId()+"/";
-        try {
-            //使用工具类保存图片并返回文件名给网页;
-            String fileName = ImgUtil.generateThumbnail(upfile,centreAddr,1920,1080);
-            //url为文件访问的完整路径,注意应该配合mvc中配置的虚拟路径"/upload"
-            String config = "{\"state\": \"SUCCESS\"," +
-                    "\"url\": \"" + fileName + "\"," +
-                    "\"title\": \"" + fileName + "\"," +
-                    "\"original\": \"" + fileName + "\"}";
-            return config;
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return "error";
-    }
 
 
 }

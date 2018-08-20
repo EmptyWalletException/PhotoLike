@@ -22,7 +22,7 @@ public class DownloadZip {
         File[] files=new File[sourcePath.length];
         //按照多个文件的打包方式，一个也可以
         for(int i=0;i<files.length;i++) {
-            files[i]=new File(sourcePath[i].replace(",",""));//此处注意要替换掉字符串结尾可能会存在的逗号","
+            files[i]=new File(sourcePath[i]);//此处注意要替换掉字符串结尾可能会存在的逗号"," //更新,已经找到原因,现在后面不会在出现逗号;
         }
         byte[] b=new byte[1024];
         for(int j=0;j<files.length;j++) {

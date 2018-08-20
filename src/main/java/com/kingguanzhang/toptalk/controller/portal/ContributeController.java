@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
-import com.kingguanzhang.toptalk.utils.DownloadZip;
-import com.kingguanzhang.toptalk.utils.ImgUtil;
-import com.kingguanzhang.toptalk.utils.PathUtil;
-import com.kingguanzhang.toptalk.utils.RequestUtil;
+import com.kingguanzhang.toptalk.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -42,6 +39,8 @@ public class ContributeController {
     private EssayServiceImpl essayService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private EventServiceImpl eventService;
 
 
 
@@ -382,7 +381,7 @@ public class ContributeController {
      */
     @RequestMapping(value = "/topic/contribute",method = RequestMethod.POST)
     @ResponseBody
-    private Msg topicContribute(HttpServletRequest request){
+    private Msg topicContribute(HttpServletRequest request) throws IOException {
         //从前端传来的请求中获取键为shopStr的值;
         String topicStr = RequestUtil.parserString(request, "topicStr");
         System.out.print("storyStr的值是:" + topicStr);
@@ -427,43 +426,64 @@ public class ContributeController {
         }catch (Exception e){
             return Msg.fail().setMsg("投稿失败,保存稿件信息时出现异常");
         }
+
+
         if (null != topic && null != coverImg) {
             //设置中间文件夹,方便整理图片
             String centreAddr = "/topic/"+author.getId()+"/"+topidId+"/";
             //保存封面图片并返回地址;
             String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,1920, 1080);
 
+            // 新增的保存到七牛云的部分;
+            String coverImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+imgAddr, imgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+
             //用于接收遍历出的每一个图片文件;
             MultipartFile contentImg;
             //保存内容图片并返回地址,拼接成字符串方便存在数据库表中;;
             String contentImgsAddr = "";
+            //接受七牛云的返回的URL,拼接成字符串方便存在数据库表中;;
+            String cloudImgsAddr = "";
+
             //新建一个String数组储存图片实际地址用于下面的zip打包传值;注意length一定要和fileMap实际要保存的图片数量保持一致,否则downloadZip类遍历时会抛空指针异常;
             String[] sourcePathArry = new String[fileMap.size()];
+            //新建一个String数组用于储存七牛云的图片地址用于在网页引用;
+            String[] cloudPathArry = new String[fileMap.size()];
+
             for (int i = fileMap.size()-1 ; i>=0 ; i -- ){//这里注意有一张封面图的键是"img",不能用i取;倒序是为了保证封面图在第一;
                 if (fileMap.size()-1 == i){
                     contentImg = fileMap.get("img");
                 }else {
                     contentImg = fileMap.get(i+"");
                 }
-                String tempImgAddr = ImgUtil.generateThumbnail(contentImg, centreAddr, 1920, 1080)+",";
+                String tempImgAddr = ImgUtil.generateThumbnail(contentImg, centreAddr, 1920, 1080);
                 //新增zip压缩打包功能,所以将原本的字符直接 += 废弃掉;
                 sourcePathArry[i] = PathUtil.getImgBasePath() + tempImgAddr;
-                contentImgsAddr = contentImgsAddr+tempImgAddr;
+                contentImgsAddr = contentImgsAddr+tempImgAddr+",";
+
+                // 新增的保存到七牛云的云储运部分;
+                String cloudImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+tempImgAddr, tempImgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+                //生成七牛云的url的数组
+                cloudPathArry[i] = cloudImgAddr;
+                cloudImgsAddr = cloudImgsAddr+cloudImgAddr+",";
+
             }
+            //将最后一个","逗号去掉; 已废弃,改为向数据库保存七牛云的cloudImgsAddr
+            //contentImgsAddr = contentImgsAddr.substring(0, contentImgsAddr.length() - 1);
             //将最后一个","逗号去掉;
-            contentImgsAddr = contentImgsAddr.substring(0, contentImgsAddr.length() - 1);
+            cloudImgsAddr = cloudImgsAddr.substring(0, cloudImgsAddr.length() - 1);
             /**
              * 开始储存topic实体的图片信息;
              */
-            topic.setCoverImgAddr(imgAddr);
-            topic.setContentImgsAddr(contentImgsAddr);
+            topic.setCoverImgAddr(coverImgAddr);//coverImgAddr已经在上面改成了七牛云的地址;
+            topic.setContentImgsAddr(cloudImgsAddr); //已经将原来的comtentImgsAddr 修改成了七牛云的cloudImgsAddr
 
 
 
             /**
              * 新增zip打包功能,将用户上传的图片打包成zip,在页面提供zip下载地址;
              */
-            try {// 将zip名字设置为"D:projectdev/images/upload/topic/{authouid}/{topicid}.zip"
+            try {// window下将zip名字设置为"D:projectdev/images/upload/topic/{authouid}/{topicid}.zip"
+                // Linux下将zip名字设置为"/usr/projectdev/images/upload/topic/{authouid}/{topicid}.zip"
                 DownloadZip.downLoadZIP(PathUtil.getImgBasePath()+"/upload"+centreAddr+".zip",sourcePathArry);
                 topic.setZipAddr("/upload"+centreAddr+".zip");
                 topicService.saveAndFlush(topic);
@@ -485,7 +505,7 @@ public class ContributeController {
      */
     @RequestMapping(value = "/essay/contribute",method = RequestMethod.POST)
     @ResponseBody
-    private Msg essayContribute(HttpServletRequest request){
+    private Msg essayContribute(HttpServletRequest request) throws IOException {
 
 
         //从前端传来的请求中获取键为shopStr的值;
@@ -512,12 +532,30 @@ public class ContributeController {
         //从request中解析出上传的文件图片;
         MultipartFile essayImg = ((MultipartRequest) request).getFile("img");
 
-        //注册店铺,尽可能的减少从前端获取的值;
-        if (null != essay && null != essayImg) {
+        //原版直接储存在本地的方法;
+       /* if (null != essay && null != essayImg) {
             //设置中间文件夹,方便整理图片
             String centreAddr = "/essay/"+author.getId()+"/";
             String imgAddr = ImgUtil.generateThumbnail(essayImg, centreAddr,1920, 1080);
             essay.setImgAddr(imgAddr);
+            System.out.print("essayStr的值是:" + essayStr);
+            essayService.save(essay);
+            //返回注册店铺的最终结果;
+            return Msg.success().setMsg("投稿成功,请等待审核.");
+        } else {
+            return Msg.fail().setMsg("投稿失败,稿件信息不完整!");
+        }*/
+
+       //引用七牛云后同步储存在云端的方法
+        if (null != essay && null != essayImg) {
+            //设置中间文件夹,方便整理图片
+            String centreAddr = "/essay/"+author.getId()+"/";
+            String imgAddr = ImgUtil.generateThumbnail(essayImg, centreAddr,1920, 1080);
+            String filePath = PathUtil.getImgBasePath() + imgAddr;
+            String cloudImgAddr = QiniuCloudUtil.upload(filePath, imgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+
+            essay.setImgAddr(cloudImgAddr);//已经从原来的imgAddr 修改成了七牛云的cloudImgAddr;
+
             System.out.print("essayStr的值是:" + essayStr);
             essayService.save(essay);
             //返回注册店铺的最终结果;
@@ -534,7 +572,7 @@ public class ContributeController {
      */
     @RequestMapping(value = "/story/contribute",method = RequestMethod.POST)
     @ResponseBody
-    private Msg storyContribute(HttpServletRequest request){
+    private Msg storyContribute(HttpServletRequest request) throws IOException {
         //从前端传来的请求中获取键为shopStr的值;
         String storyStr = RequestUtil.parserString(request, "storyStr");
         System.out.print("storyStr的值是:" + storyStr);
@@ -565,10 +603,14 @@ public class ContributeController {
             //设置中间文件夹,方便整理图片
             String centreAddr = "/story/"+author.getId()+"/";
             String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,1920, 1080);
+
+            // 新增的保存到七牛云的云储运部分;
+            String cloudImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+imgAddr, imgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+
             story.setCommentNumber(0);
             story.setCollectNumber(0);
             story.setCreatTime(new Date(System.currentTimeMillis()));
-            story.setCoverImgAddr(imgAddr);
+            story.setCoverImgAddr(cloudImgAddr); //已经从原来的imgAddr 修改成了七牛云的cloudImgAddr;
 
             storyService.save(story);
             //返回注册店铺的最终结果;
@@ -576,6 +618,126 @@ public class ContributeController {
         } else {
             return Msg.fail().setMsg("投稿失败,稿件信息不完整!");
         }
+    }
+
+    /**
+     * 持久化用户活动投稿
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/event/contribute",method = RequestMethod.POST)
+    @ResponseBody
+    private Msg eventContribute(HttpServletRequest request) throws IOException {
+        //从前端传来的请求中获取键为userStr的值;
+        String eventStr = RequestUtil.parserString(request, "eventStr");
+        System.out.print("eventStr的值是:" + eventStr);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Event event = null;
+        try {
+            //将字符串转成实体类
+            event = objectMapper.readValue(eventStr, Event.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Msg.fail().setMsg("读取稿件信息失败!");
+        }
+        User author = new User();
+        author.setId(1);
+        City city = new City();
+        if (null != request.getParameter("cityId")){
+            String cityId = request.getParameter("cityId");
+            city.setId(Long.parseLong(cityId));
+        }else {
+            city.setId(1);//如果城市参数传递失败则默认选择一个城市,之后管理员审核时可以修改;
+        }
+        //从request中解析出上传的文件图片;
+        MultipartFile coverImg = ((MultipartRequest) request).getFile("img");
+
+        //注册店铺,尽可能的减少从前端获取的值;
+        if (null != event && null != coverImg) {
+            //设置中间文件夹,方便整理图片
+            String centreAddr = "/event/"+author.getId()+"/";
+            String imgAddr = ImgUtil.generateThumbnail(coverImg, centreAddr,180, 255);
+            // 新增的保存到七牛云的云储运部分;
+            String cloudImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+imgAddr, imgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+
+            event.setCoverImgAddr(cloudImgAddr); //已经从原来的imgAddr 修改成了七牛云的cloudImgAddr;
+            event.setCity(city);
+            eventService.save(event);
+            //返回注册店铺的最终结果;
+            return Msg.success().setMsg("投稿成功,请等待审核.");
+        } else {
+            return Msg.fail().setMsg("投稿失败,稿件信息不完整!");
+        }
+    }
+
+    /**
+     * 保存ue富文本编辑器上传的图片并回显;
+     * @param upfile
+     * @return
+     */
+    @RequestMapping(value = "/storyContribute/imgUpload")
+    @ResponseBody
+    public String imgUpload3(MultipartFile upfile) {
+        if (upfile.isEmpty()) {
+            return "error";
+        }
+
+        // TODO 此处user id 需要改成从session中获取security 保存的用户信息来从数据库中查出id:
+        User author = new User();
+        author.setId(1);
+        //设置中间文件夹,方便整理图片
+        String centreAddr = "/story/"+author.getId()+"/";
+        try {
+            //使用工具类保存图片并返回文件名给网页;
+            String imgAddr = ImgUtil.generateThumbnail(upfile,centreAddr,1920,1080);
+            // 新增的保存到七牛云的云储运部分;
+            String cloudImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+imgAddr, imgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+
+            //url为文件访问的完整路径,注意应该配合mvc中配置的虚拟路径"/upload"
+            String config = "{\"state\": \"SUCCESS\"," +
+                    "\"url\": \"" + cloudImgAddr + "\"," +
+                    "\"title\": \"" + cloudImgAddr + "\"," +
+                    "\"original\": \"" + cloudImgAddr + "\"}";
+            return config;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
+    /**
+     * 保存ue富文本编辑器上传的图片并回显;
+     * @param upfile
+     * @return
+     */
+    @RequestMapping(value = "/eventContribute/imgUpload")
+    @ResponseBody
+    public String imgUpload4(MultipartFile upfile) {
+        if (upfile.isEmpty()) {
+            return "error";
+        }
+
+        // TODO 此处user id 需要改成从session中获取security 保存的用户信息来从数据库中查出id:
+        User author = new User();
+        author.setId(1);
+        //设置中间文件夹,方便整理图片
+        String centreAddr = "/event/"+author.getId()+"/";
+        try {
+            //使用工具类保存图片并返回文件名给网页;
+            String imgAddr = ImgUtil.generateThumbnail(upfile,centreAddr,1920,1080);
+            // 新增的保存到七牛云的云储运部分;
+            String cloudImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+imgAddr, imgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+
+            //url为文件访问的完整路径,注意应该配合mvc中配置的虚拟路径"/upload"
+            String config = "{\"state\": \"SUCCESS\"," +
+                    "\"url\": \"" + imgAddr + "\"," +
+                    "\"title\": \"" + imgAddr + "\"," +
+                    "\"original\": \"" + imgAddr + "\"}";
+            return config;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "error";
     }
 
     /**

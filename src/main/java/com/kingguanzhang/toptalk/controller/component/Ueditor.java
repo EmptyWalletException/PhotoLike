@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 用于代替jsp返回百度富文本编辑器的配置信息;
+ */
 @Controller
 public class Ueditor {
    /* @RequestMapping("/config")

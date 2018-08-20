@@ -166,6 +166,13 @@
             <version>1.9</version>
         </dependency>
 
+        <!--七牛云的图片云存储和返回url的jar包-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.1.1</version>
+        </dependency>
+
 
     </dependencies>
 

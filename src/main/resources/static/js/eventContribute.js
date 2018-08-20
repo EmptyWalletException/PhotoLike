@@ -112,7 +112,8 @@ function clearLocalData () {
 UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
 UE.Editor.prototype.getActionUrl = function(action) {
     if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-        return 'http://47.98.240.27:8080/eventContribute/imgUpload'; //在这里返回我们实际的上传图片地址
+        return 'http://47.98.240.27/eventContribute/imgUpload'; //在这里返回我们实际的上传图片地址
+        //return 'http://localhost/eventContribute/imgUpload'; //在这里返回我们实际的上传图片地址
     } else {
         return this._bkGetActionUrl.call(this, action);
     }

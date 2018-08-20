@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
-import com.kingguanzhang.toptalk.utils.Base64ToMultipartUtil;
-import com.kingguanzhang.toptalk.utils.ImgUtil;
-import com.kingguanzhang.toptalk.utils.RequestUtil;
+import com.kingguanzhang.toptalk.utils.*;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -122,7 +120,7 @@ public class UserController {
      */
     @RequestMapping(value = "/user/headImgUpload",method = RequestMethod.POST)
     @ResponseBody
-    private Msg testBase64HeadImgUpload(HttpServletRequest request){
+    private Msg testBase64HeadImgUpload(HttpServletRequest request) throws IOException {
         if (null == request.getSession().getAttribute("user")){
             //设置错误代码为101,前端判断是此代码时跳转到登录界面;
             return Msg.fail().setMsg("登录已超时,请重新登录后再尝试!").setCode(101);
@@ -132,7 +130,10 @@ public class UserController {
         //调用自定义的工具将base64字符串转成multipartFile,这个multipartFile里的除了响应头和byte数组外的字符(例如文件名,原始文件名)都是随机生成的;
         MultipartFile multipartFile = Base64ToMultipartUtil.base64ToMultipart(img);
         String imgAddr2 = ImgUtil.generateThumbnail(multipartFile, "/user/"+user.getId()+"/",200, 200);
-        user.setImgAddr(imgAddr2);
+        // 新增的保存到七牛云的云储运部分;
+        String cloudImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+imgAddr2, imgAddr2.substring(imgAddr2.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
+
+        user.setImgAddr(cloudImgAddr);//已经从原来的imgAddr2 修改成了七牛云的cloudImgAddr;
         try{
             userService.save(user);
         }catch (Exception e){
