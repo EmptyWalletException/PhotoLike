@@ -48,9 +48,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
          */
         //registry.addResourceHandler("/upload/**").addResourceLocations("file:D:/projectdev/images/upload/");
         registry.addResourceHandler("/upload/**").addResourceLocations("file:/home/projectdev/images/upload/");
-        //阿里云(映射路径去除盘符)
-        //registry.addResourceHandler("/ueditor/image/**").addResourceLocations("/upload/image/");
-        //registry.addResourceHandler("/ueditor/video/**").addResourceLocations("/upload/video/");
+
         super.addResourceHandlers(registry);
     }
 

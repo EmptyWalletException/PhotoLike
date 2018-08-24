@@ -29,6 +29,8 @@ public class AdminContributeController {
     private StoryServiceImpl storyService;
     @Autowired
     private EssayServiceImpl essayService;
+    @Autowired
+    private EventServiceImpl eventService;
 
     @Autowired
     private CommentServiceImpl commentService;
@@ -37,6 +39,9 @@ public class AdminContributeController {
 
     @Autowired
     private CategoryServiceImpl categoryService;
+    @Autowired
+    private CityServiceImpl cityService;
+
 
     /**
      * 编辑专辑所属分类;
@@ -118,6 +123,18 @@ public class AdminContributeController {
                     return Msg.fail().setMsg("操作失败!");
                 }
                 break;
+            case "event":
+                Event event = eventService.findById(id);
+                if ( 4 != event.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    event.setStatus(0);
+                    eventService.save(event);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
         }
         return Msg.success().setMsg("操作成功!");
     }
@@ -174,6 +191,18 @@ public class AdminContributeController {
                 try{
                     essay.setStatus(1);
                     essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "event":
+                Event event = eventService.findById(id);
+                if ( 0 != event.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    event.setStatus(1);
+                    eventService.save(event);
                 }catch (Exception e){
                     return Msg.fail().setMsg("操作失败!");
                 }
@@ -242,6 +271,19 @@ public class AdminContributeController {
                     return Msg.fail().setMsg("操作失败!");
                 }
                 break;
+            case "event":
+                Event event = eventService.findById(id);
+                if ( 0 != event.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    event.setStatus(3);
+                    event.setInfo(sendBackInfo);
+                    eventService.save(event);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
         }
         return Msg.success().setMsg("操作成功!");
     }
@@ -299,6 +341,18 @@ public class AdminContributeController {
                 try{
                     essay.setStatus(4);
                     essayService.save(essay);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
+            case "event":
+                Event event = eventService.findById(id);
+                if ( 4 == event.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    event.setStatus(4);
+                    eventService.save(event);
                 }catch (Exception e){
                     return Msg.fail().setMsg("操作失败!");
                 }
@@ -363,6 +417,18 @@ public class AdminContributeController {
                     return Msg.fail().setMsg("操作失败!");
                 }
                 break;
+            case "event":
+                Event event = eventService.findById(id);
+                if ( 2 != event.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    event.setStatus(1);
+                    eventService.save(event);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
         }
         return Msg.success().setMsg("操作成功!");
     }
@@ -423,6 +489,18 @@ public class AdminContributeController {
                     return Msg.fail().setMsg("操作失败!");
                 }
                 break;
+            case "event":
+                Event event = eventService.findById(id);
+                if ( 1 != event.getStatus()){
+                    return Msg.fail().setMsg("非法的操作!");
+                }
+                try{
+                    event.setStatus(2);
+                    eventService.save(event);
+                }catch (Exception e){
+                    return Msg.fail().setMsg("操作失败!");
+                }
+                break;
         }
         return Msg.success().setMsg("操作成功!");
     }
@@ -470,7 +548,14 @@ public class AdminContributeController {
                 }catch (Exception e){
                     return Msg.fail().setMsg("删除稿件失败!");
                 }
-                break;
+            break;
+            case "event":
+            try{
+                eventService.delete(id);
+            }catch (Exception e){
+                return Msg.fail().setMsg("删除稿件失败!");
+            }
+            break;
         }
         return Msg.success().setMsg("删除稿件成功!");
     }
@@ -635,6 +720,64 @@ public class AdminContributeController {
     }
 
     /**
+     * 查看用户撰写的event页面
+     * @param model
+     * @param pn
+     * @param authorId
+     * @return
+     */
+    @RequestMapping("/admin/event")
+    public String toUserEventPage(Model model,HttpServletRequest request,
+                                  @RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus,
+                                  @RequestParam(value = "pn",defaultValue = "1")Integer pn,
+                                  @RequestParam(value = "authorId",defaultValue = "0")long authorId,
+                                  @RequestParam(value = "cityId",defaultValue = "0")int cityId){
+        if (!isAdmin(request)){
+            model.addAttribute("errorMsg","很抱歉,您没有权限执行此操作");
+            return "error/promptMessage";
+        }
+        /**
+         * 设置分页和排序条件;注意pn因为pageRequest默认是从0开始的,所有要处理一下
+         */
+        Pageable pageable = new PageRequest(pn-1,9,new Sort(Sort.Direction.DESC,"time"));
+        Event event = new Event();
+
+        model.addAttribute("authorId",0);
+
+        /**
+         * 判断是否需要设置分类id筛选条件,并将分类id返回给前端再次利用;
+         */
+        if(0 != cityId){
+            City city = new City();
+            city.setId(cityId);
+            event.setCity(city);
+        }
+        model.addAttribute("cityId",cityId);
+
+        /**
+         * 同时将所有城市返回前端供选择城市筛选条件
+         */
+        Pageable cityPageable = new PageRequest(0,999,new Sort(Sort.Direction.DESC,"id"));
+        Page<City> cityPage = cityService.findAll(cityPageable);
+        model.addAttribute("cityPage",cityPage);
+
+        /**
+         * 新增筛选功能,根据选择的contributionStatus值状态查看对应的投稿:为0时代表稿件正在审核,当为1时则稿件正常展示,为2时表示稿件被隐藏,3代表稿件被管理员退回,4代表稿件被放置于回收站;
+         * 同时将用户点击状态返回给页面,方便页面高亮对应的筛选链接和生成对应的筛选链接;
+         */
+        model.addAttribute("contributionStatus",contributionStatus);
+        event.setStatus(contributionStatus);
+
+        //注意这里,story里面有几个属性是long类型,默认值是0而不是null,erexample里传过去不是null时就会开启匹配,所以需要设置忽略掉id属性;
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
+        Example<Event> example = Example.of(event,exampleMatcher);
+        Page<Event> eventPage = eventService.findAllByExample(example, pageable);
+        model.addAttribute("eventPage",eventPage);
+
+        return "admin/adminEvent";
+    }
+
+    /**
      * 通过前端传的板块名称和稿件id跳转到指定的稿件详情页
      * @param request
      * @param response
@@ -651,6 +794,8 @@ public class AdminContributeController {
                 href = "/essay?essayId=" + contributeId;
             }else if ("story".equals(plate)){
                 href = "/story/" + contributeId;
+            }else if ("event".equals(plate)){
+                href = "/event/" + contributeId;
             }
             try {
                 request.getRequestDispatcher(href).forward(request,response);

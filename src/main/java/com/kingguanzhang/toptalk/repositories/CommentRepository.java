@@ -44,24 +44,24 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     int deleteSubcomment(@Param("supcommentId")Long supcommentId);
 
     /**
-     * 通过topicId删除对应的子评论;
+     * 通过topicId删除对应的父评论;
      * @param topicId
      * @return
      */
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "delete from comment where  topic_id= :topicId "
+    @Query(nativeQuery = true, value = "delete from comment where id in (select comment_id from comment_est where topic_id= :topicId )"
     )
     int deleteByTopicId(@Param("topicId")Long topicId);
 
     /**
-     * 通过storyId删除对应的子评论;
+     * 通过storyId删除对应的父评论;
      * @param storyId
      * @return
      */
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "delete from comment where  story_id= :storyId "
+    @Query(nativeQuery = true, value = "delete from comment where id in (select comment_id from comment_est where story_id= :storyId) "
     )
     int deleteByStoryId(@Param("storyId")Long storyId);
 

@@ -84,9 +84,30 @@ $("#sendBack").click(function () {
     });
 });
 
+/*真正删除稿件*/
+$(".btn-realDelete-contribution").click(function () {
+    var btn = $(this);
+    var plate = $(this).attr("plate");
+    /*alert(plate);*/
+    if (confirm("确认永久删除此稿件?此操作不可恢复!")){
+        $.ajax({
+            url:"/admin/contribute/delete",//将稿件状态设置成4的方法
+            type:"POST",
+            data:{"plate":plate},
+            success:function (result) {
+                alert(result.msg);
+                if (101 == result.code){
+                    window.location.href="/login";
+                }
+                btn.parent().parent().remove();
+            }
 
+        });
+    }
 
+});
 
+/*将稿件放入回收站*/
 $(".btn-delete-contribution").click(function () {
     var btn = $(this);
     var plate = $(this).attr("plate");
