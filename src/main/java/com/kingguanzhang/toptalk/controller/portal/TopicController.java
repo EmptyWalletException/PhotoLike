@@ -2,6 +2,7 @@ package com.kingguanzhang.toptalk.controller.portal;
 
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -83,7 +84,7 @@ public class TopicController {
         /**
          * 限制浏览者只能浏览状态为1的topic,除非浏览者是作者或管理员
          */
-        if(1 == topic.getStatus() || null != request.getSession().getAttribute(("admin"))){
+        if(1 == topic.getStatus() || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisTopic(request,topic)){
             model.addAttribute("topic",topic);
         }else if (null != request.getSession().getAttribute("user")){
             User user = (User) request.getSession().getAttribute("user");

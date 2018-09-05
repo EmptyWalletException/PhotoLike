@@ -630,7 +630,7 @@ public class ContributeController {
     private Msg eventContribute(HttpServletRequest request) throws IOException {
         //从前端传来的请求中获取键为userStr的值;
         String eventStr = RequestUtil.parserString(request, "eventStr");
-        System.out.print("eventStr的值是:" + eventStr);
+       // System.out.print("eventStr的值是:" + eventStr);
         ObjectMapper objectMapper = new ObjectMapper();
         Event event = null;
         try {
@@ -640,8 +640,7 @@ public class ContributeController {
             e.printStackTrace();
             return Msg.fail().setMsg("读取稿件信息失败!");
         }
-        User author = new User();
-        author.setId(1);
+        User author = (User) request.getSession().getAttribute("user");
         City city = new City();
         if (null != request.getParameter("cityId")){
             String cityId = request.getParameter("cityId");
@@ -649,6 +648,8 @@ public class ContributeController {
         }else {
             city.setId(1);//如果城市参数传递失败则默认选择一个城市,之后管理员审核时可以修改;
         }
+        event.setCity(city);
+        event.setStatus(0);
         //从request中解析出上传的文件图片;
         MultipartFile coverImg = ((MultipartRequest) request).getFile("img");
 
@@ -661,7 +662,7 @@ public class ContributeController {
             String cloudImgAddr = QiniuCloudUtil.upload(PathUtil.getImgBasePath()+imgAddr, imgAddr.substring(imgAddr.lastIndexOf("/")+1));//注意+1是为了避开/,否则保存的文件名前面会有一个/,
 
             event.setCoverImgAddr(cloudImgAddr); //已经从原来的imgAddr 修改成了七牛云的cloudImgAddr;
-            event.setCity(city);
+
             eventService.save(event);
             //返回注册店铺的最终结果;
             return Msg.success().setMsg("投稿成功,请等待审核.");
@@ -677,14 +678,11 @@ public class ContributeController {
      */
     @RequestMapping(value = "/storyContribute/imgUpload")
     @ResponseBody
-    public String imgUpload3(MultipartFile upfile) {
+    public String imgUpload3(MultipartFile upfile,HttpServletRequest request) {
         if (upfile.isEmpty()) {
             return "error";
         }
-
-        // TODO 此处user id 需要改成从session中获取security 保存的用户信息来从数据库中查出id:
-        User author = new User();
-        author.setId(1);
+        User author = (User) request.getSession().getAttribute("user");
         //设置中间文件夹,方便整理图片
         String centreAddr = "/story/"+author.getId()+"/";
         try {
@@ -712,14 +710,12 @@ public class ContributeController {
      */
     @RequestMapping(value = "/eventContribute/imgUpload")
     @ResponseBody
-    public String imgUpload4(MultipartFile upfile) {
+    public String imgUpload4(MultipartFile upfile,HttpServletRequest request) {
         if (upfile.isEmpty()) {
             return "error";
         }
 
-        // TODO 此处user id 需要改成从session中获取security 保存的用户信息来从数据库中查出id:
-        User author = new User();
-        author.setId(1);
+        User author = (User) request.getSession().getAttribute("user");
         //设置中间文件夹,方便整理图片
         String centreAddr = "/event/"+author.getId()+"/";
         try {
@@ -730,9 +726,9 @@ public class ContributeController {
 
             //url为文件访问的完整路径,注意应该配合mvc中配置的虚拟路径"/upload"
             String config = "{\"state\": \"SUCCESS\"," +
-                    "\"url\": \"" + imgAddr + "\"," +
-                    "\"title\": \"" + imgAddr + "\"," +
-                    "\"original\": \"" + imgAddr + "\"}";
+                    "\"url\": \"" + cloudImgAddr + "\"," +
+                    "\"title\": \"" + cloudImgAddr + "\"," +
+                    "\"original\": \"" + cloudImgAddr + "\"}";
             return config;
         } catch (Exception e) {
             e.printStackTrace();

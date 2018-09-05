@@ -9,6 +9,7 @@ import com.kingguanzhang.toptalk.service.CityServiceImpl;
 import com.kingguanzhang.toptalk.service.EventServiceImpl;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -98,9 +99,9 @@ public class EventController {
          */
         Event event = eventService.findById(eventId);
         /**
-         * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
+         * 限制浏览者只能浏览状态为1的稿件,除非浏览者是管理员
          */
-        if(1 == event.getStatus() || null != request.getSession().getAttribute(("admin"))){
+        if(1 == event.getStatus() || VerifyAuthorityUtil.isAdmin(request)){
             model.addAttribute("event",event);
         }else{
             model.addAttribute("errorMsg","您暂时没有权限访问此稿件!");

@@ -3,11 +3,9 @@ package com.kingguanzhang.toptalk.controller.admin;
 import com.kingguanzhang.toptalk.dto.Msg;
 import com.kingguanzhang.toptalk.entity.*;
 import com.kingguanzhang.toptalk.service.*;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 public class AdminContributeController {
@@ -52,7 +49,7 @@ public class AdminContributeController {
     @RequestMapping("/admin/topic/category/edit")
     @ResponseBody
     private Msg editTopicCategory(HttpServletRequest request,@RequestParam("topicCategoryId")String topicCategoryId,@RequestParam("topicId")String topicId){
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
         Topic topic = topicService.findById(Long.parseLong(topicId));
@@ -76,7 +73,7 @@ public class AdminContributeController {
     @RequestMapping(value = "/admin/contribute/recover",method = RequestMethod.POST)
     @ResponseBody
     private Msg recoverContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
         /**
@@ -148,7 +145,7 @@ public class AdminContributeController {
     @RequestMapping(value = "/admin/contribute/pass",method = RequestMethod.POST)
     @ResponseBody
     private Msg passContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
         /**
@@ -220,7 +217,7 @@ public class AdminContributeController {
     @RequestMapping(value = "/admin/contribute/sendBack",method = RequestMethod.POST)
     @ResponseBody
     private Msg sendBackContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId,@RequestParam("sendBackInfo")String sendBackInfo) {
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
         /**
@@ -298,7 +295,7 @@ public class AdminContributeController {
     @RequestMapping(value = "/admin/contribute/deprecated",method = RequestMethod.POST)
     @ResponseBody
     private Msg deprecatedContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
         /**
@@ -370,7 +367,7 @@ public class AdminContributeController {
     @RequestMapping(value = "/admin/contribute/show",method = RequestMethod.POST)
     @ResponseBody
     private Msg showContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
         /**
@@ -442,7 +439,7 @@ public class AdminContributeController {
     @RequestMapping(value = "/admin/contribute/hide",method = RequestMethod.POST)
     @ResponseBody
     private Msg hideContribution(HttpServletRequest request,@RequestParam("plate")String plateAndId) {
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
         /**
@@ -513,7 +510,7 @@ public class AdminContributeController {
     @RequestMapping(value = "/admin/contribute/delete",method = RequestMethod.POST)
     @ResponseBody
     private Msg deleteContribution(HttpServletRequest request, @RequestParam("plate")String plateAndId){
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             return Msg.fail().setMsg("您没有权限执行此操作");
         }
 
@@ -573,7 +570,7 @@ public class AdminContributeController {
                                   @RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus,
                                   @RequestParam(value = "pn",defaultValue = "1")Integer pn,
                                   @RequestParam(value = "authorId",defaultValue = "0")long authorId){
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             model.addAttribute("errorMsg","很抱歉,您没有权限执行此操作");
             return "error/promptMessage";
         }
@@ -619,7 +616,7 @@ public class AdminContributeController {
      */
     @RequestMapping("/admin/essay")
     public String toUserEssayPage(Model model,HttpServletRequest request,@RequestParam(value = "contributionStatus",defaultValue = "1")Integer contributionStatus, @RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam(value = "authorId",defaultValue = "0")long authorId){
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             model.addAttribute("errorMsg","很抱歉,您没有权限执行此操作");
             return "error/promptMessage";
         }
@@ -665,7 +662,7 @@ public class AdminContributeController {
                                   @RequestParam(value = "pn",defaultValue = "1")Integer pn,
                                   @RequestParam(value = "authorId",defaultValue = "0")long authorId,
                                   @RequestParam(value = "categoryId",defaultValue = "0")int categoryId){
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             model.addAttribute("errorMsg","很抱歉,您没有权限执行此操作");
             return "error/promptMessage";
         }
@@ -732,7 +729,7 @@ public class AdminContributeController {
                                   @RequestParam(value = "pn",defaultValue = "1")Integer pn,
                                   @RequestParam(value = "authorId",defaultValue = "0")long authorId,
                                   @RequestParam(value = "cityId",defaultValue = "0")int cityId){
-        if (!isAdmin(request)){
+        if (!VerifyAuthorityUtil.isAdmin(request)){
             model.addAttribute("errorMsg","很抱歉,您没有权限执行此操作");
             return "error/promptMessage";
         }
@@ -807,42 +804,11 @@ public class AdminContributeController {
         }
     }
 
-    /**
-     * 判断session中security权限中是否有管理员权限的方法;
-     * @param request
-     * @return
-     */
-    private Boolean isAdmin(HttpServletRequest request){
-        // 从security判断是否有admin角色信息:
-        if (request.getSession().getAttribute("SPRING_SECURITY_CONTEXT") != null) {
-            SecurityContextImpl securityContextImpl = (SecurityContextImpl) request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-            List<GrantedAuthority> authorities = (List<GrantedAuthority>) securityContextImpl.getAuthentication().getAuthorities();
-            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
-            boolean contains = authorities.contains(simpleGrantedAuthority);
-            return contains;
-        }
-        return false;
+    
 
 
 
 
-       /* Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
-        if(authentication!=null && authentication.isAuthenticated()) {
-            System.out.println(authentication.getName());
-            System.out.println(authentication.getPrincipal());
-        }
-         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        */
 
-
-       /* 这是传统的自定义session信息的方法
-        if (null == request.getSession().getAttribute("user")){
-            return Msg.fail().setCode(101).setMsg("操作失败,请重新登录后再尝试");
-        }
-        User user = (User) request.getSession().getAttribute("user");*/
-    }
 
 }

@@ -9,6 +9,7 @@ import com.kingguanzhang.toptalk.service.StoryServiceImpl;
 import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
 import com.kingguanzhang.toptalk.utils.ImgUtil;
 import com.kingguanzhang.toptalk.utils.RequestUtil;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -101,13 +102,9 @@ public class StoryController {
             /**
              * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
              */
-            if(1 == story.getStatus() || null != request.getSession().getAttribute(("admin"))){
+            if(1 == story.getStatus() || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisStory(request,story)){
                 model.addAttribute("story",story);
-            }else if (null != request.getSession().getAttribute("user")){
-                User user = (User) request.getSession().getAttribute("user");
-                if (user.getId() == story.getAuthor().getId()){
-                    model.addAttribute("story",story);
-                }
+
             }else {
                 model.addAttribute("errorMsg","很抱歉,您暂时没有权限浏览此稿件...");
                 return "error/promptMessage";

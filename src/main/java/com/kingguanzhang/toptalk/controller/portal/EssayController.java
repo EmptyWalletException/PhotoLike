@@ -5,6 +5,7 @@ import com.kingguanzhang.toptalk.entity.User;
 import com.kingguanzhang.toptalk.entity.UserFavorite;
 import com.kingguanzhang.toptalk.service.EssayServiceImpl;
 import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
@@ -89,13 +90,8 @@ public class EssayController {
                 /**
                  * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
                  */
-                if (1 == upEssay.getStatus() || null != request.getSession().getAttribute(("admin"))) {
+                if (1 == upEssay.getStatus() || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisEssay(request,upEssay)) {
                     model.addAttribute("upEssay", upEssay);
-                } else if (null != request.getSession().getAttribute("user")) {
-                    User user = (User) request.getSession().getAttribute("user");
-                    if (user.getId() == upEssay.getAuthor().getId()) {
-                        model.addAttribute("upEssay", upEssay);
-                    }
                 } else {
                     //如果用户恶意传入的稿件id不符合浏览权限则从最热随笔中取出第一个置顶;
                     model.addAttribute("upEssay", hotEssayPage.getContent().get(0));
