@@ -9,6 +9,7 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -278,7 +279,8 @@ public class UserController {
            user.setJoinTime(new Date(System.currentTimeMillis()));
            user.setSignature("这个人很懒,没有设置签名...");
            user.setCity(city);
-           user.setImgAddr("/img/test/userUserHead.jpg");//先设置用户的默认头像,以后等用户修改;
+           user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword())); //使用security推荐的加密方式加密密码;
+           user.setImgAddr("http://pdr28szno.bkt.clouddn.com/7433920180820193855.png");//先设置用户的默认头像,以后等用户修改;
             try{
                 userService.save(user);
             }catch (Exception e){

@@ -591,13 +591,13 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'testuser', '1', 'http://pdr28szno.bkt.clouddn.com/9809320180820185542.png', '2018-06-23 20:04:54', '管理员', 'admin123', '测试修改签名', '2');
-INSERT INTO `user` VALUES ('2', 'testuser2', '2', '/upload/user.jpg', '2018-06-23 20:04:54', '测试用户2', 'admin123', '测试签名2', '3');
-INSERT INTO `user` VALUES ('3', 'testuser3', '1', '/upload/user.jpg', '2018-06-23 20:04:54', '测试用户3', 'admin123', '测试签名3', '1');
-INSERT INTO `user` VALUES ('32', 'testuser123', '2', '/upload/user.jpg', '2018-07-05 19:40:25', '测试注册功能', 'admin123', '这个人很懒,没有设置签名...', '3');
-INSERT INTO `user` VALUES ('33', 'testuser1234', '1', '/upload/user.jpg', '2018-07-05 19:43:59', '测试注册功能', 'admin123', '这个人很懒,没有设置签名...', '4');
-INSERT INTO `user` VALUES ('34', 'testuser1111', '1', '/upload/user.jpg', '2018-07-05 19:55:18', '测试注册功能', 'admin123', '这个人很懒,没有设置签名...', '2');
-INSERT INTO `user` VALUES ('35', '222222', '1', '/img/test/userUserHead.jpg', '2018-07-27 19:46:55', '管理员2', 'admin123', '这个人很懒,没有设置签名...', '1');
+INSERT INTO `user` VALUES ('1', 'testuser', '1', 'http://pdr28szno.bkt.clouddn.com/9809320180820185542.png', '2018-06-23 20:04:54', '管理员', '$2a$10$7fg1JgdaBBW/GEjZ.SzZbu142CJtx..ti5Re1f7zSAmxAH7TPNnh2', '测试修改签名', '2');
+INSERT INTO `user` VALUES ('2', 'testuser2', '2', '/upload/user.jpg', '2018-06-23 20:04:54', '测试用户2', '$2a$10$7fg1JgdaBBW/GEjZ.SzZbu142CJtx..ti5Re1f7zSAmxAH7TPNnh2', '测试签名2', '3');
+INSERT INTO `user` VALUES ('3', 'testuser3', '1', '/upload/user.jpg', '2018-06-23 20:04:54', '测试用户3', '$2a$10$7fg1JgdaBBW/GEjZ.SzZbu142CJtx..ti5Re1f7zSAmxAH7TPNnh2', '测试签名3', '1');
+INSERT INTO `user` VALUES ('32', 'testuser123', '2', '/upload/user.jpg', '2018-07-05 19:40:25', '测试注册功能', '$2a$10$7fg1JgdaBBW/GEjZ.SzZbu142CJtx..ti5Re1f7zSAmxAH7TPNnh2', '这个人很懒,没有设置签名...', '3');
+INSERT INTO `user` VALUES ('33', 'testuser1234', '1', '/upload/user.jpg', '2018-07-05 19:43:59', '测试注册功能', '$2a$10$7fg1JgdaBBW/GEjZ.SzZbu142CJtx..ti5Re1f7zSAmxAH7TPNnh2', '这个人很懒,没有设置签名...', '4');
+INSERT INTO `user` VALUES ('34', 'testuser1111', '1', '/upload/user.jpg', '2018-07-05 19:55:18', '测试注册功能', '$2a$10$7fg1JgdaBBW/GEjZ.SzZbu142CJtx..ti5Re1f7zSAmxAH7TPNnh2', '这个人很懒,没有设置签名...', '2');
+INSERT INTO `user` VALUES ('35', '222222', '1', '/img/test/userUserHead.jpg', '2018-07-27 19:46:55', '管理员2', '$2a$10$7fg1JgdaBBW/GEjZ.SzZbu142CJtx..ti5Re1f7zSAmxAH7TPNnh2', '这个人很懒,没有设置签名...', '1');
 
 -- ----------------------------
 -- Table structure for `user_favorite`

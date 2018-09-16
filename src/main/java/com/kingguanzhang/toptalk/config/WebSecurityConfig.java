@@ -58,10 +58,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/**/json/**").permitAll()
                     .antMatchers("/**/ajax/**").permitAll()
 
-                    .antMatchers("/**/contribute").hasAnyRole("USER","ADMIN")
+                    .antMatchers("/**/contribute").hasAnyRole("ADMIN")
                     .antMatchers("/admin/**").hasAnyRole("ADMIN")//官方文档中特别说明没有使用"ROLE_"前缀
-                    .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
-                    .antMatchers("/contribute/**").hasAnyRole("USER","ADMIN")
+                    //.antMatchers("/user/**").hasAnyRole("USER","ADMIN")
+                    .antMatchers("/contribute/**").hasAnyRole("ADMIN")
 
                 .anyRequest().authenticated()
                 .and()

@@ -66,10 +66,12 @@ public class CustomUserServiceImpl implements UserDetailsService {
 
         }
 
-        String password = new BCryptPasswordEncoder().encode(userOptional.get().getPassword());//加密密码
+        //最后返回security能解析的信息,原始密码不加密,但security要求必须加密,所以需要取出来后加密;//构造器依次传入(登录账号,密码,角色列表);注意这里密码需要提前加密,否则报错:id = null;
+        //String password = new BCryptPasswordEncoder().encode(userOptional.get().getPassword());//加密密码
+        //return new org.springframework.security.core.userdetails.User(userOptional.get().getAccount(),password, authorities);
 
-        //最后返回security能解析的信息;
+        //此处形参密码是在数据库中储存的加密后的密码,直接取出即可;
         return new org.springframework.security.core.userdetails.User(userOptional.get().getAccount(),
-                password, authorities);//构造器依次传入(登录账号,密码,角色列表);注意这里密码需要提前加密,否则报错:id = null;
+                userOptional.get().getPassword(), authorities);
     }
 }
