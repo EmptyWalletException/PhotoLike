@@ -23,27 +23,35 @@ TopTalk (PhotoLike) 网站 -- 照片 壁纸 绘画和涂鸦爱好者书写情感
 ## 效果预览：
 
 <h4>主页上半部分：
+  
 ![](screenshot/主页.png)
 
 <h4>主页下半部分：
+  
 ![](screenshot/主页下半部分.png)
 
 <h4>专辑板块：
+  
 ![](screenshot/专辑板块.png)
 
 <h4>专辑稿件详情：
+  
 ![](screenshot/专辑稿件详情.png)
 
 <h4>随笔板块：
+  
 ![](screenshot/随笔板块.png)
 
 <h4>故事稿件详情：
+  
 ![](screenshot/故事稿件详情.png)
 
 <h4>活动板块：
+  
 ![](screenshot/活动板块.png)
 
 <h4>稿件管理版块：
+  
 ![](screenshot/稿件管理.png)
 
 
