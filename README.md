@@ -3,7 +3,7 @@
 
 使用了Mysql数据库,thymeleaf模板引擎,Spring Data JPA,Security,百度Ueditor富文本编辑器,七牛云的对象存储,以及一些第三方js小插件(模态框,头像裁剪,图片轮播等js插件),运行环境为Linux,以jar包的方式运行,
 
-另外有window本地版本,用于随时下载后可通过编辑器立即运行查看效果,区别在于文件夹路径不同,且网页上的图片会在本地储存:https://github.com/EmptyWalletException/TopTalkForWindows
+另外有window本地版本,用于随时下载后可通过编辑器立即运行查看效果,区别在于文件夹路径不同,且网页上的图片会在本地储存:https://github.com/EmptyWalletException/PhotoLikeForWindows
 
 
 ## 网站简介:
