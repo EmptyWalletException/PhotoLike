@@ -4,7 +4,7 @@ Navicat MySQL Data Transfer
 Source Server         : root
 Source Server Version : 50520
 Source Host           : localhost:3306
-Source Database       : toptalk
+Source Database       : photolike
 
 Target Server Type    : MYSQL
 Target Server Version : 50520
