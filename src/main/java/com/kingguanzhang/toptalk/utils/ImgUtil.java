@@ -31,8 +31,8 @@ public class ImgUtil {
         //获取文件扩展名
         String extension = fileName.substring(fileName.lastIndexOf("."));
 
-        //评价成文件名: 234415.jpg
-        String relativeName =  randomName +extension;
+        //拼接成文件名: 234415.jpg
+        String relativeName =  randomName + extension;
         //拼接成完整文件路径; D:/projectdev/images/upload/235545.jpg
         String imgAddr = PathUtil.getImgBasePath()+"/upload"+centreAddr+relativeName;
         //确保文件夹存在
@@ -41,11 +41,7 @@ public class ImgUtil {
         File dest = new File (imgAddr);
         try{
             //将Thumbnail传入进来的图片流写入到指定的文件夹路径里;
-           // File dest2 = new File ("D:/test.jpg");
-           // Thumbnails.of(dest2).size(200,200).toFile(dest);
-            //Thumbnails.of(dest2).size(200,200).toFile("D:/1.jgp");
             Thumbnails.of(upfile.getInputStream()).size(width,height).outputQuality(1.0D).toFile(dest);//size是将图片自动缩放成适应的最大像素,会保持长宽比;
-           // Thumbnails.of(shopImgInputStream).toFile(dest);
         }catch (IOException e) {
             //如果图片文件保存失败则返回一个默认的图片路径;
             imgAddr = "/usr/test.jpg";

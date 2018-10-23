@@ -7,16 +7,17 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.kingguanzhang.toptalk.utils.PathUtil;
+
 import javax.servlet.MultipartConfigElement;
 
 /**
  * 扩展springMvc
  */
-//@EnableAutoConfiguration(exclude = {MultipartAutoConfiguration.class})
 @Configuration
 public class MyMvcConfig extends WebMvcConfigurerAdapter {
-
-
+	
+	
     @Override
     /*注册视图解析器,所有在localhost:8080后面加上的路径会被springMvc以返回的字符串解析
     并在templates路径下寻找对应的html*/
@@ -43,11 +44,11 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         /*
-         * 说明：增加虚拟路径(经过本人测试：在此处配置的虚拟路径，用springboot内置的tomcat时有效，
+         * 说明：增加虚拟路径(经过测试：在此处配置的虚拟路径，用springboot内置的tomcat时有效，
          * 用外部的tomcat也有效;所以用到外部的tomcat时不需在tomcat/config下的相应文件配置虚拟路径了,阿里云linux也没问题)
          */
-        //registry.addResourceHandler("/upload/**").addResourceLocations("file:D:/projectdev/images/upload/");
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:/home/projectdev/images/upload/");
+        //此处会根据操作系统不同而设置不同的图片资源路径；
+        registry.addResourceHandler("/upload/**").addResourceLocations(PathUtil.getResourceLocations());
 
         super.addResourceHandlers(registry);
     }
@@ -59,21 +60,12 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        //factory.setLocation("D:/temp");
-        factory.setLocation("/usr/temp");
+        //此处会根据操作系统不同而设置不同的文件上传路径；
+        factory.setLocation(PathUtil.getUploadTempLocation());
         return factory.createMultipartConfig();
     }
 
 
 
-/*    @Bean(name = "multipartResolver")
-    public MultipartResolver multipartResolver(){
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("UTF-8");
-        resolver.setResolveLazily(true);//resolveLazily属性启用是为了推迟文件解析，以在在UploadAction中捕获文件大小异常
-        resolver.setMaxInMemorySize(409600);
-        resolver.setMaxUploadSize(50*1024*1024);//上传文件大小 50M 50*1024*1024
-        return resolver;
-    }*/
 
 }
