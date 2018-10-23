@@ -1,24 +1,19 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/photolike
+    url: jdbc:mysql://localhost:3306/photolike?serverTimezone=GMT
     username: root
-    password:
+    password: ljj19940228
     type: com.alibaba.druid.pool.DruidDataSource
   jpa:
     hibernate:
       ddl-auto: update  #配置当实体类更新时创建或更新数据表
     show-sql: true
-  thymeleaf:
-  	cache: false	#模板引擎缓存
-  mvc:
-  	date-format: yyyy-MM-dd
     #临时保存上传图片的系统目录
 custom:
-  #tmpLocation: D:/temp
-  tmpLocation: /usr/temp
+  tmpLocation: C:/NotSystemSrc/temp
+  #tmpLocation: /usr/temp
 server:
-  port: 80
   servlet:
     session:
       timeout: 6h  #设置session有效期为6个小时

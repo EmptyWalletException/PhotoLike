@@ -17,7 +17,7 @@ public class PathUtil {
         
         
         if (os.toLowerCase().startsWith("win")){
-            basePath="D:/projectdev/images";
+            basePath="C:/NotSystemSrc/projectdev/images";
         }else {
             basePath="/home/projectdev/images";
         }
@@ -34,7 +34,7 @@ public class PathUtil {
     	String ResourceLocations = "";
     	
     	if (os.toLowerCase().startsWith("win")){
-    		ResourceLocations = "file:D:/projectdev/images/upload/";
+    		ResourceLocations = "file:C:/NotSystemSrc/projectdev/images/upload/";
     	}else {
     		ResourceLocations = "file:/home/projectdev/images/upload/";
     	}
@@ -50,7 +50,7 @@ public class PathUtil {
     	String ResourceLocations = "";
     	
     	if (os.toLowerCase().startsWith("win")){
-    		ResourceLocations = "D:/temp";
+    		ResourceLocations = "C:/NotSystemSrc/projectdev/temp";
     	}else {
     		ResourceLocations = "/usr/temp";
     	}
