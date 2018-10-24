@@ -199,7 +199,7 @@ public class UserFavoriteController {
             return "error/promptMessage";
         }
         User user1 = (User)request.getSession().getAttribute("user");
-        if (user1.getId() != userId){
+        if ( !user1.getId().equals(userId)){
             model.addAttribute("errorMsg","暂时不开放查看其他用户信息!");
             return "error/promptMessage";
         }

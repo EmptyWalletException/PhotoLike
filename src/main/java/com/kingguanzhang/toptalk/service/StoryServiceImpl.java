@@ -1,18 +1,16 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.Story;
-import com.kingguanzhang.toptalk.repositories.StoryRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.repositories.StoryRepository;
 
 //@CacheConfig(cacheNames = "story")
 @Service
@@ -115,7 +113,6 @@ public class StoryServiceImpl {
             throw new RuntimeException("传入的参数不能为空");
         }
         //因为long类型的id默认初始值是0,此处需要重置为空才能防止在数据库表中重复;
-        Long id=null;
         try {
             storyRepository.save(object);
         }catch (Exception e){
@@ -152,7 +149,6 @@ public class StoryServiceImpl {
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
-        Long id=null;
         try {
             storyRepository.saveAll(list);
         }catch (Exception e){

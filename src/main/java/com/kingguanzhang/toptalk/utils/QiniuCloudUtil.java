@@ -75,8 +75,8 @@ public class QiniuCloudUtil {
     //base64方式上传
     public static String put64image(byte[] base64, String key) throws Exception{
         String file64 = Base64.encodeToString(base64, 0);
-        Integer l = base64.length;
-        String url = "http://upload.qiniu.com/putb64/" + l + "/key/"+ UrlSafeBase64.encodeToString(key);
+        Integer len = base64.length;
+        String url = "http://upload.qiniu.com/putb64/" + len + "/key/"+ UrlSafeBase64.encodeToString(key);
         //非华东空间需要根据注意事项 1 修改上传域名
         RequestBody rb = RequestBody.create(null, file64);
         Request request = new Request.Builder().

@@ -72,7 +72,7 @@ public class EssayController {
                 }
             }
         }
-        if ("" != favEssayIds){
+        if ( !"".equals(favEssayIds)){
             favEssayIds = favEssayIds.substring(0,favEssayIds.lastIndexOf(","));
         }
         model.addAttribute("favEssayIds",favEssayIds);
@@ -90,7 +90,7 @@ public class EssayController {
                 /**
                  * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
                  */
-                if (1 == upEssay.getStatus() || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisEssay(request,upEssay)) {
+                if (upEssay.getStatus().equals(1) || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisEssay(request,upEssay)) {
                     model.addAttribute("upEssay", upEssay);
                 } else {
                     //如果用户恶意传入的稿件id不符合浏览权限则从最热随笔中取出第一个置顶;

@@ -1,12 +1,10 @@
 package com.kingguanzhang.toptalk.controller.component;
 
-import org.springframework.stereotype.Controller;
-
-@Controller
+//@Controller
 public class ImgUploadController {
 
     /**
-     * 保存ue富文本编辑器上传的图片并回显;已经移交给StoryController处理,此处保留一个被注释掉的模板供以后参考;
+     * 保存ue富文本编辑器上传的图片并回显;已经移交给ContributeController处理,此处保留一个被注释掉的模板供以后参考;
      * @param upfile
      * @return
      *//*

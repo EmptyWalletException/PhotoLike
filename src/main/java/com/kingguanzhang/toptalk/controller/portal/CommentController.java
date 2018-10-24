@@ -337,7 +337,7 @@ public class CommentController {
         /**
          * 处理字符串参数
          */
-        if (null == supcommentIds || "" == supcommentIds.trim()){
+        if (null == supcommentIds || "".equals(supcommentIds.trim())){
             return Msg.fail().setMsg("没有收到任何父评论id参数");
         }
         String[] split = supcommentIds.split(",");
@@ -394,16 +394,10 @@ public class CommentController {
                         praiseCommentIds = praiseCommentIds+subcomment.getId()+ ",";
                     }
                 }
-
             }
-
-
-
         }
-        if (null == subcommentPageMap){
-            return Msg.fail().setMsg("没有查询到任何子评论");
-        }
-        if ("" != praiseCommentIds){
+       
+        if ( !"".equals(praiseCommentIds) ){
             praiseCommentIds = praiseCommentIds.substring(0,praiseCommentIds.lastIndexOf(","));
         }
 

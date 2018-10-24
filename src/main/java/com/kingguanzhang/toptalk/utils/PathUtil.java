@@ -5,17 +5,14 @@ package com.kingguanzhang.toptalk.utils;
  */
 public class PathUtil {
 
-    private static String seperator = System.getProperty("file.separator");
-
+   // private static String seperator = System.getProperty("file.separator");
+    private static String os = System.getProperty("os.name");
     /**
      	* 用于根据操作系统的不同获取对应的图片储存的基础路径;
      * @return
      */
     public static String getImgBasePath(){
-        String os = System.getProperty("os.name");
         String basePath="";
-        
-        
         if (os.toLowerCase().startsWith("win")){
             basePath="C:/NotSystemSrc/projectdev/images";
         }else {
@@ -30,9 +27,7 @@ public class PathUtil {
      * @return
      */
     public static String getResourceLocations(){
-    	String os = System.getProperty("os.name");
     	String ResourceLocations = "";
-    	
     	if (os.toLowerCase().startsWith("win")){
     		ResourceLocations = "file:C:/NotSystemSrc/projectdev/images/upload/";
     	}else {
@@ -46,9 +41,7 @@ public class PathUtil {
      * @return
      */
     public static String getUploadTempLocation(){
-    	String os = System.getProperty("os.name");
     	String ResourceLocations = "";
-    	
     	if (os.toLowerCase().startsWith("win")){
     		ResourceLocations = "C:/NotSystemSrc/projectdev/temp";
     	}else {

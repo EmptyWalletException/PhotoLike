@@ -137,6 +137,7 @@ public class AuthorController {
         model.addAttribute("author",author);
         topic.setStatus(1);
 
+        //TODO : 这里可以更新下匹配方法和pageRequest方法;
         //注意这里,story里面有几个属性是long类型,默认值是0而不是null,erexample里传过去不是null时就会开启匹配,所以需要设置忽略掉id属性;
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("collectNumber").withIgnorePaths("commentNumber");
         Example<Topic> example = Example.of(topic,exampleMatcher);

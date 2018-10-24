@@ -12,7 +12,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class CustomUserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (null == username || "" == username.trim() ){
+        if (null == username || "".equals(username.trim())){
             throw new RuntimeException("未能获取到账号");
         }
 
@@ -58,12 +57,8 @@ public class CustomUserServiceImpl implements UserDetailsService {
         //新建一个ArrayList<SimpleGrantedAuthority>用于装载角色信息;
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         //用于添加用户的权限。只要把遍历出来的角色添加到authorities 就万事大吉。
-        int i =0;
         for(Role role:roleList) {
-            i++;
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-            System.out.println("角色service得到第"+i +"个角色信息"+role.getRoleName());
-
         }
 
         //最后返回security能解析的信息,原始密码不加密,但security要求必须加密,所以需要取出来后加密;//构造器依次传入(登录账号,密码,角色列表);注意这里密码需要提前加密,否则报错:id = null;

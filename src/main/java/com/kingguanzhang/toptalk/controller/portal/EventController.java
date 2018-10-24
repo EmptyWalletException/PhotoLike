@@ -1,24 +1,25 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kingguanzhang.toptalk.dto.Msg;
-import com.kingguanzhang.toptalk.entity.City;
-import com.kingguanzhang.toptalk.entity.Event;
-import com.kingguanzhang.toptalk.entity.User;
-import com.kingguanzhang.toptalk.service.CityServiceImpl;
-import com.kingguanzhang.toptalk.service.EventServiceImpl;
-import com.kingguanzhang.toptalk.utils.ImgUtil;
-import com.kingguanzhang.toptalk.utils.RequestUtil;
-import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
+import com.kingguanzhang.toptalk.entity.City;
+import com.kingguanzhang.toptalk.entity.Event;
+import com.kingguanzhang.toptalk.service.CityServiceImpl;
+import com.kingguanzhang.toptalk.service.EventServiceImpl;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 
 @Controller
 public class EventController {
@@ -101,7 +102,7 @@ public class EventController {
         /**
          * 限制浏览者只能浏览状态为1的稿件,除非浏览者是管理员
          */
-        if(1 == event.getStatus() || VerifyAuthorityUtil.isAdmin(request)){
+        if(event.getStatus().equals(1) || VerifyAuthorityUtil.isAdmin(request)){
             model.addAttribute("event",event);
         }else{
             model.addAttribute("errorMsg","您暂时没有权限访问此稿件!");

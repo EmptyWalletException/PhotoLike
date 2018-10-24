@@ -1,18 +1,21 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
-import com.kingguanzhang.toptalk.entity.Essay;
-import com.kingguanzhang.toptalk.entity.Story;
-import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.repositories.TopicRepository;
-import com.kingguanzhang.toptalk.service.EssayServiceImpl;
-import com.kingguanzhang.toptalk.service.StoryServiceImpl;
-import com.kingguanzhang.toptalk.service.TopicServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kingguanzhang.toptalk.entity.Essay;
+import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.entity.Topic;
+import com.kingguanzhang.toptalk.service.EssayServiceImpl;
+import com.kingguanzhang.toptalk.service.StoryServiceImpl;
+import com.kingguanzhang.toptalk.service.TopicServiceImpl;
 
 @Controller
 public class SearchController {

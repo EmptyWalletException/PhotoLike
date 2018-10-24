@@ -117,7 +117,6 @@ public class UserServiceImpl {
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
-        Long id=null;
         try {
             userRepository.saveAll(list);
         }catch (Exception e){

@@ -1,19 +1,22 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.Essay;
-import com.kingguanzhang.toptalk.entity.Praise;
-import com.kingguanzhang.toptalk.entity.Story;
-import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.repositories.*;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.kingguanzhang.toptalk.entity.Essay;
+import com.kingguanzhang.toptalk.entity.Praise;
+import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.entity.Topic;
+import com.kingguanzhang.toptalk.repositories.EssayRepository;
+import com.kingguanzhang.toptalk.repositories.PraiseRepository;
+import com.kingguanzhang.toptalk.repositories.StoryRepository;
+import com.kingguanzhang.toptalk.repositories.TopicRepository;
 
 @Service
 public class PraiseServiceImpl {
@@ -26,10 +29,6 @@ public class PraiseServiceImpl {
     private TopicRepository topicRepository;
     @Autowired
     private EssayRepository essayRepository;
-    @Autowired
-    private EventRepository eventRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     /**
      * 分页查询所有;

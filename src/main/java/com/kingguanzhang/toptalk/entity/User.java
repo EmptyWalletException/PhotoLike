@@ -74,7 +74,7 @@ public class User {
         this.city = city;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

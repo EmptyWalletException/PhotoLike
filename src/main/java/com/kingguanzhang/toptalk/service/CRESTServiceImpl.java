@@ -81,7 +81,6 @@ public class CRESTServiceImpl {
         if (null == object){
             throw new RuntimeException("传入的参数不能为空");
         }
-        Long id=null;
         try {
             crestRepository.save(object);
         }catch (Exception e){
@@ -117,7 +116,6 @@ public class CRESTServiceImpl {
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
-        Long id=null;
         try {
             crestRepository.saveAll(list);
         }catch (Exception e){

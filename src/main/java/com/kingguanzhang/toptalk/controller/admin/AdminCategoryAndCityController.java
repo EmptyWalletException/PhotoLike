@@ -57,8 +57,9 @@ public class AdminCategoryAndCityController {
         Category category = new Category();
         category.setName(topicCategoryName);
         category.setRank(Integer.valueOf(topicCategoryRank));
-        if (0 != Long.parseLong(topicCategoryId)){
-            category.setId(Long.parseLong(topicCategoryId));
+        Long topicCategoryIdLong= Long.parseLong(topicCategoryId);
+        if (!topicCategoryIdLong.equals(0L)){
+            category.setId(topicCategoryIdLong);
         }
         try{
             categoryService.save(category);
@@ -101,8 +102,10 @@ public class AdminCategoryAndCityController {
         City city = new City();
         city.setName(cityName);
         city.setRank(Integer.valueOf(cityRank));
-        if (0 != Long.parseLong(cityId)){
-            city.setId(Long.parseLong(cityId));
+        Long cityLongId = Long.parseLong(cityId);
+        
+        if (!cityLongId.equals(0L)){
+            city.setId(cityLongId);
         }
         try{
             cityService.save(city);

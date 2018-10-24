@@ -20,7 +20,7 @@ public class VerifyAuthorityUtil {
      */
     public static Boolean isAdmin(HttpServletRequest request) {
         // 从security判断是否有admin角色信息:
-        if (request.getSession().getAttribute("SPRING_SECURITY_CONTEXT") != null) {
+        if (null != request.getSession().getAttribute("SPRING_SECURITY_CONTEXT") ) {
             SecurityContextImpl securityContextImpl = (SecurityContextImpl) request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
             List<GrantedAuthority> authorities = (List<GrantedAuthority>) securityContextImpl.getAuthentication().getAuthorities();
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");

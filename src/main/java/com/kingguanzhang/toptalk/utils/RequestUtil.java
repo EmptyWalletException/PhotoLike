@@ -46,15 +46,9 @@ public class RequestUtil {
     //获取请求参数并转化成String类型;
     public static String parserString(HttpServletRequest request, String key){
         try{
-
-
             String result = request.getParameter(key);
-            if (null != result){
-                result = result.trim();
-            }
-            if ("".equals(result)){
+            if (null != result && "".equals(result.trim())){
                 result = null;
-
             }
             return result;
         }catch (Exception e){

@@ -1,19 +1,20 @@
 package com.kingguanzhang.toptalk.component;
 
-import com.kingguanzhang.toptalk.entity.User;
-import com.kingguanzhang.toptalk.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.savedrequest.SavedRequest;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.SavedRequest;
+
+import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.service.UserServiceImpl;
 
 /**
  * 自定义的登录后初始化用户数据并处理一些统计数据的handler,并在登录成功后跳转到登录前被拦截的url;
@@ -32,10 +33,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         Object savedRequestObject = request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST");
         String redirectUrl = "/index";
         User user = new User();
-        if (savedRequestObject != null) {
+        if (null != savedRequestObject ) {
             //处理一下url,去掉前面的http://localhost:8080,然后截取请求url:"/xxxx/xxxxx?xxxx=xxxx"
-            redirectUrl = ((SavedRequest) savedRequestObject).getRedirectUrl();
-            redirectUrl = redirectUrl.substring(redirectUrl.indexOf("/", 8));
+            redirectUrl = ((SavedRequest) savedRequestObject).getRedirectUrl().substring(redirectUrl.indexOf("/", 8));
             request.getSession().removeAttribute("SPRING_SECURITY_SAVED_REQUEST");
         }
         //使用security在session中取出用户信息;

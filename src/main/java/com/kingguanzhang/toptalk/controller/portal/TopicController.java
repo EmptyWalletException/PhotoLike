@@ -84,7 +84,7 @@ public class TopicController {
         /**
          * 限制浏览者只能浏览状态为1的topic,除非浏览者是作者或管理员
          */
-        if(1 == topic.getStatus() || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisTopic(request,topic)){
+        if( topic.getStatus().equals(1) || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisTopic(request,topic)){
             model.addAttribute("topic",topic);
         }else {
             model.addAttribute("errorMsg","很抱歉,您暂时没有权限浏览此稿件...");
@@ -114,7 +114,7 @@ public class TopicController {
          * 请求参数中的commentSort对应的值代表评论排序规则,new代表按最新排序,hot代表按最热排序(点赞数);
          */
         Pageable pageable5 ;
-        if ("new" == commentSort) {
+        if ("new".equals(commentSort)) {
              pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "creat_time"));
         }else {
              pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "praise_number"));
@@ -142,7 +142,7 @@ public class TopicController {
                 }
             }
         }
-        if ("" != praiseCommentIds){
+        if (!"".equals(praiseCommentIds) ){
             praiseCommentIds = praiseCommentIds.substring(0,praiseCommentIds.lastIndexOf(","));
         }
         model.addAttribute("praiseCommentIds",praiseCommentIds);

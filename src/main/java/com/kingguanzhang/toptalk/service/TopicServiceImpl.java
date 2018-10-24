@@ -1,16 +1,16 @@
 package com.kingguanzhang.toptalk.service;
 
-import com.kingguanzhang.toptalk.entity.Topic;
-import com.kingguanzhang.toptalk.repositories.TopicRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.*;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.kingguanzhang.toptalk.entity.Topic;
+import com.kingguanzhang.toptalk.repositories.TopicRepository;
 
 //@CacheConfig(cacheNames = "topic")
 @Service
@@ -169,7 +169,6 @@ public class TopicServiceImpl {
         if (null == list || 0 == list.size()){
             throw new RuntimeException("传入的参数不能为空");
         }
-        Long id=null;
         try {
             topicRepository.saveAll(list);
         }catch (Exception e){

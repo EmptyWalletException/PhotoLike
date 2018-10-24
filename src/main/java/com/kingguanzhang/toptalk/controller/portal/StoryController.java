@@ -1,25 +1,30 @@
 package com.kingguanzhang.toptalk.controller.portal;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kingguanzhang.toptalk.dto.Msg;
-import com.kingguanzhang.toptalk.entity.*;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kingguanzhang.toptalk.entity.Comment;
+import com.kingguanzhang.toptalk.entity.Praise;
+import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.entity.UserFavorite;
 import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.PraiseServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;
 import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
-import com.kingguanzhang.toptalk.utils.ImgUtil;
-import com.kingguanzhang.toptalk.utils.RequestUtil;
 import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @Controller
 public class StoryController {
@@ -61,7 +66,7 @@ public class StoryController {
         Example<Story> example2 = Example.of(hotStory,exampleMatcher2);
         Page<Story> hotStoryPage = storyService.findAllByExample(example2,pageable2);
         model.addAttribute("hotStoryPage",hotStoryPage);
-
+        
         return "portal/story";
     }
 
@@ -102,7 +107,7 @@ public class StoryController {
             /**
              * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
              */
-            if(1 == story.getStatus() || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisStory(request,story)){
+            if(story.getStatus().equals(1) || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisStory(request,story)){
                 model.addAttribute("story",story);
 
             }else {
@@ -117,7 +122,7 @@ public class StoryController {
          * 请求参数中的commentSort对应的值代表评论排序规则,new代表按最新排序,hot代表按最热排序(点赞数);
          */
         Pageable pageable5 ;
-        if ("new" == commentSort) {
+        if ("new".equals(commentSort)) {
             pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "creat_time"));
         }else {
             pageable5 = new PageRequest(pn - 1, 10, new Sort(Sort.Direction.DESC, "praise_number"));
@@ -144,7 +149,7 @@ public class StoryController {
                 }
             }
         }
-        if ("" != praiseCommentIds){
+        if (!"".equals(praiseCommentIds)){
             praiseCommentIds = praiseCommentIds.substring(0,praiseCommentIds.lastIndexOf(","));
         }
         model.addAttribute("praiseCommentIds",praiseCommentIds);

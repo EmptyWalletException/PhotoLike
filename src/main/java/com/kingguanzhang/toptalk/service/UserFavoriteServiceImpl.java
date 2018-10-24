@@ -1,5 +1,14 @@
 package com.kingguanzhang.toptalk.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.kingguanzhang.toptalk.entity.Essay;
 import com.kingguanzhang.toptalk.entity.Story;
 import com.kingguanzhang.toptalk.entity.Topic;
@@ -8,17 +17,6 @@ import com.kingguanzhang.toptalk.repositories.EssayRepository;
 import com.kingguanzhang.toptalk.repositories.StoryRepository;
 import com.kingguanzhang.toptalk.repositories.TopicRepository;
 import com.kingguanzhang.toptalk.repositories.UserFavoriteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 //@CacheConfig(cacheNames = "userfavorite")
 @Service

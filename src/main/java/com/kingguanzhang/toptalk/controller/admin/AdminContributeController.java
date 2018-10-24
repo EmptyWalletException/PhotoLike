@@ -86,7 +86,7 @@ public class AdminContributeController {
             case "topic":
                 Topic topic = topicService.findById(id);
                 //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
-                if ( 4 != topic.getStatus()){
+                if ( !topic.getStatus().equals(4) ){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try {
@@ -98,7 +98,7 @@ public class AdminContributeController {
                 break;
             case "story":
                 Story story = storyService.findById(id);
-                if ( 4 != story.getStatus()){
+                if ( !story.getStatus().equals(4)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -110,7 +110,7 @@ public class AdminContributeController {
                 break;
             case "essay":
                 Essay essay = essayService.findById(id);
-                if ( 4 != essay.getStatus()){
+                if ( !essay.getStatus().equals(4)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -122,7 +122,7 @@ public class AdminContributeController {
                 break;
             case "event":
                 Event event = eventService.findById(id);
-                if ( 4 != event.getStatus()){
+                if ( !event.getStatus().equals(4)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -158,7 +158,7 @@ public class AdminContributeController {
             case "topic":
                 Topic topic = topicService.findById(id);
                 //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
-                if ( 0 != topic.getStatus()){
+                if ( !topic.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try {
@@ -170,7 +170,7 @@ public class AdminContributeController {
                 break;
             case "story":
                 Story story = storyService.findById(id);
-                if ( 0 != story.getStatus()){
+                if ( !story.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -182,7 +182,7 @@ public class AdminContributeController {
                 break;
             case "essay":
                 Essay essay = essayService.findById(id);
-                if ( 0 != essay.getStatus()){
+                if ( !essay.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -194,7 +194,7 @@ public class AdminContributeController {
                 break;
             case "event":
                 Event event = eventService.findById(id);
-                if ( 0 != event.getStatus()){
+                if ( !event.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -230,7 +230,7 @@ public class AdminContributeController {
             case "topic":
                 Topic topic = topicService.findById(id);
                 //判断稿件此时的状态是否合理;
-                if ( 0 != topic.getStatus()){
+                if ( !topic.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try {
@@ -243,8 +243,7 @@ public class AdminContributeController {
                 break;
             case "story":
                 Story story = storyService.findById(id);
-                //判断当前用户想删除的是否是自己的稿件;
-                if ( 0 != story.getStatus()){
+                if ( !story.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -257,7 +256,7 @@ public class AdminContributeController {
                 break;
             case "essay":
                 Essay essay = essayService.findById(id);
-                if ( 0 != essay.getStatus()){
+                if ( !essay.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -270,7 +269,7 @@ public class AdminContributeController {
                 break;
             case "event":
                 Event event = eventService.findById(id);
-                if ( 0 != event.getStatus()){
+                if ( !event.getStatus().equals(0)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -308,7 +307,7 @@ public class AdminContributeController {
             case "topic":
                 Topic topic = topicService.findById(id);
                 //判断稿件此时的状态是否合理;
-                if ( 4 == topic.getStatus()){
+                if ( topic.getStatus().equals(4)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try {
@@ -320,7 +319,7 @@ public class AdminContributeController {
                 break;
             case "story":
                 Story story = storyService.findById(id);
-                if ( 4 == story.getStatus()){
+                if ( story.getStatus().equals(4)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -332,7 +331,7 @@ public class AdminContributeController {
                 break;
             case "essay":
                 Essay essay = essayService.findById(id);
-                if ( 4 == essay.getStatus()){
+                if ( essay.getStatus().equals(4)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -344,7 +343,7 @@ public class AdminContributeController {
                 break;
             case "event":
                 Event event = eventService.findById(id);
-                if ( 4 == event.getStatus()){
+                if ( event.getStatus().equals(4)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -380,7 +379,7 @@ public class AdminContributeController {
             case "topic":
                 Topic topic = topicService.findById(id);
                 //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
-                if ( 2 != topic.getStatus()){
+                if ( !topic.getStatus().equals(2)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try {
@@ -392,7 +391,7 @@ public class AdminContributeController {
                 break;
             case "story":
                 Story story = storyService.findById(id);
-                if ( 2 != story.getStatus()){
+                if ( !story.getStatus().equals(2)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -404,7 +403,7 @@ public class AdminContributeController {
                 break;
             case "essay":
                 Essay essay = essayService.findById(id);
-                if ( 2 != essay.getStatus()){
+                if ( !essay.getStatus().equals(2)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -416,7 +415,7 @@ public class AdminContributeController {
                 break;
             case "event":
                 Event event = eventService.findById(id);
-                if ( 2 != event.getStatus()){
+                if ( !event.getStatus().equals(2)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -452,7 +451,7 @@ public class AdminContributeController {
             case "topic":
                 Topic topic = topicService.findById(id);
                 //判断当前用户想操作的是否是自己的稿件,并且稿件此时的状态是否合理;
-                if ( 1 != topic.getStatus()){
+                if ( !topic.getStatus().equals(1)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try {
@@ -464,7 +463,7 @@ public class AdminContributeController {
                 break;
             case "story":
                 Story story = storyService.findById(id);
-                if ( 1 != story.getStatus()){
+                if ( !story.getStatus().equals(1)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -476,7 +475,7 @@ public class AdminContributeController {
                 break;
             case "essay":
                 Essay essay = essayService.findById(id);
-                if ( 1 != essay.getStatus()){
+                if ( !essay.getStatus().equals(1)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
@@ -488,7 +487,7 @@ public class AdminContributeController {
                 break;
             case "event":
                 Event event = eventService.findById(id);
-                if ( 1 != event.getStatus()){
+                if ( !event.getStatus().equals(1)){
                     return Msg.fail().setMsg("非法的操作!");
                 }
                 try{
