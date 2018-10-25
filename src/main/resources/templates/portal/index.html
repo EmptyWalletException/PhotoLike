@@ -1,231 +1,254 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>PhotoLike</title>
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/index.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>PhotoLike</title>
+<meta name="description" content="#">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/index.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
 
-    <script src="/js/luoo.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
 
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<!-- container start -->
+	<div class="container index-ct" style="min-height: 499px;">
+		<div class="section-vol">
+			<div class="section-head clearfix">
+				<h3>
+					<span class="section-head-label"></span>专辑
+				</h3>
 
-</div>
-<!--/// header end -->
-<!-- container start -->
-<div class="container index-ct" style="min-height: 499px;">
-    <div class="section-vol">
-        <div class="section-head clearfix">
-            <h3><span class="section-head-label"></span>专辑</h3>
+				<div class="fright">
+					<!--只显示5条-->
+					<a href="/topic?category=1" class="tag"
+						th:href="'/topic?category='+${category.id}"
+						th:text="${category.name}+' '" th:if="${categoryStat.index<9}"
+						th:each="category,categoryStat:${categoryList}">风景</a> <a
+						href="/topic?pn=1" class="tag ln-more">更多<span
+						class="icon-more"></span></a>
+				</div>
+			</div>
 
-            <div class="fright">
-                <!--只显示5条-->
-                <a href="/topic?category=1" class="tag" th:href="'/topic?category='+${category.id}"
-                   th:text="${category.name}+' '" th:if="${categoryStat.index<9}"
-                   th:each="category,categoryStat:${categoryList}">风景</a>
+			<div class="section-ct clearfix">
+				<div class="vol-item-lg">
+					<a href="/topic/1374" class="cover-wrapper cover-wrapper-lg"
+						th:href="'/topic/'+${topicList[0].id}"> <!--th:src="'/'+${topicList[0].photos[0].imgAddr}"-->
+						<img src="/js/640x452" alt="关于爱的表达方式" class="cover-lg rounded"
+						th:alt="${topicList[0].title}"
+						th:src="${topicList[0].coverImgAddr}"> <span
+						class="icon-play-lg" style="opacity: 0;"></span>
+						<div class="play-btn-mask" style="opacity: 0;"></div>
+					</a> <a href="/topic/1" class="title"
+						th:href="'/topic/'+${topicList[0].id}"
+						th:text="'Top.'+${topicList[0].id}+${topicList[0].title}">Vol.999
+						关于爱的表达方式</a>
+				</div>
 
-                <a href="/topic?pn=1" class="tag ln-more">更多<span class="icon-more"></span></a>
-            </div>
-        </div>
+				<div class="vol-item">
+					<a href="/topic/1" th:href="'/topic/'+${topicList[1].id}"
+						class="cover-wrapper"> <!--th:src="'/'+${topicList[1].photos[1].imgAddr}"-->
+						<img src="/js/640x452(1)" alt="故事的最后" class="cover rounded"
+						th:alt="${topicList[1].title}"
+						th:src="${topicList[1].coverImgAddr}"> <span
+						class="icon-play"></span>
+						<div class="play-btn-mask"></div>
+					</a> <a class="title" href="/topic/1"
+						th:href="'/topic/'+${topicList[1].id}"
+						th:text="'Top.'+${topicList[1].id}+${topicList[1].title}">vol.990
+						故事的最后</a>
+				</div>
 
-        <div class="section-ct clearfix">
-            <div class="vol-item-lg">
-                <a href="/topic/1374" class="cover-wrapper cover-wrapper-lg" th:href="'/topic/'+${topicList[0].id}">
-                    <!--th:src="'/'+${topicList[0].photos[0].imgAddr}"-->
-                    <img src="/js/640x452" alt="关于爱的表达方式" class="cover-lg rounded" th:alt="${topicList[0].title}"
-                         th:src="${topicList[0].coverImgAddr}">
-                    <span class="icon-play-lg" style="opacity: 0;"></span>
-                    <div class="play-btn-mask" style="opacity: 0;"></div>
-                </a>
-
-                <a href="/topic/1" class="title" th:href="'/topic/'+${topicList[0].id}"
-                   th:text="'Top.'+${topicList[0].id}+${topicList[0].title}">Vol.999 关于爱的表达方式</a>
-            </div>
-
-            <div class="vol-item">
-                <a href="/topic/1" th:href="'/topic/'+${topicList[1].id}"
-                   class="cover-wrapper">
-                    <!--th:src="'/'+${topicList[1].photos[1].imgAddr}"-->
-                    <img src="/js/640x452(1)" alt="故事的最后" class="cover rounded" th:alt="${topicList[1].title}"
-                         th:src="${topicList[1].coverImgAddr}">
-                    <span class="icon-play"></span>
-                    <div class="play-btn-mask"></div>
-                </a>
-
-                <a class="title" href="/topic/1" th:href="'/topic/'+${topicList[1].id}"
-                   th:text="'Top.'+${topicList[1].id}+${topicList[1].title}">vol.990 故事的最后</a>
-            </div>
-
-            <div class="vol-item">
-                <a href="/topic/1" class="cover-wrapper"
-                   th:href="'/topic/'+${topicList[2].id}">
-                    <!--th:src="'/'+${topicList[2].photos[2].imgAddr}"-->
-                    <img src="/js/640x452(2)" alt="美好从未停歇" class="cover rounded" th:alt="${topicList[2].title}"
-                         th:src="${topicList[2].coverImgAddr}">
-                    <span class="icon-play" style="opacity: 0;"></span>
-                    <div class="play-btn-mask" style="opacity: 0;"></div>
-                </a>
-
-                <a class="title" href="/topic/1" th:href="'/topic/'+${topicList[2].id}"
-                   th:text="'Top.'+${topicList[2].id}+${topicList[2].title}">vol.989 美好从未停歇</a>
-            </div>
-        </div>
-    </div>
-    <!--/// section end -->
-
-
-    <div class="section-m clearfix">
-        <div class="section-musician">
-            <div class="section-head clearfix">
-                <h3><span class="section-head-label"></span>精彩推荐</h3>
-            </div>
-            <div class="section-ct">
-                <div class="clearfix">
-                    <img src="/js/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg" alt="徐真真-开心就足够" class="cover rounded"
-                         th:src="${essayList[0].imgAddr}" th:alt="${essayList[0].title}">
-                    <div class="title">
-                        <div class="align-fix">
-                            <div>
-                                <a href="/essay" class="single-name" th:href="'/essay?essayId='+${essayList[0].id}"
-                                   th:text="${essayList[0].title}">开心就足够</a>
-                                <br/>
-                                <a class="artist" th:text="${essayList[0].author.nickname}"
-                                   th:href="'/author/topic?authorId='+${essayList[0].author.id}">徐真真</a>
-                                <p class="pubdate" th:text="${#dates.format(essayList[0].creatTime,'yyyy-MM-dd')}">
-                                    2017-11-29</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="remark">
-                    <span class="quote-before"></span> <span th:text="${essayList[0].content}">人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</span>
-                    <span class="quote-after"></span>
-                </div>
-            </div>
-        </div>
-        <!-- /// section-musician end -->
-
-        <div class="section-essay">
-            <div class="section-head clearfix">
-                <div class="fright">
-                    <a href="/essay" class="tag">随笔</a>
-                    <a href="/story" class="tag">故事</a>
-                    <a href="/story" class="tag ln-more">更多<span class="icon-more"></span></a>
-                </div>
-            </div>
-            <div class="section-ct clearfix">
-
-                <div class="essay-item">
-                    <a href="/story/925" class="cover-wrapper" th:href="'/story/'+${storyList[0].id}">
-                        <!--th:src="'/'+${storyList[0].photos[0].imgAddr}"-->
-                        <img src="/FuM6NJm4JecMPU4ggaXAKjKQM2ab.jpg" alt="人类首张在太空录制的专辑" class="cover rounded"
-                             th:src="${storyList[0].coverImgAddr}" th:alt="${storyList[0].title}">
-                    </a>
-                    <div class="meta rounded">
-                        <p class="title"><a class="ln-title" href="/story/925" title="人类首张在太空录制的专辑"
-                                            th:href="'/story/'+${storyList[0].id}" th:text="${storyList[0].title}">人类首张在太空录制的专辑</a>
-                        </p>
-                        <p class="author"><a href="/user?userId=1057783" class="author"
-                                             th:href="'/author/topic?authorId='+${storyList[0].author.id}"
-                                             th:text="${storyList[0].author.nickname}">李卤味</a></p>
-                    </div>
-                </div>
-
-                <div class="essay-item">
-                    <a href="/story/926" class="cover-wrapper" th:href="'/story/'+${storyList[1].id}">
-                        <!--th:src="'/'+${storyList[1].photos[1].imgAddr}"-->
-                        <img src="/js/Ft3KtUoW1x3JtRIIpwaQXp9AwRLu.jpg" alt="Sugar Man：隐没在城市里的一把声音"
-                             class="cover rounded" th:src="${storyList[1].coverImgAddr}" th:alt="${storyList[1].title}">
-                    </a>
-                    <div class="meta rounded">
-                        <p class="title"><a class="ln-title" href="/story/926" title="Sugar Man：隐没在城市里的一把声音"
-                                            th:href="'/story/'+${storyList[1].id}" th:text="${storyList[1].title}">Sugar
-                            Man：隐没在城市里的一把声音</a></p>
-                        <p class="author"><a href="/user?userId=1057784" class="author"
-                                             th:href="'/author/topic?authorId='+${storyList[1].author.id}"
-                                             th:text="${storyList[1].author.nickname}">LUO</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /// section end -->
-
-    <div class="section-event">
-        <div class="section-head clearfix">
-            <h3><span class="section-head-label"></span>热门活动</h3>
-            <div class="fright">
-                <a href="/event?city=1&pn=1" class="tag" th:href="'/event?city='+${city.id}+'&pn=1'" th:text="${city.name}"
-                   th:if="${cityStat.index<6}" th:each="city,cityStat:${cityList}">北京</a>
-                <a href="/event?pn=1" class="tag ln-more">更多<span class="icon-more"></span></a>
-            </div>
-        </div>
-        <div class="section-ct clearfix" id="eventHolder">
-
-            <div class="event-item" th:each="event,eventStat:${eventList}"
-                 th:class="${eventStat==2||eventStat==5}?'event-item':'event-item margin-right-0'"
-                 th:if="${eventStat.index<6}">
-                <a href="/event/15660" class="cover-wrapper" th:href="'/event/'+${event.id}">
-                    <!--  th:src="'/'+${event.photos[0].imgAddr}"-->
-                    <img src="/img/test/testEventCoverImg.jpg" alt="墨西哥后摇 Childs 中国巡演" class="cover rounded" th:src="${event.coverImgAddr}" th:alt="${event.name}">
-                </a>
-                <div class="info">
-                    <a href="/event/15660" class="title" title="墨西哥后摇 Childs 中国巡演"
-                       th:href="'/event/'+${event.id}" th:title="${event.name}" th:text="${event.name}">墨西哥后摇 Childs
-                        中国巡演</a>
-                    <p class="meta" th:text="'时间：'+${#dates.format(event.time,'yyyy-MM-dd')}">时间：2018-06-03</p>
-                    <p class="meta" th:text="'地点：'+${event.city.name}">地点：上海</p>
-                    <p class="meta" th:text="'场所：'+${event.location}">场所：万代南梦宫上海文化中心未来剧场</p>
-                    <p class="meta" th:text="'费用：'+${event.money}">费用：180元 - 220元</p>
-                </div>
-            </div>
+				<div class="vol-item">
+					<a href="/topic/1" class="cover-wrapper"
+						th:href="'/topic/'+${topicList[2].id}"> <!--th:src="'/'+${topicList[2].photos[2].imgAddr}"-->
+						<img src="/js/640x452(2)" alt="美好从未停歇" class="cover rounded"
+						th:alt="${topicList[2].title}"
+						th:src="${topicList[2].coverImgAddr}"> <span
+						class="icon-play" style="opacity: 0;"></span>
+						<div class="play-btn-mask" style="opacity: 0;"></div>
+					</a> <a class="title" href="/topic/1"
+						th:href="'/topic/'+${topicList[2].id}"
+						th:text="'Top.'+${topicList[2].id}+${topicList[2].title}">vol.989
+						美好从未停歇</a>
+				</div>
+			</div>
+		</div>
+		<!--/// section end -->
 
 
-        </div>
-    </div>
+		<div class="section-m clearfix">
+			<div class="section-musician">
+				<div class="section-head clearfix">
+					<h3>
+						<span class="section-head-label"></span>精彩推荐
+					</h3>
+				</div>
+				<div class="section-ct">
+					<div class="clearfix">
+						<img src="/js/FuF4beQlreAyLZqtbRZ5LVEaR11p.jpg" alt="徐真真-开心就足够"
+							class="cover rounded" th:src="${essayList[0].imgAddr}"
+							th:alt="${essayList[0].title}">
+						<div class="title">
+							<div class="align-fix">
+								<div>
+									<a href="/essay" class="single-name"
+										th:href="'/essay?essayId='+${essayList[0].id}"
+										th:text="${essayList[0].title}">开心就足够</a> <br /> <a
+										class="artist" th:text="${essayList[0].author.nickname}"
+										th:href="'/author/topic?authorId='+${essayList[0].author.id}">徐真真</a>
+									<p class="pubdate"
+										th:text="${#dates.format(essayList[0].creatTime,'yyyy-MM-dd')}">
+										2017-11-29</p>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="remark">
+						<span class="quote-before"></span> <span
+							th:text="${essayList[0].content}">人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</span>
+						<span class="quote-after"></span>
+					</div>
+				</div>
+			</div>
+			<!-- /// section-musician end -->
+
+			<div class="section-essay">
+				<div class="section-head clearfix">
+					<div class="fright">
+						<a href="/essay" class="tag">随笔</a> <a href="/story" class="tag">故事</a>
+						<a href="/story" class="tag ln-more">更多<span class="icon-more"></span></a>
+					</div>
+				</div>
+				<div class="section-ct clearfix">
+
+					<div class="essay-item">
+						<a href="/story/925" class="cover-wrapper"
+							th:href="'/story/'+${storyList[0].id}"> <!--th:src="'/'+${storyList[0].photos[0].imgAddr}"-->
+							<img src="/FuM6NJm4JecMPU4ggaXAKjKQM2ab.jpg" alt="人类首张在太空录制的专辑"
+							class="cover rounded" th:src="${storyList[0].coverImgAddr}"
+							th:alt="${storyList[0].title}">
+						</a>
+						<div class="meta rounded">
+							<p class="title">
+								<a class="ln-title" href="/story/925" title="人类首张在太空录制的专辑"
+									th:href="'/story/'+${storyList[0].id}"
+									th:text="${storyList[0].title}">人类首张在太空录制的专辑</a>
+							</p>
+							<p class="author">
+								<a href="/user?userId=1057783" class="author"
+									th:href="'/author/topic?authorId='+${storyList[0].author.id}"
+									th:text="${storyList[0].author.nickname}">李卤味</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="essay-item">
+						<a href="/story/926" class="cover-wrapper"
+							th:href="'/story/'+${storyList[1].id}"> <!--th:src="'/'+${storyList[1].photos[1].imgAddr}"-->
+							<img src="/js/Ft3KtUoW1x3JtRIIpwaQXp9AwRLu.jpg"
+							alt="Sugar Man：隐没在城市里的一把声音" class="cover rounded"
+							th:src="${storyList[1].coverImgAddr}"
+							th:alt="${storyList[1].title}">
+						</a>
+						<div class="meta rounded">
+							<p class="title">
+								<a class="ln-title" href="/story/926"
+									title="Sugar Man：隐没在城市里的一把声音"
+									th:href="'/story/'+${storyList[1].id}"
+									th:text="${storyList[1].title}">Sugar Man：隐没在城市里的一把声音</a>
+							</p>
+							<p class="author">
+								<a href="/user?userId=1057784" class="author"
+									th:href="'/author/topic?authorId='+${storyList[1].author.id}"
+									th:text="${storyList[1].author.nickname}">LUO</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /// section end -->
+
+		<div class="section-event">
+			<div class="section-head clearfix">
+				<h3>
+					<span class="section-head-label"></span>热门活动
+				</h3>
+				<div class="fright">
+					<a href="/event?city=1&pn=1" class="tag"
+						th:href="'/event?city='+${city.id}+'&pn=1'" th:text="${city.name}"
+						th:if="${cityStat.index<6}" th:each="city,cityStat:${cityList}">北京</a>
+					<a href="/event?pn=1" class="tag ln-more">更多<span
+						class="icon-more"></span></a>
+				</div>
+			</div>
+			<div class="section-ct clearfix" id="eventHolder">
+
+				<div class="event-item" th:each="event,eventStat:${eventList}"
+					th:class="${eventStat==2||eventStat==5}?'event-item':'event-item margin-right-0'"
+					th:if="${eventStat.index<6}">
+					<a href="/event/15660" class="cover-wrapper"
+						th:href="'/event/'+${event.id}"> <!--  th:src="'/'+${event.photos[0].imgAddr}"-->
+						<img src="/img/test/testEventCoverImg.jpg" alt="墨西哥后摇 Childs 中国巡演"
+						class="cover rounded" th:src="${event.coverImgAddr}"
+						th:alt="${event.name}">
+					</a>
+					<div class="info">
+						<a href="/event/15660" class="title" title="墨西哥后摇 Childs 中国巡演"
+							th:href="'/event/'+${event.id}" th:title="${event.name}"
+							th:text="${event.name}">墨西哥后摇 Childs 中国巡演</a>
+						<p class="meta"
+							th:text="'时间：'+${#dates.format(event.time,'yyyy-MM-dd')}">时间：2018-06-03</p>
+						<p class="meta" th:text="'地点：'+${event.city.name}">地点：上海</p>
+						<p class="meta" th:text="'场所：'+${event.location}">场所：万代南梦宫上海文化中心未来剧场</p>
+						<p class="meta" th:text="'费用：'+${event.money}">费用：180元 - 220元</p>
+					</div>
+				</div>
 
 
-</div>
-<!--/// container end -->
-<input type="hidden" id="txtCityId" value="100819">
-<script src="/js/jquery.flexslider-min.js"></script>
-<script src="/js/index.js"></script>
-
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
-
-</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-</div>
-
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
+			</div>
+		</div>
 
 
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<!--<script src="/js/qrcode.min.js"></script>-->
-<!--[if lt IE 9]>
+	</div>
+	<!--/// container end -->
+	<input type="hidden" id="txtCityId" value="100819">
+	<script src="/js/jquery.flexslider-min.js"></script>
+	<script src="/js/index.js"></script>
+
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
+
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
+
+
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<!--<script src="/js/qrcode.min.js"></script>-->
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {

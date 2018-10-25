@@ -1,439 +1,548 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title th:text="${topic.title}">topic title</title>
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/vol.css">
-    <link rel="stylesheet" type="text/css" href="/css/modal.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <link rel="stylesheet" href="/ft-carousel/css/ft-carousel.css" />
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="/js/myComment.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title th:text="${topic.title}">topic title</title>
+<meta name="description" content="#">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/vol.css">
+<link rel="stylesheet" type="text/css" href="/css/modal.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<link rel="stylesheet" href="/ft-carousel/css/ft-carousel.css" />
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/myComment.js"></script>
 
-    <script src="/js/luoo.js"></script>
+<script src="/js/luoo.js"></script>
 
 
 
-    <style>
-        .example {width: 960px;height: 540px;font-size: 10px;text-align: center;margin: 5px auto;background-color: #f8f8f8;}
-        .carousel-item{line-height: 540px;color: #fff;font-family:  Arial Black}
-    </style>
+<style>
+.example {
+	width: 960px;
+	height: 540px;
+	font-size: 10px;
+	text-align: center;
+	margin: 5px auto;
+	background-color: #f8f8f8;
+}
+
+.carousel-item {
+	line-height: 540px;
+	color: #fff;
+	font-family: Arial Black
+}
+</style>
 </head>
-<body  >
+<body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
 
-</div>
-<!--/// header end -->
-
-<div class="container ct-sm" style="min-height: 499px;width: 960px">
-    <div class="vol-tags clearfix">
-        <a href="/topic" class="nav-back">
-            <i class="icon-back"></i>
-            返回专辑首页
-        </a>
-        <!--管理员修改分类的操作-->
-        <a  sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:;" rel="nofollow" class="btn-editCategory-contribution unfav vol-tag-item" topicId="1373" th:attr="topicId=${topic.id},categoryId=${topic.category.id},categoryName=${topic.category.name}" >
-            <i class="icon icon-report"></i>
-            修改分类
-        </a>
-        <!--显示分类-->
-        <a href="/topic?category=1?pn=1" target="_blank" class="vol-tag-item" th:href="'/topic?category='+${topic.category.id}" th:text="'#'+${topic.category.name}" >#流行</a>
-     </div>
-    <!-- 用于修改分类的模态框 -->
-    <div id="topicCategoryModal" class="modal" >
-        <div class="modal-content" style="width: 250px">
-            <div class="modal-header" >
-                <h1>修改所属分类:</h1>
-                <span id="closeTopicBtn" class="close">×</span>
-            </div>
-            <div class="modal-body">
-                <div class="hovertreecontainer" >
-                    <div style="width: 250px;">
-                        <br/>
-                        <p style="padding-left: 20px">
-                            当前所属分类:<span id="categoryNameText"   style="width: 100px;" ></span>
-                        </p>
-                        <br/>
-                        <p style="padding-left: 20px">
-                            设置新的分类:<select  id="categorySelect" >
-                                            <option class="categoryOption" th:each="category:${categoryPage}" th:value="${category.id}" th:text="' '+${category.name}+' '"  th:selected="${category.id == topic.category.id}">分类1</option>
-                                        </select>
-                        <p>
-                            <br/>
-                        <p style="padding-left: 20px" id="btnGroup-edit-topicCategory">
-                            <button class="btn btn-positive btn-cancel-topicCategory rounded">取消</button>&nbsp;
-                            <button class="btn btn-positive btn-edit-topicCategory rounded">保存修改</button>&nbsp;
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class="vol-name">
-        <span class="vol-number rounded" th:text="${topic.id}" >222</span>
-        <span class="vol-title" th:text="${topic.title}">专辑标题</span>
-    </h1>
-   <!-- <div class="vol-cover-wrapper" id="volCoverWrapper">//封面图展示,为了板式清爽所以注释掉
+	<div class="container ct-sm" style="min-height: 499px; width: 960px">
+		<div class="vol-tags clearfix">
+			<a href="/topic" class="nav-back"> <i class="icon-back"></i>
+				返回专辑首页
+			</a>
+			<!--管理员修改分类的操作-->
+			<a sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:;"
+				rel="nofollow"
+				class="btn-editCategory-contribution unfav vol-tag-item"
+				topicId="1373"
+				th:attr="topicId=${topic.id},categoryId=${topic.category.id},categoryName=${topic.category.name}">
+				<i class="icon icon-report"></i> 修改分类
+			</a>
+			<!--显示分类-->
+			<a href="/topic?category=1?pn=1" target="_blank" class="vol-tag-item"
+				th:href="'/topic?category='+${topic.category.id}"
+				th:text="'#'+${topic.category.name}">#流行</a>
+		</div>
+		<!-- 用于修改分类的模态框 -->
+		<div id="topicCategoryModal" class="modal">
+			<div class="modal-content" style="width: 250px">
+				<div class="modal-header">
+					<h1>修改所属分类:</h1>
+					<span id="closeTopicBtn" class="close">×</span>
+				</div>
+				<div class="modal-body">
+					<div class="hovertreecontainer">
+						<div style="width: 250px;">
+							<br />
+							<p style="padding-left: 20px">
+								当前所属分类:<span id="categoryNameText" style="width: 100px;"></span>
+							</p>
+							<br />
+							<p style="padding-left: 20px">
+								设置新的分类:<select id="categorySelect">
+									<option class="categoryOption"
+										th:each="category:${categoryPage}" th:value="${category.id}"
+										th:text="' '+${category.name}+' '"
+										th:selected="${category.id == topic.category.id}">分类1</option>
+								</select>
+							<p>
+								<br />
+							<p style="padding-left: 20px" id="btnGroup-edit-topicCategory">
+								<button
+									class="btn btn-positive btn-cancel-topicCategory rounded">取消</button>
+								&nbsp;
+								<button class="btn btn-positive btn-edit-topicCategory rounded">保存修改</button>
+								&nbsp;
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<h1 class="vol-name">
+			<span class="vol-number rounded" th:text="${topic.id}">222</span> <span
+				class="vol-title" th:text="${topic.title}">专辑标题</span>
+		</h1>
+		<!-- <div class="vol-cover-wrapper" id="volCoverWrapper">//封面图展示,为了板式清爽所以注释掉
         <img src="/js/640x452" alt="专辑标题" class="vol-cover" style="width: 960px;max-height: 540px;" th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
         &lt;!&ndash;<a href="/topic/982" class="nav-prev" title="后一期" th:href="'/topic/'+${topic.id +1}">&nbsp;</a><a
             href="/topic/975" class="nav-next" title="前一期" th:href="'/topic/'+${topic.id -1}">&nbsp;</a>&ndash;&gt;
     </div>-->
 
-    <div class="vol-desc" >
-        <hr/>
-        <div th:utext="${topic.content}">
-        正文区域
-        </div>
-         <br/>
-        <div class="example">
-            <div class="ft-carousel" id="carousel_1">
-                <ul class="carousel-inner" style="padding-left: 0px">
-                    <li class="carousel-item"  th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${topic.imgAddrList != null}"><a th:href="${imgAddr}"><img src="/img/test/testTopicCarousel.jpg" th:src="${imgAddr}"  /></a></li>
-                    <li class="carousel-item"  th:if="${topic.imgAddrList == null}" ><img src="/img/test/testTopicCarousel.jpg"   /></li>
-                </ul>
-            </div>
-        </div>
-        <br/>
+		<div class="vol-desc">
+			<hr />
+			<div th:utext="${topic.content}">正文区域</div>
+			<br />
+			<div class="example">
+				<div class="ft-carousel" id="carousel_1">
+					<ul class="carousel-inner" style="padding-left: 0px">
+						<li class="carousel-item"
+							th:each="imgAddr,imgAddrStat:${topic.imgAddrList}"
+							th:if="${topic.imgAddrList != null}"><a th:href="${imgAddr}"><img
+								src="/img/test/testTopicCarousel.jpg" th:src="${imgAddr}" /></a></li>
+						<li class="carousel-item" th:if="${topic.imgAddrList == null}"><img
+							src="/img/test/testTopicCarousel.jpg" /></li>
+					</ul>
+				</div>
+			</div>
+			<br />
 
-        <!--下载 区域-->
-        <div class="thanks-block">
-            <p class="thanks-tips">点击按钮下载本专辑所有图片</p>
-            <div class="tanks-logo rounded"  data-tipid="thanksDialog" data-width="235" >
-                <a th:href="${topic.zipAddr}" download="专辑名.zip" th:attr="download=${topic.title}+'.zip'">下载</a>
-            </div>
+			<!--下载 区域-->
+			<div class="thanks-block">
+				<p class="thanks-tips">点击按钮下载本专辑所有图片</p>
+				<div class="tanks-logo rounded" data-tipid="thanksDialog"
+					data-width="235">
+					<a th:href="${topic.zipAddr}" download="专辑名.zip"
+						th:attr="download=${topic.title}+'.zip'">下载</a>
+				</div>
 
 
-        </div>
-        <!--<hr/>
+			</div>
+			<!--<hr/>
         <img th:src="${imgAddr}" th:each="imgAddr,imgAddrStat:${topic.imgAddrList}" th:if="${imgAddrStat.size >0}"/>-->
-    </div>
-    <div class="clearfix vol-meta">
-        <img src="/js/128x128" alt="落在低处" class="author-avatar rounded" th:src="${topic.author.imgAddr}"  th:alt="${topic.author.nickname}">
-        <a class="vol-author" href="#" target="_blank" th:text="${topic.author.nickname}" th:href="'/author/topic?authorId='+${topic.author.id}">作者昵称</a>
-        <span class="separator fleft">・</span>
-        <span class="vol-date" th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}">2017-03-14</span>
-        <!--判断是否已经收藏,显示不同的按钮-->
-        <a href="javascript:;" class="btn-like icon-fav" plate="topic.111"  title="收藏" th:attr="plate='topic.'+${topic.id}" th:if="${false == favStatus}"></a>
-        <a href="javascript:;" class="btn-unlike icon-faved" plate="topic.111"  title="取消收藏" th:attr="plate='topic.'+${topic.id}" th:if="${true == favStatus}"></a>
+		</div>
+		<div class="clearfix vol-meta">
+			<img src="/js/128x128" alt="落在低处" class="author-avatar rounded"
+				th:src="${topic.author.imgAddr}" th:alt="${topic.author.nickname}">
+			<a class="vol-author" href="#" target="_blank"
+				th:text="${topic.author.nickname}"
+				th:href="'/author/topic?authorId='+${topic.author.id}">作者昵称</a> <span
+				class="separator fleft">・</span> <span class="vol-date"
+				th:text="${#dates.format(topic.creatTime,'yyyy-MM-dd')}">2017-03-14</span>
+			<!--判断是否已经收藏,显示不同的按钮-->
+			<a href="javascript:;" class="btn-like icon-fav" plate="topic.111"
+				title="收藏" th:attr="plate='topic.'+${topic.id}"
+				th:if="${false == favStatus}"></a> <a href="javascript:;"
+				class="btn-unlike icon-faved" plate="topic.111" title="取消收藏"
+				th:attr="plate='topic.'+${topic.id}" th:if="${true == favStatus}"></a>
 
-        <a href="javascript:;"   class="icon-share btn-action-share" data-app="vol" data-id="977"
-        data-text="分享一期来自图漾的壁纸专辑"  data-img="#"  rel="nofollow">
-         </a>
-        <!--管理员操作区域-->
-        <div class="op-bar" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
-            <span class="vol-date" th:text="'稿件信息及管理员操作: 作者id='+${topic.author.id}+',稿件id='+${topic.id}+',稿件状态='"></span>
-            <span class="vol-date" th:if="${topic.status == 0}" >审核中</span>
-            <span class="vol-date" th:if="${topic.status == 1}" >展示中</span>
-            <span class="vol-date" th:if="${topic.status == 2}" >隐藏中</span>
-            <span class="vol-date" th:if="${topic.status == 3}" >已退回</span>
-            <span class="vol-date" th:if="${topic.status == 4}" >已废弃</span>
-            <span class="vol-date" >&nbsp;|&nbsp;</span>
+			<a href="javascript:;" class="icon-share btn-action-share"
+				data-app="vol" data-id="977" data-text="分享一期来自图漾的壁纸专辑" data-img="#"
+				rel="nofollow"> </a>
+			<!--管理员操作区域-->
+			<div class="op-bar" style="float: right"
+				sec:authorize="hasRole('ROLE_ADMIN')">
+				<span class="vol-date"
+					th:text="'稿件信息及管理员操作: 作者id='+${topic.author.id}+',稿件id='+${topic.id}+',稿件状态='"></span>
+				<span class="vol-date" th:if="${topic.status == 0}">审核中</span> <span
+					class="vol-date" th:if="${topic.status == 1}">展示中</span> <span
+					class="vol-date" th:if="${topic.status == 2}">隐藏中</span> <span
+					class="vol-date" th:if="${topic.status == 3}">已退回</span> <span
+					class="vol-date" th:if="${topic.status == 4}">已废弃</span> <span
+					class="vol-date">&nbsp;|&nbsp;</span>
 
-            <!--当状态为4时(已经处于回收站中)或0时(审核中)不显示此按钮-->
-            <a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:unless="${topic.status == 4 || topic.status == 0}   ">
-                <i class="icon icon-trash"></i>
-                废弃
-            </a>
-            <!--将当前稿件审核通过-->
-            <a href="javascript:;" rel="nofollow" class="btn-pass-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 0}">
-                <i class="icon icon-share"></i>
-                通过
-            </a>
-            <a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 1}">
-                <i class="icon icon-report"></i>
-                隐藏
-            </a>
-            <a href="javascript:;" rel="nofollow" class="btn-show-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 2}">
-                <i class="icon icon-reply"></i>
-                展示
-            </a>
-            <!--当处于投稿被退回状态时显示此按钮,点击显示管理员留言-->
-            <a href="javascript:;" rel="nofollow" class="btn-info-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 3}">
-                <i class="icon icon-info"></i>
-                <input type="hidden" th:attr="info=${topic.info}">
-                信息
-            </a>
-            <!--回收站的稿件显示此按钮,点击后恢复此稿件; -->
-            <a href="javascript:;" rel="nofollow" class="btn-recover-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 4}">
-                <i class="icon icon-reply"></i>
-                恢复
-            </a>
-            <!--彻底删除稿件-->
-            <a href="javascript:;" rel="nofollow" class="btn-realDelete-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 4}">
-                <i class="icon icon-report"></i>
-                抹除
-            </a>
-            <a href="javascript:;" rel="nofollow" class="btn-sendBack-contribution unfav" plate="topic.1373" th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 0}">
-                <i class="icon icon-reply"></i>
-                退稿
-            </a>
+				<!--当状态为4时(已经处于回收站中)或0时(审核中)不显示此按钮-->
+				<a href="javascript:;" rel="nofollow"
+					class="btn-delete-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}"
+					th:unless="${topic.status == 4 || topic.status == 0}   "> <i
+					class="icon icon-trash"></i> 废弃
+				</a>
+				<!--将当前稿件审核通过-->
+				<a href="javascript:;" rel="nofollow"
+					class="btn-pass-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 0}">
+					<i class="icon icon-share"></i> 通过
+				</a> <a href="javascript:;" rel="nofollow"
+					class="btn-hide-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 1}">
+					<i class="icon icon-report"></i> 隐藏
+				</a> <a href="javascript:;" rel="nofollow"
+					class="btn-show-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 2}">
+					<i class="icon icon-reply"></i> 展示
+				</a>
+				<!--当处于投稿被退回状态时显示此按钮,点击显示管理员留言-->
+				<a href="javascript:;" rel="nofollow"
+					class="btn-info-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 3}">
+					<i class="icon icon-info"></i> <input type="hidden"
+					th:attr="info=${topic.info}"> 信息
+				</a>
+				<!--回收站的稿件显示此按钮,点击后恢复此稿件; -->
+				<a href="javascript:;" rel="nofollow"
+					class="btn-recover-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 4}">
+					<i class="icon icon-reply"></i> 恢复
+				</a>
+				<!--彻底删除稿件-->
+				<a href="javascript:;" rel="nofollow"
+					class="btn-realDelete-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 4}">
+					<i class="icon icon-report"></i> 抹除
+				</a> <a href="javascript:;" rel="nofollow"
+					class="btn-sendBack-contribution unfav" plate="topic.1373"
+					th:attr="plate='topic.'+${topic.id}" th:if="${topic.status == 0}">
+					<i class="icon icon-reply"></i> 退稿
+				</a>
 
-            <!--<a href="javascript:;" rel="nofollow" class="share btn-action-" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
+				<!--<a href="javascript:;" rel="nofollow" class="share btn-action-" data-app="vol" data-id="990" data-text="分享一期来自落网的音乐【vol.990 故事的最后】（分享自@落网）" data-img="http://img-cdn2.luoo.net/pics/vol/5b1401328623d.jpg!/fwfh/640x452">
                 <i class="icon icon-share"></i>
                 分享
             </a>-->
-        </div>
+			</div>
 
-        <!-- 用于输入退稿理由的模态框 -->
-        <div id="myModal" class="modal" >
-            <div class="modal-content" style="width: 500px">
-                <div class="modal-header" >
-                    <h1>填写退稿理由</h1>
-                    <span id="closeBtn" class="close">×</span>
+			<!-- 用于输入退稿理由的模态框 -->
+			<div id="myModal" class="modal">
+				<div class="modal-content" style="width: 500px">
+					<div class="modal-header">
+						<h1>填写退稿理由</h1>
+						<span id="closeBtn" class="close">×</span>
 
-                </div>
-                <div class="modal-body">
-                    <div class="hovertreecontainer">
-                        <div style="width: 495px;">
-                            <br/>
-                            <textarea id="sendBackTextarea" name="content"  style="width: 495px;height: 100px;" ></textarea>
-                            <div style="width: 495px;">
-                                <p>快捷填充:</p>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容低俗; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容错误较多; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容格式错乱; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合板块特色; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合分类; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 包含敏感内容; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容与其它稿件重复; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 消耗过多储存空间; </button>
-                                <button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 稿件附件缺失; </button>
-                            </div>
-                            <button class="btn btn-positive  rounded" id="cancel" >取消</button>
-                            <button class="btn btn-positive  rounded" id="sendBack" style="float: right" >确认退稿</button>
-                        </div>
-                    </div>
-                </div>
-                <!--<div class="modal-footer">
+					</div>
+					<div class="modal-body">
+						<div class="hovertreecontainer">
+							<div style="width: 495px;">
+								<br />
+								<textarea id="sendBackTextarea" name="content"
+									style="width: 495px; height: 100px;"></textarea>
+								<div style="width: 495px;">
+									<p>快捷填充:</p>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">内容低俗;</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">内容错误较多;</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">内容格式错乱;</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">不符合板块特色;</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">不符合分类;</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">包含敏感内容;</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">
+										内容与其它稿件重复;</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">消耗过多储存空间;
+									</button>
+									<button class="btn btn-positive autoStuff rounded"
+										style="background: white; color: #7d7d7d">稿件附件缺失;</button>
+								</div>
+								<button class="btn btn-positive  rounded" id="cancel">取消</button>
+								<button class="btn btn-positive  rounded" id="sendBack"
+									style="float: right">确认退稿</button>
+							</div>
+						</div>
+					</div>
+					<!--<div class="modal-footer">
                     <h3>尾部</h3>
                 </div>-->
-            </div>
-        </div>
+				</div>
+			</div>
 
-    </div>
-
-
+		</div>
 
 
-    <!-- relative vol -->
-    <div class="relative-vol">
-        <h3>最热期刊</h3>
-        <div class="clearfix">
-            <div class="item" th:each="topic,topicStat:${hotTopicPage}" th:if="${topicStat.index}<4">
-                <a href="http://www.luoo.net/vol/index/89" class="cover-wrapper" th:href="'/topic/'+${topic.id}">
 
-                    <img src="/js/160x120" alt="光的深处" class="cover rounded" th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
-                </a>
-                <div class="vol-info">
-                    <a href="http://www.luoo.net/vol/index/89" title="光的深处" class="title"
-                       th:href="'/topic/'+${topic.id}" th:title="${topic.title}"
-                       th:text="'Top.'+${topic.id}+${topic.title}">vol.395 光的深处</a>
-                    <p class="description" th:text="${topic.collectNumber}+'人收藏'">1111收藏</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--// relative vol end-->
 
-    <!--// comment-wrapper begin-->
-    <div class="comment-wrapper" id="comment">
-        <h3 class="volcount">评论·
-            <small id="volcount" th:text="${topic.commentNumber}">0</small>
-        </h3>
+		<!-- relative vol -->
+		<div class="relative-vol">
+			<h3>最热期刊</h3>
+			<div class="clearfix">
+				<div class="item" th:each="topic,topicStat:${hotTopicPage}"
+					th:if="${topicStat.index}<4">
+					<a href="http://www.luoo.net/vol/index/89" class="cover-wrapper"
+						th:href="'/topic/'+${topic.id}"> <img src="/js/160x120"
+						alt="光的深处" class="cover rounded" th:alt="${topic.title}"
+						th:src="${topic.coverImgAddr}">
+					</a>
+					<div class="vol-info">
+						<a href="http://www.luoo.net/vol/index/89" title="光的深处"
+							class="title" th:href="'/topic/'+${topic.id}"
+							th:title="${topic.title}"
+							th:text="'Top.'+${topic.id}+${topic.title}">vol.395 光的深处</a>
+						<p class="description" th:text="${topic.collectNumber}+'人收藏'">1111收藏</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--// relative vol end-->
 
-        <div class="comment-editor">
-            <a href="javascript:;" class="avatar-wrapper" id="commentAvatarHolder" rel="nofollow">
-                <img src="/img/avatar.gif" alt="" class="avatar rounded" th:if="${null == session.user}">
-                <img src="/img/avatar.gif" alt="" class="avatar rounded" th:if="${null != session.user}" th:src="${session.user.imgAddr}" th:alt="${session.user.nickname}">
-            </a>
-            <div class="editor-wrapper">
-                <div  >
-                    <div class="editor rounded">
-                        <textarea name="content" spellcheck="false" id="commentEditor" autocomplete="off"></textarea>
-                    </div>
+		<!--// comment-wrapper begin-->
+		<div class="comment-wrapper" id="comment">
+			<h3 class="volcount">
+				评论· <small id="volcount" th:text="${topic.commentNumber}">0</small>
+			</h3>
 
-                    <div class="toolbar rounded clearfix">
-                        <div class="sns-sync">
-                            同步到
-                            <a href="#" rel="nofollow"
-                               class="sns-item btn-action-comment-sync">
-                                <span class="icon-share-weibo"></span>
-                                <input type="hidden" name="sync[weibo]" value="0" class="input-comment-sync">
-                            </a>
-                            <a href="#" rel="nofollow"
-                               class="sns-item btn-action-comment-sync">
-                                <span class="icon-share-douban"></span>
-                                <input type="hidden" name="sync[douban]" value="0" class="input-comment-sync">
-                            </a>
-                            <a href="#" rel="nofollow"
-                               class="sns-item btn-action-comment-sync">
-                                <span class="icon-tweibo"></span>
-                                <input type="hidden" name="sync[tweibo]" value="0" class="input-comment-sync">
-                            </a>
-                        </div>
-                        <button class="btn btn-positive  rounded" id="commentAdd"
+			<div class="comment-editor">
+				<a href="javascript:;" class="avatar-wrapper"
+					id="commentAvatarHolder" rel="nofollow"> <img
+					src="/img/avatar.gif" alt="" class="avatar rounded"
+					th:if="${null == session.user}"> <img src="/img/avatar.gif"
+					alt="" class="avatar rounded" th:if="${null != session.user}"
+					th:src="${session.user.imgAddr}" th:alt="${session.user.nickname}">
+				</a>
+				<div class="editor-wrapper">
+					<div>
+						<div class="editor rounded">
+							<textarea name="content" spellcheck="false" id="commentEditor"
+								autocomplete="off"></textarea>
+						</div>
 
-                                data-width="235" sec:authorize="isAuthenticated()">发布
-                        </button>
-                        <button class="btn btn-positive btn-not-ready rounded" id="commentAdd"
+						<div class="toolbar rounded clearfix">
+							<div class="sns-sync">
+								同步到 <a href="#" rel="nofollow"
+									class="sns-item btn-action-comment-sync"> <span
+									class="icon-share-weibo"></span> <input type="hidden"
+									name="sync[weibo]" value="0" class="input-comment-sync">
+								</a> <a href="#" rel="nofollow"
+									class="sns-item btn-action-comment-sync"> <span
+									class="icon-share-douban"></span> <input type="hidden"
+									name="sync[douban]" value="0" class="input-comment-sync">
+								</a> <a href="#" rel="nofollow"
+									class="sns-item btn-action-comment-sync"> <span
+									class="icon-tweibo"></span> <input type="hidden"
+									name="sync[tweibo]" value="0" class="input-comment-sync">
+								</a>
+							</div>
+							<button class="btn btn-positive  rounded" id="commentAdd"
+								data-width="235" sec:authorize="isAuthenticated()">发布</button>
+							<button class="btn btn-positive btn-not-ready rounded"
+								id="commentAdd" data-width="235" disabled
+								sec:authorize="isAnonymous()">请先登录</button>
+						</div>
 
-                                data-width="235" disabled sec:authorize="isAnonymous()">请先登录
-                        </button>
-                    </div>
+						<!--用于判断是需要将专辑还是故事的评论数+1,模式'板块名.id',例如'topic.1'-->
+						<input type="hidden" id="plateAndId" name="plateAndId"
+							value="topic.1" th:value="'topic.'+${topic.id}"> <input
+							type="hidden" name="res_id" value="977">
+					</div>
+				</div>
+				<!-- editor-wrapper end-->
+			</div>
+			<!-- comment-editor end -->
 
-                    <!--用于判断是需要将专辑还是故事的评论数+1,模式'板块名.id',例如'topic.1'-->
-                    <input type="hidden" id="plateAndId" name="plateAndId"   value="topic.1" th:value="'topic.'+${topic.id}">
-                    <input type="hidden" name="res_id" value="977">
-                </div>
-            </div>
-            <!-- editor-wrapper end-->
-        </div>
-        <!-- comment-editor end -->
+			<div class="comment-sort">
+				<a class="curt-sort" id="commentSort" href="javascript:;"> <span
+					id="commentSortText" th:if="'new'==${commentSort}">最新评论</span> <span
+					id="commentSortText" th:unless="'new'==${commentSort}">热门评论</span>
+					<span class="icon-sort-menu">▼</span> <span class="comment-count"
+					id="commentCount"></span>
+				</a>
+				<div class="sort-menu" id="commentSortMenu">
+					<a class="comment-sort-item" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn=1&commentSort=new'">最新评论</a> <a
+						class="comment-sort-item" href="javascript:;"
+						th:href="'/topic/'+${topic.id}+'?pn=1&commentSort=hot'">热门评论</a>
+				</div>
+			</div>
 
-        <div class="comment-sort">
-            <a class="curt-sort" id="commentSort" href="javascript:;">
-                <span id="commentSortText" th:if="'new'==${commentSort}">最新评论</span>
-                <span id="commentSortText" th:unless="'new'==${commentSort}">热门评论</span>
-                <span class="icon-sort-menu">▼</span>
-                <span class="comment-count" id="commentCount"></span>
-            </a>
-            <div class="sort-menu" id="commentSortMenu">
-                <a class="comment-sort-item" href="#"
-                    th:href="'/topic/'+${topic.id}+'?pn=1&commentSort=new'">最新评论</a>
-                <a class="comment-sort-item" href="javascript:;"
-                   th:href="'/topic/'+${topic.id}+'?pn=1&commentSort=hot'">热门评论</a>
-            </div>
-        </div>
+			<div class="comment-list" id="commentList">
 
-        <div class="comment-list" id="commentList">
+				<div id="commentItems">
+					<div
+						th:if="${null == commentPage || 0 == commentPage.content.size()}">
+						<p>暂时还没有评论,快来抢楼吧!</p>
 
-            <div id="commentItems">
-                <div th:if="${null == commentPage || 0 == commentPage.content.size()}">
-                    <p>
-                        暂时还没有评论,快来抢楼吧!
-                    </p>
+					</div>
 
-                </div>
+					<!--单条父评论及其子评论开始-->
+					<div class="item "
+						th:if="${commentPage!=null && commentPage.size!=0 && commentStat.index<10 }"
+						th:each="comment,commentStat:${commentPage}">
+						<a href="#" class="avatar-wrapper" target="_blank"
+							th:href="'/author/topic?authorId='+${comment.author.id}"> <img
+							src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded"
+							th:src="${comment.author.imgAddr}"
+							th:alt="${comment.author.nickname}">
+						</a>
+						<div class="item-wrapper">
+							<div class="helper">
 
-                <!--单条父评论及其子评论开始-->
-                <div class="item "  th:if="${commentPage!=null && commentPage.size!=0 && commentStat.index<10 }" th:each="comment,commentStat:${commentPage}">
-                    <a href="#" class="avatar-wrapper" target="_blank" th:href="'/author/topic?authorId='+${comment.author.id}">
-                        <img src="/img/128x128(16)" alt="秋刀鱼-" class="avatar rounded" th:src="${comment.author.imgAddr}" th:alt="${comment.author.nickname}">
-                    </a>
-                    <div class="item-wrapper">
-                        <div class="helper">
+								<a href="#" class="username" target="_blank"
+									th:text="${comment.author.nickname}"
+									th:href="'/author/topic?authorId='+${comment.author.id}">用户昵称</a><span
+									style="color: #8b8b8b">&nbsp;&nbsp;[[${comment.author.signature}]]</span>
 
-                            <a href="#" class="username" target="_blank"  th:text="${comment.author.nickname}" th:href="'/author/topic?authorId='+${comment.author.id}">用户昵称</a><span style="color: #8b8b8b">&nbsp;&nbsp;[[${comment.author.signature}]]</span>
+								<div id="adminSupcomment" class="" style="float: right"
+									sec:authorize="hasRole('ROLE_ADMIN')">
+									<a href="javascript:void(0);"
+										class="btn-reply btn-comment-delete" rel="nofollow"
+										th:attr="commentId=${comment.id}"><i
+										class="icon icon-trash"></i> 删除</a>
+								</div>
+							</div>
+							<div class="comment-ct">
+								<p class="the-comment" style="text-indent: 30px"
+									th:text="${comment.content}">评论正文区域</p>
+							</div>
 
-                            <div id="adminSupcomment" class="" style="float: right" sec:authorize="hasRole('ROLE_ADMIN')">
-                                 <a href="javascript:void(0);" class="btn-reply btn-comment-delete" rel="nofollow" th:attr="commentId=${comment.id}" ><i class="icon icon-trash"></i> 删除</a>
-                            </div>
-                        </div>
-                        <div class="comment-ct">
-                            <p class="the-comment" style="text-indent: 30px" th:text="${comment.content}">评论正文区域</p>
-                        </div>
+							<!--父评论的操作按钮-->
+							<div class="helper clearfix">
+								[[${#dates.format(comment.creatTime,'yyyy-MM-dd')}]]
+								<!--点赞操作,根据点赞状态显示不同的按钮-->
+								<a commentId="2" th:attr="commentId=${comment.id}"
+									data-width="235" class="btn-vote btn-action-praise"
+									href="javascript:void(0);" rel="nofollow"><i
+									class="icon-vote"></i> <span>赞</span></a> <a
+									href="javascript:void(0);" class="btn-reply btn-action-reply"
+									data-res="" data-user="秋刀鱼-"
+									th:attr="data-user=${comment.author.nickname}"> <span
+									class="icon-reply"></span> 回复
+								</a> <span class="vote-count">[[${comment.praiseNumber}]]赞</span>
+							</div>
 
-                        <!--父评论的操作按钮-->
-                        <div class="helper clearfix" >
-                            [[${#dates.format(comment.creatTime,'yyyy-MM-dd')}]]
-                            <!--点赞操作,根据点赞状态显示不同的按钮-->
-                            <a commentId="2"  th:attr="commentId=${comment.id}" data-width="235"
-                               class="btn-vote btn-action-praise" href="javascript:void(0);" rel="nofollow"><i
-                                    class="icon-vote" ></i> <span>赞</span></a>
-                            <a href="javascript:void(0);" class="btn-reply btn-action-reply" data-res=""
-                               data-user="秋刀鱼-" th:attr="data-user=${comment.author.nickname}">
-                                <span class="icon-reply"></span>
-                                回复
-                            </a>
-                            <span class="vote-count" >[[${comment.praiseNumber}]]赞</span>
-                        </div>
+							<!--子评论撰写框-->
+							<div class="sub-comment clearfix " style="display: none;">
+								<span class="arrows"></span>
 
-                        <!--子评论撰写框-->
-                        <div class="sub-comment clearfix " style="display:none;">
-                            <span class="arrows"></span>
+								<div class="editor-wrapper form-comment-at">
+									<div class="editor">
+										<textarea name="content" class="editor-comment-at"
+											spellcheck="false" autocomplete="off"
+											style="border: 1px solid #ccc; height: 40px;"></textarea>
+									</div>
 
-                            <div  class="editor-wrapper form-comment-at">
-                                <div class="editor">
-                                    <textarea name="content" class="editor-comment-at" spellcheck="false" autocomplete="off" style="border: 1px solid #ccc;height: 40px;"></textarea>
-                                </div>
+									<div class="toolbar clearfix">
+										<div class="btn-group">
+											<a href="javascript:void(0);"
+												class="btn-link btn-action-cancel">取消</a> &nbsp;
+											<button
+												class="btn btn-positive  rounded btn-at-comment-submit"
+												th:if="${null != session.user }">评论</button>
+											<button
+												class="btn btn-positive btn-not-ready rounded btn-at-comment-submit"
+												disabled th:if="${null == session.user }">请先登录</button>
+										</div>
+									</div>
 
-                                <div class="toolbar clearfix">
-                                    <div class="btn-group">
-                                        <a href="javascript:void(0);" class="btn-link btn-action-cancel">取消</a>
-                                        &nbsp;
-                                        <button class="btn btn-positive  rounded btn-at-comment-submit"  th:if="${null != session.user }" >评论</button>
-                                        <button class="btn btn-positive btn-not-ready rounded btn-at-comment-submit" disabled th:if="${null == session.user }" >请先登录</button>
-                                    </div>
-                                </div>
-
-                                <!--父评论的id-->
-                                <input type="hidden" name="comment_at" value="1" th:value="${comment.id}">
-                                <!--用于判断是需要将专辑还是随笔还是故事的评论数+1,模式'板块名.id',例如'topic.1'-->
-                                <input type="hidden" name="plateAndId" value="topic.1" th:value="'topic.'+${topic.id}">
-                                <!--<input type="hidden" name="app_id" value="1">
+									<!--父评论的id-->
+									<input type="hidden" name="comment_at" value="1"
+										th:value="${comment.id}">
+									<!--用于判断是需要将专辑还是随笔还是故事的评论数+1,模式'板块名.id',例如'topic.1'-->
+									<input type="hidden" name="plateAndId" value="topic.1"
+										th:value="'topic.'+${topic.id}">
+									<!--<input type="hidden" name="app_id" value="1">
                                <input type="hidden" name="res_id" value="1374">-->
-                            </div>
-                            <div class="clearfix items">
+								</div>
+								<div class="clearfix items"></div>
 
-                            </div>
-
-                        </div>
+							</div>
 
 
-                        <!--用js遍历此div里的commentId属性的值-->
-                        <div class="subcomments" th:attr="commentId=${comment.id}">
+							<!--用js遍历此div里的commentId属性的值-->
+							<div class="subcomments" th:attr="commentId=${comment.id}">
 
-                        </div>
-                    </div>
+							</div>
+						</div>
 
-                </div>
-                <!--单条父评论及其子评论结束-->
+					</div>
+					<!--单条父评论及其子评论结束-->
 
-            </div>
+				</div>
 
-            <!--生成的父评论页面跳转url-->
-            <div class="paginator" th:if="${commentPage.totalPages }>1" >
-                <a class="previous" href="/topic/1?pn=1" th:href="'/topic/'+${topic.id}+'?pn=1'+'&commentSort='+${commentSort}" >首页</a>
-                <a class="previous"  th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number}+'&commentSort='+${commentSort}" th:if="${commentPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number -3}+'&commentSort='+${commentSort}" th:text="${commentPage.number -3}" th:if="${commentPage.number } >3 ">1</a>
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number -2}+'&commentSort='+${commentSort}" th:text="${commentPage.number -2}" th:if="${commentPage.number } >2 ">2</a>
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number -1}+'&commentSort='+${commentSort}" th:text="${commentPage.number -1}" th:if="${commentPage.number } >1 ">3</a>
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number }+'&commentSort='+${commentSort}" th:text="${commentPage.number}" th:if="${commentPage.number >0}">4</a>
-                <a class="page actived" href="#" rel="nofollow" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number+1}+'&commentSort='+${commentSort}" th:text="${commentPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +2}+'&commentSort='+${commentSort}" th:text="${commentPage.number +2}" th:if="${commentPage.number +2} <= ${commentPage.totalPages }" >6</a>
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +3}+'&commentSort='+${commentSort}" th:text="${commentPage.number +3}"  th:if="${commentPage.number +3} <= ${commentPage.totalPages }">7</a>
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +4}+'&commentSort='+${commentSort}" th:text="${commentPage.number +4}"  th:if="${commentPage.number +4} <= ${commentPage.totalPages }">8</a>
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +5}+'&commentSort='+${commentSort}" th:text="${commentPage.number +5}" th:if="${commentPage.number +5} <= ${commentPage.totalPages }">9</a>
-                <a class="page" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +6}+'&commentSort='+${commentSort}" th:text="${commentPage.number +6}" th:if="${commentPage.number +6} <= ${commentPage.totalPages }">10</a>
-                <a class="next" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +2}+'&commentSort='+${commentSort}" th:if="${commentPage.hasNext()}">下一页</a>
-                <a class="next" href="#" th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.totalPages }+'&commentSort='+${commentSort}" th:if="${commentPage.totalPages }>0">尾页</a>
-                <a class="next" href="#" th:href="'/topic/'+${topic.id}+'?pn=1'+'&commentSort='+${commentSort}" th:if="${commentPage.totalPages }==0" >尾页</a>
-            </div>
+				<!--生成的父评论页面跳转url-->
+				<div class="paginator" th:if="${commentPage.totalPages }>1">
+					<a class="previous" href="/topic/1?pn=1"
+						th:href="'/topic/'+${topic.id}+'?pn=1'+'&commentSort='+${commentSort}">首页</a>
+					<a class="previous"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number}+'&commentSort='+${commentSort}"
+						th:if="${commentPage.hasPrevious()}">上一页</a>
+					<!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+					<a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number -3}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number -3}"
+						th:if="${commentPage.number } >3 ">1</a> <a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number -2}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number -2}"
+						th:if="${commentPage.number } >2 ">2</a> <a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number -1}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number -1}"
+						th:if="${commentPage.number } >1 ">3</a> <a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number }+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number}" th:if="${commentPage.number >0}">4</a>
+					<a class="page actived" href="#" rel="nofollow"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number+1}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number +1}">5</a>
+					<!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+					<a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +2}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number +2}"
+						th:if="${commentPage.number +2} <= ${commentPage.totalPages }">6</a>
+					<a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +3}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number +3}"
+						th:if="${commentPage.number +3} <= ${commentPage.totalPages }">7</a>
+					<a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +4}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number +4}"
+						th:if="${commentPage.number +4} <= ${commentPage.totalPages }">8</a>
+					<a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +5}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number +5}"
+						th:if="${commentPage.number +5} <= ${commentPage.totalPages }">9</a>
+					<a class="page" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +6}+'&commentSort='+${commentSort}"
+						th:text="${commentPage.number +6}"
+						th:if="${commentPage.number +6} <= ${commentPage.totalPages }">10</a>
+					<a class="next" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.number +2}+'&commentSort='+${commentSort}"
+						th:if="${commentPage.hasNext()}">下一页</a> <a class="next" href="#"
+						th:href="'/topic/'+${topic.id}+'?pn='+${commentPage.totalPages }+'&commentSort='+${commentSort}"
+						th:if="${commentPage.totalPages }>0">尾页</a> <a class="next"
+						href="#"
+						th:href="'/topic/'+${topic.id}+'?pn=1'+'&commentSort='+${commentSort}"
+						th:if="${commentPage.totalPages }==0">尾页</a>
+				</div>
 
 
-        </div>
-    </div>
-    <!--用于储存后台传送过来的记录被点赞的评论的id拼接字符串-->
-    <input type="hidden" th:value="${praiseCommentIds}" id="praiseCommentIds">
+			</div>
+		</div>
+		<!--用于储存后台传送过来的记录被点赞的评论的id拼接字符串-->
+		<input type="hidden" th:value="${praiseCommentIds}"
+			id="praiseCommentIds">
 
-    <!--/// comment-wrapper end -->
-</div>
+		<!--/// comment-wrapper end -->
+	</div>
 
 
 
-<script>
+	<script>
     try {
         var pl = "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";
         var sid = 0;
@@ -448,36 +557,32 @@
 
 </script>
 
-<script src="/js/jquery.sticky-kit.min.js"></script>
-<script src="/js/underscore-min.js"></script>
-<script src="/js/backbone-min.js"></script>
-<script src="/js/favorite.js"></script>
-<script src="/js/vol.js"></script>
-<!--<script src="/js/comment.js"></script>-->
-<script src="/js/jquery.artDialog.js"></script>
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
+	<script src="/js/jquery.sticky-kit.min.js"></script>
+	<script src="/js/underscore-min.js"></script>
+	<script src="/js/backbone-min.js"></script>
+	<script src="/js/favorite.js"></script>
+	<script src="/js/vol.js"></script>
+	<!--<script src="/js/comment.js"></script>-->
+	<script src="/js/jquery.artDialog.js"></script>
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
 
-</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
-</div>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<script src="/js/adminContribution-detailPages.js"></script>
 
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
-
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<script src="/js/adminContribution-detailPages.js"></script>
-
-<!--图片轮播插件-->
-<script src="/ft-carousel/js/ft-carousel.min.js"></script>
-<!--图片轮播js代码-->
-<script type="text/javascript">
+	<!--图片轮播插件-->
+	<script src="/ft-carousel/js/ft-carousel.min.js"></script>
+	<!--图片轮播js代码-->
+	<script type="text/javascript">
     $("#carousel_1").FtCarousel({
         time: 3000,
        /* index: 0,
@@ -487,8 +592,8 @@
     });
 </script>
 
-<!--判断父评论是否被点赞并显示不同状态的代码-->
-<script>
+	<!--判断父评论是否被点赞并显示不同状态的代码-->
+	<script>
     $(function () {
         var praiseCommentIds= $("#praiseCommentIds").val();
         if ("" != praiseCommentIds.trim()){
@@ -502,7 +607,7 @@
         }
     });
 </script>
-<!--[if lt IE 9]>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {

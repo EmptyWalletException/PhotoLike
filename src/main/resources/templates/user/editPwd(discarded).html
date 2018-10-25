@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://www.luoo.net/user/profile#pwd -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>我的账号</title>
+<meta name="description" content="#">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/user.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/luoo.js"></script>
+<link rel="stylesheet" href="/css/glDatePicker.flatwhite.css">
+
+</head>
+<body>
+
+
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<!-- container start -->
+	<div class="container ct-sm util-luoo-tabs" style="min-height: 499px;">
+		<!-- uc-head -->
+		<div class="uc-head clearfix">
+			<h1 class="uc-profile-title">账号设置</h1>
+		</div>
+		<!--/// uc-head end-->
+
+		<div class="uc-nav rounded clearfix">
+			<a href="http://www.luoo.net/user/profile#basic" rel="nofollow"
+				id="tab-basic" class="nav-item tab-item">基础设置</a> <a
+				href="http://www.luoo.net/user/profile#pwd" rel="nofollow"
+				id="tab-pwd" class="nav-item tab-item actived">修改密码</a> <a
+				href="http://www.luoo.net/user/profile#sns" rel="nofollow"
+				id="tab-sns" class="nav-item tab-item">社区绑定</a>
+		</div>
+
+		<!-- uc-ct -->
+		<div class="uc-ct">
+			<!-- setting-base -->
+			<div class="setting-base tab-content-item" style="display: none;">
+				<p class="setting-row nickname">
+					京馆长 <a href="javascript:;" class="ln-setting-edit"
+						id="lnEditUsername" rel="nofollow">更改</a>
+				</p>
+				<div class="setting-row"
+					style="border-bottom: 1px solid #E5E5E5; padding-bottom: 25px;">
+					<div class="setting-email">
+						<span class="helper"> 登录邮箱 </span> <br>
+						<p>
+							nullmoneyexception@qq.com <a href="javascript:;"
+								class="ln-setting-edit" id="lnEditEmail" rel="nofollow">更改</a>
+						</p>
+					</div>
+					<div class="setting-autoplay">
+						<span class="helper"> 播放设置 </span> <br> <label> <input
+							type="checkbox" name="autoplay" id="chkAutoplay" checked="">自动播放网站音乐
+						</label>
+					</div>
+				</div>
+				<div class="setting-row helper">资料</div>
+				<form method="post" class="form-ajax"
+					callback="profile_common_cback">
+
+					<div class="setting-row">
+						<span class="label">性别</span> <label> <input type="radio"
+							name="sex" value="1" class="input-listener"> 男
+						</label> <label> <input type="radio" name="sex" value="2"
+							class="input-listener"> 女
+						</label>
+					</div>
+					<div class="setting-row" style="position: relative;">
+						<span class="label">生日</span> <span class="helper"
+							id="birthdayPlaceholder">[未填]</span> <a href="javascript:;"
+							class="ln-setting-edit input-listener" rel="nofollow"
+							id="lnEditBrithday">更改</a> <input type="text" id="txtBirthday"
+							name="birthday"
+							style="width: 185px; visibility: hidden; position: absolute; top: -26px; margin-left: 5px;">
+					</div>
+					<div class="setting-row">
+						<span class="label">常居</span> <span id="areaSelector"> <select
+							class="province input-listener" name="province" data-val=""><option
+									value="0">请选择</option>
+								<option value="北京">北京</option>
+								<option value="天津">天津</option>
+								<option value="河北">河北</option>
+								<option value="山西">山西</option>
+								<option value="内蒙古">内蒙古</option>
+								<option value="辽宁">辽宁</option>
+								<option value="吉林">吉林</option>
+								<option value="黑龙江">黑龙江</option>
+								<option value="上海">上海</option>
+								<option value="江苏">江苏</option>
+								<option value="浙江">浙江</option>
+								<option value="安徽">安徽</option>
+								<option value="福建">福建</option>
+								<option value="江西">江西</option>
+								<option value="山东">山东</option>
+								<option value="河南">河南</option>
+								<option value="湖北">湖北</option>
+								<option value="湖南">湖南</option>
+								<option value="广东">广东</option>
+								<option value="广西">广西</option>
+								<option value="海南">海南</option>
+								<option value="重庆">重庆</option>
+								<option value="四川">四川</option>
+								<option value="贵州">贵州</option>
+								<option value="云南">云南</option>
+								<option value="西藏">西藏</option>
+								<option value="陕西">陕西</option>
+								<option value="甘肃">甘肃</option>
+								<option value="青海">青海</option>
+								<option value="宁夏">宁夏</option>
+								<option value="新疆">新疆</option>
+								<option value="香港">香港</option>
+								<option value="澳门">澳门</option>
+								<option value="台湾">台湾</option></select> <select
+							class="city input-listener" name="city" data-val=""
+							disabled="disabled" style="display: none;"></select>
+						</span>
+					</div>
+					<div class="setting-row">
+						<span class="label">职业</span> <input type="text" name="vocation"
+							style="width: 52px;" class="rounded input-listener" value="">
+					</div>
+					<div class="setting-row setting-bottom">
+						<input type="submit" value="保存"
+							class="btn rounded btn-positive btn-not-ready"
+							id="btnBasicSubmit"> <input type="button" value="取消"
+							class="btn rounded btn-negative btn-reload">
+					</div>
+				</form>
+			</div>
+			<!-- ///setting-base end-->
+
+			<!-- setting-pwd -->
+			<div class="setting-pwd tab-content-item" style="display: block;">
+				<form action="http://www.luoo.net/user/password" method="post"
+					class="form-ajax" callback="pwd_cback" prepare="pwd_valid">
+					<div class="setting-row">
+						<span class="label">当前密码</span> <input type="password"
+							name="password" class="rounded" id="txtPassword"
+							autocomplete="off"> <span class="valid-msg"></span>
+					</div>
+					<div class="setting-row">
+						<span class="label">新的密码</span> <input type="password"
+							name="newpassword" class="rounded" id="txtNewpassword"
+							autocomplete="off"> <span class="valid-msg"></span>
+					</div>
+					<div class="setting-row">
+						<span class="label">确认密码</span> <input type="password"
+							name="cmfpassword" class="rounded" id="txtCmfpassword"
+							autocomplete="off"> <span class="valid-msg"></span>
+					</div>
+					<div class="setting-row setting-bottom">
+						<input type="submit" value="保存" class="btn btn-positive rounded">
+						<input type="button" value="取消"
+							class="btn btn-negative rounded btn-reload">
+					</div>
+				</form>
+			</div>
+			<!-- ///setting-pwd end-->
+
+			<!-- setting-sns -->
+			<div class="setting-sns tab-content-item" style="display: none;">
+				<div class="setting-row">绑定社区账号，能够将你的评论同步到以下平台。</div>
+
+				<div class="setting-sns-row">
+					<i class="icon-uc-qq"></i> <a
+						href="http://www.luoo.net/login/oauth/site/qq/act/bind"
+						class="ln-bind">绑定QQ账号</a>
+				</div>
+
+				<div class="setting-sns-row">
+					<i class="icon-share-weibo"></i> <a
+						href="http://www.luoo.net/login/oauth/site/weibo/act/bind"
+						class="ln-bind" rel="nofollow">绑定微博账号</a>
+				</div>
+
+				<div class="setting-sns-row">
+					<i class="icon-share-douban"></i> <a
+						href="http://www.luoo.net/login/oauth/site/douban/act/bind"
+						class="ln-bind" rel="nofollow">绑定豆瓣账号</a>
+				</div>
+
+				<div class="setting-sns-row">
+					<i class="icon-tweibo"></i> <a
+						href="http://www.luoo.net/login/oauth/site/tweibo/act/bind"
+						class="ln-bind" rel="nofollow">绑定腾讯微博</a>
+				</div>
+			</div>
+			<!-- ///setting-sns end-->
+
+		</div>
+		<!--/// uc-ct end -->
+	</div>
+	<!--/// container end -->
+	<script src="/js/glDatePicker.js"></script>
+	<script src="/js/jquery.cxselect.min.js"></script>
+	<script src="/js/profile.js"></script>
+	<script>
+    $(function () {
+        var act = "0";
+        if (act == 'email') {
+            $('#lnEditEmail').click();
+        }
+    })
+</script>
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
+
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
+
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<!--[if lt IE 9]>
+<script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
+<script>
+    $(function () {
+        if (window.PIE) {
+            $('.rounded,.page').each(function () {
+                try {
+                    PIE.attach(this);
+                } catch (e) {
+                }
+            });
+        }
+    })
+</script>
+<![endif]-->
+
+
+</body>
+</html>

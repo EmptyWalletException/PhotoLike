@@ -2,48 +2,49 @@
 <!-- saved from url=(0028)http://www.luoo.net/message/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>最新消息</title>
-    <meta name="description" content="# ">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/message.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>最新消息</title>
+<meta name="description" content="# ">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/message.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<!-- container start -->
+	<div class="container ct-sm" style="min-height: 460px;">
+		<div class="message-list">
+			<h1>全部消息</h1>
 
-</div>
-<!--/// header end -->
-<!-- container start -->
-<div class="container ct-sm" style="min-height: 460px;">
-    <div class="message-list">
-        <h1>全部消息</h1>
+			<div th:each="message,messageStat:${messagePage}"
+				th:if="${messageStat.index}<10">
+				<div class="notice-item">
+					<div class="notice-title">
+						<span class="icon-notice"
+							th:text="${#dates.format(message.creatTime,'yyyy-MM-dd')}">2014-11-07：</span>
+						<p th:text="${message.content}"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- container end-->
 
-        <div th:each="message,messageStat:${messagePage}" th:if="${messageStat.index}<10">
-            <div class="notice-item">
-                <div class="notice-title">
-                    <span class="icon-notice"
-                          th:text="${#dates.format(message.creatTime,'yyyy-MM-dd')}">2014-11-07：</span>
-                    <p th:text="${message.content}"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- container end-->
-
-<script>
+	<script>
     $(function () {
         $('.notice-title').click(function () {
             var $ct = $(this).next('.notice-content');
@@ -61,27 +62,23 @@
         }
     })
 </script>
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
 
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-</div>
-
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
 
 
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<!--[if lt IE 9]>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {

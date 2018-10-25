@@ -1,59 +1,63 @@
 <!DOCTYPE html>
 <!-- saved from url=(0045)http://www.luoo.net/author/essays/1057783?p=2 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
-	<meta name="viewport" content="width=device-width,user-scalable=no">
-	<meta property="qc:admins" content="4553322067645776654">
-	<meta property="wb:webmaster" content="78f40d1511de8c6b">
-	<meta name="baidu-site-verification" content="xC1m9aYTgX">
-	<title>管理随笔投稿</title>
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<link rel="stylesheet" href="/css/user.css">
-	<link rel="stylesheet" type="text/css" href="/css/modal.css">
-	<link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-	<script type="text/javascript" async="" src="/js/ga.js"></script><script src="/js/hm.js"></script><script src="/js/jquery-1.11.0.min.js"></script>
-	<script src="/js/luoo.js"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>管理随笔投稿</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" type="text/css" href="/css/modal.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
-
-</div>
-<!--/// header end -->
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
 	<!-- container start -->
-	<div class="container ct-sm" style="min-height: 460px;">	
+	<div class="container ct-sm" style="min-height: 460px;">
 		<!-- author-head -->
 		<div class="author-head clearfix" style="padding-bottom: 10px;">
-			<div style="width: 49%;height: 100%;float: left;border-right: 1px solid silver">
-				按条件筛选随笔:
-				<br/>
+			<div
+				style="width: 49%; height: 100%; float: left; border-right: 1px solid silver">
+				按条件筛选随笔: <br />
 				<form action="/admin/essay" method="get">
-					<span style="margin-left:30px;margin-right: 10px">
-						输入作者Id:
-						<input type="number" style="width: 68px;" name="authorId" th:value="${authorId}" >&nbsp;<small style="color: #7d7d7d">0表示选择所有作者</small>
-					</span>
-					<br/>
-
-					<br/>
-					<span style="margin-left:30px;margin-right: 10px;">
-						<button class="btn btn-positive" style="height:20px;padding-top: 2px;padding-bottom: 2px;">提交</button>
+					<span style="margin-left: 30px; margin-right: 10px"> 输入作者Id:
+						<input type="number" style="width: 68px;" name="authorId"
+						th:value="${authorId}">&nbsp;<small
+						style="color: #7d7d7d">0表示选择所有作者</small>
+					</span> <br /> <br /> <span style="margin-left: 30px; margin-right: 10px;">
+						<button class="btn btn-positive"
+							style="height: 20px; padding-top: 2px; padding-bottom: 2px;">提交</button>
 					</span>
 				</form>
 			</div>
-			<div style="width: 45%;height: 100%;float: left;border-left:1px solid silver;padding-left: 4%;">
-				精确查询随笔:<br/>
+			<div
+				style="width: 45%; height: 100%; float: left; border-left: 1px solid silver; padding-left: 4%;">
+				精确查询随笔:<br />
 				<form action="/admin/contribute/findOneByIdAndPlate" method="post">
-					<input type="hidden" name="plate" value="essay"><!--用于在后台区分查询的是哪个版块的稿件-->
-					<span style="margin-left:30px;margin-right: 10px">
-						输入随笔稿件Id:
-						<input type="number" style="width: 68px;" name="contributeId" ><br/>
-						<small style="color: #7d7d7d;margin-left:30px;">点击查看按钮将跳往稿件详情页面</small><br/>
-						<span style="margin-left:30px;margin-right: 10px;">
-							<button class="btn btn-positive" style="height:20px;padding-top: 2px;padding-bottom: 2px;">查看</button>&nbsp;
-						</span>
+					<input type="hidden" name="plate" value="essay">
+					<!--用于在后台区分查询的是哪个版块的稿件-->
+					<span style="margin-left: 30px; margin-right: 10px">
+						输入随笔稿件Id: <input type="number" style="width: 68px;"
+						name="contributeId"><br /> <small
+						style="color: #7d7d7d; margin-left: 30px;">点击查看按钮将跳往稿件详情页面</small><br />
+						<span style="margin-left: 30px; margin-right: 10px;">
+							<button class="btn btn-positive"
+								style="height: 20px; padding-top: 2px; padding-bottom: 2px;">查看</button>&nbsp;
+					</span>
 					</span>
 				</form>
 			</div>
@@ -62,111 +66,183 @@
 
 
 		<div class="uc-nav rounded clearfix" style="margin-bottom: 0px;">
-			<a href="/admin/topic?authorId=1" rel="nofollow" class="nav-item  " th:href="'/admin/topic?authorId='+${authorId}">专辑</a>
-			<a href="/admin/essay?authorId=1" rel="nofollow" class="nav-item actived" th:href="'/admin/essay?authorId='+${authorId}">随笔</a>
-			<a href="/admin/story?authorId=1" rel="nofollow" class="nav-item " th:href="'/admin/story?authorId='+${authorId}">故事</a>
-			<a href="/admin/story?authorId=1" rel="nofollow" class="nav-item " th:href="'/admin/event?authorId='+${authorId}">活动</a>
+			<a href="/admin/topic?authorId=1" rel="nofollow" class="nav-item  "
+				th:href="'/admin/topic?authorId='+${authorId}">专辑</a> <a
+				href="/admin/essay?authorId=1" rel="nofollow"
+				class="nav-item actived"
+				th:href="'/admin/essay?authorId='+${authorId}">随笔</a> <a
+				href="/admin/story?authorId=1" rel="nofollow" class="nav-item "
+				th:href="'/admin/story?authorId='+${authorId}">故事</a> <a
+				href="/admin/story?authorId=1" rel="nofollow" class="nav-item "
+				th:href="'/admin/event?authorId='+${authorId}">活动</a>
 		</div>
 
 
 		<!-- uc-ct -->
 		<div class="author-ct">
-			<div  class="uc-nav rounded  " style="float: right" >
-				<a class="page " href="/admin/essay?authorId=1&contributionStatus=1" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=1'+'&pn=1'" name="contributionStatus" value="1" th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
-				<a class="page " href="/admin/essay?authorId=1&contributionStatus=2" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=2'+'&pn=1'" name="contributionStatus" value="2" th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
-				<a class="page " href="/admin/essay?authorId=1&contributionStatus=0" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=0'+'&pn=1'" name="contributionStatus" value="0" th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
-				<a class="page " href="/admin/essay?authorId=1&contributionStatus=3" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=3'+'&pn=1'" name="contributionStatus" value="3" th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
-				<a class="page " href="/admin/essay?authorId=1&contributionStatus=4" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=4'+'&pn=1'" name="contributionStatus" value="4" th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
+			<div class="uc-nav rounded  " style="float: right">
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=1"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=1'+'&pn=1'"
+					name="contributionStatus" value="1"
+					th:class="${contributionStatus == 1}?'page actived':'page'">展示中的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=2"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=2'+'&pn=1'"
+					name="contributionStatus" value="2"
+					th:class="${contributionStatus == 2}?'page actived':'page'">已隐藏的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=0"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=0'+'&pn=1'"
+					name="contributionStatus" value="0"
+					th:class="${contributionStatus == 0}?'page actived':'page'">待审核的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=3"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=3'+'&pn=1'"
+					name="contributionStatus" value="3"
+					th:class="${contributionStatus == 3}?'page actived':'page'">被退回的稿件</a>
+				<a class="page " href="/admin/essay?authorId=1&contributionStatus=4"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus=4'+'&pn=1'"
+					name="contributionStatus" value="4"
+					th:class="${contributionStatus == 4}?'page actived':'page'">回收站的稿件</a>
 			</div>
 			<!-- fav-vols -->
 			<div class="fav-vols">
 
 				<div class="item-wrapper">
-					<div th:if="${essayPage==null || essayPage.content.size()==0}" >
-						<br/>
-						<br/>
-						<br/>
-						<p >此筛选条件下没有数据</p>
-						<br/>
+					<div th:if="${essayPage==null || essayPage.content.size()==0}">
+						<br /> <br /> <br />
+						<p>此筛选条件下没有数据</p>
+						<br />
 					</div>
-					<div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayPage!=null && essayStat.size!=0 && essayStat.index<9 }" >
-						<a href="/essay?essayId=1" class="cover-wrapper" th:href="'/essay?essayId='+${essay.id}" target="_blank">
-							<img src="/js/640x452" alt="故事的最后" class="cover rounded" style="height: 104px" th:src="${essay.imgAddr}" th:alt="${essay.title}" >
-						</a>
-						<a href="/essay?essayId=1" class="name" th:href="'/essay?essayId='+${essay.id}" th:text="${essay.title}">故事的最后</a>
+					<div class="item" th:each="essay,essayStat:${essayPage}"
+						th:if="${essayPage!=null && essayStat.size!=0 && essayStat.index<9 }">
+						<a href="/essay?essayId=1" class="cover-wrapper"
+							th:href="'/essay?essayId='+${essay.id}" target="_blank"> <img
+							src="/js/640x452" alt="故事的最后" class="cover rounded"
+							style="height: 104px" th:src="${essay.imgAddr}"
+							th:alt="${essay.title}">
+						</a> <a href="/essay?essayId=1" class="name"
+							th:href="'/essay?essayId='+${essay.id}" th:text="${essay.title}">故事的最后</a>
 						<div class="op-bar">
-							<span class="time" th:text="${#dates.format(essay.creatTime,'yyyy-MM-dd')}"></span>
+							<span class="time"
+								th:text="${#dates.format(essay.creatTime,'yyyy-MM-dd')}"></span>
 
 							<!--当状态为4时(已经处于回收站中)或0时(审核中)不显示此按钮-->
-							<a href="javascript:;" rel="nofollow" class="btn-delete-contribution unfav" plate="topic.1373" th:attr="plate='essay.'+${essay.id}" th:unless="${contributionStatus == 4 || contributionStatus == 0}   ">
-								<i class="icon icon-trash"></i>
-								废弃
+							<a href="javascript:;" rel="nofollow"
+								class="btn-delete-contribution unfav" plate="topic.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:unless="${contributionStatus == 4 || contributionStatus == 0}   ">
+								<i class="icon icon-trash"></i> 废弃
 							</a>
 							<!--将当前稿件审核通过-->
-							<a href="javascript:;" rel="nofollow" class="btn-pass-contribution unfav" plate="topic.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 0}">
-								<i class="icon icon-share"></i>
-								通过
-							</a>
-							<a href="javascript:;" rel="nofollow" class="btn-hide-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 1}">
-								<i class="icon icon-report"></i>
-								隐藏
-							</a>
-							<a href="javascript:;" rel="nofollow" class="btn-show-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 2}">
-								<i class="icon icon-reply"></i>
-								展示
+							<a href="javascript:;" rel="nofollow"
+								class="btn-pass-contribution unfav" plate="topic.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:if="${contributionStatus == 0}"> <i
+								class="icon icon-share"></i> 通过
+							</a> <a href="javascript:;" rel="nofollow"
+								class="btn-hide-contribution unfav" plate="essay.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:if="${contributionStatus == 1}"> <i
+								class="icon icon-report"></i> 隐藏
+							</a> <a href="javascript:;" rel="nofollow"
+								class="btn-show-contribution unfav" plate="essay.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:if="${contributionStatus == 2}"> <i
+								class="icon icon-reply"></i> 展示
 							</a>
 
 							<!--当处于投稿被退回状态时显示此按钮,点击显示管理员留言-->
-							<a href="javascript:;" rel="nofollow" class="btn-info-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 3}">
-								<i class="icon icon-info"></i>
-								<input type="hidden" th:attr="info=${essay.info}">
-								信息
+							<a href="javascript:;" rel="nofollow"
+								class="btn-info-contribution unfav" plate="essay.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:if="${contributionStatus == 3}"> <i
+								class="icon icon-info"></i> <input type="hidden"
+								th:attr="info=${essay.info}"> 信息
 							</a>
 							<!--点击后物理上彻底删除此记录,慎用; -->
-							<a href="javascript:;" rel="nofollow" class="btn-realDelete-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 4}">
-								<i class="icon icon-report"></i>
-								抹除
+							<a href="javascript:;" rel="nofollow"
+								class="btn-realDelete-contribution unfav" plate="essay.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:if="${contributionStatus == 4}"> <i
+								class="icon icon-report"></i> 抹除
 							</a>
 							<!--回收站的稿件显示此按钮,点击后恢复此稿件; -->
-							<a href="javascript:;" rel="nofollow" class="btn-recover-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 4}">
-								<i class="icon icon-reply"></i>
-								恢复
-							</a>
-							<a href="javascript:;" rel="nofollow" class="btn-sendBack-contribution unfav" plate="essay.1373" th:attr="plate='essay.'+${essay.id}" th:if="${contributionStatus == 0}">
-								<i class="icon icon-reply"></i>
-								退稿
+							<a href="javascript:;" rel="nofollow"
+								class="btn-recover-contribution unfav" plate="essay.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:if="${contributionStatus == 4}"> <i
+								class="icon icon-reply"></i> 恢复
+							</a> <a href="javascript:;" rel="nofollow"
+								class="btn-sendBack-contribution unfav" plate="essay.1373"
+								th:attr="plate='essay.'+${essay.id}"
+								th:if="${contributionStatus == 0}"> <i
+								class="icon icon-reply"></i> 退稿
 							</a>
 						</div>
 						<!--每生成三个就输出一个换行来保持漂亮的板式-->
-						<br  th:if="${essayStat.index+1}%3==0"/>
+						<br th:if="${essayStat.index+1}%3==0" />
 					</div>
 				</div>
 			</div>
 			<!-- /// fav-vols -->
 			<div class="paginator" th:if="${essayPage.totalPages }>1 ">
-				<a class="previous" href="/admin/essay?authorId=1&pn=1" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn=1'" >首页</a>
-				<a class="previous"  th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number}" th:if="${essayPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -3}" th:text="${essayPage.number -3}" th:if="${essayPage.number } >3 ">1</a>
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -2}" th:text="${essayPage.number -2}" th:if="${essayPage.number } >2 ">2</a>
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -1}" th:text="${essayPage.number -1}" th:if="${essayPage.number } >1 ">3</a>
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number }" th:text="${essayPage.number}" th:if="${essayPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-				<a class="page actived" href="#" rel="nofollow" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number+1}" th:text="${essayPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}" th:text="${essayPage.number +2}" th:if="${essayPage.number +2} <= ${essayPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +3}" th:text="${essayPage.number +3}"  th:if="${essayPage.number +3} <= ${essayPage.totalPages }">7</a>
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +4}" th:text="${essayPage.number +4}"  th:if="${essayPage.number +4} <= ${essayPage.totalPages }">8</a>
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +5}" th:text="${essayPage.number +5}" th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a>
-				<a class="page" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +6}" th:text="${essayPage.number +6}" th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a>
-				<a class="next" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}" th:if="${essayPage.hasNext()}">下一页</a>
-				<a class="next" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.totalPages }" th:if="${essayPage.totalPages }>0">尾页</a>
-				<a class="next" href="#" th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn=1'" th:if="${essayPage.totalPages }==0" >尾页</a>
+				<a class="previous" href="/admin/essay?authorId=1&pn=1"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn=1'">首页</a>
+				<a class="previous"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number}"
+					th:if="${essayPage.hasPrevious()}">上一页</a>
+				<!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+				<a class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -3}"
+					th:text="${essayPage.number -3}" th:if="${essayPage.number } >3 ">1</a>
+				<a class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -2}"
+					th:text="${essayPage.number -2}" th:if="${essayPage.number } >2 ">2</a>
+				<a class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number -1}"
+					th:text="${essayPage.number -1}" th:if="${essayPage.number } >1 ">3</a>
+				<a class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number }"
+					th:text="${essayPage.number}" th:if="${essayPage.number >0}">4</a>
+				<!--判断如果在当前页码如果有前面的页码则生成-->
+				<a class="page actived" href="#" rel="nofollow"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number+1}"
+					th:text="${essayPage.number +1}">5</a>
+				<!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+				<a class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}"
+					th:text="${essayPage.number +2}"
+					th:if="${essayPage.number +2} <= ${essayPage.totalPages }">6</a>
+				<!--判断如果在当前页面有后面的页面则生成-->
+				<a class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +3}"
+					th:text="${essayPage.number +3}"
+					th:if="${essayPage.number +3} <= ${essayPage.totalPages }">7</a> <a
+					class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +4}"
+					th:text="${essayPage.number +4}"
+					th:if="${essayPage.number +4} <= ${essayPage.totalPages }">8</a> <a
+					class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +5}"
+					th:text="${essayPage.number +5}"
+					th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a> <a
+					class="page" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +6}"
+					th:text="${essayPage.number +6}"
+					th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a> <a
+					class="next" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.number +2}"
+					th:if="${essayPage.hasNext()}">下一页</a> <a class="next" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn='+${essayPage.totalPages }"
+					th:if="${essayPage.totalPages }>0">尾页</a> <a class="next" href="#"
+					th:href="'/admin/essay?authorId='+${authorId}+'&contributionStatus='+${contributionStatus}+'&pn=1'"
+					th:if="${essayPage.totalPages }==0">尾页</a>
 			</div>
-		<!--/// uc-ct end -->
-	</div>
+			<!--/// uc-ct end -->
+		</div>
 
 		<!-- 用于输入退稿理由的模态框 -->
-		<div id="myModal" class="modal" >
+		<div id="myModal" class="modal">
 			<div class="modal-content" style="width: 500px">
-				<div class="modal-header" >
+				<div class="modal-header">
 					<h1>填写退稿理由</h1>
 					<span id="closeBtn" class="close">×</span>
 
@@ -174,22 +250,34 @@
 				<div class="modal-body">
 					<div class="hovertreecontainer">
 						<div style="width: 495px;">
-							<br/>
-							<textarea id="sendBackTextarea" name="content"  style="width: 495px;height: 100px;" ></textarea>
+							<br />
+							<textarea id="sendBackTextarea" name="content"
+								style="width: 495px; height: 100px;"></textarea>
 							<div style="width: 495px;">
 								<p>快捷填充:</p>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容低俗; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容错误较多; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容格式错乱; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合板块特色; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 不符合分类; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 包含敏感内容; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 内容与其它稿件重复; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 消耗过多储存空间; </button>
-								<button class="btn btn-positive autoStuff rounded" style="background: white;color: #7d7d7d" > 稿件附件缺失; </button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">内容低俗;</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">内容错误较多;</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">内容格式错乱;</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">不符合板块特色;</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">不符合分类;</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">包含敏感内容;</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">内容与其它稿件重复;
+								</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">消耗过多储存空间;</button>
+								<button class="btn btn-positive autoStuff rounded"
+									style="background: white; color: #7d7d7d">稿件附件缺失;</button>
 							</div>
-							<button class="btn btn-positive  rounded" id="cancel" >取消</button>
-							<button class="btn btn-positive  rounded" id="sendBack" style="float: right" >确认退稿</button>
+							<button class="btn btn-positive  rounded" id="cancel">取消</button>
+							<button class="btn btn-positive  rounded" id="sendBack"
+								style="float: right">确认退稿</button>
 						</div>
 					</div>
 				</div>
@@ -201,27 +289,23 @@
 	</div>
 
 	<!--/// container end -->
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
 
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-</div>
-
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
 
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<script src="/js/adminContribution.js"></script>
-<!--[if lt IE 9]>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<script src="/js/adminContribution.js"></script>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
 $(function(){
@@ -237,4 +321,5 @@ $(function(){
 <![endif]-->
 
 
-</body></html>
+</body>
+</html>

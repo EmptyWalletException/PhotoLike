@@ -1,13 +1,9 @@
-ul,
-ol,
-li,
-div {
+ul, ol, li, div {
 	margin: 0;
 	padding: 0;
 }
 
-ul,
-ol {
+ul, ol {
 	list-style: none;
 }
 

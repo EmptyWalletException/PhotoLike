@@ -1,49 +1,56 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/index.css">
-    <script type="text/javascript" async="" src="/js/jquery-1.11.0.min.js"></script>
-    <title>Title</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/index.css">
+<script type="text/javascript" async="" src="/js/jquery-1.11.0.min.js"></script>
+<title>Title</title>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:fragment="topbar">
-    <div class="header-ct">
-        <a href="/index" class="logo">
-            <span style="display: inline-block;vertical-align: middle;height: 36px;width: 36px;"><img src="http://pdr28szno.bkt.clouddn.com/icon-logo.png" style="width: 100%;height: 100%;"/></span>
-        </a>
-        <div class="nav">
-            <ul class="clearfix">
-                <li><a href="/topic">专辑</a></li>
-                <li><a href="/essay">随笔</a></li>
-                <li><a href="/story">故事</a></li>
-                <li><a href="/event">活动</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="#" th:href="'/user/favoriteTopic?userId='+${session.user.id}" >收藏</a></li>
-                <li><a href="/admin/topic?userId=0" sec:authorize="hasRole('ROLE_ADMIN')">稿件管理</a></li>
-                <li><a href="/admin/categoryAndCity" sec:authorize="hasRole('ROLE_ADMIN')">分类管理</a></li>
-                <li><a href="/contribute/topicContribute" sec:authorize="hasRole('ROLE_ADMIN')">投稿</a></li>
-            </ul>
+	<!-- header start -->
+	<div class="header" th:fragment="topbar">
+		<div class="header-ct">
+			<a href="/index" class="logo"> <span
+				style="display: inline-block; vertical-align: middle; height: 36px; width: 36px;"><img
+					src="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+					style="width: 100%; height: 100%;" /></span>
+			</a>
+			<div class="nav">
+				<ul class="clearfix">
+					<li><a href="/topic">专辑</a></li>
+					<li><a href="/essay">随笔</a></li>
+					<li><a href="/story">故事</a></li>
+					<li><a href="/event">活动</a></li>
+					<li sec:authorize="isAuthenticated()"><a href="#"
+						th:href="'/user/favoriteTopic?userId='+${session.user.id}">收藏</a></li>
+					<li><a href="/admin/topic?userId=0"
+						sec:authorize="hasRole('ROLE_ADMIN')">稿件管理</a></li>
+					<li><a href="/admin/categoryAndCity"
+						sec:authorize="hasRole('ROLE_ADMIN')">分类管理</a></li>
+					<li><a href="/contribute/topicContribute"
+						sec:authorize="hasRole('ROLE_ADMIN')">投稿</a></li>
+				</ul>
 
-        </div>
+			</div>
 
-        <div class="head-search">
-            <form class="search-form" action="/search" id="headSearchForm">
-                <input type="text" class="search-input" name="keyword" autocomplete="off">
-                <input type="hidden" name="filtrate" value="topic">
-                <button class="search-btn" type="submit">
-                    <span class="icon-search"></span>
-                </button>
-            </form>
-        </div>
+			<div class="head-search">
+				<form class="search-form" action="/search" id="headSearchForm">
+					<input type="text" class="search-input" name="keyword"
+						autocomplete="off"> <input type="hidden" name="filtrate"
+						value="topic">
+					<button class="search-btn" type="submit">
+						<span class="icon-search"></span>
+					</button>
+				</form>
+			</div>
 
-        <!-- login-wrapper-->
+			<!-- login-wrapper-->
 
-       <!-- <ul class="float-right navbar-nav">//这是上一个项目的登录与用户信息判断切换显示的代码
+			<!-- <ul class="float-right navbar-nav">//这是上一个项目的登录与用户信息判断切换显示的代码
             <li  class="nav-item">
                 <div class="row" id="user">
                     <img id="userHeadImg" class="rounded-circle figure-img" src="\images\testhead.jpg" alt="头像"  sec:authorize="isAuthenticated()"  />
@@ -55,53 +62,54 @@
             </li>
         </ul>-->
 
-        <!--用户没登录时-->
-        <div class="login "
-             style="display: block;"  sec:authorize="isAnonymous()" >
-            <a  href="/login" id="theme-login" rel="nofollow"  > 注册/登录 </a>
-        </div>
+			<!--用户没登录时-->
+			<div class="login " style="display: block;"
+				sec:authorize="isAnonymous()">
+				<a href="/login" id="theme-login" rel="nofollow"> 注册/登录 </a>
+			</div>
 
-        <!--当用户登录后-->
-        <div class="logged-in-wrapper" id="loggedInWrapper" style="display: block;" sec:authorize="isAuthenticated()">
-            <a href="javascript:;" rel="nofollow" class="ln-message" data-width="270" data-adjusty="-10">
-                <span class="icon-message"></span>
-            </a>
+			<!--当用户登录后-->
+			<div class="logged-in-wrapper" id="loggedInWrapper"
+				style="display: block;" sec:authorize="isAuthenticated()">
+				<a href="javascript:;" rel="nofollow" class="ln-message"
+					data-width="270" data-adjusty="-10"> <span class="icon-message"></span>
+				</a>
 
-            <div class="account-more">
-                <a href="javascript:;" rel="nofollow" class="ln-account" id="lnAccountMore" data-ct="accountMoreWrapper" data-show="mouseenter" data-tipid="accountMoreDialog" data-adjusty="-10"
+				<div class="account-more">
+					<a href="javascript:;" rel="nofollow" class="ln-account"
+						id="lnAccountMore" data-ct="accountMoreWrapper"
+						data-show="mouseenter" data-tipid="accountMoreDialog"
+						data-adjusty="-10"> <!--注意这里是在session中查询user-->
+						<img src="/img/test/testUserHead.jpg" alt="京馆长" class="avatar"
+						th:src="${session.user.imgAddr}">
+						[[${session.user.nickname}]]
+					</a>
+					<!--sec:authentication="name"   th:if="${null != session.user}"-->
+					<div id="accountMoreWrapper" style="display: none;">
+						<div class="account-links rounded" id="accountLinks">
+							<a class="account-link link-uc" href="/user/1405418"
+								th:href="'/user/topic?userId='+${session.user.id}"
+								rel="nofollow"> <span class="icon-account"></span>我的主页
+							</a> <a class="account-link link-setting" href="/user/editInfo"
+								rel="nofollow"> <span class="icon-setting"></span>账号设置
+							</a> <a class="account-link link-logout" href="/logout"
+								rel="nofollow"> <span class="icon-logout"></span>退出
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                >
-                    <!--注意这里是在session中查询user-->
-                    <img src="/img/test/testUserHead.jpg"  alt="京馆长" class="avatar"  th:src="${session.user.imgAddr}">
-                    [[${session.user.nickname}]]
-                </a>
-                <!--sec:authentication="name"   th:if="${null != session.user}"-->
-                <div id="accountMoreWrapper" style="display: none;">
-                    <div class="account-links rounded" id="accountLinks">
-                        <a class="account-link link-uc" href="/user/1405418" th:href="'/user/topic?userId='+${session.user.id}" rel="nofollow">
-                            <span class="icon-account"></span>我的主页
-                        </a>
-                        <a class="account-link link-setting" href="/user/editInfo"  rel="nofollow">
-                            <span class="icon-setting"></span>账号设置
-                        </a>
-                        <a class="account-link link-logout" href="/logout" rel="nofollow">
-                            <span class="icon-logout"></span>退出
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--当用户登录之后,点击用户名显示选项面板,这是为了解决手动端用户没有鼠标指针导致选项面板无法触发的问题-->
-    <script type="text/javascript">
+		<!--当用户登录之后,点击用户名显示选项面板,这是为了解决手动端用户没有鼠标指针导致选项面板无法触发的问题-->
+		<script type="text/javascript">
         $("body").on("click", "#lnAccountMore", function () {
             $(this).tip()
         })
     </script>
 
-    <!--点击导航条右上角弹出登录框或注册框,登录框和注册框之间可以互相切换-->
-    <!--<script type="text/javascript">
+		<!--点击导航条右上角弹出登录框或注册框,登录框和注册框之间可以互相切换-->
+		<!--<script type="text/javascript">
         $(document).ready(function ($) {
             $('#theme-login').click(function () {
                 $('#qtip-headLoginDialog').show();
@@ -121,8 +129,8 @@
     </script>-->
 
 
-    <!-- logged-in-wrapper -->
-    <!--  <div class="logged-in-wrapper" id="loggedInWrapper" style="display: block;">
+		<!-- logged-in-wrapper -->
+		<!--  <div class="logged-in-wrapper" id="loggedInWrapper" style="display: block;">
           <a href="javascript:;" rel="nofollow" class="ln-message" id="lnMessage" data-show="mouseenter" data-remote="http://www.luoo.net/message/latest" data-tipid="messageDialog" data-width="270" data-adjusty="-10">
               <span class="icon-message"></span>
           </a>
@@ -147,8 +155,8 @@
           </div></div>
 
       -->
-    <!--登录弹出框-->
-    <!--<div id="qtip-headLoginDialog" class="qtip qtip-default qtip-luoo qtip-pos-tc qtip-focus" tracking="false"
+		<!--登录弹出框-->
+		<!--<div id="qtip-headLoginDialog" class="qtip qtip-default qtip-luoo qtip-pos-tc qtip-focus" tracking="false"
          role="alert" aria-live="polite" aria-atomic="false" aria-describedby="qtip-headLoginDialog-content"
          aria-hidden="false" data-qtip-id="headLoginDialog"
          style="width: 235px; z-index: 15001; display: none; top: 52px; left: 900px;">
@@ -200,8 +208,8 @@
         </div>
     </div>-->
 
-    <!--注册弹出框-->
-   <!-- <div id="qtip-registerDialog" class="qtip qtip-default qtip-luoo qtip-pos-tc qtip-focus" tracking="false"
+		<!--注册弹出框-->
+		<!-- <div id="qtip-registerDialog" class="qtip qtip-default qtip-luoo qtip-pos-tc qtip-focus" tracking="false"
          role="alert" aria-live="polite" aria-atomic="false" aria-describedby="qtip-registerDialog-content"
          aria-hidden="false" data-qtip-id="registerDialog"
          style="width: 235px; z-index: 15002; display: none; top: 52px; left: 900px;">
@@ -266,9 +274,9 @@
     </div>-->
 
 
-</div>
+	</div>
 
 
-<!--/// header end -->
+	<!--/// header end -->
 </body>
 </html>

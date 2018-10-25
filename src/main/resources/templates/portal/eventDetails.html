@@ -2,103 +2,98 @@
 <!-- saved from url=(0031)http://www.luoo.net/event/15660 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title th:text="${event.name}">活动标题</title>
-    <meta name="description" content="# ">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/event.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title th:text="${event.name}">活动标题</title>
+<meta name="description" content="# ">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/event.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
 
-    <script src="/js/luoo.js"></script>
+<script src="/js/luoo.js"></script>
 
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<!-- container start -->
+	<div class="container ct-sm" style="min-height: 499px;">
+		<nav class="article-nav">
+			<a href="/event" class="nav-back"> <i class="icon-back"></i>
+				返回活动首页
+			</a>
+		</nav>
+		<div class="event-head clearfix">
+			<img src="/img/test/testEventCoverImg.jpg" alt="活动标题"
+				class="poster rounded" th:src="${event.coverImgAddr}"
+				th:alt="${event.name}">
+			<div class="event-meta">
+				<h1 class="title" th:text="${event.name}">活动标题</h1>
+				<p class="meta">主题：[[${event.theme}]]</p>
+				<p class="meta">时间：[[${#dates.format(event.time,'yyyy-MM-dd')}]]</p>
+				<p class="meta">城市：[[${event.city.name}]]</p>
+				<p class="meta">地点：[[${event.location}]]</p>
+				<p class="meta">费用：[[${event.money}]]</p>
+				<p class="meta">
+					分享：<span id="" class="share-btns" data-app="event" data-id="15660"
+						data-text="分享一个活动" data-img="#"><a href="javascript:;"
+						class="#"
+						data-href="http://service.weibo.com/share/share.php?url=http%3A%2F%2Fwww.luoo.net%2Fevent%2F15660&amp;title=%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8%E3%80%90%E5%A2%A8%E8%A5%BF%E5%93%A5%E5%90%8E%E6%91%87%20Childs%20%E4%B8%AD%E5%9B%BD%E5%B7%A1%E6%BC%94%20%E3%80%91%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40%E8%90%BD%E7%BD%91%EF%BC%89&amp;source=%E8%90%BD%E7%BD%91&amp;sourceUrl=http%3A%2F%2Fluoo.net&amp;content=utf-8&amp;pic=http%3A%2F%2Fimg-cdn2.luoo.net%2Fpics%2Fevent%2F15660%2F5acefb5e12a73.jpg!%2Ffwfh%2F180x225"
+						target="_blank"><span class="icon-share-weibo" title="分享到微博"></span></a><a
+						href="javascript:;" class="#"
+						data-href="http://www.douban.com/share/service?bm=1&amp;image=http%3A%2F%2Fimg-cdn2.luoo.net%2Fpics%2Fevent%2F15660%2F5acefb5e12a73.jpg!%2Ffwfh%2F180x225&amp;href=http%3A%2F%2Fwww.luoo.net%2Fevent%2F15660&amp;updated=&amp;name=%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8%E3%80%90%E5%A2%A8%E8%A5%BF%E5%93%A5%E5%90%8E%E6%91%87%20Childs%20%E4%B8%AD%E5%9B%BD%E5%B7%A1%E6%BC%94%20%E3%80%91%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40%E8%90%BD%E7%BD%91%EF%BC%89"
+						target="_blank" title="分享到豆瓣"><span class="icon-share-douban"></span></a><a
+						href="javascript:;" class="#"
+						data-href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fwww.luoo.net%2Fevent%2F15660&amp;desc=%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8%E3%80%90%E5%A2%A8%E8%A5%BF%E5%93%A5%E5%90%8E%E6%91%87%20Childs%20%E4%B8%AD%E5%9B%BD%E5%B7%A1%E6%BC%94%20%E3%80%91%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40%E8%90%BD%E7%BD%91%EF%BC%89&amp;pics=http%3A%2F%2Fimg-cdn2.luoo.net%2Fpics%2Fevent%2F15660%2F5acefb5e12a73.jpg!%2Ffwfh%2F180x225"
+						target="_blank" title="分享到QQ空间"><span class="icon-share-qzone"></span></a><a
+						href="javascript:;" class="#"
+						data-href="http://www.luoo.net/event/15660" target="_blank"
+						title="分享到朋友圈"><span class="icon-share-wechat"></span></a></span>
+				</p>
+			</div>
+		</div>
 
-</div>
-<!--/// header end -->
-<!-- container start -->
-<div class="container ct-sm" style="min-height: 499px;">
-    <nav class="article-nav">
-        <a href="/event" class="nav-back">
-            <i class="icon-back"></i>
-            返回活动首页
-        </a>
-    </nav>
-    <div class="event-head clearfix">
-        <img src="/img/test/testEventCoverImg.jpg" alt="活动标题" class="poster rounded" th:src="${event.coverImgAddr}" th:alt="${event.name}">
-        <div class="event-meta">
-            <h1 class="title" th:text="${event.name}">活动标题</h1>
-            <p class="meta">主题：[[${event.theme}]]</p>
-            <p class="meta">时间：[[${#dates.format(event.time,'yyyy-MM-dd')}]]</p>
-            <p class="meta">城市：[[${event.city.name}]]</p>
-            <p class="meta">地点：[[${event.location}]]</p>
-            <p class="meta">费用：[[${event.money}]]</p>
-            <p class="meta">分享：<span id="" class="share-btns" data-app="event" data-id="15660"
-                                     data-text="分享一个活动"
-                                     data-img="#"><a
-                    href="javascript:;" class="#"
-                    data-href="http://service.weibo.com/share/share.php?url=http%3A%2F%2Fwww.luoo.net%2Fevent%2F15660&amp;title=%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8%E3%80%90%E5%A2%A8%E8%A5%BF%E5%93%A5%E5%90%8E%E6%91%87%20Childs%20%E4%B8%AD%E5%9B%BD%E5%B7%A1%E6%BC%94%20%E3%80%91%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40%E8%90%BD%E7%BD%91%EF%BC%89&amp;source=%E8%90%BD%E7%BD%91&amp;sourceUrl=http%3A%2F%2Fluoo.net&amp;content=utf-8&amp;pic=http%3A%2F%2Fimg-cdn2.luoo.net%2Fpics%2Fevent%2F15660%2F5acefb5e12a73.jpg!%2Ffwfh%2F180x225"
-                    target="_blank"><span class="icon-share-weibo" title="分享到微博"></span></a><a href="javascript:;"
-                                                                                               class="#"
-                                                                                               data-href="http://www.douban.com/share/service?bm=1&amp;image=http%3A%2F%2Fimg-cdn2.luoo.net%2Fpics%2Fevent%2F15660%2F5acefb5e12a73.jpg!%2Ffwfh%2F180x225&amp;href=http%3A%2F%2Fwww.luoo.net%2Fevent%2F15660&amp;updated=&amp;name=%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8%E3%80%90%E5%A2%A8%E8%A5%BF%E5%93%A5%E5%90%8E%E6%91%87%20Childs%20%E4%B8%AD%E5%9B%BD%E5%B7%A1%E6%BC%94%20%E3%80%91%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40%E8%90%BD%E7%BD%91%EF%BC%89"
-                                                                                               target="_blank"
-                                                                                               title="分享到豆瓣"><span
-                    class="icon-share-douban"></span></a><a href="javascript:;" class="#"
-                                                            data-href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fwww.luoo.net%2Fevent%2F15660&amp;desc=%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8%E3%80%90%E5%A2%A8%E8%A5%BF%E5%93%A5%E5%90%8E%E6%91%87%20Childs%20%E4%B8%AD%E5%9B%BD%E5%B7%A1%E6%BC%94%20%E3%80%91%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40%E8%90%BD%E7%BD%91%EF%BC%89&amp;pics=http%3A%2F%2Fimg-cdn2.luoo.net%2Fpics%2Fevent%2F15660%2F5acefb5e12a73.jpg!%2Ffwfh%2F180x225"
-                                                            target="_blank" title="分享到QQ空间"><span
-                    class="icon-share-qzone"></span></a><a href="javascript:;" class="#"
-                                                           data-href="http://www.luoo.net/event/15660" target="_blank"
-                                                           title="分享到朋友圈"><span
-                    class="icon-share-wechat"></span></a></span></p>
-        </div>
-    </div>
+		<div class="event-intro">
+			<h3 class="title">活动详情</h3>
+			<div class="ct" th:utext="${event.content}"></div>
 
-    <div class="event-intro">
-        <h3 class="title">活动详情</h3>
-        <div class="ct" th:utext="${event.content}">
-        </div>
+		</div>
 
-    </div>
-
-</div>
-<script type="text/javascript" src="/js/api"></script>
-<script type="text/javascript" src="/js/getscript"></script>
-<script>
+	</div>
+	<script type="text/javascript" src="/js/api"></script>
+	<script type="text/javascript" src="/js/getscript"></script>
+	<script>
 
 </script>
-<!--/// container end -->
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
+	<!--/// container end -->
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
 
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-</div>
-
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
 
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<!--[if lt IE 9]>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {

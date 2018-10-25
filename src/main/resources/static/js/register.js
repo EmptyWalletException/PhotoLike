@@ -20,7 +20,6 @@ $("#submit_register").click(function () {
 
 
 
-    /*因为涉及到文件的处理,无法直接用form封装到pojo中,所以先使用js代码来封装数据*/
     var user={};
     user.account = $("#account").val();
     user.password = $("#password").val();

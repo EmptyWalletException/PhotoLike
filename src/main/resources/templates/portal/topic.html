@@ -1,136 +1,217 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>专辑</title>
-    <meta name="description" content=" ">
-    <meta name="keywords" content="">
-    <link rel="stylesheet" href="/css/vol.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="/js/luoo.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>专辑</title>
+<meta name="description" content=" ">
+<meta name="keywords" content="">
+<link rel="stylesheet" href="/css/vol.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<!-- container start -->
+	<div class="container" style="min-height: 499px;">
 
-</div>
-<!--/// header end -->
-<!-- container start -->
-<div class="container" style="min-height: 499px;">
+		<div class="clearfix">
+			<!-- article start-->
+			<div class="article article-sm">
+				<div class="page-nav rounded clearfix">
 
-    <div class="clearfix">
-        <!-- article start-->
-        <div class="article article-sm">
-            <div class="page-nav rounded clearfix">
+					<div class="curt-nav">
+						<!--如果后台没有返回用户选择的分类Id,则将样式设置为激活-->
+						<a href="/topic?&pn=1" class="item actived"
+							th:class="${null==categoryId?'item actived':'item'}">最新专辑</a>
+					</div>
+					<div class="pagenav-wrapper">
+						<!--遍历所有分类并生成元素,当后台返回的用户选择的分类Id等于遍历取出的分类Id时将css样式变为激活-->
+						<a href="/topic?category=1&pn=1" class="item"
+							th:class="${category.id == categoryId?'item actived':'item'}"
+							th:href="'/topic?category='+${category.id}"
+							th:text="${category.name}"
+							th:each="category,categoryStat:${categoryPage.content}">摇滚</a>
+					</div>
+				</div>
+				<!-- vol-list -->
+				<div class="vol-list">
+					<!--遍历topicPage里的topic列表并生成元素-->
+					<div class="item" th:each="topic:${topicPage}">
+						<a href="/topic/1374" class="cover-wrapper" title="关于爱的表达方式"
+							th:title="${topic.title}" th:href="'/topic/'+${topic.id}"> <img
+							src="/img/test/testTopic" alt="关于爱的表达方式" class="cover rounded"
+							th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
+						</a>
+						<div class="meta rounded clearfix">
+							<a href="/topic/1374" class="name" title="关于爱的表达方式"
+								th:href="'/topic/'+${topic.id}" th:title="${topic.title}"
+								th:text="'Top.'+${topic.id}+' '+${topic.title}">vol.991
+								关于爱的表达方式</a> <span class="comments"> <span
+								class="icon-comment-count"></span> [[${topic.commentNumber}]]
+							</span> <span class="favs"> <span class="icon-favd"></span>
+								[[${topic.collectNumber}]]
+							</span>
+						</div>
+					</div>
 
-                <div class="curt-nav">
-                    <!--如果后台没有返回用户选择的分类Id,则将样式设置为激活-->
-                    <a href="/topic?&pn=1" class="item actived" th:class="${null==categoryId?'item actived':'item'}">最新专辑</a>
-                </div>
-                <div class="pagenav-wrapper">
-                    <!--遍历所有分类并生成元素,当后台返回的用户选择的分类Id等于遍历取出的分类Id时将css样式变为激活-->
-                    <a href="/topic?category=1&pn=1" class="item" th:class="${category.id == categoryId?'item actived':'item'}" th:href="'/topic?category='+${category.id}"  th:text="${category.name}" th:each="category,categoryStat:${categoryPage.content}">摇滚</a>
-                </div>
-            </div>
-            <!-- vol-list -->
-            <div class="vol-list">
-                <!--遍历topicPage里的topic列表并生成元素-->
-                <div class="item" th:each="topic:${topicPage}">
-                    <a href="/topic/1374" class="cover-wrapper" title="关于爱的表达方式" th:title="${topic.title}" th:href="'/topic/'+${topic.id}">
-                        <img src="/img/test/testTopic" alt="关于爱的表达方式" class="cover rounded" th:alt="${topic.title}" th:src="${topic.coverImgAddr}" >
-                    </a>
-                    <div class="meta rounded clearfix">
-                        <a href="/topic/1374" class="name" title="关于爱的表达方式" th:href="'/topic/'+${topic.id}" th:title="${topic.title}" th:text="'Top.'+${topic.id}+' '+${topic.title}">vol.991 关于爱的表达方式</a>
-                        <span class="comments">
-									<span class="icon-comment-count"></span>
-                                     [[${topic.commentNumber}]]
-								</span>
-                        <span class="favs">
-									<span class="icon-favd"></span>
-                                    [[${topic.collectNumber}]]
-								</span>
-                    </div>
-                </div>
+				</div>
+				<!-- vol-list end-->
 
-            </div>
-            <!-- vol-list end-->
+				<!--生成的不带分类参数的页面跳转url-->
+				<div class="paginator"
+					th:if=" ${null == categoryId && topicPage.totalPages>1}">
+					<a class="previous" href="/topic?pn=1" th:href="'/topic?pn=1'">首页</a>
+					<a class="previous" th:href="'/topic?pn='+${topicPage.number}"
+						th:if="${topicPage.hasPrevious()}">上一页</a>
+					<!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+					<a class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number -3}"
+						th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
+					<a class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number -2}"
+						th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
+					<a class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number -1}"
+						th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
+					<a class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number }"
+						th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a>
+					<!--判断如果在当前页码如果有前面的页码则生成-->
+					<a class="page actived" href="#" rel="nofollow"
+						th:href="'/topic?pn='+${topicPage.number+1}"
+						th:text="${topicPage.number +1}">5</a>
+					<!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+					<a class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number +2}"
+						th:text="${topicPage.number +2}"
+						th:if="${topicPage.number +2} <= ${topicPage.totalPages }">6</a>
+					<!--判断如果在当前页面有后面的页面则生成-->
+					<a class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number +3}"
+						th:text="${topicPage.number +3}"
+						th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a> <a
+						class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number +4}"
+						th:text="${topicPage.number +4}"
+						th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a> <a
+						class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number +5}"
+						th:text="${topicPage.number +5}"
+						th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a> <a
+						class="page" href="#"
+						th:href="'/topic?pn='+${topicPage.number +6}"
+						th:text="${topicPage.number +6}"
+						th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
+					<a class="next" href="#"
+						th:href="'/topic?pn='+${topicPage.number +2}"
+						th:if="${topicPage.hasNext()}">下一页</a> <a class="next" href="#"
+						th:href="'/topic?pn='+${topicPage.totalPages }"
+						th:if="${topicPage.totalPages }>0">尾页</a> <a class="next" href="#"
+						th:href="'/topic?pn=1'" th:if="${topicPage.totalPages }==0">尾页</a>
+				</div>
 
-            <!--生成的不带分类参数的页面跳转url-->
-            <div class="paginator" th:if=" ${null == categoryId && topicPage.totalPages>1}">
-                <a class="previous" href="/topic?pn=1" th:href="'/topic?pn=1'" >首页</a>
-                <a class="previous"  th:href="'/topic?pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-                <a class="page actived" href="#" rel="nofollow" th:href="'/topic?pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a><!--判断如果在当前页面有后面的页面则生成-->
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
-                <a class="page" href="#" th:href="'/topic?pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
-                <a class="next" href="#" th:href="'/topic?pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-                <a class="next" href="#" th:href="'/topic?pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
-                <a class="next" href="#" th:href="'/topic?pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
-            </div>
+				<!--生成的带分类参数的页面跳转url-->
+				<div class="paginator"
+					th:if=" ${null !=categoryId && topicPage.totalPages>1} ">
+					<a class="previous" href="'/topic?category='+${categoryId}+'&pn=1'"
+						th:href="'/topic?category='+${categoryId}+'&pn=1'">首页</a> <a
+						class="previous"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number}"
+						th:if="${topicPage.hasPrevious()}">上一页</a>
+					<!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+					<a class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -3}"
+						th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
+					<a class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -2}"
+						th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
+					<a class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -1}"
+						th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
+					<a class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number }"
+						th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a>
+					<a class="page actived" href="#" rel="nofollow"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number+1}"
+						th:text="${topicPage.number +1}">5</a>
+					<!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+					<a class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +2}"
+						th:text="${topicPage.number +2}"
+						th:if="${topicPage.number +2} <= ${topicPage.totalPages }">6</a>
+					<a class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +3}"
+						th:text="${topicPage.number +3}"
+						th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a> <a
+						class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +4}"
+						th:text="${topicPage.number +4}"
+						th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a> <a
+						class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +5}"
+						th:text="${topicPage.number +5}"
+						th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a> <a
+						class="page" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +6}"
+						th:text="${topicPage.number +6}"
+						th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
+					<a class="next" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +2}"
+						th:if="${topicPage.hasNext()}">下一页</a> <a class="next" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.totalPages }"
+						th:if="${topicPage.totalPages }>0">尾页</a> <a class="next" href="#"
+						th:href="'/topic?category='+${categoryId}+'&pn=1'"
+						th:if="${topicPage.totalPages }==0">尾页</a>
+				</div>
+			</div>
+			<!--/// article end-->
 
-            <!--生成的带分类参数的页面跳转url-->
-            <div class="paginator" th:if=" ${null !=categoryId && topicPage.totalPages>1} ">
-                <a class="previous" href="'/topic?category='+${categoryId}+'&pn=1'" th:href="'/topic?category='+${categoryId}+'&pn=1'" >首页</a>
-                <a class="previous"  th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a>
-                <a class="page actived" href="#" rel="nofollow" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a>
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
-                <a class="page" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
-                <a class="next" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-                <a class="next" href="#" th:href="'/topic?category='+${categoryId}+'&pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
-                <a class="next" href="#" th:href="'/topic?category='+${categoryId}+'&pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
-            </div>
-        </div>
-        <!--/// article end-->
+			<!-- aside start-->
+			<div class="aside">
 
-        <!-- aside start-->
-        <div class="aside">
+				<div class="widget" id="widgetHotVol">
+					<div class="widget-head">
+						<span class="title">最近热门专栏</span>
+					</div>
+					<div class="widget-ct pic-widget">
+						<div class="item" th:each="hotTopic,hotTopicStat:${hotTopicPage}"
+							th:if="${hotTopicStat.index}<5">
+							<a href="/topic/335" class="cover-wrapper"
+								th:href="'/topic/'+${hotTopic.id}"> <img
+								src="/img/test/testTopic" alt="夜车" class="vol-cover rounded"
+								th:alt="${hotTopic.title}" th:src="${hotTopic.coverImgAddr}">
+							<!--th:src="'../'+${hotTopic.photo[0].imgAddr}"-->
+							</a>
+							<div class="info">
+								<a href="http://www.luoo.net/vol/index/335" title="夜车"
+									class="title" th:title="${hotTopic.title}"
+									th:text="${hotTopic.title}" th:href="'/topic/'+${hotTopic.id}">夜车</a>
+								<p class="description" th:text="${hotTopic.collectNumber}+'人收藏'">18241人收藏</p>
+							</div>
+						</div>
 
-            <div class="widget" id="widgetHotVol">
-                <div class="widget-head">
-                    <span class="title">最近热门专栏</span>
-                </div>
-                <div class="widget-ct pic-widget">
-                    <div class="item" th:each="hotTopic,hotTopicStat:${hotTopicPage}" th:if="${hotTopicStat.index}<5">
-                        <a href="/topic/335" class="cover-wrapper" th:href="'/topic/'+${hotTopic.id}">
-                            <img src="/img/test/testTopic" alt="夜车" class="vol-cover rounded" th:alt="${hotTopic.title}" th:src="${hotTopic.coverImgAddr}"><!--th:src="'../'+${hotTopic.photo[0].imgAddr}"-->
-                        </a>
-                        <div class="info">
-                            <a href="http://www.luoo.net/vol/index/335" title="夜车" class="title"  th:title="${hotTopic.title}"  th:text="${hotTopic.title}" th:href="'/topic/'+${hotTopic.id}">夜车</a>
-                            <p class="description" th:text="${hotTopic.collectNumber}+'人收藏'">18241人收藏</p>
-                        </div>
-                    </div>
+					</div>
+				</div>
 
-                </div>
-            </div>
+			</div>
+			<!--/// aside end-->
 
-        </div>
-        <!--/// aside end-->
-
-    </div>
-</div>
-<script type="text/javascript">
+		</div>
+	</div>
+	<script type="text/javascript">
     $(function () {
         $('.aside')
             .stick_in_parent()
@@ -140,26 +221,22 @@
             });
     })
 </script>
-<script src="/js/jquery.sticky-kit.min.js"></script>
-<!--/// container end -->
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
-
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-</div>
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
+	<script src="/js/jquery.sticky-kit.min.js"></script>
+	<!--/// container end -->
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
 
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
 
 
 </body>

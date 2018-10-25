@@ -3,110 +3,114 @@
 <head>
 
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>投稿推荐</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/about.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>投稿推荐</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="#">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/about.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
 
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
-    <script src="/js/luoo.js"></script>
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
-
-</div>
-<!--/// header end -->
-<div class="container" style="min-height: 499px;">
-    <h1 class="about-title " style="margin-bottom: 5px;">专辑投稿:</h1>
-    <p style="float: right;">
-        <a href="/contribute/topicContribute" style="color: #dd5862">专辑投稿</a>
-        <a href="/contribute/essayContribute" >随笔投稿</a>
-        <a href="/contribute/storyContribute" >故事投稿</a>
-        <a href="/contribute/eventContribute" >活动申请</a>
-    </p>
-    <br/>
-    <hr/>
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<div class="container" style="min-height: 499px;">
+		<h1 class="about-title " style="margin-bottom: 5px;">专辑投稿:</h1>
+		<p style="float: right;">
+			<a href="/contribute/topicContribute" style="color: #dd5862">专辑投稿</a>
+			<a href="/contribute/essayContribute">随笔投稿</a> <a
+				href="/contribute/storyContribute">故事投稿</a> <a
+				href="/contribute/eventContribute">活动申请</a>
+		</p>
+		<br />
+		<hr />
 
 
-    <div class="WriteCover-wrapper" id="editDiv">
-        <div id="singlePhotoEcho" >
-            <p>封面图片预览区域:</p>
-        </div>
-        <div class="clear" >
-            上传专辑封面 : <input type="file" hidden id="file_single_input" accept=".jpeg, .jpg, .png, .gif" /> <!--multiple，可选择多张图片-->
-                        <button id="selectCover">选择封面图片</button>
-        </div>
+		<div class="WriteCover-wrapper" id="editDiv">
+			<div id="singlePhotoEcho">
+				<p>封面图片预览区域:</p>
+			</div>
+			<div class="clear">
+				上传专辑封面 : <input type="file" hidden id="file_single_input"
+					accept=".jpeg, .jpg, .png, .gif" />
+				<!--multiple，可选择多张图片-->
+				<button id="selectCover">选择封面图片</button>
+			</div>
 
-        <div >
-            撰写专辑标题 : <input rows="1" id="title" class="Input" placeholder="请输入标题"  style="width: 500px;height: 22px"/>
-        </div>
+			<div>
+				撰写专辑标题 : <input rows="1" id="title" class="Input"
+					placeholder="请输入标题" style="width: 500px; height: 22px" />
+			</div>
 
-        <div id="photoEcho" >
-            <p>专辑内容所有图片预览区域,点击图片即可清除预览:</p>
-        </div>
+			<div id="photoEcho">
+				<p>专辑内容所有图片预览区域,点击图片即可清除预览:</p>
+			</div>
 
-        <div class="clear" ></div>
-        <div class="clear" >
-            上传专辑图片 : <input type="file" hidden id="file_input" accept=".jpeg, .jpg, .png, .gif" multiple/> <!--multiple，可选择多张图片-->
-            <button id="select">批量选择图片</button>
-            <button id="clear">清除所有图片</button>
-        </div>
-        <div >
-            <label  class="">选择所属分类 : </label>
-                <select  id="category" style="width: 150px;height: 30px">
-                    <option th:each="category:${categoryPage}" th:value="${category.id}" th:text="' '+${category.name}+' '" >分类1</option>
-                </select>
-        </div>
+			<div class="clear"></div>
+			<div class="clear">
+				上传专辑图片 : <input type="file" hidden id="file_input"
+					accept=".jpeg, .jpg, .png, .gif" multiple />
+				<!--multiple，可选择多张图片-->
+				<button id="select">批量选择图片</button>
+				<button id="clear">清除所有图片</button>
+			</div>
+			<div>
+				<label class="">选择所属分类 : </label> <select id="category"
+					style="width: 150px; height: 30px">
+					<option th:each="category:${categoryPage}"
+						th:value="${category.id}" th:text="' '+${category.name}+' '">分类1</option>
+				</select>
+			</div>
 
-        <div style="width:960px;">
-            撰写专辑正文 :
-            <!--style给定宽度可以影响编辑器的最终宽度-->
-            <textarea type="text/plain"  id="myEditor" style="width:950px;height:240px;" >
+			<div style="width: 960px;">
+				撰写专辑正文 :
+				<!--style给定宽度可以影响编辑器的最终宽度-->
+				<textarea type="text/plain" id="myEditor"
+					style="width: 950px; height: 240px;">
 
             </textarea>
-        </div>
+			</div>
 
-        <div>
-            <button id="submit">提交稿件</button><small> 注意事项:上传图片需要等待一段时间,请不要重复点击提交按钮!</small>
-        </div>
+			<div>
+				<button id="submit">提交稿件</button>
+				<small> 注意事项:上传图片需要等待一段时间,请不要重复点击提交按钮!</small>
+			</div>
 
-    </div>
-</div>
-
-
-
-
-        <!--底部区域开始-->
-        <div class="footer" th:replace="~{portal/footer :: footer}">
-
-        </div>
-        <div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-        <div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-        </div>
-        <div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-        </div>
-        <!--底部结束-->
+		</div>
+	</div>
 
 
-        <script src="/js/jquery.artDialog.js"></script>
-        <script src="/js/jquery.qtip.min.js"></script>
-        <script src="/js/jquery.cookie.js"></script>
-        <script src="/js/qrcode.min.js"></script>
-        <script src="/js/topicContribute.js"></script>
-        <!--[if lt IE 9]>
+
+
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
+
+
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<script src="/js/topicContribute.js"></script>
+	<!--[if lt IE 9]>
         <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
         <script>
             $(function () {

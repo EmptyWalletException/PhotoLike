@@ -2,164 +2,190 @@
 <!-- saved from url=(0039)http://www.luoo.net/user/essays/1405418 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>收藏的故事</title>
-    <meta name="description" content="# ">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/user.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>收藏的故事</title>
+<meta name="description" content="# ">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/user.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
 
-    <script src="/js/luoo.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
 
-</div>
-<!--/// header end -->
+	<!-- container start -->
+	<div class="container ct-sm" style="min-height: 460px;">
 
-<!-- container start -->
-<div class="container ct-sm" style="min-height: 460px;">
-
-    <!-- uc-head -->
-    <div class="uc-head clearfix">
+		<!-- uc-head -->
+		<div class="uc-head clearfix">
 
 
-        <div class="ainfo">
-            <span class="playcnt">我的收藏:</span>
-            <div class="sns-account">
+			<div class="ainfo">
+				<span class="playcnt">我的收藏:</span>
+				<div class="sns-account">
 
-                <a href="http://www.luoo.net/login/oauth/site/weibo/act/bind" class="sns-item icon-open-weibo-grey" target="_blank" title="绑定微博账号"></a>
+					<a href="http://www.luoo.net/login/oauth/site/weibo/act/bind"
+						class="sns-item icon-open-weibo-grey" target="_blank"
+						title="绑定微博账号"></a> <a
+						href="http://www.luoo.net/login/oauth/site/douban/act/bind"
+						class="sns-item icon-open-douban-grey" target="_blank"
+						title="绑定豆瓣账号"></a> <a
+						href="http://www.luoo.net/login/oauth/site/qq/act/bind"
+						class="sns-item icon-open-qq-grey" target="_blank" title="绑定QQ账号"></a>
+				</div>
+			</div>
 
-                <a href="http://www.luoo.net/login/oauth/site/douban/act/bind" class="sns-item icon-open-douban-grey" target="_blank" title="绑定豆瓣账号"></a>
 
-                <a href="http://www.luoo.net/login/oauth/site/qq/act/bind" class="sns-item icon-open-qq-grey" target="_blank" title="绑定QQ账号"></a>
-            </div>
-        </div>
+		</div>
 
-
-    </div>
-
-    <!--/// uc-head end-->
-    <div class="uc-nav rounded clearfix">
-        <a href="/user/favoriteTopic?userId=1" class="nav-item " th:href="'/user/favoriteTopic?userId='+${user.id}">专辑</a>
-        <a href="/user/favoriteEssay?userId=1"  class="nav-item " th:href="'/user/favoriteEssay?userId='+${user.id}">随笔</a>
-        <a href="/user/favoriteStory?userId=1" class="nav-item actived" th:href="'/user/favoriteStory?userId='+${user.id}">故事</a>
-        <!--<a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
+		<!--/// uc-head end-->
+		<div class="uc-nav rounded clearfix">
+			<a href="/user/favoriteTopic?userId=1" class="nav-item "
+				th:href="'/user/favoriteTopic?userId='+${user.id}">专辑</a> <a
+				href="/user/favoriteEssay?userId=1" class="nav-item "
+				th:href="'/user/favoriteEssay?userId='+${user.id}">随笔</a> <a
+				href="/user/favoriteStory?userId=1" class="nav-item actived"
+				th:href="'/user/favoriteStory?userId='+${user.id}">故事</a>
+			<!--<a href="/user?userId=1" class="btn-play" th:href="'/user?userId='+${user.id}">
             查看我的投稿
         </a>-->
 
-    </div>
+		</div>
 
-    <!-- uc-ct -->
-    <div class="uc-ct">
-        <div th:if="${storyPage==null || storyPage.content.size()==0}">
-            <br/>
-            <p>该用户没有收藏故事</p>
-            <br/>
-        </div>
-        <!-- fav-essays -->
-        <div class="fav-essays">
+		<!-- uc-ct -->
+		<div class="uc-ct">
+			<div th:if="${storyPage==null || storyPage.content.size()==0}">
+				<br />
+				<p>该用户没有收藏故事</p>
+				<br />
+			</div>
+			<!-- fav-essays -->
+			<div class="fav-essays">
 
-            <div class="item" th:each="story,storyStat:${storyPage}"
-                 th:if="${storyPage!=null && storyStat.size!=0 && storyStat.index<10 }">
-                <div class="clearfix">
-                    <a href="/story/921" class="cover-wrapper" th:href="'/story/'+${story.id}">
-                        <img src="/js/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp" alt="Seas of Years : 带你三十秒潜入海底，穿越大洋"
-                             class="cover" style="width: 126.3px" th:src="${story.coverImgAddr}" th:alt="${story.title}">
-                    </a>
-                    <div class="item-ct">
-                        <a href="/story/921" class="title" th:text="${story.title}" th:href="'/story/'+${story.id}">Seas
-                            of Years : 带你三十秒潜入海底，穿越大洋</a>
-                        <p class="subscribe" th:text="${story.subscribe}">极光下，星辰里，置身于摇曳着的帆船，聆听来自深海的声音。</p>
-                    </div>
-                </div>
-                <div class="clearfix">
-                    <span class="time" th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}"></span>
-                    <a  href="javascript:;" rel="nofollow" class="btn-unlike unfav" plate="story.111"  title="取消收藏" th:attr="plate='story.'+${story.id}">
-                        <i class="icon icon-trash"></i> 删除
-                    </a>
-                    <a href="javascript:;" rel="nofollow" class="share btn-action-share" data-app="vol" data-id="921"
-                       data-text="这篇文章值得一读【Seas of Years : 带你三十秒潜入海底，穿越大洋 】（分享自@落网）"
-                       data-img="http://img-cdn2.luoo.net/pics/essays/201711/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp">
-                        <i class="icon icon-share"></i> 分享
-                    </a>
-                </div>
-            </div>
+				<div class="item" th:each="story,storyStat:${storyPage}"
+					th:if="${storyPage!=null && storyStat.size!=0 && storyStat.index<10 }">
+					<div class="clearfix">
+						<a href="/story/921" class="cover-wrapper"
+							th:href="'/story/'+${story.id}"> <img
+							src="/js/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp"
+							alt="Seas of Years : 带你三十秒潜入海底，穿越大洋" class="cover"
+							style="width: 126.3px" th:src="${story.coverImgAddr}"
+							th:alt="${story.title}">
+						</a>
+						<div class="item-ct">
+							<a href="/story/921" class="title" th:text="${story.title}"
+								th:href="'/story/'+${story.id}">Seas of Years :
+								带你三十秒潜入海底，穿越大洋</a>
+							<p class="subscribe" th:text="${story.subscribe}">极光下，星辰里，置身于摇曳着的帆船，聆听来自深海的声音。</p>
+						</div>
+					</div>
+					<div class="clearfix">
+						<span class="time"
+							th:text="${#dates.format(story.creatTime,'yyyy-MM-dd')}"></span>
+						<a href="javascript:;" rel="nofollow" class="btn-unlike unfav"
+							plate="story.111" title="取消收藏"
+							th:attr="plate='story.'+${story.id}"> <i
+							class="icon icon-trash"></i> 删除
+						</a> <a href="javascript:;" rel="nofollow"
+							class="share btn-action-share" data-app="vol" data-id="921"
+							data-text="这篇文章值得一读【Seas of Years : 带你三十秒潜入海底，穿越大洋 】（分享自@落网）"
+							data-img="http://img-cdn2.luoo.net/pics/essays/201711/Fm5_5grjCEQqEiIrUQd4bXfjcKZ9.bmp">
+							<i class="icon icon-share"></i> 分享
+						</a>
+					</div>
+				</div>
 
 
-        </div>
-        <!-- ///fav-essays -->
-        <div class="paginator" th:if="${storyPage.totalPages } > 1">
-            <a class="previous" href="/user/favoriteStory?userId=1&pn=1"
-               th:href="'/user/favoriteStory?userId='+${user.id}+'&pn=1'">首页</a>
-            <a class="previous" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number}"
-               th:if="${storyPage.hasPrevious()}">上一页</a>
-            <!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number -3}"
-               th:text="${storyPage.number -3}" th:if="${storyPage.number } >3 ">1</a>
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number -2}"
-               th:text="${storyPage.number -2}" th:if="${storyPage.number } >2 ">2</a>
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number -1}"
-               th:text="${storyPage.number -1}" th:if="${storyPage.number } >1 ">3</a>
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number }"
-               th:text="${storyPage.number}" th:if="${storyPage.number >0}">4</a> <!--判断如果在当前页码如果有前面的页码则生成-->
-            <a class="page actived" href="#" rel="nofollow"
-               th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number+1}"
-               th:text="${storyPage.number +1}">5</a>
-            <!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +2}"
-               th:text="${storyPage.number +2}" th:if="${storyPage.number +2} <= ${storyPage.totalPages }">6</a>
-            <!--判断如果在当前页面有后面的页面则生成-->
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +3}"
-               th:text="${storyPage.number +3}" th:if="${storyPage.number +3} <= ${storyPage.totalPages }">7</a>
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +4}"
-               th:text="${storyPage.number +4}" th:if="${storyPage.number +4} <= ${storyPage.totalPages }">8</a>
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +5}"
-               th:text="${storyPage.number +5}" th:if="${storyPage.number +5} <= ${storyPage.totalPages }">9</a>
-            <a class="page" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +6}"
-               th:text="${storyPage.number +6}" th:if="${storyPage.number +6} <= ${storyPage.totalPages }">10</a>
-            <a class="next" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +2}"
-               th:if="${storyPage.hasNext()}">下一页</a>
-            <a class="next" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.totalPages }"
-               th:if="${storyPage.totalPages }>0">尾页</a>
-            <a class="next" href="#" th:href="'/user/favoriteStory?userId='+${user.id}+'&pn=1'"
-               th:if="${storyPage.totalPages }==0">尾页</a>
-        </div>
+			</div>
+			<!-- ///fav-essays -->
+			<div class="paginator" th:if="${storyPage.totalPages } > 1">
+				<a class="previous" href="/user/favoriteStory?userId=1&pn=1"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn=1'">首页</a> <a
+					class="previous"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number}"
+					th:if="${storyPage.hasPrevious()}">上一页</a>
+				<!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+				<a class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number -3}"
+					th:text="${storyPage.number -3}" th:if="${storyPage.number } >3 ">1</a>
+				<a class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number -2}"
+					th:text="${storyPage.number -2}" th:if="${storyPage.number } >2 ">2</a>
+				<a class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number -1}"
+					th:text="${storyPage.number -1}" th:if="${storyPage.number } >1 ">3</a>
+				<a class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number }"
+					th:text="${storyPage.number}" th:if="${storyPage.number >0}">4</a>
+				<!--判断如果在当前页码如果有前面的页码则生成-->
+				<a class="page actived" href="#" rel="nofollow"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number+1}"
+					th:text="${storyPage.number +1}">5</a>
+				<!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+				<a class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +2}"
+					th:text="${storyPage.number +2}"
+					th:if="${storyPage.number +2} <= ${storyPage.totalPages }">6</a>
+				<!--判断如果在当前页面有后面的页面则生成-->
+				<a class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +3}"
+					th:text="${storyPage.number +3}"
+					th:if="${storyPage.number +3} <= ${storyPage.totalPages }">7</a> <a
+					class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +4}"
+					th:text="${storyPage.number +4}"
+					th:if="${storyPage.number +4} <= ${storyPage.totalPages }">8</a> <a
+					class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +5}"
+					th:text="${storyPage.number +5}"
+					th:if="${storyPage.number +5} <= ${storyPage.totalPages }">9</a> <a
+					class="page" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +6}"
+					th:text="${storyPage.number +6}"
+					th:if="${storyPage.number +6} <= ${storyPage.totalPages }">10</a> <a
+					class="next" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.number +2}"
+					th:if="${storyPage.hasNext()}">下一页</a> <a class="next" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn='+${storyPage.totalPages }"
+					th:if="${storyPage.totalPages }>0">尾页</a> <a class="next" href="#"
+					th:href="'/user/favoriteStory?userId='+${user.id}+'&pn=1'"
+					th:if="${storyPage.totalPages }==0">尾页</a>
+			</div>
 
-    </div>
-    <!--/// uc-ct end -->
-</div>
-<!--/// container end -->
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
+		</div>
+		<!--/// uc-ct end -->
+	</div>
+	<!--/// container end -->
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
 
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
-</div>
-
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
-
-<script src="/js/jquery.artDialog(1).js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<script>
+	<script src="/js/jquery.artDialog(1).js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<script>
     /*点击后取消收藏;用于topic和essay*/
     $(document).on('click','.btn-unlike',function () {
         var plate = $(this).attr("plate");
@@ -181,7 +207,7 @@
         }
     });
 </script>
-<!--[if lt IE 9]>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {

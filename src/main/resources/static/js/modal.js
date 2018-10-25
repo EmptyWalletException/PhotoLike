@@ -189,6 +189,74 @@ function showValidateInfo(ele,status,msg){
     }
 }
 
+//抽取出来的密码输入框校验;
+function checkPasswordInput(passwordEle) {
+  // 验证用户密码  /^[a-z0-9_-]{5,15}$/
+  var inputPassword = $(passwordEle).val();
+  var regPassword = /(^[a-z0-9-]{5,15}$)/;
+  if(!regPassword.test(inputPassword)){
+      showValidateInfo(passwordEle,"error","请输入5~15位字符,只能出现数字与英文!");
+  }else{
+      showValidateInfo(passwordEle,"ok","");
+  }
+}
+
+//抽取出来的两个密码输入框一致性的校验方法;
+function checkPasswordCheckInput(passwordCheckEle,passwordEle) {
+    var inputValue = $(passwordCheckEle).val();
+    var password = $(passwordEle).val();
+    if(inputValue!=password){
+        //alert("用户名格式不正确,请输入2~10位字符,只能出现数字或英文或汉字的组合!");
+        showValidateInfo(passwordCheckEle,"error","两次输入的密码不一致!");
+    }else{
+        showValidateInfo(passwordCheckEle,"ok","");
+    }
+}
+
+/* 当用户更改第一个新密码输入框时进行校验,这是为了用户体验*/
+$("#txtNewpassword").change(function(){
+    checkPasswordInput("#txtNewpassword");
+});
+
+/* 当用户更改第二个新密码输入框时进行密码校验框的一致性校验,这是为了用户体验*/
+$("#txtCmfpassword").change(function(){
+    checkPasswordCheckInput("#txtCmfpassword","#txtNewpassword");
+});
+
+/*点击按钮后提交密码修改*/
+$("#editPassword").click(function(){
+	checkPasswordInput("#txtNewpassword");
+	checkPasswordCheckInput("#txtCmfpassword","#txtNewpassword");
+	var newPassword = $("#txtNewpassword").val();
+	var oldPassword = $("#txtPassword").val();
+	 $.ajax({
+	        url:"/user/password",
+	        type:"POST",
+	        data:{"newPassword":newPassword,"oldPassword":oldPassword},
+	        success:function(result){
+	                alert(result.msg);
+	                if(200 == resutl.code){
+	                	window.location.href="/login";
+	                }
+	            }
+	   	 });
+});
+
+/* 抽取出来的整体输入框的前端校验 */
+function validateInput(nicknameEle){
+    //验证用户昵称输入框;
+    checkNicknameInput(nicknameEle);
+    //以上是前端输入框用户体验的校验,下面是真正的功能性校验
+    //上面的校验不能中途return,否则会影响用户体验;
+    //同时,以上校验不能干预提交按钮上的ajax校验标记,防止出现错误;
+    var inputNickname = $(nicknameEle).val();//昵称输入框
+    var regNickname = /(^[a-z0-9-]{2,10}$)|(^[\u2E80-\u9FFF]{2,10})/;//昵称正则
+    if( !regNickname.test(inputNickname) ){
+        return false;
+    }
+    return true;
+}
+
 /* 当用户更改昵称输入框时进行校验,这是为了用户体验*/
 $("#nickname").change(function(){
 
@@ -204,30 +272,9 @@ $("#nickname").change(function(){
         $(this).next("span").removeAttr("style").text("");
         $("#btnEditSubmit").attr("ajaxCheckNickname","success");
     }
-
-
 });
 
-/* 抽取出来的整体输入框的前端校验 */
-function validateInput(nicknameEle){
 
-    //验证用户昵称输入框;
-    checkNicknameInput(nicknameEle);
-
-    //以上是前端输入框用户体验的校验,下面是真正的功能性校验
-    //上面的校验不能中途return,否则会影响用户体验;
-    //同时,以上校验不能干预提交按钮上的ajax校验标记,防止出现错误;
-
-    var inputNickname = $(nicknameEle).val();//昵称输入框
-    var regNickname = /(^[a-z0-9-]{2,10}$)|(^[\u2E80-\u9FFF]{2,10})/;//昵称正则
-
-
-    if( !regNickname.test(inputNickname) ){
-        return false;
-    }
-
-    return true;
-}
 
 /*修改基本信息*/
 $("#btnEditSubmit").click(function () {
@@ -239,7 +286,6 @@ $("#btnEditSubmit").click(function () {
         if (!validateInput("#nickname")) {
             return false;
         }
-
         /*再次检查ajax昵称是否可用*/
         ajaxCheckAccountInput("#account", "#btnEditSubmit");
         ajaxCheckNicknameInput("#nickname","#btnEditSubmit");
@@ -249,7 +295,7 @@ $("#btnEditSubmit").click(function () {
         }
 
         $.ajax({
-            url:"/user/edit",
+            url:"/user/info",
             type:"POST",
             data:{"nickname":nickname,"gender":gender,"cityId":cityId},
             success:function (result) {
@@ -257,8 +303,6 @@ $("#btnEditSubmit").click(function () {
                 if (200 == result.code){
                     window.location.href="/user/editInfo";
                 }
-
-
             }
         });
     }else {//如果用户最终改回了原来的昵称,则清空输入框样式,同时让保存按钮通过检验;;
@@ -266,7 +310,7 @@ $("#btnEditSubmit").click(function () {
         $("#nickname").next("span").removeAttr("style").text("");
         $("#btnEditSubmit").attr("ajaxCheckNickname","success");
         $.ajax({
-            url:"/user/edit",
+            url:"/user/info",
             type:"POST",
             data:{"gender":gender,"cityId":cityId},
             success:function (result) {
@@ -274,8 +318,6 @@ $("#btnEditSubmit").click(function () {
                 if (200 == result.code){
                     window.location.href="/user/editInfo";
                 }
-
-
             }
         });
     }

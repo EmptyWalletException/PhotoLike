@@ -42,8 +42,49 @@ public class UserController {
 	private UserServiceImpl userService;
 	@Autowired
 	private CityServiceImpl cityService;
+	
 
-	// TODO 需要完成修改密码的功能:
+	/**
+	 * 修改用户密码;
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/user/password", method = RequestMethod.POST)
+	@ResponseBody
+	private Msg editPassword(HttpServletRequest request) {
+		// 从session中取出user;
+		if (null == request.getSession().getAttribute("user")) {
+			// 判断session失效后返回登录界面
+			return Msg.fail().setMsg("操作失败,请重新登录后再试!");
+		}
+		User user = (User) request.getSession().getAttribute("user");
+		// 验证原始密码;
+		String oldPassword = request.getParameter("oldPassword");
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		//将原来的数据库中取出的加密后的密码与页面传来的原始密码进行对比;
+		 boolean matches = bCryptPasswordEncoder.matches(oldPassword, user.getPassword());
+		if ( !matches) {
+			return Msg.fail().setMsg("原始密码验证未通过,如果您忘记了密码,可以通过联系客服获得帮助 !");
+		}
+		//验证新密码的是否符合要求;
+		String newPassword = request.getParameter("newPassword");
+		if (null == newPassword || "".equals(newPassword.trim()) || 5 > newPassword.trim().length() || 30 < newPassword.length()
+				|| oldPassword.equals(newPassword)) {
+			return Msg.fail().setMsg("请输入符合要求的新密码 ! ");
+		} else {
+			// 修改成新的密码;
+			user.setPassword(bCryptPasswordEncoder.encode(newPassword)); // 使用security推荐的加密方式加密密码;
+			try {
+				userService.save(user);
+			} catch (Exception e) {
+				return Msg.fail().setMsg("修改失败,保存用户信息时出现错误!");
+			}
+		}
+		// 返回最终结果;
+		return Msg.success().setMsg("修改成功!");
+
+	}
 
 	/**
 	 * 修改用户信息
@@ -51,7 +92,7 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/info", method = RequestMethod.POST)
 	@ResponseBody
 	private Msg editInfo(HttpServletRequest request) {
 		// 从session中取出user;
@@ -60,7 +101,6 @@ public class UserController {
 			return Msg.fail().setMsg("操作失败,请重新登录后再试!");
 		}
 		User user = (User) request.getSession().getAttribute("user");
-
 		/* 设置昵称,需要注意判断用户是否真正的修改了昵称 */
 		if (null != request.getParameter("nickname") && !user.getNickname().equals(request.getParameter("nickname"))) {
 			String nickname = request.getParameter("nickname");
@@ -69,7 +109,6 @@ public class UserController {
 			}
 			user.setNickname(nickname);
 		}
-
 		/* 设置城市 */
 		City city = new City();
 		if (null != request.getParameter("cityId")) {
@@ -77,25 +116,19 @@ public class UserController {
 			city.setId(Long.parseLong(cityId));
 			user.setCity(city);
 		}
-
 		/* 设置性别 */
 		if (null != request.getParameter("gender")) {
 			String gender = request.getParameter("gender");
 			user.setGender(Integer.valueOf(gender));
 		}
-
-		// 修改用户信息,尽可能的减少从前端获取的值;
-		if (null != user) {
-			try {
-				userService.save(user);
-			} catch (Exception e) {
-				return Msg.fail().setMsg("修改失败,保存用户信息时出现错误!");
-			}
-			// 返回注册店铺的最终结果;
-			return Msg.success().setMsg("修改成功!");
-		} else {
-			return Msg.fail().setMsg("修改失败!");
+		try {
+			userService.save(user);
+		} catch (Exception e) {
+			return Msg.fail().setMsg("修改失败,保存用户信息时出现错误!");
 		}
+		// 返回最终结果;
+		return Msg.success().setMsg("修改成功!");
+
 	}
 
 	/**
@@ -149,7 +182,6 @@ public class UserController {
 			imgAddr2 = QiniuCloudUtil.upload(PathUtil.getImgBasePath() + imgAddr2,
 					imgAddr2.substring(imgAddr2.lastIndexOf("/") + 1));// 注意+1是为了避开/,否则保存的文件名前面会有一个/,
 		}
-
 		user.setImgAddr(imgAddr2);
 		try {
 			userService.save(user);
@@ -246,7 +278,6 @@ public class UserController {
 		}
 		User user = new User();
 		user.setNickname(nickname);
-
 		ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("id");
 		Example<User> userExample = Example.of(user, exampleMatcher);
 		Pageable pageable = new PageRequest(0, 2, new Sort(Sort.Direction.DESC, "id"));
@@ -292,7 +323,6 @@ public class UserController {
 		} else {
 			city.setId(1);// 如果城市参数传递失败则默认选择一个城市,之后管理员审核时可以修改;
 		}
-
 		user.setJoinTime(new Date(System.currentTimeMillis()));
 		user.setSignature("这个人很懒,没有设置签名...");
 		user.setCity(city);

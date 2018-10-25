@@ -28,8 +28,7 @@
 }
 
 /* Month/Year text and select */
-.gldp-flatwhite .monyear,
-.gldp-flatwhite .monyear select {
+.gldp-flatwhite .monyear, .gldp-flatwhite .monyear select {
 	font-size: 16px !important;
 	font-weight: bold;
 	background: #eee;
@@ -41,19 +40,16 @@
 }
 
 /* Prev/Next arrows */
-.gldp-flatwhite .prev-arrow,
-.gldp-flatwhite .next-arrow {
+.gldp-flatwhite .prev-arrow, .gldp-flatwhite .next-arrow {
 	color: #666;
 	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
 }
 
-.gldp-flatwhite .prev-arrow:active,
-.gldp-flatwhite .next-arrow:active {
+.gldp-flatwhite .prev-arrow:active, .gldp-flatwhite .next-arrow:active {
 	color: #000;
 }
 
-.gldp-flatwhite .prev-arrow-off,
-.gldp-flatwhite .next-arrow-off {
+.gldp-flatwhite .prev-arrow-off, .gldp-flatwhite .next-arrow-off {
 	color: #000;
 	opacity: 0.15;
 }
@@ -67,17 +63,13 @@
 }
 
 /* Weekdays */
-.gldp-flatwhite .mon,
-.gldp-flatwhite .tue,
-.gldp-flatwhite .wed,
-.gldp-flatwhite .thu,
-.gldp-flatwhite .fri {
+.gldp-flatwhite .mon, .gldp-flatwhite .tue, .gldp-flatwhite .wed,
+	.gldp-flatwhite .thu, .gldp-flatwhite .fri {
 	font-weight: bold;
 }
 
 /* Weekend days */
-.gldp-flatwhite .sat,
-.gldp-flatwhite .sun {
+.gldp-flatwhite .sat, .gldp-flatwhite .sun {
 	color: #888;
 	font-weight: bold;
 }
@@ -88,13 +80,9 @@
 }
 
 /* Hover */
-.gldp-flatwhite .mon:hover,
-.gldp-flatwhite .tue:hover,
-.gldp-flatwhite .wed:hover,
-.gldp-flatwhite .thu:hover,
-.gldp-flatwhite .fri:hover,
-.gldp-flatwhite .sat:hover,
-.gldp-flatwhite .sun:hover {
+.gldp-flatwhite .mon:hover, .gldp-flatwhite .tue:hover, .gldp-flatwhite .wed:hover,
+	.gldp-flatwhite .thu:hover, .gldp-flatwhite .fri:hover, .gldp-flatwhite .sat:hover,
+	.gldp-flatwhite .sun:hover {
 	background: #eee;
 }
 

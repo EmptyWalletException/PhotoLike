@@ -1,140 +1,170 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>搜索</title>
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/search.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <link rel="stylesheet" href="/css/vol.css">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>搜索</title>
+<meta name="description" content="#">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/search.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<link rel="stylesheet" href="/css/vol.css">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
 
-    <script src="/js/luoo.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<!-- container start -->
+	<div class="container ct-sm" style="min-height: 499px;">
+		<form class="search-form clearfix" action="/search" method="get">
+			<div>
+				<div class="filter rounded">
+					<a href="javascript:;" rel="nofollow" class="filter-current"
+						data-ct="searchFilterWrapper" data-tipid="searchFilterDialog"
+						data-adjustx="15" data-width="90"
+						data-hasqtip="searchFilterDialog"
+						aria-describedby="qtip-searchFilterDialog"> 关键字: <!--<span class="icon-search-filter"></span>-->
+					</a>
 
-</div>
-<!--/// header end -->
-<!-- container start -->
-<div class="container ct-sm" style="min-height: 499px;">
-    <form class="search-form clearfix" action="/search" method="get">
-        <div>
-        <div class="filter rounded">
-            <a href="javascript:;" rel="nofollow" class="filter-current" data-ct="searchFilterWrapper"
-               data-tipid="searchFilterDialog" data-adjustx="15" data-width="90" data-hasqtip="searchFilterDialog"
-               aria-describedby="qtip-searchFilterDialog">
-                关键字:                    <!--<span class="icon-search-filter"></span>-->
-            </a>
-
-        </div>
-        <input type="text" class="keyword rounded" placeholder="查找你喜欢的内容" name="keyword" value="查找你喜欢的内容" th:value="${keyword}">
-        <button type="submit" class="btn rounded">
-            <span class="icon-search-w"></span>
-            搜索
-        </button>
-        </div>
-        <br/><br/>
-        <div >
-            <span style="margin-left:30px;margin-right: 10px">筛选:</span>
-            <!--<label>
+				</div>
+				<input type="text" class="keyword rounded" placeholder="查找你喜欢的内容"
+					name="keyword" value="查找你喜欢的内容" th:value="${keyword}">
+				<button type="submit" class="btn rounded">
+					<span class="icon-search-w"></span> 搜索
+				</button>
+			</div>
+			<br />
+			<br />
+			<div>
+				<span style="margin-left: 30px; margin-right: 10px">筛选:</span>
+				<!--<label>
                 <input type="radio" name="filtrate" value="0" class="input-listener" checked> 全部
             </label>-->
-            <label>
-                <input type="radio" name="filtrate" value="topic" class="input-listener" checked> 专辑
-            </label>
-            <label>
-                <input type="radio" name="filtrate" value="essay" class="input-listener" > 随笔
-            </label>
-            <label>
-                <input type="radio" name="filtrate" value="story" class="input-listener" > 故事
-            </label>
-            <!--<label>
+				<label> <input type="radio" name="filtrate" value="topic"
+					class="input-listener" checked> 专辑
+				</label> <label> <input type="radio" name="filtrate" value="essay"
+					class="input-listener"> 随笔
+				</label> <label> <input type="radio" name="filtrate" value="story"
+					class="input-listener"> 故事
+				</label>
+				<!--<label>
                 <input type="radio" name="filtrate" value="4" class="input-listener" > 活动
             </label>-->
-        </div>
-    </form>
-    <div class="search-result" th:if="${!topicPage.hasContent()}">
-        <p class="search-not-found">没有找到相关的内容，换个关键词试试吧^-^</p>
-    </div>
-    <div class="search-result" th:if="${topicPage.hasContent()}">
+			</div>
+		</form>
+		<div class="search-result" th:if="${!topicPage.hasContent()}">
+			<p class="search-not-found">没有找到相关的内容，换个关键词试试吧^-^</p>
+		</div>
+		<div class="search-result" th:if="${topicPage.hasContent()}"></div>
+		<div class="vol-list" style="width: 600px">
+			<!--遍历topicPage里的topic列表并生成元素-->
+			<div class="item" th:each="topic:${topicPage}">
+				<a href="/topic/1374" class="cover-wrapper" title="关于爱的表达方式"
+					th:title="${topic.title}" th:href="'/topic/'+${topic.id}"> <img
+					src="/img/test/testTopic" alt="关于爱的表达方式" class="cover rounded"
+					th:alt="${topic.title}" th:src="${topic.coverImgAddr}">
+				</a>
+				<div class="meta rounded clearfix">
+					<a href="/topic/1374" class="name" title="关于爱的表达方式"
+						th:href="'/topic/'+${topic.id}" th:title="${topic.title}"
+						th:text="'Top.'+${topic.id}+' '+${topic.title}">vol.991
+						关于爱的表达方式</a> <span class="comments"> <span
+						class="icon-comment-count"></span> [[${topic.commentNumber}]]
+					</span> <span class="favs"> <span class="icon-favd"></span>
+						[[${topic.collectNumber}]]
+					</span>
+				</div>
+			</div>
 
-    </div>
-    <div class="vol-list" style="width: 600px">
-        <!--遍历topicPage里的topic列表并生成元素-->
-        <div class="item" th:each="topic:${topicPage}">
-            <a href="/topic/1374" class="cover-wrapper" title="关于爱的表达方式" th:title="${topic.title}" th:href="'/topic/'+${topic.id}">
-                <img src="/img/test/testTopic" alt="关于爱的表达方式" class="cover rounded" th:alt="${topic.title}" th:src="${topic.coverImgAddr}" >
-            </a>
-            <div class="meta rounded clearfix">
-                <a href="/topic/1374" class="name" title="关于爱的表达方式" th:href="'/topic/'+${topic.id}" th:title="${topic.title}" th:text="'Top.'+${topic.id}+' '+${topic.title}">vol.991 关于爱的表达方式</a>
-                <span class="comments">
-									<span class="icon-comment-count"></span>
-                                     [[${topic.commentNumber}]]
-								</span>
-                <span class="favs">
-									<span class="icon-favd"></span>
-                                    [[${topic.collectNumber}]]
-								</span>
-            </div>
-        </div>
+		</div>
+		<!--生成的带参数的页面跳转url-->
+		<div class="paginator" th:if="${topicPage.totalPages} >1">
+			<a class="previous"
+				href="/search?filtrate=topic&keyword=keyword&pn=1"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn=1'">首页</a>
+			<a class="previous"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number}"
+				th:if="${topicPage.hasPrevious()}">上一页</a>
+			<!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+			<a class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number -3}"
+				th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
+			<a class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number -2}"
+				th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
+			<a class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number -1}"
+				th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
+			<a class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number }"
+				th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a> <a
+				class="page actived" href="#" rel="nofollow"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number+1}"
+				th:text="${topicPage.number +1}">5</a>
+			<!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+			<a class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +2}"
+				th:text="${topicPage.number +2}"
+				th:if="${topicPage.number +2} <= ${topicPage.totalPages }">6</a> <a
+				class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +3}"
+				th:text="${topicPage.number +3}"
+				th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a> <a
+				class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +4}"
+				th:text="${topicPage.number +4}"
+				th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a> <a
+				class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +5}"
+				th:text="${topicPage.number +5}"
+				th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a> <a
+				class="page" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +6}"
+				th:text="${topicPage.number +6}"
+				th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a> <a
+				class="next" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +2}"
+				th:if="${topicPage.hasNext()}">下一页</a> <a class="next" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.totalPages }"
+				th:if="${topicPage.totalPages }>0">尾页</a> <a class="next" href="#"
+				th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn=1'"
+				th:if="${topicPage.totalPages }==0">尾页</a>
+		</div>
+	</div>
+	<!--/// container end -->
 
-    </div>
-    <!--生成的带参数的页面跳转url-->
-    <div class="paginator" th:if="${topicPage.totalPages} >1">
-        <a class="previous" href="/search?filtrate=topic&keyword=keyword&pn=1" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn=1'" >首页</a>
-        <a class="previous"  th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number}" th:if="${topicPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number -3}" th:text="${topicPage.number -3}" th:if="${topicPage.number } >3 ">1</a>
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number -2}" th:text="${topicPage.number -2}" th:if="${topicPage.number } >2 ">2</a>
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number -1}" th:text="${topicPage.number -1}" th:if="${topicPage.number } >1 ">3</a>
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number }" th:text="${topicPage.number}" th:if="${topicPage.number >0}">4</a>
-        <a class="page actived" href="#" rel="nofollow" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number+1}" th:text="${topicPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +2}" th:text="${topicPage.number +2}" th:if="${topicPage.number +2} <= ${topicPage.totalPages }" >6</a>
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +3}" th:text="${topicPage.number +3}"  th:if="${topicPage.number +3} <= ${topicPage.totalPages }">7</a>
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +4}" th:text="${topicPage.number +4}"  th:if="${topicPage.number +4} <= ${topicPage.totalPages }">8</a>
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +5}" th:text="${topicPage.number +5}" th:if="${topicPage.number +5} <= ${topicPage.totalPages }">9</a>
-        <a class="page" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +6}" th:text="${topicPage.number +6}" th:if="${topicPage.number +6} <= ${topicPage.totalPages }">10</a>
-        <a class="next" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.number +2}" th:if="${topicPage.hasNext()}">下一页</a>
-        <a class="next" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn='+${topicPage.totalPages }" th:if="${topicPage.totalPages }>0">尾页</a>
-        <a class="next" href="#" th:href="'/search?filtrate=topic&keyword='+${keyword}+'&pn=1'" th:if="${topicPage.totalPages }==0" >尾页</a>
-    </div>
-</div>
-<!--/// container end -->
+	<!--<script src="/js/search.js"></script>-->
 
-<!--<script src="/js/search.js"></script>-->
-
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
-
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-</div>
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
 
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<!--[if lt IE 9]>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {

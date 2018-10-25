@@ -2,126 +2,120 @@
 <!-- saved from url=(0032)/user/edit -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>注册</title>
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/user.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>注册</title>
+<meta name="description" content="#">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/user.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
 
-    <script src="/js/luoo.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<link rel="stylesheet" href="/css/glDatePicker.flatwhite.css">
+	<!-- container start -->
+	<div class="container ct-sm util-luoo-tabs" style="min-height: 460px;">
+		<!-- uc-head -->
+		<div class="uc-head clearfix">
+			<h1 class="uc-profile-title">注册账号</h1>
+		</div>
+		<!--/// uc-head end-->
 
-</div>
-<!--/// header end -->
-<link rel="stylesheet" href="/css/glDatePicker.flatwhite.css">
-<!-- container start -->
-<div class="container ct-sm util-luoo-tabs" style="min-height: 460px;">
-    <!-- uc-head -->
-    <div class="uc-head clearfix">
-        <h1 class="uc-profile-title">注册账号</h1>
-    </div>
-    <!--/// uc-head end-->
+		<!-- uc-ct -->
+		<div class="uc-ct">
+			<!-- setting-base -->
+			<div style="display: block;">
 
-    <!-- uc-ct -->
-    <div class="uc-ct">
-        <!-- setting-base -->
-        <div  style="display: block;">
+				<div>
 
-            <div   >
+					<div class="setting-row">
+						昵称: <input type="text" style="border: 1px solid silver;"
+							id="nickname" placeholder="请输入用于社交的昵称" /> <span
+							class="valid-msg " style="color: #dd5862;"> </span>
+					</div>
+					<div class="setting-row">
+						账号: <input type="text" style="border: 1px solid silver;"
+							id="account" placeholder="请输入用于登录的账号" /> <span
+							class="valid-msg " style="color: #dd5862;"> </span>
+					</div>
+					<div class="setting-row">
+						密码: <input type="password" style="border: 1px solid silver;"
+							id="password" placeholder="请输入登录密码" /> <span class="valid-msg "
+							style="color: #dd5862;"> </span>
+					</div>
+					<div class="setting-row">
+						确认密码: <input type="password" style="border: 1px solid silver;"
+							id="passwordCheck" placeholder="请再次输入密码进行确认" /> <span
+							class="valid-msg " style="color: #dd5862;"> </span>
+					</div>
 
-                <div class="setting-row">
-                    昵称:
-                    <input type="text" style="border: 1px solid silver;" id="nickname" placeholder="请输入用于社交的昵称" />
-                    <span class="valid-msg " style="color: #dd5862;"> </span>
-                </div>
-                <div class="setting-row">
-                    账号:
-                    <input type="text" style="border: 1px solid silver;"  id="account" placeholder="请输入用于登录的账号" />
-                    <span class="valid-msg " style="color: #dd5862;"> </span>
-                </div>
-                <div class="setting-row">
-                    密码:
-                    <input type="password" style="border: 1px solid silver;" id="password" placeholder="请输入登录密码" />
-                    <span class="valid-msg " style="color: #dd5862;"> </span>
-                </div>
-                <div class="setting-row">
-                    确认密码:
-                    <input type="password" style="border: 1px solid silver;" id="passwordCheck" placeholder="请再次输入密码进行确认" />
-                    <span class="valid-msg " style="color: #dd5862;" > </span>
-                </div>
+					<div class="setting-row">
+						<span class="label" id="gender">性别</span> <label> <input
+							type="radio" name="sex" value="1" class="input-listener" checked>
+							男
+						</label> <label> <input type="radio" name="sex" value="2"
+							class="input-listener"> 女
+						</label>
+					</div>
+					<div class="setting-row">
+						<span class="label">常居城市</span> <span> <select id="city">
+								<option th:each="city:${cityPage}" th:text="${city.name}"
+									th:value="${city.id}"></option>
+						</select>
+						</span>
+					</div>
 
-                <div class="setting-row">
-                    <span class="label" id="gender">性别</span>
-                    <label>
-                        <input type="radio" name="sex" value="1" class="input-listener" checked> 男
-                    </label>
-                    <label>
-                        <input type="radio" name="sex" value="2" class="input-listener" > 女
-                    </label>
-                </div>
-                <div class="setting-row">
-                    <span class="label">常居城市</span>
-                    <span >
-							<select   id="city"   >
-                                <option  th:each="city:${cityPage}" th:text="${city.name}" th:value="${city.id}">
-                                </option>
-                            </select>
-					</span>
-                </div>
+					<div class="setting-row setting-bottom">
+						<button type="button" class="btn rounded btn-positive "
+							id="submit_register">提交</button>
+						<button type="reset" class="btn rounded btn-negative ">重置</button>
+					</div>
+				</div>
+			</div>
+			<!-- ///setting-base end-->
 
-                <div class="setting-row setting-bottom">
-                    <button type="button" class="btn rounded btn-positive " id="submit_register">提交</button>
-                    <button type="reset"  class="btn rounded btn-negative ">重置</button>
-                </div>
-            </div>
-        </div>
-        <!-- ///setting-base end-->
+		</div>
+		<!--/// uc-ct end -->
+	</div>
+	<!--/// container end -->
+	<script src="/js/glDatePicker.js"></script>
+	<script src="/js/jquery.cxselect.min.js"></script>
+	<script src="/js/profile.js"></script>
 
-    </div>
-    <!--/// uc-ct end -->
-</div>
-<!--/// container end -->
-<script src="/js/glDatePicker.js"></script>
-<script src="/js/jquery.cxselect.min.js"></script>
-<script src="/js/profile.js"></script>
-
-<script>
+	<script>
 
 </script>
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
 
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
-</div>
-
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
-
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<script src="/js/register.js"></script>
-<!--[if lt IE 9]>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<script src="/js/register.js"></script>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {

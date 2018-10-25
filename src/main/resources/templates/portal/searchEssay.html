@@ -1,113 +1,114 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta property="qc:admins" content="4553322067645776654">
-    <meta property="wb:webmaster" content="78f40d1511de8c6b">
-    <meta name="baidu-site-verification" content="xC1m9aYTgX">
-    <title>搜索</title>
-    <meta name="description" content="#">
-    <meta name="keywords" content="#">
-    <link rel="stylesheet" href="/css/essay.css">
-    <link rel="stylesheet" href="/css/search.css">
-    <link type="image/x-icon" href="http://pdr28szno.bkt.clouddn.com/icon-logo.png" rel="shortcut icon">
-    <script type="text/javascript" async="" src="/js/ga.js"></script>
-    <script src="/js/hm.js"></script>
-    <script src="/js/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta property="qc:admins" content="4553322067645776654">
+<meta property="wb:webmaster" content="78f40d1511de8c6b">
+<meta name="baidu-site-verification" content="xC1m9aYTgX">
+<title>搜索</title>
+<meta name="description" content="#">
+<meta name="keywords" content="#">
+<link rel="stylesheet" href="/css/essay.css">
+<link rel="stylesheet" href="/css/search.css">
+<link type="image/x-icon"
+	href="http://pdr28szno.bkt.clouddn.com/icon-logo.png"
+	rel="shortcut icon">
+<script type="text/javascript" async="" src="/js/ga.js"></script>
+<script src="/js/hm.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
 
-    <script src="/js/luoo.js"></script>
+<script src="/js/luoo.js"></script>
 
 </head>
 <body>
 
-<!-- header start -->
-<div class="header" th:replace="~{portal/nav :: topbar}">
+	<!-- header start -->
+	<div class="header" th:replace="~{portal/nav :: topbar}"></div>
+	<!--/// header end -->
+	<!-- container start -->
+	<div class="container ct-sm" style="min-height: 499px;">
+		<form class="search-form clearfix" action="/search" method="get">
+			<div>
+				<div class="filter rounded">
+					<a href="javascript:;" rel="nofollow" class="filter-current"
+						data-ct="searchFilterWrapper" data-tipid="searchFilterDialog"
+						data-adjustx="15" data-width="90"
+						data-hasqtip="searchFilterDialog"
+						aria-describedby="qtip-searchFilterDialog"> 关键字: <!--<span class="icon-search-filter"></span>-->
+					</a>
 
-</div>
-<!--/// header end -->
-<!-- container start -->
-<div class="container ct-sm" style="min-height: 499px;">
-    <form class="search-form clearfix" action="/search" method="get">
-        <div>
-        <div class="filter rounded">
-            <a href="javascript:;" rel="nofollow" class="filter-current" data-ct="searchFilterWrapper"
-               data-tipid="searchFilterDialog" data-adjustx="15" data-width="90" data-hasqtip="searchFilterDialog"
-               aria-describedby="qtip-searchFilterDialog">
-                关键字:                    <!--<span class="icon-search-filter"></span>-->
-            </a>
-
-        </div>
-        <input type="text" class="keyword rounded" placeholder="查找你喜欢的内容" name="keyword" value="查找你喜欢的内容" th:value="${keyword}">
-        <button type="submit" class="btn rounded">
-            <span class="icon-search-w"></span>
-            搜索
-        </button>
-        </div>
-        <br/><br/>
-        <div >
-            <span style="margin-left:30px;margin-right: 10px">筛选:</span>
-            <!--<label>
+				</div>
+				<input type="text" class="keyword rounded" placeholder="查找你喜欢的内容"
+					name="keyword" value="查找你喜欢的内容" th:value="${keyword}">
+				<button type="submit" class="btn rounded">
+					<span class="icon-search-w"></span> 搜索
+				</button>
+			</div>
+			<br />
+			<br />
+			<div>
+				<span style="margin-left: 30px; margin-right: 10px">筛选:</span>
+				<!--<label>
                 <input type="radio" name="filtrate" value="0" class="input-listener" checked> 全部
             </label>-->
-            <label>
-                <input type="radio" name="filtrate" value="topic" class="input-listener" > 专辑
-            </label>
-            <label>
-                <input type="radio" name="filtrate" value="essay" class="input-listener" checked> 随笔
-            </label>
-            <label>
-                <input type="radio" name="filtrate" value="story" class="input-listener" > 故事
-            </label>
-            <!--<label>
+				<label> <input type="radio" name="filtrate" value="topic"
+					class="input-listener"> 专辑
+				</label> <label> <input type="radio" name="filtrate" value="essay"
+					class="input-listener" checked> 随笔
+				</label> <label> <input type="radio" name="filtrate" value="story"
+					class="input-listener"> 故事
+				</label>
+				<!--<label>
                 <input type="radio" name="filtrate" value="4" class="input-listener" > 活动
             </label>-->
-        </div>
-    </form>
+			</div>
+		</form>
 
-    <div class="search-result" th:if="${!essayPage.hasContent()}">
-        <p class="search-not-found">没有找到相关的内容，换个关键词试试吧^-^</p>
-    </div>
+		<div class="search-result" th:if="${!essayPage.hasContent()}">
+			<p class="search-not-found">没有找到相关的内容，换个关键词试试吧^-^</p>
+		</div>
 
-    <!--添加此空div是为了板式好看-->
-    <div class="search-result" th:if="${essayPage.hasContent()}">
+		<!--添加此空div是为了板式好看-->
+		<div class="search-result" th:if="${essayPage.hasContent()}"></div>
+		<!--随笔主体区域-->
+		<div class="clearfix">
+			<!-- article start-->
+			<div class="article article-sm">
+				<!-- musician-list -->
+				<div class="musician-list">
 
-    </div>
-    <!--随笔主体区域-->
-    <div class="clearfix">
-        <!-- article start-->
-        <div class="article article-sm">
-            <!-- musician-list -->
-            <div class="musician-list">
-
-                <!--遍历并生成10个随笔-->
-                <div class="item" th:each="essay,essayStat:${essayPage}" th:if="${essayStat.index}<11">
-                    <div class="cover-wrapper">
-                        <a th:href="${essay.imgAddr}"><img class="cover rounded" src="/img/test.jpg" alt="开心就足够"  th:src="${essay.imgAddr}"
-                                                           th:alt="${essay.title}"></a>
-                    </div>
-                    <div class="musician-wrapper">
-                        <a href="#" title="开心就足够" class="title" id="track22422" data-id="22422"
-                           th:title="${essay.title}" th:text="${essay.title}" th:id="${essay.id}"
-                           th:href="'/essay?essayId='+${essay.id}">
-                            开心就足够
-                            <span class="icon-play" style="display: none;"></span>
-                            <span class="icon-pause" style="display: none;"></span>
-                        </a>
-                        <!--<p class="performer">徐真真</p>-->
-                        <br/>
-                        <p class="remark" id="remark22422" th:text="${essay.content}">
-                            人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</p>
-                        <div class="lyric" id="lyric22422"></div>
-                        <p class="date">
-                            <a style="color: #6c6c6c"
-                               th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}" th:href="'/author/topic?authorId='+${essay.author.id}">
-                                推荐人： AngelaDaddy・2017-11-29</a>
-                        </p>
-                        <!--<div class="sns">
+					<!--遍历并生成10个随笔-->
+					<div class="item" th:each="essay,essayStat:${essayPage}"
+						th:if="${essayStat.index}<11">
+						<div class="cover-wrapper">
+							<a th:href="${essay.imgAddr}"><img class="cover rounded"
+								src="/img/test.jpg" alt="开心就足够" th:src="${essay.imgAddr}"
+								th:alt="${essay.title}"></a>
+						</div>
+						<div class="musician-wrapper">
+							<a href="#" title="开心就足够" class="title" id="track22422"
+								data-id="22422" th:title="${essay.title}"
+								th:text="${essay.title}" th:id="${essay.id}"
+								th:href="'/essay?essayId='+${essay.id}"> 开心就足够 <span
+								class="icon-play" style="display: none;"></span> <span
+								class="icon-pause" style="display: none;"></span>
+							</a>
+							<!--<p class="performer">徐真真</p>-->
+							<br />
+							<p class="remark" id="remark22422" th:text="${essay.content}">
+								人生不可能一帆风顺，你会选择什么态度去面对？有人会重新调整新的状态投入寻找理想生活，有人则一蹶不振放弃自己坚持的东西。开心乐观的信仰，有时比黄金珍贵，徐真真用一首朗朗上口的Rap来告诉你看似复杂却又浅显的道理，轻快的flow与积极向上的歌词让人一秒就能豁然开朗，和真真的笑容一样像阳光般照耀着你，驱散你内心的阴霾。今天，我想看到新的你，寒冬里也别忘记去晒晒太阳。</p>
+							<div class="lyric" id="lyric22422"></div>
+							<p class="date">
+								<a style="color: #6c6c6c"
+									th:text="'作者:'+${essay.author.nickname}+','+${#dates.format(essay.creatTime,'yyyy-MM-dd')}"
+									th:href="'/author/topic?authorId='+${essay.author.id}">
+									推荐人： AngelaDaddy・2017-11-29</a>
+							</p>
+							<!--<div class="sns">
                             <a href="javascript:;" rel="nofollow" class="icon-share #"
                                data-app="musician" data-id="578" data-text="#"
                                data-img="#">
@@ -116,57 +117,88 @@
                             <a href="javascript:;" rel="nofollow" class="icon-info" data-sid="22422"></a>
                         </div>-->
 
-                    </div>
+						</div>
 
 
-                </div>
+					</div>
 
-            </div>
+				</div>
 
-            <!--生成的带参数的页面跳转url-->
-            <div class="paginator" th:if="${essayPage.totalPages} >1">
-                <a class="previous" href="/search?filtrate=essay&keyword=keyword&pn=1" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn=1'" >首页</a>
-                <a class="previous"  th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number}" th:if="${essayPage.hasPrevious()}" >上一页</a><!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number -3}" th:text="${essayPage.number -3}" th:if="${essayPage.number } >3 ">1</a>
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number -2}" th:text="${essayPage.number -2}" th:if="${essayPage.number } >2 ">2</a>
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number -1}" th:text="${essayPage.number -1}" th:if="${essayPage.number } >1 ">3</a>
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number }" th:text="${essayPage.number}" th:if="${essayPage.number >0}">4</a>
-                <a class="page actived" href="#" rel="nofollow" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number+1}" th:text="${essayPage.number +1}" >5</a><!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +2}" th:text="${essayPage.number +2}" th:if="${essayPage.number +2} <= ${essayPage.totalPages }" >6</a>
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +3}" th:text="${essayPage.number +3}"  th:if="${essayPage.number +3} <= ${essayPage.totalPages }">7</a>
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +4}" th:text="${essayPage.number +4}"  th:if="${essayPage.number +4} <= ${essayPage.totalPages }">8</a>
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +5}" th:text="${essayPage.number +5}" th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a>
-                <a class="page" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +6}" th:text="${essayPage.number +6}" th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a>
-                <a class="next" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +2}" th:if="${essayPage.hasNext()}">下一页</a>
-                <a class="next" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.totalPages }" th:if="${essayPage.totalPages }>0">尾页</a>
-                <a class="next" href="#" th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn=1'" th:if="${essayPage.totalPages }==0" >尾页</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!--/// container end -->
+				<!--生成的带参数的页面跳转url-->
+				<div class="paginator" th:if="${essayPage.totalPages} >1">
+					<a class="previous"
+						href="/search?filtrate=essay&keyword=keyword&pn=1"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn=1'">首页</a>
+					<a class="previous"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number}"
+						th:if="${essayPage.hasPrevious()}">上一页</a>
+					<!--<a class="page actived" rel="nofollow" href="javascript:;">1</a>-->
+					<a class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number -3}"
+						th:text="${essayPage.number -3}" th:if="${essayPage.number } >3 ">1</a>
+					<a class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number -2}"
+						th:text="${essayPage.number -2}" th:if="${essayPage.number } >2 ">2</a>
+					<a class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number -1}"
+						th:text="${essayPage.number -1}" th:if="${essayPage.number } >1 ">3</a>
+					<a class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number }"
+						th:text="${essayPage.number}" th:if="${essayPage.number >0}">4</a>
+					<a class="page actived" href="#" rel="nofollow"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number+1}"
+						th:text="${essayPage.number +1}">5</a>
+					<!--假设用户浏览的当前页是第5页,number+1是因为jpa里的pageable默认pn是从0开始的,此时pageable里的number是4-->
+					<a class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +2}"
+						th:text="${essayPage.number +2}"
+						th:if="${essayPage.number +2} <= ${essayPage.totalPages }">6</a>
+					<a class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +3}"
+						th:text="${essayPage.number +3}"
+						th:if="${essayPage.number +3} <= ${essayPage.totalPages }">7</a> <a
+						class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +4}"
+						th:text="${essayPage.number +4}"
+						th:if="${essayPage.number +4} <= ${essayPage.totalPages }">8</a> <a
+						class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +5}"
+						th:text="${essayPage.number +5}"
+						th:if="${essayPage.number +5} <= ${essayPage.totalPages }">9</a> <a
+						class="page" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +6}"
+						th:text="${essayPage.number +6}"
+						th:if="${essayPage.number +6} <= ${essayPage.totalPages }">10</a>
+					<a class="next" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.number +2}"
+						th:if="${essayPage.hasNext()}">下一页</a> <a class="next" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn='+${essayPage.totalPages }"
+						th:if="${essayPage.totalPages }>0">尾页</a> <a class="next" href="#"
+						th:href="'/search?filtrate=essay&keyword='+${keyword}+'&pn=1'"
+						th:if="${essayPage.totalPages }==0">尾页</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/// container end -->
 
-<!--<script src="/js/search.js"></script>-->
+	<!--<script src="/js/search.js"></script>-->
 
-<!--底部区域开始-->
-<div class="footer" th:replace="~{portal/footer :: footer}">
-
-</div>
-<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
-<div id="feedbackWrapper" style="display:none;" th:replace="~{portal/help :: sendQuestion}">
-
-</div>
-<div id="mailWrapper" style="display:none;" th:replace="~{portal/help :: sendLetter}">
-
-</div>
-<!--底部结束-->
+	<!--底部区域开始-->
+	<div class="footer" th:replace="~{portal/footer :: footer}"></div>
+	<div id="backTop" style="left: 1451.5px;">&nbsp;</div>
+	<div id="feedbackWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendQuestion}"></div>
+	<div id="mailWrapper" style="display: none;"
+		th:replace="~{portal/help :: sendLetter}"></div>
+	<!--底部结束-->
 
 
-<script src="/js/jquery.artDialog.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
-<script src="/js/qrcode.min.js"></script>
-<!--[if lt IE 9]>
+	<script src="/js/jquery.artDialog.js"></script>
+	<script src="/js/jquery.qtip.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/qrcode.min.js"></script>
+	<!--[if lt IE 9]>
 <script src="http://s.luoo.net/thirdparty/pie/PIE_IE678.js"></script>
 <script>
     $(function () {
