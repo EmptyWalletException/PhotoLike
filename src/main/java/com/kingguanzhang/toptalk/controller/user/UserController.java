@@ -42,7 +42,6 @@ public class UserController {
 	private UserServiceImpl userService;
 	@Autowired
 	private CityServiceImpl cityService;
-	
 
 	/**
 	 * 修改用户密码;
@@ -62,20 +61,21 @@ public class UserController {
 		// 验证原始密码;
 		String oldPassword = request.getParameter("oldPassword");
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		//将原来的数据库中取出的加密后的密码与页面传来的原始密码进行对比;
-		 boolean matches = bCryptPasswordEncoder.matches(oldPassword, user.getPassword());
-		if ( !matches) {
+		// 将原来的数据库中取出的加密后的密码与页面传来的原始密码进行对比;
+		boolean matches = bCryptPasswordEncoder.matches(oldPassword, user.getPassword());
+		if (!matches) {
 			return Msg.fail().setMsg("原始密码验证未通过,如果您忘记了密码,可以通过联系客服获得帮助 !");
 		}
-		//验证新密码的是否符合要求;
+		// 验证新密码的是否符合要求;
 		String newPassword = request.getParameter("newPassword");
-		if (null == newPassword || "".equals(newPassword.trim()) || 5 > newPassword.trim().length() || 30 < newPassword.length()
-				|| oldPassword.equals(newPassword)) {
+		if (null == newPassword || "".equals(newPassword.trim()) || 5 > newPassword.trim().length()
+				|| 30 < newPassword.length() || oldPassword.equals(newPassword)) {
 			return Msg.fail().setMsg("请输入符合要求的新密码 ! ");
 		} else {
 			// 修改成新的密码;
 			user.setPassword(bCryptPasswordEncoder.encode(newPassword)); // 使用security推荐的加密方式加密密码;
 			try {
+				// 保存到数据库中;
 				userService.save(user);
 			} catch (Exception e) {
 				return Msg.fail().setMsg("修改失败,保存用户信息时出现错误!");
