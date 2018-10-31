@@ -3,15 +3,16 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/photolike?serverTimezone=GMT
     username: root
-    password: 
+    password: ljj19940228
+    #password: Ljj19940228
     type: com.alibaba.druid.pool.DruidDataSource
   jpa:
     hibernate:
       ddl-auto: update  #配置当实体类更新时创建或更新数据表
     show-sql: true
     #临时保存上传图片的系统目录
-custom:
-  tmpLocation: C:/NotSystemSrc/temp
+#custom:
+  #tmpLocation: C:/NotSystemSrc/temp
   #tmpLocation: /usr/temp
 server:
   servlet:

@@ -1,7 +1,5 @@
 package com.kingguanzhang.toptalk.config;
 
-import com.kingguanzhang.toptalk.component.LoginSuccessHandler;
-import com.kingguanzhang.toptalk.service.CustomUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.kingguanzhang.toptalk.component.LoginSuccessHandler;
+import com.kingguanzhang.toptalk.user.service.CustomUserServiceImpl;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

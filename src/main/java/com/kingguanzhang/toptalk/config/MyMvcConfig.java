@@ -1,5 +1,7 @@
 package com.kingguanzhang.toptalk.config;
 
+import javax.servlet.MultipartConfigElement;
+
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,9 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.kingguanzhang.toptalk.utils.PathUtil;
-
-import javax.servlet.MultipartConfigElement;
+import com.kingguanzhang.toptalk.common.utils.PathUtil;
 
 /**
  * 扩展springMvc
