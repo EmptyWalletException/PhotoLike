@@ -1,4 +1,4 @@
-package com.kingguanzhang.toptalk.component;
+package com.kingguanzhang.toptalk.utils;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import com.kingguanzhang.toptalk.entity.User;
 /**
  * 用于判断当前用户拥有的权限的类
  */
-public class VerifyAuthority {
+public class VerifyAuthorityUtil {
 
     /**
      * 判断session中security权限中是否有管理员权限的方法,是则返回true;

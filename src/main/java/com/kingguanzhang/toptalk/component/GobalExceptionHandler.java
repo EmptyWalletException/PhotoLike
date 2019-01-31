@@ -24,7 +24,7 @@ public class GobalExceptionHandler {
 	@ExceptionHandler
 	public String RuntimeException(RuntimeException e,Model model) {
 		if (logger.isInfoEnabled()) {
-			logger.info(e.getMessage());
+			logger.info("**************************************.",e);
 		}
 		e.printStackTrace();
 		model.addAttribute("errorMsg", "服务器好像出了一点小问题,请等待管理员修复.");
@@ -40,7 +40,7 @@ public class GobalExceptionHandler {
 	@ExceptionHandler
 	public String NullPointerException(NullPointerException e,Model model) {
 		if (logger.isInfoEnabled()) {
-			logger.info(e.getMessage());
+			logger.info("**************************************.",e);
 		}
 		e.printStackTrace();
 		model.addAttribute("errorMsg", "服务器好像出了一点小问题,请等待管理员修复.");

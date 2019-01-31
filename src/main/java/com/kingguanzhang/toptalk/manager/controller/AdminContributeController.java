@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingguanzhang.toptalk.component.QiniuStatus;
-import com.kingguanzhang.toptalk.component.VerifyAuthority;
 import com.kingguanzhang.toptalk.controller.Category;
 import com.kingguanzhang.toptalk.entity.City;
 import com.kingguanzhang.toptalk.entity.Essay;
@@ -43,6 +42,7 @@ import com.kingguanzhang.toptalk.service.PraiseServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;
 import com.kingguanzhang.toptalk.service.TopicServiceImpl;
 import com.kingguanzhang.toptalk.utils.QiniuCloudUtil;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 
 
 @Controller
@@ -78,7 +78,7 @@ public class AdminContributeController {
 	@ResponseBody
 	private Msg editTopicCategory(HttpServletRequest request, @RequestParam("topicCategoryId") String topicCategoryId,
 			@RequestParam("topicId") String topicId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 		Topic topic = topicService.findById(Long.parseLong(topicId));
@@ -105,7 +105,7 @@ public class AdminContributeController {
 	@RequestMapping(value = "/admin/contribute/recover", method = RequestMethod.POST)
 	@ResponseBody
 	private Msg recoverContribution(HttpServletRequest request, @RequestParam("plate") String plateAndId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 		/**
@@ -190,7 +190,7 @@ public class AdminContributeController {
 	@RequestMapping(value = "/admin/contribute/pass", method = RequestMethod.POST)
 	@ResponseBody
 	private Msg passContribution(HttpServletRequest request, @RequestParam("plate") String plateAndId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 		/**
@@ -276,7 +276,7 @@ public class AdminContributeController {
 	@ResponseBody
 	private Msg sendBackContribution(HttpServletRequest request, @RequestParam("plate") String plateAndId,
 			@RequestParam("sendBackInfo") String sendBackInfo) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 		/**
@@ -365,7 +365,7 @@ public class AdminContributeController {
 	@RequestMapping(value = "/admin/contribute/deprecated", method = RequestMethod.POST)
 	@ResponseBody
 	private Msg deprecatedContribution(HttpServletRequest request, @RequestParam("plate") String plateAndId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 		/**
@@ -450,7 +450,7 @@ public class AdminContributeController {
 	@RequestMapping(value = "/admin/contribute/show", method = RequestMethod.POST)
 	@ResponseBody
 	private Msg showContribution(HttpServletRequest request, @RequestParam("plate") String plateAndId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 		/**
@@ -535,7 +535,7 @@ public class AdminContributeController {
 	@RequestMapping(value = "/admin/contribute/hide", method = RequestMethod.POST)
 	@ResponseBody
 	private Msg hideContribution(HttpServletRequest request, @RequestParam("plate") String plateAndId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 		/**
@@ -619,7 +619,7 @@ public class AdminContributeController {
 	@RequestMapping(value = "/admin/contribute/delete", method = RequestMethod.POST)
 	@ResponseBody
 	private Msg deleteContribution(HttpServletRequest request, @RequestParam("plate") String plateAndId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			return Msg.fail().setMsg("您没有权限执行此操作");
 		}
 
@@ -788,7 +788,7 @@ public class AdminContributeController {
 			@RequestParam(value = "contributionStatus", defaultValue = "1") Integer contributionStatus,
 			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "authorId", defaultValue = "0") long authorId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			model.addAttribute("errorMsg", "很抱歉,您没有权限执行此操作");
 			return "error/promptMessage";
 		}
@@ -837,7 +837,7 @@ public class AdminContributeController {
 			@RequestParam(value = "contributionStatus", defaultValue = "1") Integer contributionStatus,
 			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "authorId", defaultValue = "0") long authorId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			model.addAttribute("errorMsg", "很抱歉,您没有权限执行此操作");
 			return "error/promptMessage";
 		}
@@ -883,7 +883,7 @@ public class AdminContributeController {
 			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "authorId", defaultValue = "0") long authorId,
 			@RequestParam(value = "categoryId", defaultValue = "0") int categoryId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			model.addAttribute("errorMsg", "很抱歉,您没有权限执行此操作");
 			return "error/promptMessage";
 		}
@@ -950,7 +950,7 @@ public class AdminContributeController {
 			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "authorId", defaultValue = "0") long authorId,
 			@RequestParam(value = "cityId", defaultValue = "0") int cityId) {
-		if (!VerifyAuthority.isAdmin(request)) {
+		if (!VerifyAuthorityUtil.isAdmin(request)) {
 			model.addAttribute("errorMsg", "很抱歉,您没有权限执行此操作");
 			return "error/promptMessage";
 		}

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kingguanzhang.toptalk.component.VerifyAuthority;
 import com.kingguanzhang.toptalk.entity.Comment;
 import com.kingguanzhang.toptalk.entity.Praise;
 import com.kingguanzhang.toptalk.entity.Topic;
@@ -29,6 +28,7 @@ import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.PraiseServiceImpl;
 import com.kingguanzhang.toptalk.service.TopicServiceImpl;
 import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 
 @Controller
 public class TopicController {
@@ -99,7 +99,7 @@ public class TopicController {
         /**
          * 限制浏览者只能浏览状态为1的topic,除非浏览者是作者或管理员
          */
-        if( topic.getStatus().equals(1) || VerifyAuthority.isAdmin(request) || VerifyAuthority.isAuthorForThisTopic(request,topic)){
+        if( topic.getStatus().equals(1) || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisTopic(request,topic)){
             model.addAttribute("topic",topic);
         }else {
             model.addAttribute("errorMsg","很抱歉,您暂时没有权限浏览此稿件...");

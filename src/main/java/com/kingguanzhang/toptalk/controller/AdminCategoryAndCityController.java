@@ -74,7 +74,7 @@ public class AdminCategoryAndCityController {
 			categoryService.save(category);
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {
-				logger.error("保存分类信息失败, 分类id: " + topicCategoryId + "异常信息: " + e.getMessage());
+				logger.error("保存分类信息失败, 分类id: " + topicCategoryId + "异常信息: " + e);
 			}
 			return Msg.fail().setMsg("保存分类信息失败!");
 		}
@@ -96,7 +96,7 @@ public class AdminCategoryAndCityController {
 			categoryService.delete(Long.parseLong(topicCategoryId));
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {
-				logger.error("删除分类信息失败, 分类id: " + topicCategoryId + "异常信息: " + e.getMessage());
+				logger.error("删除分类信息失败, 分类id: " + topicCategoryId + "异常信息: " + e);
 			}
 			return Msg.fail().setMsg("删除分类失败!");
 		}
@@ -149,7 +149,7 @@ public class AdminCategoryAndCityController {
 			cityService.delete(Long.parseLong(cityId));
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {
-				logger.error("删除城市信息失败, 分类id: " + cityId + "异常信息: " + e.getMessage());
+				logger.error("删除城市信息失败, 分类id: " + cityId + "异常信息: " + e);
 			}
 			return Msg.fail().setMsg("删除城市失败!");
 		}

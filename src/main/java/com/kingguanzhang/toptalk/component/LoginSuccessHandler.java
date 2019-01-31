@@ -58,7 +58,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 				user = userService.findOne(example);
 			} catch (Exception e) {
 				if (logger.isInfoEnabled()) {
-					logger.info("查询用户名为:" + username + "的用户出现异常:" + e.getMessage());
+					logger.info("查询用户名为:" + username + "的用户出现异常:" + e);
 				}
 				request.getSession().setAttribute("session.SPRING_SECURITY_LAST_EXCEPTION.message", "没有查询到此用户信息!");
 				response.sendRedirect("/login");

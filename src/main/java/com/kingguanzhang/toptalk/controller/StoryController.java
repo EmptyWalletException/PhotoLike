@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kingguanzhang.toptalk.component.VerifyAuthority;
 import com.kingguanzhang.toptalk.entity.Comment;
 import com.kingguanzhang.toptalk.entity.Praise;
 import com.kingguanzhang.toptalk.entity.Story;
@@ -25,6 +24,7 @@ import com.kingguanzhang.toptalk.service.CommentServiceImpl;
 import com.kingguanzhang.toptalk.service.PraiseServiceImpl;
 import com.kingguanzhang.toptalk.service.StoryServiceImpl;
 import com.kingguanzhang.toptalk.service.UserFavoriteServiceImpl;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 
 @Controller
 public class StoryController {
@@ -107,7 +107,7 @@ public class StoryController {
             /**
              * 限制浏览者只能浏览状态为1的稿件,除非浏览者是作者或管理员
              */
-            if(story.getStatus().equals(1) || VerifyAuthority.isAdmin(request) || VerifyAuthority.isAuthorForThisStory(request,story)){
+            if(story.getStatus().equals(1) || VerifyAuthorityUtil.isAdmin(request) || VerifyAuthorityUtil.isAuthorForThisStory(request,story)){
                 model.addAttribute("story",story);
 
             }else {

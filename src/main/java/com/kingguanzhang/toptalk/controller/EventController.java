@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kingguanzhang.toptalk.component.VerifyAuthority;
 import com.kingguanzhang.toptalk.entity.City;
 import com.kingguanzhang.toptalk.entity.Event;
 import com.kingguanzhang.toptalk.service.CityServiceImpl;
 import com.kingguanzhang.toptalk.service.EventServiceImpl;
+import com.kingguanzhang.toptalk.utils.VerifyAuthorityUtil;
 
 @Controller
 public class EventController {
@@ -102,7 +102,7 @@ public class EventController {
         /**
          * 限制浏览者只能浏览状态为1的稿件,除非浏览者是管理员
          */
-        if(event.getStatus().equals(1) || VerifyAuthority.isAdmin(request)){
+        if(event.getStatus().equals(1) || VerifyAuthorityUtil.isAdmin(request)){
             model.addAttribute("event",event);
         }else{
             model.addAttribute("errorMsg","您暂时没有权限访问此稿件!");
