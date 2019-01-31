@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.kingguanzhang.toptalk.component.LoginSuccessHandler;
-import com.kingguanzhang.toptalk.user.service.CustomUserServiceImpl;
+import com.kingguanzhang.toptalk.service.CustomUserServiceImpl;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

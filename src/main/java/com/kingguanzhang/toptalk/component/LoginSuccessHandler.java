@@ -15,9 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
-import com.kingguanzhang.toptalk.base.controller.AdminCategoryAndCityController;
-import com.kingguanzhang.toptalk.user.entity.User;
-import com.kingguanzhang.toptalk.user.service.UserServiceImpl;
+import com.kingguanzhang.toptalk.entity.User;
+import com.kingguanzhang.toptalk.service.UserServiceImpl;
 
 
 /**

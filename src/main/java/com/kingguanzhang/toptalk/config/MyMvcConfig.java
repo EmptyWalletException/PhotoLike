@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.kingguanzhang.toptalk.common.utils.PathUtil;
+import com.kingguanzhang.toptalk.utils.PathUtil;
 
 /**
  * 扩展springMvc

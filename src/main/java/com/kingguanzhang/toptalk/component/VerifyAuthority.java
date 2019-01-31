@@ -8,10 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextImpl;
 
-import com.kingguanzhang.toptalk.essay.entity.Essay;
-import com.kingguanzhang.toptalk.story.entity.Story;
-import com.kingguanzhang.toptalk.topic.entity.Topic;
-import com.kingguanzhang.toptalk.user.entity.User;
+import com.kingguanzhang.toptalk.entity.Essay;
+import com.kingguanzhang.toptalk.entity.Story;
+import com.kingguanzhang.toptalk.entity.Topic;
+import com.kingguanzhang.toptalk.entity.User;
 
 
 
