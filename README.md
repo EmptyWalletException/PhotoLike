@@ -24,14 +24,14 @@ linux系统默认资源路径前缀为"/home/projectdev/"
 
 2 : 项目运行前创建完资源路径后,在/projectdev/upload/images/文件夹下放一张error.jpg图片用于图片上传保存失败后返回一张默认的错误提示图片;
 
-3 : 项目默认在windows端是关闭七牛云功能的,这是为了方便我开发投稿板块,如果需要开启,直接在application.properties里打开qiniu.enableqiniu即可,或者可以修改com.kingguanzhang.toptalk.dto.QiniuStatus类里的静态代码块;
+3 : 项目默认在windows端是关闭七牛云功能的,这是为了方便我开发投稿板块,如果需要开启,直接在application.properties里打开qiniu.enableqiniu即可,或者可以修改com.kingguanzhang.toptalk.component.QiniuStatus类里的静态代码块;
 
 4 : 在application.properties文件里需要切换日志保存路径,Linux下为/root/log/文件夹,win下为C:/NotSystemSrc/projectdev/文件夹
 
 5 : 百度富文本编辑器一般不需要配置文件上传请求路径，在/resources/static/js文件下有两个js文件：storyContribute.js文件的115行和eventContribute.js文件的115行都需要修改,默认是localhost,如果后台处理上传图片请求的url修改了则需要同时修改此处的代码;
 
 ## 网站简介:
-PhotoLike 网站（图漾网站） -- 照片 壁纸 绘画和涂鸦爱好者书写情感的地方,网址 http://47.98.240.27.
+PhotoLike 网站（图漾网站） -- 照片 壁纸 绘画和涂鸦爱好者书写情感的地方.
 
 (原名toptalk，现在toptalk名字已经用于另一个大型论坛项目，此网站更名为photolike)
 
